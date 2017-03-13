@@ -5,8 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.polsl.mushrooms</groupId>
-    <artifactId>server</artifactId>
+    <artifactId>mushrooms</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <name>mushrooms-parent</name>
+    <description>Interactive system picking mushrooms - parent</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -142,6 +145,11 @@
         </dependency>
     </dependencies>
 
+    <modules>
+        <module>frontend</module>
+        <module>backend</module>
+    </modules>
+
     <build>
         <plugins>
             <plugin>
@@ -155,5 +163,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
