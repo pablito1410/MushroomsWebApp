@@ -13,8 +13,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="backend" target="1.8" />
-      <module name="frontend" target="1.8" />
+      <module name="backend" target="1.5" />
+      <module name="frontend" target="1.5" />
       <module name="mushrooms" target="1.8" />
       <module name="mushrooms-server" target="1.8" />
     </bytecodeTargetLevel>
