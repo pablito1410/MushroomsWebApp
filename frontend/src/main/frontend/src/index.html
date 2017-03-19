@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
+    <!-- css -->
     <!-- Material Design fonts -->
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
@@ -17,15 +18,25 @@
 
     <!-- Bootstrap Material Design -->
     <!--C:\PP\mushrooms\frontend\src\main\frontend\node_modules\bootstrap-material-design\dist\css\bootstrap-material-design.css-->
-    <!--<link rel="stylesheet" type="text/css" href="dist/css/bootstrap-material-design.css">-->
-    <!--<link rel="stylesheet" type="text/css" href="dist/css/ripples.min.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="node_modules\bootstrap-material-design\dist/css/bootstrap-material-design.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="node_modules\bootstrap-material-design\dist/css/ripples.min.css">-->
+
+    <!-- js -->
+    <!-- load the dependencies -->
+    <!--<script src="../node_modules/core-js/client/shim.min.js"></script>-->
+    <!--<script src="../node_modules/zone.js/dist/zone.js"></script>-->
+    <!--<script src="../node_modules/reflect-metadata/Reflect.js"></script>-->
+
+    <!-- load our angular app with systemjs -->
+    <!--<script src="../node_modules/systemjs/dist/system.src.js"></script>-->
+    <!--<script src="../systemjs.config.js"></script>-->
+    <!--<script>-->
+      <!--System.import('app').catch(function(err) { console.error(err); });-->
+    <!--</script>-->
     <script>
-      System.config({
-        // existing configuration options
-        map: {
-          '@angular/material': 'npm:@angular/material/bundles/material.umd.js'
-        }
-      });
+      var map = {
+        '@angular/material': 'npm:@angular/material/bundles/material.umd.js'
+      };
     </script>
   </head>
   <body>
