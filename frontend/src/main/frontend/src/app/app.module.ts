@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './dashboard/navbar/navbar.component';
 import { GravatarComponent } from './dashboard/gravatar/gravatar.component';
 import { UserComponent } from './dashboard/user/user.component';
-import { UserListComponent } from './dashboard/user-list/user-list.component';
+import { UsersListComponent } from './dashboard/users-list/users-list.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { UserListComponent } from './dashboard/user-list/user-list.component';
     NavbarComponent,
     GravatarComponent,
     UserComponent,
-    UserListComponent
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +30,7 @@ import { UserListComponent } from './dashboard/user-list/user-list.component';
     NavbarComponent,
     GravatarComponent,
     UserComponent,
-    UserListComponent
+    UsersListComponent
   ]
 })
 export class AppModule { }

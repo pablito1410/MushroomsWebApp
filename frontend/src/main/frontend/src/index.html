@@ -34,9 +34,11 @@
       <!--System.import('app').catch(function(err) { console.error(err); });-->
     <!--</script>-->
     <script>
-      var map = {
-        '@angular/material': 'npm:@angular/material/bundles/material.umd.js'
-      };
+      System.config({
+        map: {
+          '@angular/material': 'npm:@angular/material/bundles/material.umd.js'
+        }
+      });
     </script>
   </head>
   <body>

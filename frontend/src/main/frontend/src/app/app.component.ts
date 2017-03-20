@@ -1,20 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-/**
- *
- */
-interface Something {
-
-  /**
-   *
-   */
-  title:string;
-
-  /**
-   *
-   */
-  check:boolean;
-}
+import { UsersService, User } from "./shared/users.service";
+import { UsersListComponent } from "./dashboard/users-list/users-list.component";
 
 /**
  *
@@ -22,53 +8,30 @@ interface Something {
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  styleUrls: ['app.component.css'],
+  providers: [
+    UsersService,
+    UsersListComponent
+  ]
 })
 export class AppComponent implements OnInit {
 
   /**
    *
-   * @type {string}
    */
-  public newSomethingTitle:string ;
-
-  /**
-   *
-   */
-  public somethingArray:Array<Something>;
+  public users:Array<User>;
 
   /**
    *
    */
   ngOnInit() {
+    this.users = this.usersService.users;
   }
 
   /**
    *
+   * @param usersService
    */
-  constructor() {
-    this.newSomethingTitle = '';
-    this.somethingArray = [{
-      title: 'witam',
-      check: false
-    }, {
-      title: 'dziala',
-      check: true
-    }];
-  }
-
-  /**
-   *
-   */
-  addSomething() {
-    if (!this.newSomethingTitle) {
-      return;
-    }
-    const newSomething:Something = {
-      title: this.newSomethingTitle,
-      check: false
-    };
-    this.somethingArray.push(newSomething);
-    this.newSomethingTitle = '';
+  constructor(private usersService: UsersService) {
   }
 }
