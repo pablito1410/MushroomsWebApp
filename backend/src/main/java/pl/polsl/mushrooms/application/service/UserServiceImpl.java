@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.polsl.mushrooms.application.api.request.CreateUserRequest;
 import pl.polsl.mushrooms.application.api.request.LogInRequest;
 import pl.polsl.mushrooms.application.api.response.UserLogInResponse;
+import pl.polsl.mushrooms.application.entity.UserEntity;
 import pl.polsl.mushrooms.application.repository.MushroomsRepository;
 
 import java.util.UUID;
@@ -23,7 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UUID createUser(CreateUserRequest request) {
-        return null;
+//        final UserEntity user = new UserEntity(request);
+       return null;
     }
 
     @Override

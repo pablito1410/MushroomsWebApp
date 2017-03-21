@@ -13,5 +13,12 @@ public class UserEntity {
     @Id
     UUID id;
 
+    public UserEntity(UUID id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
+    String password;
+
     private UserEntity() { }
 }

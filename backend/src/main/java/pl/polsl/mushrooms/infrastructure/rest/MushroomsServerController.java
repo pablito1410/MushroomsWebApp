@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.infrastructure.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class MushroomsServerController {
     @RequestMapping(path = "create-user", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody CreateUserRequest request) {
 
-        final UUID id = userService.createUser(request);
+        final UUID id = UUID.randomUUID();//userService.createUser(request);
 
         return ResponseEntity.created(URI.create("/low-and-wide/api/1.0/" + id)).build();
     }
@@ -44,9 +45,9 @@ public class MushroomsServerController {
     @RequestMapping(path = "log-in", method = RequestMethod.POST)
     public UserLogInResponse logIn(@RequestBody LogInRequest request) {
 
-        final UserLogInResponse response = userService.logIn(request);
+       // final UserLogInResponse response = userService.logIn(request);
 
-        return response;
+        return new UserLogInResponse(request.getEmail(), "Stanisław", "Wszędobylski");
     }
 
     @RequestMapping(path = "store-image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
