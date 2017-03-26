@@ -10,10 +10,10 @@
   "license":"MIT",
   "repository": {
       "type": "git",
-      "url": "https://github.com/pablito1410/mushrooms.git"
+      "url": "https://github.com/pablito1410/MushroomsWebApp.git"
   },
   "bugs":{
-      "url": "https://github.com/pablito1410/mushrooms/issues"
+      "url": "https://github.com/pablito1410/MushroomsWebApp/issues"
   },
   "dependencies": {
     "@angular/common": "~2.2.4",
