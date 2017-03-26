@@ -2,7 +2,8 @@ package pl.polsl.mushrooms.infrastructure.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pl.polsl.mushrooms.application.repository.MushroomsRepository;
+import pl.polsl.mushrooms.application.MushroomsRepository;
+import pl.polsl.mushrooms.application.user.entity.User;
 
 /**
  * Created by pawel_zaqkxkn on 12.03.2017.
@@ -11,12 +12,21 @@ import pl.polsl.mushrooms.application.repository.MushroomsRepository;
 public class MushroomsRepositoryImpl implements MushroomsRepository {
 
     private final UserJpaDao userRepo;
-    private final ImageJpaDao imageRepo;
 
     @Autowired
-    public MushroomsRepositoryImpl(UserJpaDao userRepo, ImageJpaDao imageRepo) {
+    public MushroomsRepositoryImpl(UserJpaDao userRepo) {
 
         this.userRepo = userRepo;
-        this.imageRepo = imageRepo;
     }
+
+    @Override
+    public User save(User user) {
+        return userRepo.save(user);
+    }
+
+    @Override
+    public User load(String email) {
+        return userRepo.findByEmail(email);
+    }
+
 }
