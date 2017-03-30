@@ -2,7 +2,6 @@ package pl.polsl.mushrooms.application.services;
 
 import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.LoginCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.User;
 
@@ -40,11 +39,6 @@ public class UserServiceImpl implements UserService {
         repo.save(user);
 
         return user;
-    }
-
-    @Override
-    public String handle(LoginCommand command) {
-        return null;
     }
 
     @Override

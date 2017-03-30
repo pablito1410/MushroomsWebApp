@@ -1,22 +1,21 @@
-package pl.polsl.mushrooms.infrastructure.commands;
+package pl.polsl.mushrooms.application.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
-import pl.polsl.mushrooms.application.services.UserService;
 
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
 @Component
-public class UserValidatorService implements Validator {
+public class UserValidationService implements Validator {
 
     private final UserService userService;
 
     @Autowired
-    public UserValidatorService(UserService userService) {
+    public UserValidationService(UserService userService) {
         this.userService = userService;
     }
 

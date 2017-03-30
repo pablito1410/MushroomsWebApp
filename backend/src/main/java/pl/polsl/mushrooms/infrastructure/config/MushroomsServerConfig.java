@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.LoginCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.services.CurrentUserDetailsService;
 import pl.polsl.mushrooms.application.services.UserService;
@@ -22,7 +21,6 @@ public class MushroomsServerConfig {
     public InitializingBean mushroomsServerInitializer(UserService userService, CommandHandlerRegistry registry) {
         return () -> {
             registry.register(userService::handle, CreateUserCommand.class);
-            registry.register(userService::handle, LoginCommand.class);
         };
 
     }
