@@ -3,7 +3,7 @@ package pl.polsl.mushrooms.application.services;
 import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
 import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.application.repositories.UserRepository;
+import pl.polsl.mushrooms.application.dao.UserDao;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -15,9 +15,9 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
 
-    private final UserRepository repo;
+    private final UserDao repo;
 
-    public UserServiceImpl(UserRepository repo) {
+    public UserServiceImpl(UserDao repo) {
 
         this.repo = repo;
     }

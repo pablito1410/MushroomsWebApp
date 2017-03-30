@@ -1,9 +1,10 @@
-package pl.polsl.mushrooms.infrastructure.repositories;
+package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.application.repositories.UserRepository;
+import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -12,33 +13,33 @@ import java.util.UUID;
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class UserDaoImpl implements UserDao {
 
 
-    private final UserJpaDao userRepo;
+    private final UserRepository repository;
 
-    public UserRepositoryImpl(final UserJpaDao userRepo) {
+    public UserDaoImpl(final UserRepository repository) {
 
-        this.userRepo = userRepo;
+        this.repository = repository;
     }
 
     @Override
     public User save(User user) {
-        return userRepo.save(user);
+        return repository.save(user);
     }
 
     @Override
     public User findUser(UUID id) {
-        return userRepo.findOne(id);
+        return repository.findOne(id);
     }
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepo.findByEmail(email);
+        return repository.findByEmail(email);
     }
 
     @Override
     public Collection<User> findAllUsers(Sort sort) {
-        return userRepo.findAll(sort);
+        return repository.findAll(sort);
     }
 }

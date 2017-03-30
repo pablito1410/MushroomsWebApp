@@ -1,4 +1,4 @@
-package pl.polsl.mushrooms.application.repositories;
+package pl.polsl.mushrooms.application.dao;
 
 import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.model.User;
@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
-public interface UserRepository {
+public interface UserDao {
     User save(User user);
 
     User findUser(UUID id);

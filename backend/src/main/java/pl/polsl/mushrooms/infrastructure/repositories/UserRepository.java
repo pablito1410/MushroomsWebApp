@@ -10,6 +10,6 @@ import java.util.UUID;
  * Created by pawel_zaqkxkn on 12.03.2017.
  */
 @Repository
-public interface UserJpaDao extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
     User findByEmail(String email);
 }
