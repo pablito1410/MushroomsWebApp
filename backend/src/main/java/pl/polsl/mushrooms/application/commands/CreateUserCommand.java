@@ -1,14 +1,16 @@
-package pl.polsl.mushrooms.application.user.command;
+package pl.polsl.mushrooms.application.commands;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import pl.polsl.mushrooms.application.ports.ReturningCommand;
-import pl.polsl.mushrooms.application.user.defs.Gender;
-import pl.polsl.mushrooms.application.user.presentation.UserProfilePresentation;
+import pl.polsl.mushrooms.application.enums.Gender;
+import pl.polsl.mushrooms.application.enums.UserRole;
+import pl.polsl.mushrooms.application.model.User;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
-public class CreateUserCommand implements ReturningCommand<UserProfilePresentation> {
+public class CreateUserCommand implements ReturningCommand<User> {
 
     private String email;
     private String password;
@@ -18,6 +20,10 @@ public class CreateUserCommand implements ReturningCommand<UserProfilePresentati
 
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     private Gender gender;
+
+    @NotNull
+    private UserRole role = UserRole.USER;
+
 
     private CreateUserCommand() { }
 
@@ -47,5 +53,9 @@ public class CreateUserCommand implements ReturningCommand<UserProfilePresentati
 
     public Gender getGender() {
         return gender;
+    }
+
+    public UserRole getRole() {
+        return role;
     }
 }

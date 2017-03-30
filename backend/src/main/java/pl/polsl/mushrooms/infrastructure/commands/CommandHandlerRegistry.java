@@ -1,6 +1,6 @@
-package pl.polsl.mushrooms.infrastructure.command;
+package pl.polsl.mushrooms.infrastructure.commands;
 
-import pl.polsl.mushrooms.application.ports.ReturningCommand;
+import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import java.util.HashMap;
 import java.util.Map;

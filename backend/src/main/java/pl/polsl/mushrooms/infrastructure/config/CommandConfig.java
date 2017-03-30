@@ -2,9 +2,9 @@ package pl.polsl.mushrooms.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.polsl.mushrooms.infrastructure.command.CommandGateway;
-import pl.polsl.mushrooms.infrastructure.command.CommandGatewayImpl;
-import pl.polsl.mushrooms.infrastructure.command.CommandHandlerRegistry;
+import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.commands.CommandGatewayImpl;
+import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.

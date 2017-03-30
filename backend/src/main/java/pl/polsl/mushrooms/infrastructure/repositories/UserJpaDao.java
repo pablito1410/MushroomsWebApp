@@ -1,8 +1,8 @@
-package pl.polsl.mushrooms.infrastructure.repository;
+package pl.polsl.mushrooms.infrastructure.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.polsl.mushrooms.application.user.entity.User;
+import pl.polsl.mushrooms.application.model.User;
 
 import java.util.UUID;
 

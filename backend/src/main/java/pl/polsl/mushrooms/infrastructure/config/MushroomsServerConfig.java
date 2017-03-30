@@ -3,11 +3,11 @@ package pl.polsl.mushrooms.infrastructure.config;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.polsl.mushrooms.application.user.UserRepository;
-import pl.polsl.mushrooms.application.user.UserService;
-import pl.polsl.mushrooms.application.user.UserServiceImpl;
-import pl.polsl.mushrooms.application.user.command.CreateUserCommand;
-import pl.polsl.mushrooms.infrastructure.command.CommandHandlerRegistry;
+import pl.polsl.mushrooms.application.commands.CreateUserCommand;
+import pl.polsl.mushrooms.application.repositories.UserRepository;
+import pl.polsl.mushrooms.application.services.UserService;
+import pl.polsl.mushrooms.application.services.UserServiceImpl;
+import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 
 /**
  * Created by pawel_zaqkxkn on 12.03.2017.
