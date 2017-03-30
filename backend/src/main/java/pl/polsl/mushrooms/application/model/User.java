@@ -18,7 +18,7 @@ public class User {
     private UUID id;
 
     private String email;
-    private String password;
+    private String passwordHash;
     private String nick;
     private int age;
     private Gender gender;
@@ -28,9 +28,9 @@ public class User {
 
     protected User() { super(); }
 
-    public User(String email, String password, String nick, int age, Gender gender, UserRole role) {
+    public User(String email, String passwordHash, String nick, int age, Gender gender, UserRole role) {
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.nick = nick;
         this.age = age;
         this.gender = gender;
@@ -45,8 +45,8 @@ public class User {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public String getNick() {

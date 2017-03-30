@@ -14,6 +14,7 @@ public class CreateUserCommand implements ReturningCommand<User> {
 
     private String email;
     private String password;
+    private String passwordRepeated;
 
     private String nick;
     private int age;
@@ -27,9 +28,10 @@ public class CreateUserCommand implements ReturningCommand<User> {
 
     private CreateUserCommand() { }
 
-    public CreateUserCommand(String email, String password, String nick, int age, Gender gender) {
+    public CreateUserCommand(String email, String password, String passwordRepeated, String nick, int age, Gender gender) {
         this.email = email;
         this.password = password;
+        this.passwordRepeated = passwordRepeated;
         this.nick = nick;
         this.age = age;
         this.gender = gender;
@@ -57,5 +59,9 @@ public class CreateUserCommand implements ReturningCommand<User> {
 
     public UserRole getRole() {
         return role;
+    }
+
+    public String getPasswordRepeated() {
+        return passwordRepeated;
     }
 }
