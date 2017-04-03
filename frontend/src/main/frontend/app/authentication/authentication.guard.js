@@ -10,20 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var common_1 = require("@angular/common");
-var DashboardModule = (function () {
-    function DashboardModule() {
+var AuthenticationGuard = (function () {
+    function AuthenticationGuard(router) {
+        this.router = router;
     }
-    DashboardModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule, common_1.CommonModule
-            ],
-            declarations: []
-        }), 
-        __metadata('design:paramtypes', [])
-    ], DashboardModule);
-    return DashboardModule;
+    AuthenticationGuard.prototype.canActivate = function (route, state) {
+        if (localStorage.getItem('currentUser')) {
+            // logged in so return true
+            return true;
+        }
+        // not logged in so redirect to login page with the return url
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        return false;
+    };
+    AuthenticationGuard = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [router_1.Router])
+    ], AuthenticationGuard);
+    return AuthenticationGuard;
 }());
-exports.DashboardModule = DashboardModule;
-//# sourceMappingURL=dashboard.module.js.map
+exports.AuthenticationGuard = AuthenticationGuard;
+//# sourceMappingURL=authentication.guard.js.map

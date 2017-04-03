@@ -23,9 +23,10 @@ $white-color: #FFFFFF !default;
 
 $white-transparent: rgba($white-color, .8);
 
+$brown-color: #793d00 !default;
 $gray-color:  #999999 !default;
 
-$brand-primary: $purple !default;
+$brand-primary: $brown-color !default;
 $brand-success: $green !default;
 $brand-danger: $red !default;
 $brand-warning: $orange !default;
@@ -80,7 +81,6 @@ $brand-danger:          #d9534f !default;
 
 $black-color:           #3C4858 !default;
 $black-input-color:     #555555 !default;
-$brown-color:           #793d00 !default;
 
 
 //== Scaffolding

@@ -13,6 +13,7 @@ var common_1 = require('@angular/common');
 var AppComponent = (function () {
     function AppComponent(location) {
         this.location = location;
+        this.logged = false;
     }
     AppComponent.prototype.ngOnInit = function () {
         $.getScript('../assets/js/material-dashboard.js');
@@ -28,10 +29,14 @@ var AppComponent = (function () {
             return true;
         }
     };
+    AppComponent.prototype.isLogged = function () {
+        this.logged = true;
+        return this.logged;
+    };
     AppComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
             moduleId: module.id,
+            selector: 'my-app',
             templateUrl: 'app.component.html'
         }), 
         __metadata('design:paramtypes', [common_1.Location])

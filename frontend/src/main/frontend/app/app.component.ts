@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationStrategy, PlatformLocation, Location} from '@angular/common';
+import { LocationStrategy, PlatformLocation, Location} from '@angular/common';
 
 declare var $:any;
 
 @Component({
-    selector: 'my-app',
     moduleId: module.id,
+    selector: 'my-app',
     templateUrl: 'app.component.html'
 })
 
 export class AppComponent implements OnInit{
     location: Location;
+    logged: boolean;
     constructor(location:Location) {
         this.location = location;
+        this.logged = false;
     }
     ngOnInit(){
         $.getScript('../assets/js/material-dashboard.js');
@@ -27,5 +29,9 @@ export class AppComponent implements OnInit{
         else {
             return true;
         }
+    }
+    public isLogged(){
+        this.logged = true;
+        return this.logged;
     }
 }

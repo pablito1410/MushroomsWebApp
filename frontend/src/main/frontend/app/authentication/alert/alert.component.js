@@ -9,21 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var common_1 = require("@angular/common");
-var DashboardModule = (function () {
-    function DashboardModule() {
+var alert_service_1 = require('../../services/alert.service');
+var AlertComponent = (function () {
+    function AlertComponent(alertService) {
+        this.alertService = alertService;
     }
-    DashboardModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule, common_1.CommonModule
-            ],
-            declarations: []
+    AlertComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.alertService.getMessage().subscribe(function (message) { _this.message = message; });
+    };
+    AlertComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'alert-cmp',
+            templateUrl: 'alert.component.html'
         }), 
-        __metadata('design:paramtypes', [])
-    ], DashboardModule);
-    return DashboardModule;
+        __metadata('design:paramtypes', [alert_service_1.AlertService])
+    ], AlertComponent);
+    return AlertComponent;
 }());
-exports.DashboardModule = DashboardModule;
-//# sourceMappingURL=dashboard.module.js.map
+exports.AlertComponent = AlertComponent;
+//# sourceMappingURL=alert.component.js.map

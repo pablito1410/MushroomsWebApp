@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var common_1 = require("@angular/common");
-var DashboardModule = (function () {
-    function DashboardModule() {
+var AuthenticationModule = (function () {
+    function AuthenticationModule() {
     }
-    DashboardModule = __decorate([
+    AuthenticationModule = __decorate([
         core_1.NgModule({
             imports: [
                 router_1.RouterModule, common_1.CommonModule
@@ -22,8 +22,8 @@ var DashboardModule = (function () {
             declarations: []
         }), 
         __metadata('design:paramtypes', [])
-    ], DashboardModule);
-    return DashboardModule;
+    ], AuthenticationModule);
+    return AuthenticationModule;
 }());
-exports.DashboardModule = DashboardModule;
-//# sourceMappingURL=dashboard.module.js.map
+exports.AuthenticationModule = AuthenticationModule;
+//# sourceMappingURL=authentication.module.js.map
