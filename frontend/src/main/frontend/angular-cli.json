@@ -9,7 +9,12 @@
       "outDir": "../../../target/frontend",
       "assets": [
         "assets",
-        "systemjs.config.js"
+        "systemjs.config.js",
+        { "glob": "shim.min.js", "input": "../node_modules/core-js/client/", "output": "./assets/js/" },
+        { "glob": "zone.js", "input": "../node_modules/zone.js/dist/", "output": "./assets/js/" },
+        { "glob": "Reflect.js", "input": "../node_modules/reflect-metadata/", "output": "./assets/js/" },
+        { "glob": "system.src.js", "input": "../node_modules/systemjs/dist/", "output": "./assets/js/" },
+        { "glob": "jquery.js", "input": "../node_modules/jquery/dist/", "output": "./assets/js/" }
       ],
       "index": "index.html",
       "main": "main.ts",
