@@ -28,7 +28,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/hello", "/mushrooms/api/1.0/user/create").permitAll()
+                .antMatchers("/", "/**", "/mushrooms/api/1.0/user/create").permitAll()
                 //.antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
