@@ -3,8 +3,6 @@ package pl.polsl.mushrooms.application.model;
 import org.springframework.security.core.authority.AuthorityUtils;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
-import java.util.UUID;
-
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
@@ -21,7 +19,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
         return user;
     }
 
-    public UUID getId() {
+    public long getId() {
         return user.getId();
     }
 

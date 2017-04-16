@@ -4,27 +4,34 @@ import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "MushroomsUser")
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @Column(name = "Id")
+    private long id;
 
     private String email;
     private String passwordHash;
     private String nick;
     private int age;
+
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<TripParticipant> tripParticipant;
 
     protected User() { super(); }
 
@@ -37,7 +44,7 @@ public class User {
         this.role = role;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
