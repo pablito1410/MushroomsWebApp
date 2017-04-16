@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
-import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.application.commands.GetUserCommand;
+import pl.polsl.mushrooms.application.exceptions.UserAlreadyExistException;
+import pl.polsl.mushrooms.application.model.UserProfile;
 import pl.polsl.mushrooms.application.services.UserValidationService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
@@ -35,14 +37,23 @@ public class UserController {
 
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody CreateUserCommand command) {
+    public ResponseEntity<Long> createUser(@RequestBody CreateUserCommand command) {
 
-        final User userProfile = commandGateway.dispatch(command);
-
-        if (userProfile == null) {
+        try {
+            final Long id = commandGateway.dispatch(command);
+            return new ResponseEntity<>(id, HttpStatus.CREATED);
+        }
+        catch(UserAlreadyExistException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(userProfile, HttpStatus.ACCEPTED);
     }
+
+    @RequestMapping(path = "/get", method = RequestMethod.POST)
+    public ResponseEntity<UserProfile> createUser(@RequestBody GetUserCommand command) {
+
+        final UserProfile userProfile = commandGateway.dispatch(command);
+        return new ResponseEntity<>(userProfile, HttpStatus.OK);
+    }
+
 
 }

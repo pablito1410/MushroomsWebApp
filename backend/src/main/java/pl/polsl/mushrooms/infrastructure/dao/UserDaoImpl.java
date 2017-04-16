@@ -2,12 +2,11 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import java.util.Collection;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
@@ -29,7 +28,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findUser(UUID id) {
+    public User findUser(Long id) {
         return repository.findOne(id);
     }
 

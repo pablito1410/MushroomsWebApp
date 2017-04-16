@@ -23,6 +23,8 @@ public class Trip implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip")
     private Set<Discovery> discoveries;
 
+    private Trip() { }
+
     public Trip(LocalDateTime dateTime, String place) {
         this.dateTime = dateTime;
         this.place = place;

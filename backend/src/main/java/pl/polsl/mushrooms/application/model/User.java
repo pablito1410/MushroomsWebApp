@@ -71,4 +71,8 @@ public class User implements Serializable {
     public UserRole getRole() {
         return role;
     }
+
+    public Set<TripParticipant> getTripParticipant() {
+        return tripParticipant;
+    }
 }

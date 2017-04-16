@@ -22,6 +22,8 @@ public class TripParticipant implements Serializable {
     @JoinColumn(referencedColumnName = "Id")
     private User user;
 
+    private TripParticipant() { }
+
     public TripParticipant(Trip trip, User user) {
         this.trip = trip;
         this.user = user;

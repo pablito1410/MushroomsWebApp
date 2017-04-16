@@ -2,12 +2,14 @@ package pl.polsl.mushrooms.application.services;
 
 import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
+import pl.polsl.mushrooms.application.commands.GetUserCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.exceptions.UserAlreadyExistException;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.application.model.UserProfile;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
@@ -22,9 +24,9 @@ public class UserServiceImpl implements UserService {
         this.repo = repo;
     }
     @Override
-    public User handle(CreateUserCommand command) {
+    public Long handle(CreateUserCommand command) {
         if (userExist(command.getEmail())) {
-            return null;
+            throw new UserAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
 
         final User user = new User(
@@ -38,12 +40,27 @@ public class UserServiceImpl implements UserService {
 
         repo.save(user);
 
-        return user;
+        return user.getId();
     }
 
     @Override
-    public Optional<User> getUserById(UUID id) {
-        return Optional.ofNullable(repo.findUser(id));
+    public UserProfile handle(GetUserCommand command) {
+
+        Optional<User> user = Optional.ofNullable(repo.findUser(command.getId()));
+
+        if (user.isPresent()) {
+            return new UserProfile(
+                    user.get().getId(),
+                    user.get().getNick(),
+                    user.get().getEmail(),
+                    user.get().getAge(),
+                    user.get().getGender(),
+                    user.get().getRole()
+            );
+        }
+        else {
+            return null;
+        }
     }
 
     @Override

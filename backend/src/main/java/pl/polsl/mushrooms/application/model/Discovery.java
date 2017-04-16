@@ -29,6 +29,8 @@ public class Discovery implements Serializable {
     private long photoId;
     private LocalDateTime dateTime;
 
+    private Discovery() { }
+
     public Discovery(Trip trip, long userId, long x, long y, long photoId, LocalDateTime dateTime) {
         this.trip = trip;
         this.userId = userId;

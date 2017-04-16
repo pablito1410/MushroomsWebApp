@@ -22,6 +22,7 @@ public class MushroomSpecie implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mushroomSpecie")
     private Set<Discovery> discoveries;
 
+    private MushroomSpecie() { }
     public MushroomSpecie(String name) {
         this.name = name;
     }
