@@ -1,24 +1,34 @@
 ﻿<div class="col-md-6 col-md-offset-3">
     <h2>Register</h2>
     <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label class="control-label">First Name</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />
-            <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !nick.valid }">
+            <label class="control-label">Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
         </div>
-        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label class="control-label">Last Name</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
-            <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !nick.valid }">
+            <label class="control-label">Nick</label>
+            <input type="text" class="form-control" name="nick" [(ngModel)]="model.nick" #nick="ngModel" required />
+            <div *ngIf="f.submitted && !nick.valid" class="help-block">Nick is required</div>
         </div>
-        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label class="control-label">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !nick.valid }">
+            <label class="control-label">Age</label>
+            <input type="numeric" class="form-control" name="age" [(ngModel)]="model.age" #age="ngModel" required />
+            <div *ngIf="f.submitted && !age.valid" class="help-block">Age is required</div>
         </div>
-        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <!--<div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !nick.valid }">-->
+            <!--<label class="control-label">Gender</label>-->
+            <!--<input type="text" class="form-control" name="gender" [(ngModel)]="model.gender" #gender="ngModel" required />-->
+            <!--<div *ngIf="f.submitted && !gender.valid" class="help-block">Gender is required</div>-->
+        <!--</div>-->
+        <!--<div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !nick.valid }">-->
+            <!--<label class="control-label">Role</label>-->
+            <!--<input type="text" class="form-control" name="role" [(ngModel)]="model.role" #role="ngModel" required />-->
+            <!--<div *ngIf="f.submitted && !role.valid" class="help-block">Role is required</div>-->
+        <!--</div>-->
+        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !passwordHash.valid }">
             <label class="control-label">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+            <input type="password" class="form-control" name="passwordHash" [(ngModel)]="model.passwordHash" #passwordHash="ngModel" required />
             <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
         <div class="form-group">
