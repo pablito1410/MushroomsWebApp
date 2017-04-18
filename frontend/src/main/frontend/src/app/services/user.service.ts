@@ -16,7 +16,7 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/api/users/create', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('mushrooms/api/users/create', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {

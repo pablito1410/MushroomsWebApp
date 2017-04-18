@@ -8,21 +8,21 @@ export class AuthenticationService {
     constructor(private http: Http) { }
 
     login(email: string, password: string) {
-        let headers = new Headers ();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+         let headers = new Headers ();
+         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('email', email);
         urlSearchParams.append('password', password);
         let body = urlSearchParams.toString();
         let options = new RequestOptions({ headers: headers, method: "post" });
-        return this.http.post('/#/login', body, options)
+        return this.http.post('/login', body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
-                if (user) { // && user.token
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
+                // if (user) { // && user.token
+                //     // store user details and jwt token in local storage to keep user logged in between page refreshes
+                //     localStorage.setItem('currentUser', JSON.stringify(user));
+                // }
             });
     }
 
