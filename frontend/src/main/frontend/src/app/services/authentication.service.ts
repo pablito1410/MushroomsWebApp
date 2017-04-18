@@ -14,7 +14,7 @@ export class AuthenticationService {
         urlSearchParams.append('email', email);
         urlSearchParams.append('password', password);
         let body = urlSearchParams.toString();
-        let options = new RequestOptions({ headers: headers, method: "post" });
+        let options = new RequestOptions({ headers: headers });
         return this.http.post('/login', body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response

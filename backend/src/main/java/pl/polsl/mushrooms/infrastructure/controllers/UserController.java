@@ -16,7 +16,7 @@ import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
  * Created by pawel_zaqkxkn on 31.03.2017.
  */
 @RestController
-@RequestMapping("mushrooms/api/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final CommandGateway commandGateway;
