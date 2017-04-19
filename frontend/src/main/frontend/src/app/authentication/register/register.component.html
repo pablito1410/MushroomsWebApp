@@ -16,11 +16,11 @@
             <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
             <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div>
-        <!--<div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !repeatedPassword.valid }">-->
-            <!--<label class="control-label">Repeat password</label>-->
-            <!--<input type="password" class="form-control" name="repeatedPassword" [(ngModel)]="repeatedPassword" #repeatedPassword="ngModel" required />-->
-            <!--<div *ngIf="f.submitted && !repeatedPassword.valid" class="help-block">Password repetition is required</div>-->
-        <!--</div>-->
+        <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !repeat.valid }">
+            <label class="control-label">Repeat password</label>
+            <input type="password" class="form-control" name="repeat" [(ngModel)]="repeatedPassword" #repeat="ngModel" required />
+            <div *ngIf="f.submitted && !repeat.valid" class="help-block">Password repetition is required</div>
+        </div>
         <!--<div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !nick.valid }">-->
             <!--<label class="control-label">Gender</label>-->
             <!--<input type="text" class="form-control" name="gender" [(ngModel)]="model.gender" #gender="ngModel"-->

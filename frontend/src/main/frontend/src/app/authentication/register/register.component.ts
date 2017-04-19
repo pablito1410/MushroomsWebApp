@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
 
 export class RegisterComponent {
     model: any = {};
-    repeatedPassword:string;
+    repeatedPassword: string = '';
     loading = false;
 
     constructor(

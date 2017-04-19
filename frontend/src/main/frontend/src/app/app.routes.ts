@@ -12,9 +12,11 @@ import {IconsComponent} from "./dashboard/icons/icons.component";
 import {NotificationsComponent} from "./dashboard/notifications/notifications.component";
 import {TypographyComponent} from "./dashboard/typography/typography.component";
 import {MapsComponent} from "./dashboard/maps/maps.component";
+import {AppComponent} from "./app.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 export const MODULE_ROUTES: Route[] =[
-    { path: '', component: AuthenticationComponent, canActivate: [AuthenticationGuard] },
+    { path: '', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'dashboard', component: HomeComponent },
@@ -30,7 +32,7 @@ export const MODULE_ROUTES: Route[] =[
 ]
 
 export const MODULE_COMPONENTS = [
-    AuthenticationComponent,
+    DashboardComponent,
     LoginComponent,
     RegisterComponent,
     AlertComponent,

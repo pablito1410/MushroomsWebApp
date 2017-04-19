@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location} from '@angular/common';
+import {ActivatedRoute, Router} from "@angular/router";
 
 declare var $:any;
 
@@ -11,10 +12,8 @@ declare var $:any;
 
 export class AppComponent implements OnInit{
     location: Location;
-    logged: boolean;
-    constructor(location:Location) {
+    constructor(location:Location, private route:Router) {
         this.location = location;
-        this.logged = false;
     }
     ngOnInit(){
         $.getScript('../assets/js/material-dashboard.js');
@@ -30,8 +29,7 @@ export class AppComponent implements OnInit{
             return true;
         }
     }
-    public isLogged(){
-        this.logged = true;
-        return this.logged;
+    public isLoginPage(){
+        return (this.route.url === '/login');
     }
 }
