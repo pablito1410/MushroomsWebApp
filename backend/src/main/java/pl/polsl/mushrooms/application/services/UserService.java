@@ -1,25 +1,26 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.GetUserCommand;
+import pl.polsl.mushrooms.application.commands.*;
 import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.application.model.UserProfile;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
 public interface UserService {
 
-    Long handle(CreateUserCommand command);
+    UUID handle(CreateUserCommand command);
 
-    UserProfile handle(GetUserCommand command);
+    User handle(GetUserCommand command);
 
     Optional<User> getUserByEmail(String email);
 
-    Collection<User> getAllUsers();
+    Collection<User> handle(GetAllUsersCommand command);
 
+    void handle(UpdateUserCommand updateUserCommand);
 
+    void handle(DeleteUserCommand deleteUserCommand);
 }

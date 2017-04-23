@@ -4,6 +4,7 @@ import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
@@ -11,7 +12,7 @@ import java.util.Collection;
 public interface UserDao {
     User save(User user);
 
-    User findUser(Long id);
+    User findUser(UUID id);
 
     User findUserByEmail(String email);
 

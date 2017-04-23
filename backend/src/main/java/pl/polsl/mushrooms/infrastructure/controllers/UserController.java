@@ -5,12 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.GetUserCommand;
+import pl.polsl.mushrooms.application.commands.*;
 import pl.polsl.mushrooms.application.exceptions.UserAlreadyExistException;
-import pl.polsl.mushrooms.application.model.UserProfile;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.UserValidationService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+
+import java.util.Collection;
+import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 31.03.2017.
@@ -37,10 +39,10 @@ public class UserController {
 
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Long> createUser(@RequestBody CreateUserCommand command) {
+    public ResponseEntity<UUID> createUser(@RequestBody CreateUserCommand command) {
 
         try {
-            final Long id = commandGateway.dispatch(command);
+            final UUID id = commandGateway.dispatch(command);
             return new ResponseEntity<>(id, HttpStatus.CREATED);
         }
         catch(UserAlreadyExistException e) {
@@ -48,12 +50,36 @@ public class UserController {
         }
     }
 
-    @RequestMapping(path = "/get", method = RequestMethod.POST)
-    public ResponseEntity<UserProfile> createUser(@RequestBody GetUserCommand command) {
 
-        final UserProfile userProfile = commandGateway.dispatch(command);
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity<User> getById(@RequestParam UUID id) {
+
+        final GetUserCommand command = new GetUserCommand(id);
+        final User userProfile = commandGateway.dispatch(command);
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity<Collection<User>> getAll() {
+
+        final GetAllUsersCommand command = new GetAllUsersCommand();
+        final Collection<User> users = commandGateway.dispatch(command);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody UpdateUserCommand command) {
+
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@RequestParam UUID id) {
+
+        final DeleteUserCommand command = new DeleteUserCommand(id);
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

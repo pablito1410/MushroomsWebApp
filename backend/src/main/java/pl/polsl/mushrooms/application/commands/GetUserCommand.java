@@ -1,25 +1,24 @@
 package pl.polsl.mushrooms.application.commands;
 
-import pl.polsl.mushrooms.application.model.UserProfile;
+
+import pl.polsl.mushrooms.application.model.User;
+
+import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 17.04.2017.
  */
-public class GetUserCommand implements ReturningCommand<UserProfile> {
+public class GetUserCommand implements ReturningCommand<User> {
 
-    private long id;
+    private UUID id;
 
     private GetUserCommand() { }
 
-    public GetUserCommand(long id) {
+    public GetUserCommand(UUID id) {
         this.id = id;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }
