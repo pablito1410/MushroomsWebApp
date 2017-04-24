@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.*;
-import pl.polsl.mushrooms.application.exceptions.UserAlreadyExistException;
+import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.UserValidationService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
@@ -45,7 +45,7 @@ public class UserController {
             final UUID id = commandGateway.dispatch(command);
             return new ResponseEntity<>(id, HttpStatus.CREATED);
         }
-        catch(UserAlreadyExistException e) {
+        catch(EntityAlreadyExistException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }

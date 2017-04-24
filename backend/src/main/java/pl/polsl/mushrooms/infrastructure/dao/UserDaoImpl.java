@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User save(Mushroomer user) {
+    public User save(User user) {
         return repository.save(user);
     }
 

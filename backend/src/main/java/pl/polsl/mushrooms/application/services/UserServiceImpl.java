@@ -3,7 +3,7 @@ package pl.polsl.mushrooms.application.services;
 import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.commands.*;
 import pl.polsl.mushrooms.application.dao.UserDao;
-import pl.polsl.mushrooms.application.exceptions.UserAlreadyExistException;
+import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
@@ -23,10 +23,11 @@ public class UserServiceImpl implements UserService {
 
         this.repo = repo;
     }
+
     @Override
     public UUID handle(CreateUserCommand command) {
         if (userExist(command.getEmail())) {
-            throw new UserAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
+            throw new EntityAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
 
         final Mushroomer user = new Mushroomer(

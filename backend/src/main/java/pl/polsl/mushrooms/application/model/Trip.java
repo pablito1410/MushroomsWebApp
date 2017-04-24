@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.application.model;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,13 +19,19 @@ public class Trip {
 	private Time time;
 	private String place;
 
-	@ManyToMany(mappedBy = "trips")
+	@ManyToMany
 	private Set<Mushroomer> mushroomers;
 
 	@OneToMany(mappedBy = "trip")
 	private Set<Discovery> discoveries;
 
 	protected Trip() { }
+
+	public Trip(Date date, Time time, String place) {
+		this.date = date;
+		this.time = time;
+		this.place = place;
+	}
 
 	public UUID getId() {
 		return this.id;
@@ -64,6 +71,15 @@ public class Trip {
 
 	public void setMushroomers(Set<Mushroomer> mushroomers) {
 		this.mushroomers = mushroomers;
+	}
+
+	public void addMushroomer(final Mushroomer mushroomer)
+	{
+		if (mushroomers == null)
+		{
+			mushroomers = new LinkedHashSet<>();
+		}
+		mushroomers.add(mushroomer);
 	}
 
 	public Set<Discovery> getDiscoveries() {

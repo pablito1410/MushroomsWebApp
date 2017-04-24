@@ -17,7 +17,7 @@ public class Mushroomer extends User {
 	private Gender gender;
 	private int level;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "mushroomers")
 	private Set<Trip> trips;
 
 	@OneToMany(mappedBy = "mushroomer")
