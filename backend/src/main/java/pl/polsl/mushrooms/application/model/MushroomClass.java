@@ -17,6 +17,8 @@ public class MushroomClass {
 	@OneToMany(mappedBy = "mushroomClass")
 	private Set<MushroomOrder> orders;
 
+	protected MushroomClass() { }
+
 	public UUID getId() {
 		return this.id;
 	}

@@ -28,9 +28,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/#/login", "/*.{js}", "/assets/**", "/mushrooms/api/users/create").permitAll()
+                .antMatchers( "/#/login", "/*.{js}", "/assets/**", "/api/users/create").permitAll()
 //                .antMatchers(  "/*.{js}", "/assets/**").permitAll()
-                .antMatchers("/**").denyAll()//hasAuthority("USER")
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()

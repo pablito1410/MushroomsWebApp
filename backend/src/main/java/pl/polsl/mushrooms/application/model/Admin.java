@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("Admin")
 public class Admin extends User {
 
+	protected Admin() { }
 	public int hashCode() {
 		int hashCode = 0;
 		if ( hashCode == 0 ) {

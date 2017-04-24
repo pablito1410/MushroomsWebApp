@@ -16,6 +16,8 @@ public class Tag {
 	@ManyToOne
 	private Discovery discovery;
 
+	protected Tag() { }
+
 	public UUID getId() {
 		return this.id;
 	}

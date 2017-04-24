@@ -24,6 +24,8 @@ public class Trip {
 	@OneToMany(mappedBy = "trip")
 	private Set<Discovery> discoveries;
 
+	protected Trip() { }
+
 	public UUID getId() {
 		return this.id;
 	}
@@ -61,15 +63,15 @@ public class Trip {
 	}
 
 	public void setMushroomers(Set<Mushroomer> mushroomers) {
-		throw new UnsupportedOperationException();
+		this.mushroomers = mushroomers;
 	}
 
 	public Set<Discovery> getDiscoveries() {
-		throw new UnsupportedOperationException();
+		return discoveries;
 	}
 
 	public void setDiscoveries(Set<Discovery> discoveries) {
-		throw new UnsupportedOperationException();
+		this.discoveries = discoveries;
 	}
 
 	public int hashCode() {

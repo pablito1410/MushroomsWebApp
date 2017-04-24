@@ -21,6 +21,8 @@ public class MushroomSpecies {
 	@OneToMany(mappedBy = "mushroomSpecies")
 	private Set<Discovery> discoveries;
 
+	protected MushroomSpecies() { }
+
 	public UUID getId() {
 		return this.id;
 	}

@@ -51,10 +51,10 @@ public class UserController {
     }
 
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity<User> getById(@RequestParam UUID id) {
+    @RequestMapping(path = "/", method = RequestMethod.GET, params = "id")
+    public ResponseEntity<User> getById(@RequestParam("id") String id) {
 
-        final GetUserCommand command = new GetUserCommand(id);
+        final GetUserCommand command = new GetUserCommand(UUID.fromString(id));
         final User userProfile = commandGateway.dispatch(command);
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }

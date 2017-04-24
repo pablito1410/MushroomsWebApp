@@ -23,6 +23,8 @@ public class Score {
 	@ManyToOne
 	private Mushroomer mushroomer;
 
+	protected Score() { }
+
 	public UUID getId() {
 		return this.id;
 	}

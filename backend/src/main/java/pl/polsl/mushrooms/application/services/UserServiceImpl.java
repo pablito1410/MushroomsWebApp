@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
 
-        final User user = new Mushroomer(
+        final Mushroomer user = new Mushroomer(
                 command.getUsername(),
                 command.getEmail(),
                 command.getPassword(),

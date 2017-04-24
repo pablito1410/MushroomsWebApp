@@ -82,11 +82,11 @@ public abstract class User implements Serializable {
 	}
 
 	public Set<Comment> getComments() {
-		throw new UnsupportedOperationException();
+		return comments;
 	}
 
 	public void setComments(Set<Comment> comments) {
-		throw new UnsupportedOperationException();
+		this.comments = comments;
 	}
 
 	public int hashCode() {

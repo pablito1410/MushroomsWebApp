@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.dao;
 
 import org.springframework.data.domain.Sort;
+import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.UUID;
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
 public interface UserDao {
-    User save(User user);
+    User save(Mushroomer user);
 
     User findUser(UUID id);
 

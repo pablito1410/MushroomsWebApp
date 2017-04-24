@@ -29,6 +29,8 @@ public class Comment extends Commentable implements Serializable {
 	@OneToMany(mappedBy = "answers")
 	private Set<Comment> answers;
 
+	protected Comment() { }
+
 	public UUID getId() {
 		return this.id;
 	}
@@ -75,11 +77,11 @@ public class Comment extends Commentable implements Serializable {
 	}
 
 	public Set<Comment> getAnswers() {
-		throw new UnsupportedOperationException();
+		return answers;
 	}
 
 	public void setAnswers(Set<Comment> answers) {
-		throw new UnsupportedOperationException();
+		this.answers = answers;
 	}
 
 //	public void setTarget(Comment target) {
@@ -134,5 +136,9 @@ public class Comment extends Commentable implements Serializable {
 			return equals;
 		}
 		return false;
+	}
+
+	public Comment getTarget() {
+		return target;
 	}
 }

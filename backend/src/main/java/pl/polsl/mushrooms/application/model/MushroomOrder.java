@@ -20,6 +20,8 @@ public class MushroomOrder {
 	@OneToMany(mappedBy = "order")
 	private Set<MushroomFamily> families;
 
+	protected MushroomOrder() { }
+
 	public UUID getId() {
 		return this.id;
 	}

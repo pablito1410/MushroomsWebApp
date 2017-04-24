@@ -26,6 +26,8 @@ public class Mushroomer extends User {
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Discovery> discoveries;
 
+	protected Mushroomer() { }
+
 	public Mushroomer(String username, String email, String password, UserRole role) {
 		super(username, email, password, role);
 	}
@@ -75,23 +77,23 @@ public class Mushroomer extends User {
 	}
 
 	public void setTrips(Set<Trip> trips) {
-		throw new UnsupportedOperationException();
+		this.trips = trips;
 	}
 
 	public Set<Score> getScores() {
-		throw new UnsupportedOperationException();
+		return scores;
 	}
 
 	public void setScores(Set<Score> scores) {
-		throw new UnsupportedOperationException();
+		this.scores = scores;
 	}
 
 	public Set<Discovery> getDiscoveries() {
-		throw new UnsupportedOperationException();
+		return discoveries;
 	}
 
 	public void setDiscoveries(Set<Discovery> discoveries) {
-		throw new UnsupportedOperationException();
+		this.discoveries = discoveries;
 	}
 
 	public int hashCode() {

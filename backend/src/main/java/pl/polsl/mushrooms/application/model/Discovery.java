@@ -38,6 +38,8 @@ public class Discovery extends Commentable{
 	@OneToMany
 	private Set<Comment> comments;
 
+	protected Discovery() { }
+
 	public UUID getId() {
 		return this.id;
 	}

@@ -20,6 +20,8 @@ public class MushroomFamily {
 	@OneToMany(mappedBy = "family")
 	private Set<MushroomGenus> genuses;
 
+	protected MushroomFamily() { }
+
 	public UUID getId() {
 		return this.id;
 	}
