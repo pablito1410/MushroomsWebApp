@@ -3,7 +3,9 @@ package pl.polsl.mushrooms.application.services;
 import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.commands.user.*;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
+import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
@@ -28,14 +30,18 @@ public class UserServiceImpl implements UserService {
             throw new EntityAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
 
-//        final Mushroomer user = new Mushroomer(
-//                command.getUsername(),
-//                command.getEmail(),
-//                command.getPassword(),
-//                command.getRole()
-//        );
-//
-//        repo.save(user);
+        final Mushroomer user = new Mushroomer(
+                command.getUsername(),
+                command.getEmail(),
+                command.getPassword(),
+                command.getFirstName(),
+                command.getLastName(),
+                command.getBirthDate(),
+                command.getGender(),
+                MushroomerLevel.INTERMEDIATE
+        );
+
+        repo.save(user);
     }
 
     @Override

@@ -1,31 +1,32 @@
 package pl.polsl.mushrooms.application.commands.user;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
-import pl.polsl.mushrooms.application.enums.UserRole;
+import pl.polsl.mushrooms.application.enums.Gender;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
 public class CreateCommand implements VoidCommand {
 
+    @NotNull
     protected String username;
 
+    @NotNull
     protected String email;
-    protected String password;
 
     @NotNull
-    private UserRole role = UserRole.USER;
+    protected String password;
+
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private Gender gender;
 
 
     private CreateCommand() { }
-
-    public CreateCommand(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
     public String getUsername() {
         return username;
@@ -39,7 +40,19 @@ public class CreateCommand implements VoidCommand {
         return password;
     }
 
-    public UserRole getRole() {
-        return role;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public Gender getGender() {
+        return gender;
     }
 }

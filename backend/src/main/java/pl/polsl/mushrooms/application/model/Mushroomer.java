@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.model;
 
 
 import pl.polsl.mushrooms.application.enums.Gender;
+import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.Column;
@@ -27,7 +28,7 @@ public class Mushroomer extends User {
 	private Gender gender;
 
 	@Column(name = "LEVEL")
-	private int level;
+	private MushroomerLevel level;
 
 	@ManyToMany(mappedBy = "mushroomers")
 	private Set<Trip> trips;
@@ -46,7 +47,7 @@ public class Mushroomer extends User {
 	}
 
 	public Mushroomer(
-			String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender, int level) {
+			String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender, MushroomerLevel level) {
 		super(username, email, password);
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -87,11 +88,11 @@ public class Mushroomer extends User {
 		this.gender = gender;
 	}
 
-	public int getLevel() {
+	public MushroomerLevel getLevel() {
 		return this.level;
 	}
 
-	public void setLevel(int level) {
+	public void setLevel(MushroomerLevel level) {
 		this.level = level;
 	}
 
