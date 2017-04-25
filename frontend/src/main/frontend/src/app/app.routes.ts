@@ -5,17 +5,17 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { AuthenticationGuard } from './authentication/authentication.guard';
 import { AlertComponent } from "./authentication/alert/alert.component";
-import {HomeComponent} from "./dashboard/home/home.component";
-import {UserComponent} from "./dashboard/user/user.component";
-import {TableComponent} from "./dashboard/table/table.component";
-import {IconsComponent} from "./dashboard/icons/icons.component";
-import {NotificationsComponent} from "./dashboard/notifications/notifications.component";
-import {TypographyComponent} from "./dashboard/typography/typography.component";
-import {MapsComponent} from "./dashboard/maps/maps.component";
-import {AppComponent} from "./app.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
+import { HomeComponent } from "./dashboard/home/home.component";
+import { UserComponent } from "./dashboard/user/user.component";
+import { TableComponent } from "./dashboard/table/table.component";
+import { IconsComponent } from "./dashboard/icons/icons.component";
+import { NotificationsComponent } from "./dashboard/notifications/notifications.component";
+import { TypographyComponent } from "./dashboard/typography/typography.component";
+import { MapsComponent } from "./dashboard/maps/maps.component";
+import { AppComponent } from "./app.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
-export const MODULE_ROUTES: Route[] =[
+export const MODULE_ROUTES: Route[] = [
     { path: '', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
