@@ -4,6 +4,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import pl.polsl.mushrooms.application.dao.DiscoveryDao;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.services.*;
@@ -59,7 +60,8 @@ public class MushroomsServerConfig {
     public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
 
     @Bean
-    public DiscoveryService discoveryService() { return new DiscoveryServiceImpl(); }
+    public DiscoveryService discoveryService(DiscoveryDao discoveryDao, TripDao tripDao) {
+        return new DiscoveryServiceImpl(discoveryDao, tripDao); }
 
     @Bean
     public CommentService commentService() { return new CommentServiceImpl(); }

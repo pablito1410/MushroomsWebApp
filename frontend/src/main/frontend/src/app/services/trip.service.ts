@@ -16,7 +16,7 @@ export class TripService {
     }
 
     create(trip: Trip) {
-        return this.http.post('/api/trips/create', trip).map((response: Response) => response.json());
+        return this.http.post('/api/trips/', trip).map((response: Response) => response.json());
     }
 
     update(trip: Trip) {
