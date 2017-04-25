@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.polsl.mushrooms.application.commands.AddUserToTripCommand;
-import pl.polsl.mushrooms.application.commands.CreateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.trip.CreateCommand;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
@@ -27,7 +27,7 @@ public class TripController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody CreateTripCommand command) {
+    public ResponseEntity<Void> create(@RequestBody CreateCommand command) {
 
         try {
             commandGateway.dispatch(command);
@@ -39,7 +39,7 @@ public class TripController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody AddUserToTripCommand command) {
+    public ResponseEntity<Void> update(@RequestBody UpdateCommand command) {
 
         commandGateway.dispatch(command);
 

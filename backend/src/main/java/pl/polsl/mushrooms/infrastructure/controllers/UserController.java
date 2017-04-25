@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.*;
+import pl.polsl.mushrooms.application.commands.user.*;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.UserValidationService;
@@ -39,7 +39,7 @@ public class UserController {
 
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<UUID> createUser(@RequestBody CreateUserCommand command) {
+    public ResponseEntity<UUID> createUser(@RequestBody CreateCommand command) {
 
         try {
             final UUID id = commandGateway.dispatch(command);
@@ -54,7 +54,7 @@ public class UserController {
     @RequestMapping(path = "/", method = RequestMethod.GET, params = "id")
     public ResponseEntity<User> getById(@RequestParam("id") String id) {
 
-        final GetUserCommand command = new GetUserCommand(UUID.fromString(id));
+        final GetCommand command = new GetCommand(UUID.fromString(id));
         final User userProfile = commandGateway.dispatch(command);
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }
@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody UpdateUserCommand command) {
+    public ResponseEntity<Void> update(@RequestBody UpdateCommand command) {
 
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -77,7 +77,7 @@ public class UserController {
     @RequestMapping(path = "/", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@RequestParam UUID id) {
 
-        final DeleteUserCommand command = new DeleteUserCommand(id);
+        final DeleteCommand command = new DeleteCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
