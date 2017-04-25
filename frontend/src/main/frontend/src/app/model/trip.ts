@@ -1,4 +1,4 @@
-export class Tag {
+export class Trip {
     id: number;
     place: string;
     date: Date;
