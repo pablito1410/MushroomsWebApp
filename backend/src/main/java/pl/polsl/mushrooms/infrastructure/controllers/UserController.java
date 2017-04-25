@@ -82,4 +82,16 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    // TODO PK Nie usuwać! Przyda się w przyszłości
+//    @RequestMapping(path = "store-image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public StoreImageResponse receiveImage(
+//            @RequestParam("file") List<MultipartFile> files, @RequestParam("info") String info) {
+//
+//        ImageData imageData = new ImageData(files, info);
+//        StoreImageResponse response = imageService.storeImage(imageData);
+//
+//        return response;
+//    }
+
 }
