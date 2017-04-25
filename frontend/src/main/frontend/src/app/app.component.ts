@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location} from '@angular/common';
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 declare var $:any;
 
@@ -9,27 +9,31 @@ declare var $:any;
     selector: 'my-app',
     templateUrl: 'app.component.html'
 })
+export class AppComponent implements OnInit {
 
-export class AppComponent implements OnInit{
     location: Location;
+
     constructor(location:Location, private route:Router) {
         this.location = location;
     }
-    ngOnInit(){
+
+    ngOnInit() {
         $.getScript('../assets/js/material-dashboard.js');
         $.getScript('../assets/js/initMenu.js');
     }
-    public isMaps(path){
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        titlee = titlee.slice( 1 );
-        if(path == titlee){
+
+    public isMaps(path) : boolean {
+        var title = this.location.prepareExternalUrl(this.location.path());
+        title = title.slice( 1 );
+        if(path == title){
             return false;
         }
         else {
             return true;
         }
     }
-    public isLoginPage(){
-        return (this.route.url === '/login');
+
+    public isAuthorizationPage() : boolean {
+        return ((this.route.url === '/login') || (this.route.url === '/register'));
     }
 }

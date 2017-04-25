@@ -1,15 +1,15 @@
 <div class="wrapper">
     <div>
-        <div *ngIf="!isLoginPage()" class="sidebar" data-color='brown' data-image="">
+        <div *ngIf="!isAuthorizationPage()" class="sidebar" data-color='brown' data-image="">
             <sidebar-cmp></sidebar-cmp>
             <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
         </div>
         <div class="main-panel">
-            <div *ngIf="!isLoginPage()">
+            <div *ngIf="!isAuthorizationPage()">
                 <navbar-cmp></navbar-cmp>
             </div>
             <dashboard-cmp></dashboard-cmp>
-            <div *ngIf="!isLoginPage() && isMaps('/maps')">
+            <div *ngIf="!isAuthorizationPage() && isMaps('/maps')">
                 <footer-cmp></footer-cmp>
             </div>
         </div>
