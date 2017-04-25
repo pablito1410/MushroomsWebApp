@@ -40,6 +40,18 @@ public class Discovery extends Commentable{
 
 	protected Discovery() { }
 
+	public Discovery(
+			String coordinateX, String coordinateY, byte[] photo, Date date, Time time, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.photo = photo;
+		this.date = date;
+		this.time = time;
+		this.trip = trip;
+		this.mushroomSpecies = mushroomSpecies;
+		this.mushroomer = mushroomer;
+	}
+
 	public UUID getId() {
 		return this.id;
 	}

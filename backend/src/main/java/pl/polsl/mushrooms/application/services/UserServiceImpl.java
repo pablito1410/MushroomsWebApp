@@ -1,7 +1,7 @@
 package pl.polsl.mushrooms.application.services;
 
 import org.springframework.data.domain.Sort;
-import pl.polsl.mushrooms.application.commands.*;
+import pl.polsl.mushrooms.application.commands.user.*;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.Mushroomer;
@@ -9,7 +9,6 @@ import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UUID handle(CreateUserCommand command) {
+    public void handle(CreateCommand command) {
         if (userExist(command.getEmail())) {
             throw new EntityAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
@@ -38,12 +37,10 @@ public class UserServiceImpl implements UserService {
         );
 
         repo.save(user);
-
-        return user.getId();
     }
 
     @Override
-    public User handle(GetUserCommand command) {
+    public User handle(GetCommand command) {
 
         Optional<User> user = Optional.ofNullable(repo.findUser(command.getId()));
 
@@ -74,12 +71,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void handle(UpdateUserCommand updateUserCommand) {
+    public void handle(UpdateCommand command) {
 
     }
 
     @Override
-    public void handle(DeleteUserCommand deleteUserCommand) {
+    public void handle(DeleteCommand command) {
 
     }
 

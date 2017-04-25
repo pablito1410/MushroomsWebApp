@@ -1,11 +1,9 @@
 package pl.polsl.mushrooms.infrastructure.config;
 
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import pl.polsl.mushrooms.application.commands.*;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.services.*;
@@ -18,15 +16,35 @@ import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 public class MushroomsServerConfig {
 
     @Bean
-    public InitializingBean mushroomsServerInitializer(TripService tripService, UserService userService, CommandHandlerRegistry registry) {
+    public InitializingBean mushroomsServerInitializer(
+            UserService userService,
+            TripService tripService,
+            DiscoveryService discoveryService,
+            CommentService commentService,
+            CommandHandlerRegistry registry) {
         return () -> {
-            registry.register(userService::handle, CreateUserCommand.class);
-            registry.register(userService::handle, GetUserCommand.class);
-            registry.register(userService::handle, GetAllUsersCommand.class);
-            registry.register(userService::handle, UpdateUserCommand.class);
-            registry.register(userService::handle, DeleteUserCommand.class);
-            registry.register(tripService::handle, CreateTripCommand.class);
-            registry.register(tripService::handle, AddUserToTripCommand.class);
+            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.CreateCommand.class);
+            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.GetCommand.class);
+            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.UpdateCommand.class);
+            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.DeleteCommand.class);
+            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.GetAllUsersCommand.class);
+
+
+            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.CreateCommand.class);
+            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.UpdateCommand.class);
+            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.DeleteCommand.class);
+            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.GetCommand.class);
+
+            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.CreateCommand.class);
+            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.UpdateCommand.class);
+            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.DeleteCommand.class);
+            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.GetCommand.class);
+
+            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.CreateCommand.class);
+            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.UpdateCommand.class);
+            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.DeleteCommand.class);
+            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.GetCommand.class);
+
 
         };
 
@@ -39,6 +57,12 @@ public class MushroomsServerConfig {
 
     @Bean
     public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
+
+    @Bean
+    public DiscoveryService discoveryService() { return new DiscoveryServiceImpl(); }
+
+    @Bean
+    public CommentService commentService() { return new CommentServiceImpl(); }
 
     @Bean
     public UserDetailsService userDetailsService(final UserService userService) {

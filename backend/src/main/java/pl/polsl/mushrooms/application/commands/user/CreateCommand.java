@@ -1,14 +1,14 @@
-package pl.polsl.mushrooms.application.commands;
+package pl.polsl.mushrooms.application.commands.user;
 
+import pl.polsl.mushrooms.application.commands.VoidCommand;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
-public class CreateUserCommand implements ReturningCommand<UUID> {
+public class CreateCommand implements VoidCommand {
 
     protected String username;
 
@@ -19,9 +19,9 @@ public class CreateUserCommand implements ReturningCommand<UUID> {
     private UserRole role = UserRole.USER;
 
 
-    private CreateUserCommand() { }
+    private CreateCommand() { }
 
-    public CreateUserCommand(String username, String email, String password) {
+    public CreateCommand(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

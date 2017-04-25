@@ -1,5 +1,6 @@
-package pl.polsl.mushrooms.application.commands;
+package pl.polsl.mushrooms.application.commands.user;
 
+import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
