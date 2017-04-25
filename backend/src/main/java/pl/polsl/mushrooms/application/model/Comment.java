@@ -9,27 +9,41 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "Comment")
+@Table(name = "COMMENTS")
 public class Comment extends Commentable implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	protected UUID id;
+
+	@Column(name = "CONTENTS", nullable = false)
 	private String contents;
+
+	@Column(name = "DATE", nullable = false)
 	private Date date;
+
+	@Column(name = "TIME", nullable = false)
 	private Time time;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	private Comment target;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private User user;
 
 	@OneToMany(mappedBy = "answers")
 	private Set<Comment> answers;
 
 	protected Comment() { }
+
+	public Comment(String contents, Date date, Time time, Comment target, User user) {
+		this.contents = contents;
+		this.date = date;
+		this.time = time;
+		this.target = target;
+		this.user = user;
+	}
 
 	public UUID getId() {
 		return this.id;

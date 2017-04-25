@@ -5,7 +5,7 @@ package pl.polsl.mushrooms.application.enums;
  */
 public enum UserRole {
 
-    USER, ADMIN
+    USER, ADMIN,
 
-    ;
+    MUSHROOMER;
 }

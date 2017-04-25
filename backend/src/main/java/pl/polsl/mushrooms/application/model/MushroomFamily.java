@@ -5,22 +5,29 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MushroomFamily")
+@Table(name = "MUSHROOMS_FAMILIES")
 public class MushroomFamily {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private UUID id;
+
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private MushroomOrder order;
 
 	@OneToMany(mappedBy = "family")
 	private Set<MushroomGenus> genuses;
 
 	protected MushroomFamily() { }
+
+	public MushroomFamily(String name, MushroomOrder order) {
+		this.name = name;
+		this.order = order;
+	}
 
 	public UUID getId() {
 		return this.id;

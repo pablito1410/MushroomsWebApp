@@ -5,40 +5,44 @@ import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MushroomsUser")
-public class User implements Serializable {
+@Table(name = "USERS")
+@DiscriminatorColumn(name = "ROLE", discriminatorType = DiscriminatorType.STRING)
+public abstract class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	protected UUID id;
 
-	@Column(name = "Username", nullable = false)
+	@Column(name = "USERNAME", nullable = false)
 	protected String username;
 
-	@Column(name = "Email", nullable = false)
+	@Column(name = "EMAIL", nullable = false)
 	protected String email;
 
-	@Column(name = "Password", nullable = false)
+	@Column(name = "PASSWORD", nullable = false)
 	protected String password;
 
-	@Column(name = "Role", nullable = false)
-	protected UserRole role;
+//	@Column(name = "ROLE", nullable = false)
+//	@Enumerated(EnumType.STRING)
+//	protected UserRole role;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToMany(mappedBy = "user")
 	protected Set<Comment> comments;
 
 	protected User() { }
 
-	public User(String username, String email, String password, UserRole role) {
+	public User(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.role = role;
+
+		comments = new HashSet<>();
 	}
 
 	public UUID getId() {
@@ -73,14 +77,6 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public UserRole getRole() {
-		return this.role;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
-
 	public Set<Comment> getComments() {
 		return comments;
 	}
@@ -88,6 +84,8 @@ public class User implements Serializable {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
+
+	public abstract UserRole getRole();
 
 	public int hashCode() {
 		int hashCode = 0;
@@ -103,9 +101,9 @@ public class User implements Serializable {
 		if ( this.password != null ) {
 			hashCode += this.password.hashCode();
 		}
-		if ( this.role != null ) {
-			hashCode += this.role.hashCode();
-		}
+//		if ( this.role != null ) {
+//			hashCode += this.role.hashCode();
+//		}
 		if ( hashCode == 0 ) {
 			hashCode = super.hashCode();
 		}
@@ -126,8 +124,8 @@ public class User implements Serializable {
 				|| (this.email != null && this.email.equals(userObject.email)));
 			equals &= ((this.password == userObject.password)
 				|| (this.password != null && this.password.equals(userObject.password)));
-			equals &= ((this.role == userObject.role)
-				|| (this.role != null && this.role.equals(userObject.role)));
+//			equals &= ((this.role == userObject.role)
+//				|| (this.role != null && this.role.equals(userObject.role)));
 			equals &= this.comments == userObject.comments;
 			return equals;
 		}

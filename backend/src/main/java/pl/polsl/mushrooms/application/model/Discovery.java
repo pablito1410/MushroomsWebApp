@@ -7,26 +7,36 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Discovery")
+@Table(name = "DISCOVERIES")
 public class Discovery extends Commentable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	protected UUID id;
+
+	@Column(name = "COORDINATE_X")
 	private String coordinateX;
+
+	@Column(name = "COORDINATE_Y")
 	private String coordinateY;
+
+	@Column(name = "PHOTO")
 	private byte[] photo;
+
+	@Column(name = "DATE", nullable = false)
 	private Date date;
+
+	@Column(name = "TIME", nullable = false)
 	private Time time;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Trip trip;
 
 	@ManyToOne
 	private MushroomSpecies mushroomSpecies;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Mushroomer mushroomer;
 
 	@OneToMany(mappedBy = "discovery")

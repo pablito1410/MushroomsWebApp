@@ -4,17 +4,29 @@ package pl.polsl.mushrooms.application.model;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "Mushroomer")
 public class Mushroomer extends User {
+
+	@Column(name = "FIRST_NAME")
 	private String firstName;
+
+	@Column(name = "LAST_NAME")
 	private String lastName;
+
+	@Column(name = "BIRTH_DATE")
 	private Date birthDate;
+
+	@Column(name = "GENDER")
 	private Gender gender;
+
+	@Column(name = "LEVEL")
 	private int level;
 
 	@ManyToMany(mappedBy = "mushroomers")
@@ -28,8 +40,19 @@ public class Mushroomer extends User {
 
 	protected Mushroomer() { }
 
-	public Mushroomer(String username, String email, String password, UserRole role) {
-		super(username, email, password, role);
+	@Override
+	public UserRole getRole() {
+		return UserRole.MUSHROOMER;
+	}
+
+	public Mushroomer(
+			String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender, int level) {
+		super(username, email, password);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.level = level;
 	}
 
 	public String getFirstName() {
