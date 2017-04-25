@@ -38,7 +38,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST)
+    @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Void> create(@RequestBody CreateCommand command) {
 
         try {
