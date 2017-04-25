@@ -39,11 +39,11 @@ public class UserController {
 
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<UUID> createUser(@RequestBody CreateCommand command) {
+    public ResponseEntity<Void> create(@RequestBody CreateCommand command) {
 
         try {
-            final UUID id = commandGateway.dispatch(command);
-            return new ResponseEntity<>(id, HttpStatus.CREATED);
+            commandGateway.dispatch(command);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch(EntityAlreadyExistException e) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
