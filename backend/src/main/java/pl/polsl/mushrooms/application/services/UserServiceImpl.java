@@ -1,8 +1,10 @@
 package pl.polsl.mushrooms.application.services;
 
 import org.springframework.data.domain.Sort;
-import pl.polsl.mushrooms.application.commands.CreateUserCommand;
+import pl.polsl.mushrooms.application.commands.*;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
+import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
@@ -21,29 +23,44 @@ public class UserServiceImpl implements UserService {
 
         this.repo = repo;
     }
+
     @Override
-    public User handle(CreateUserCommand command) {
+    public UUID handle(CreateUserCommand command) {
         if (userExist(command.getEmail())) {
-            return null;
+            throw new EntityAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
 
-        final User user = new User(
+        final Mushroomer user = new Mushroomer(
+                command.getUsername(),
                 command.getEmail(),
                 command.getPassword(),
-                command.getNick(),
-                command.getAge(),
-                command.getGender(),
                 command.getRole()
         );
 
         repo.save(user);
 
-        return user;
+        return user.getId();
     }
 
     @Override
-    public Optional<User> getUserById(UUID id) {
-        return Optional.ofNullable(repo.findUser(id));
+    public User handle(GetUserCommand command) {
+
+        Optional<User> user = Optional.ofNullable(repo.findUser(command.getId()));
+
+        if (user.isPresent()) {
+//            return new UserProfile(
+//                    user.get().getId(),
+//                    user.get().getNick(),
+//                    user.get().getEmail(),
+//                    user.get().getAge(),
+//                    user.get().getGender(),
+//                    user.get().getRole()
+//            );
+            return user.get();
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -52,8 +69,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> getAllUsers() {
-        return repo.findAllUsers(new Sort("email"));
+    public Collection<User> handle(GetAllUsersCommand command) {
+        return repo.findAllUsers(new Sort("username"));
+    }
+
+    @Override
+    public void handle(UpdateUserCommand updateUserCommand) {
+
+    }
+
+    @Override
+    public void handle(DeleteUserCommand deleteUserCommand) {
+
     }
 
     private boolean userExist(final String email) {

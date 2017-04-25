@@ -2,8 +2,9 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import java.util.Collection;

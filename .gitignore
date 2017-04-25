@@ -30,3 +30,10 @@ frontend/src/main/frontend/npm-debug.log
 
 ### SASS ###
 frontend/src/main/frontend/.sass-cache
+
+### VS CODE ###
+/frontend/src/main/frontend/.editorconfig
+
+### Creative Team Template 
+/frontend/src/main/frontend/README.md
+/frontend/src/main/frontend/LICENSE.md

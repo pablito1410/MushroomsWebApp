@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
 @Configuration
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableWebSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -28,12 +28,13 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/hello", "/mushrooms/api/1.0/user/create").permitAll()
-                //.antMatchers("/users/**").hasAuthority("ADMIN")
+                .antMatchers( "/#/login", "/*.{js}", "/assets/**", "/api/users/create").permitAll()
+//                .antMatchers(  "/*.{js}", "/assets/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/#/login")
+                .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
                 .usernameParameter("email")
                 .permitAll()
