@@ -15,12 +15,12 @@ export class TripService {
         return this.http.get('/api/trips/' + id).map((response: Response) => response.json());
     }
 
-    create(user: Trip) {
-        return this.http.post('/api/trips/create', user).map((response: Response) => response.json());
+    create(trip: Trip) {
+        return this.http.post('/api/trips/create', trip).map((response: Response) => response.json());
     }
 
-    update(user: Trip) {
-        return this.http.put('/api/trips/' + user.id, user).map((response: Response) => response.json());
+    update(trip: Trip) {
+        return this.http.put('/api/trips/' + trip.id, trip).map((response: Response) => response.json());
     }
 
     delete(id: number) {
