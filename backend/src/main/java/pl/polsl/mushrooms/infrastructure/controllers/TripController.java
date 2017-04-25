@@ -26,8 +26,8 @@ public class TripController {
         this.commandGateway = commandGateway;
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Void> createTrip(@RequestBody CreateTripCommand command) {
+    @RequestMapping(path = "/", method = RequestMethod.POST)
+    public ResponseEntity<Void> create(@RequestBody CreateTripCommand command) {
 
         try {
             commandGateway.dispatch(command);
@@ -38,10 +38,26 @@ public class TripController {
         }
     }
 
-    @RequestMapping(path = "/add-user", method = RequestMethod.POST)
-    public ResponseEntity<Void> addUser(@RequestBody AddUserToTripCommand command) {
+    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody AddUserToTripCommand command) {
 
         commandGateway.dispatch(command);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity<Void> get() {
+
+//        commandGateway.dispatch(command);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete() {
+
+//        commandGateway.dispatch(command);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
