@@ -19,6 +19,10 @@ import {AuthenticationService} from "./services/authentication.service";
 import {UserService} from "./services/user.service";
 import {MODULE_ROUTES, MODULE_COMPONENTS} from "./app.routes";
 import {FormsModule} from "@angular/forms";
+import {TripService} from "./services/trip.service";
+import {TagService} from "./services/tag.service";
+import {DiscoveryService} from "./services/discovery.service";
+import {CommentService} from "./services/comment.service";
 
 
 @NgModule({
@@ -43,11 +47,13 @@ import {FormsModule} from "@angular/forms";
         AuthenticationGuard,
         AlertService,
         AuthenticationService,
-
-        UserService,{
-            provide: LocationStrategy,
-            useClass: HashLocationStrategy
-        }],
+        UserService,
+        TripService,
+        TagService,
+        DiscoveryService,
+        CommentService,
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule { }
