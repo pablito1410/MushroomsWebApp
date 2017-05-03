@@ -36,9 +36,6 @@ public class UserController {
         binder.addValidators(userValidationService);
     }
 
-
-	}
-
     /**
      * CREATE
      * @param command
