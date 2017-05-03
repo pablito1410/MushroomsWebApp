@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.infrastructure.config;
 
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +9,7 @@ import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
+import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
  * Created by pawel_zaqkxkn on 12.03.2017.

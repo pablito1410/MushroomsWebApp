@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from './footer.component';
+import { AlertComponent } from "./alert.component";
 
 @NgModule({
     imports: [ RouterModule, CommonModule ],
-    declarations: [ FooterComponent ],
-    exports: [ FooterComponent ]
+    declarations: [ AlertComponent ],
+    exports: [ AlertComponent ]
 })
-export class FooterModule {}
+export class AlertModule {}

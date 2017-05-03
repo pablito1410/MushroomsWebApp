@@ -16,7 +16,7 @@ export class DiscoveryService {
     }
 
     create(discovery: Discovery) {
-        return this.http.post('/api/discoveries/', discovery).map((response: Response) => response.json());
+        return this.http.post('/api/discoveries', discovery).map((response: Response) => response.json());
     }
 
     update(discovery: Discovery) {

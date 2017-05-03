@@ -16,7 +16,7 @@ export class TagService {
     }
 
     create(tag: Tag) {
-        return this.http.post('/api/tags/', tag).map((response: Response) => response.json());
+        return this.http.post('/api/tags', tag).map((response: Response) => response.json());
     }
 
     update(tag: Tag) {

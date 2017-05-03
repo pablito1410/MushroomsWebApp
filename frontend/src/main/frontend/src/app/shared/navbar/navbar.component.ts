@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTES } from '../.././sidebar/sidebar-routes.config';
 import { MenuType } from '../.././sidebar/sidebar.metadata';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
     moduleId: module.id,
@@ -9,16 +10,25 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
     templateUrl: 'navbar.component.html'
 })
 
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
+
     private listTitles: any[];
+
     location: Location;
-    constructor(location:Location) {
+
+    constructor(location: Location, private authenticationService: AuthenticationService) {
         this.location = location;
     }
-    ngOnInit(){
+
+    ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle.menuType !== MenuType.BRAND);
     }
-    getTitle(){
+
+    logout() {
+        this.authenticationService.logout();
+    }
+
+    getTitle() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
         if(titlee.charAt(0) === '#'){
             titlee = titlee.slice( 2 );

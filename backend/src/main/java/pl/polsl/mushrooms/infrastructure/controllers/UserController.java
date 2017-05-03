@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.*;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.application.services.UserValidationService;
+import pl.polsl.mushrooms.infrastructure.services.UserValidationService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Collection;
@@ -38,7 +38,12 @@ public class UserController {
     }
 
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST)
+    /**
+     * CREATE
+     * @param command
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UUID> createUser(@RequestBody CreateUserCommand command) {
 
         try {
@@ -50,8 +55,12 @@ public class UserController {
         }
     }
 
-
-    @RequestMapping(path = "/", method = RequestMethod.GET, params = "id")
+    /**
+     * READ
+     * @param id
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, params = "id")
     public ResponseEntity<User> getById(@RequestParam("id") String id) {
 
         final GetUserCommand command = new GetUserCommand(UUID.fromString(id));
@@ -59,7 +68,11 @@ public class UserController {
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    /**
+     * READ
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<User>> getAll() {
 
         final GetAllUsersCommand command = new GetAllUsersCommand();
@@ -67,13 +80,23 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    /**
+     * UPDATE
+     * @param command
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateUserCommand command) {
 
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * DELETE
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@RequestParam UUID id) {
 

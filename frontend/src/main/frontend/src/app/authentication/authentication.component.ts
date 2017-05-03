@@ -10,11 +10,12 @@ import { UserService } from '../services/user.service';
 })
 
 export class AuthenticationComponent implements OnInit {
+    token: any;
     currentUser: User;
     users: User[] = [];
 
     constructor(private userService: UserService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.token = localStorage.getItem('token');
     }
 
     ngOnInit() {

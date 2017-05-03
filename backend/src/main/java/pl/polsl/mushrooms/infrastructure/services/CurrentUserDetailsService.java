@@ -1,4 +1,4 @@
-package pl.polsl.mushrooms.application.services;
+package pl.polsl.mushrooms.infrastructure.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.application.services.UserService;
 
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.

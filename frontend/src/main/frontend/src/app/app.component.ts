@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationStrategy, PlatformLocation, Location} from '@angular/common';
-import { ActivatedRoute, Router } from "@angular/router";
+import { Location} from '@angular/common';
+import { Router } from "@angular/router";
 
 declare var $:any;
 
@@ -33,7 +33,11 @@ export class AppComponent implements OnInit {
         }
     }
 
-    public isAuthorizationPage() : boolean {
-        return ((this.route.url === '/login') || (this.route.url === '/register'));
+    public isLogged() : boolean {
+        if (localStorage.getItem('token')) {
+            // logged in so return true
+            return true;
+        }
+        return false;
     }
 }

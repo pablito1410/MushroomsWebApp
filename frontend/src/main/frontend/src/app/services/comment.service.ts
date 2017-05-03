@@ -16,7 +16,7 @@ export class CommentService {
     }
 
     create(comment: Comment) {
-        return this.http.post('/api/comments/', comment).map((response: Response) => response.json());
+        return this.http.post('/api/comments', comment).map((response: Response) => response.json());
     }
 
     update(comment: Comment) {

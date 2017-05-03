@@ -16,7 +16,7 @@ export class ScoreService {
     }
 
     create(score: Score) {
-        return this.http.post('/api/scores/', score).map((response: Response) => response.json());
+        return this.http.post('/api/scores', score).map((response: Response) => response.json());
     }
 
     update(score: Score) {

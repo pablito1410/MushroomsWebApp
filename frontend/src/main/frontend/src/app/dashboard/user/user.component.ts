@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'user-cmp',
     moduleId: module.id,
+    selector: 'user-cmp',
     templateUrl: 'user.component.html'
 })
 

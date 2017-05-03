@@ -1,10 +1,11 @@
-package pl.polsl.mushrooms.application.services;
+package pl.polsl.mushrooms.infrastructure.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import pl.polsl.mushrooms.application.commands.CreateUserCommand;
+import pl.polsl.mushrooms.application.services.UserService;
 
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
