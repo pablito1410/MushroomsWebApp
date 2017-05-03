@@ -1,16 +1,20 @@
 package pl.polsl.mushrooms.application.model;
 
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import pl.polsl.mushrooms.application.enums.UserRole;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Admin")
-@DiscriminatorValue("Admin")
 public class Admin extends User {
 
 	protected Admin() { }
+
+	@Override
+	public UserRole getRole() {
+		return UserRole.ADMIN;
+	}
+
 	public int hashCode() {
 		int hashCode = 0;
 		if ( hashCode == 0 ) {

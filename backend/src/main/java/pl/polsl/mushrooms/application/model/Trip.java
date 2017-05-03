@@ -2,21 +2,24 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
-@Table(name = "Trip")
+@Table(name = "TRIPS")
 public class Trip {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private UUID id;
+
+	@Column(name = "DATE", nullable = false)
 	private Date date;
+
+	@Column(name = "TIME", nullable = false)
 	private Time time;
+
+	@Column(name = "PLACE")
 	private String place;
 
 	@ManyToMany
@@ -31,6 +34,9 @@ public class Trip {
 		this.date = date;
 		this.time = time;
 		this.place = place;
+
+		mushroomers = new HashSet<>();
+		discoveries = new HashSet<>();
 	}
 
 	public UUID getId() {

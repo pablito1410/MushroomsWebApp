@@ -4,19 +4,26 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Tag")
+@Table
 public class Tag {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private UUID id;
+
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Discovery discovery;
 
 	protected Tag() { }
+
+	public Tag(String name, Discovery discovery) {
+		this.name = name;
+		this.discovery = discovery;
+	}
 
 	public UUID getId() {
 		return this.id;

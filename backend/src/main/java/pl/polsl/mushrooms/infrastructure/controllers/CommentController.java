@@ -4,27 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.trip.CreateCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.trip.GetCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.comment.CreateCommand;
+import pl.polsl.mushrooms.application.commands.comment.DeleteCommand;
+import pl.polsl.mushrooms.application.commands.comment.GetCommand;
+import pl.polsl.mushrooms.application.commands.comment.UpdateCommand;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
-import pl.polsl.mushrooms.application.model.Trip;
+import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.UUID;
 
 /**
- * Created by pawel_zaqkxkn on 24.04.2017.
+ * Created by pawel_zaqkxkn on 25.04.2017.
  */
+
 @RestController
-@RequestMapping("/api/trips")
-public class TripController {
+@RequestMapping("/api/comments")
+public class CommentController {
 
     private final CommandGateway commandGateway;
 
     @Autowired
-    public TripController(final CommandGateway commandGateway) {
+    public CommentController(final CommandGateway commandGateway) {
         this.commandGateway = commandGateway;
     }
 
@@ -49,12 +50,12 @@ public class TripController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET, params = "id")
-    public ResponseEntity<Trip> get(@RequestParam("id") String id) {
+    public ResponseEntity<Comment> get(@RequestParam("id") String id) {
 
         final GetCommand command = new GetCommand(UUID.fromString(id));
-        final Trip trip = commandGateway.dispatch(command);
+        final Comment comment = commandGateway.dispatch(command);
 
-        return new ResponseEntity<>(trip, HttpStatus.OK);
+        return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
@@ -65,6 +66,4 @@ public class TripController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }

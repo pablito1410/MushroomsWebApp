@@ -6,24 +6,38 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Score")
+@Table(name = "SCORES")
 public class Score {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private UUID id;
+
+	@Column(name = "VALUE", nullable = false)
 	private int value;
+
+	@Column(name = "DATE", nullable = false)
 	private Date date;
+
+	@Column(name = "TIME", nullable = false)
 	private Time time;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Discovery discovery;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Mushroomer mushroomer;
 
 	protected Score() { }
+
+	public Score(int value, Date date, Time time, Discovery discovery, Mushroomer mushroomer) {
+		this.value = value;
+		this.date = date;
+		this.time = time;
+		this.discovery = discovery;
+		this.mushroomer = mushroomer;
+	}
 
 	public UUID getId() {
 		return this.id;

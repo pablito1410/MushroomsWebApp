@@ -5,19 +5,25 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MushroomClass")
+@Table(name = "MUSHROOMS_CLASSES")
 public class MushroomClass {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private UUID id;
+
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
 	@OneToMany(mappedBy = "mushroomClass")
 	private Set<MushroomOrder> orders;
 
 	protected MushroomClass() { }
+
+	public MushroomClass(String name) {
+		this.name = name;
+	}
 
 	public UUID getId() {
 		return this.id;
