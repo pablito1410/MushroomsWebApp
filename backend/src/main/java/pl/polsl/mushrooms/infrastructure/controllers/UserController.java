@@ -42,9 +42,9 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody CreateCommand command) {
-        commandGateway.dispatch(command);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<UUID> create(@RequestBody CreateCommand command) {
+        final UUID id = commandGateway.dispatch(command);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     /**
@@ -54,7 +54,6 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET, params = "id")
     public ResponseEntity<User> getById(@RequestParam("id") String id) {
-
         final GetCommand command = new GetCommand(UUID.fromString(id));
         final User userProfile = commandGateway.dispatch(command);
         return new ResponseEntity<>(userProfile, HttpStatus.OK);
@@ -66,7 +65,6 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Collection<User>> getAll() {
-
         final GetAllUsersCommand command = new GetAllUsersCommand();
         final Collection<User> users = commandGateway.dispatch(command);
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -79,7 +77,6 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateCommand command) {
-
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -89,9 +86,8 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@RequestParam UUID id) {
-
         final DeleteCommand command = new DeleteCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);

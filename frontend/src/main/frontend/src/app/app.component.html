@@ -1,16 +1,16 @@
 <div class="wrapper">
     <div>
-        <div *ngIf="isLogged()" class="sidebar" data-color='brown' data-image="">
+        <div *ngIf="isLoggedIn()" class="sidebar" data-color='brown' data-image="">
             <sidebar-cmp></sidebar-cmp>
             <div class="sidebar-background" style="background-image: url(../assets/img/sidebar-4.jpg)"></div>
         </div>
         <div class="main-panel">
-            <div *ngIf="isLogged()">
+            <div *ngIf="isLoggedIn()">
                 <navbar-cmp></navbar-cmp>
             </div>
             <router-outlet></router-outlet>
             <!--<dashboard-cmp></dashboard-cmp>-->
-            <div *ngIf="isLogged() && isMaps('/maps')">
+            <div *ngIf="isLoggedIn() && isMaps('/maps')">
                 <footer-cmp></footer-cmp>
             </div>
         </div>

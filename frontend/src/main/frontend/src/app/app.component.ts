@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
         }
     }
 
-    public isLogged() : boolean {
+    public isLoggedIn() : boolean {
         if (localStorage.getItem('token')) {
             // logged in so return true
             return true;

@@ -10,6 +10,7 @@ import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void handle(CreateCommand command) {
+    public UUID handle(CreateCommand command) {
         if (userExist(command.getEmail())) {
             throw new EntityAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
         }
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
         );
 
         repo.save(user);
+        return user.getId();
     }
 
     @Override

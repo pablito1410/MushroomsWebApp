@@ -5,13 +5,14 @@ import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
 public interface UserService {
 
-    void handle(CreateCommand command);
+    UUID handle(CreateCommand command);
 
     User handle(GetCommand command);
 
