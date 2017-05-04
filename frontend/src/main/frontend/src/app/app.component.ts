@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
     location: Location;
 
-    constructor(location:Location, private route:Router) {
+    constructor(location:Location) {
         this.location = location;
     }
 

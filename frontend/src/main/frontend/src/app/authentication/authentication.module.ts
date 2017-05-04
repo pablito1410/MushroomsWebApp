@@ -4,8 +4,9 @@ import { AuthenticationComponent } from "./authentication.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { CommonModule } from "@angular/common";
-import {AlertModule} from "../shared/alert/alert.module";
-import {FormsModule} from "@angular/forms";
+import { AlertModule } from "../shared/alert/alert.module";
+import { FormsModule } from "@angular/forms";
+import { EqualValidator } from "./equal-validator.directive";
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import {FormsModule} from "@angular/forms";
     declarations: [
         AuthenticationComponent,
         RegisterComponent,
-        LoginComponent
+        LoginComponent,
+        EqualValidator
     ],
     exports: [
         AuthenticationComponent,
