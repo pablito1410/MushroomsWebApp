@@ -1,12 +1,13 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.*;
 
 @Entity
 @Table(name = "TRIPS")
-public class Trip {
+public class Trip implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

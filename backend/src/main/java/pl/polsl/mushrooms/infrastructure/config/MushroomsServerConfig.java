@@ -3,12 +3,17 @@ package pl.polsl.mushrooms.infrastructure.config;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.dao.DiscoveryDao;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.services.*;
+import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
+import pl.polsl.mushrooms.application.services.projections.UserProjectionServiceImpl;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
+import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -59,6 +64,15 @@ public class MushroomsServerConfig {
 
     @Bean
     public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
+
+    @Bean
+    public UserProjectionRepository userProjectionRepository(JdbcTemplate jdbcTemplate) {
+        return new UserProjectionRepository(jdbcTemplate);
+    }
+    @Bean
+    UserProjectionService userProjectionService(UserProjectionDao userProjectionDao) {
+        return new UserProjectionServiceImpl(userProjectionDao);
+    }
 
     @Bean
     public DiscoveryService discoveryService(DiscoveryDao discoveryDao, TripDao tripDao) {
