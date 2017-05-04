@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao repo;
 
-    public UserServiceImpl(UserDao repo) {
+    public UserServiceImpl(UserDao userDao) {
 
-        this.repo = repo;
+        this.repo = userDao;
     }
 
     @Override

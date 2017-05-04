@@ -17,10 +17,10 @@ public class TripServiceImpl implements TripService {
     private final UserDao userRepo;
     private final TripDao tripRepo;
 
-    public TripServiceImpl(final UserDao userRepo, final TripDao tripRepo)
+    public TripServiceImpl(final UserDao userDao, final TripDao tripDao)
     {
-        this.userRepo = userRepo;
-        this.tripRepo = tripRepo;
+        this.userRepo = userDao;
+        this.tripRepo = tripDao;
     }
 
     @Override

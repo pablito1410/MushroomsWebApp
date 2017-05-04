@@ -20,10 +20,10 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
     public DiscoveryServiceImpl(
             final DiscoveryDao discoveryDao,
-            final TripDao tripRepository)
+            final TripDao tripDao)
     {
         this.discoveryDao = discoveryDao;
-        this.tripRepository = tripRepository;
+        this.tripRepository = tripDao;
     }
     @Override
     public void handle(CreateCommand command) {

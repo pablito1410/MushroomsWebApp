@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "TAG")
 public class Tag {
 
 	@Id

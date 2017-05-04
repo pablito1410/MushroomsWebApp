@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @DiscriminatorColumn(name = "ROLE", discriminatorType = DiscriminatorType.STRING)
 public abstract class User implements Serializable {
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -25,6 +27,7 @@ public abstract class User implements Serializable {
 	@Column(name = "EMAIL", nullable = false)
 	protected String email;
 
+	@JsonIgnore
 	@Column(name = "PASSWORD", nullable = false)
 	protected String password;
 
