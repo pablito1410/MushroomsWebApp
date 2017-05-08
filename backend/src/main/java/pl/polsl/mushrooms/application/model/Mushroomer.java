@@ -5,14 +5,12 @@ import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
+@Table(name = "USERS")
 public class Mushroomer extends User {
 
 	@Column(name = "FIRST_NAME")
@@ -30,7 +28,8 @@ public class Mushroomer extends User {
 	@Column(name = "LEVEL")
 	private MushroomerLevel level;
 
-	@ManyToMany(mappedBy = "mushroomers")
+	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
+			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Trip> trips;
 
 	@OneToMany(mappedBy = "mushroomer")

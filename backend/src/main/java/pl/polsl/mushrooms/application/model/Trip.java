@@ -23,21 +23,25 @@ public class Trip implements Serializable{
 	@Column(name = "PLACE")
 	private String place;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "USERS_TRIPS",
+			joinColumns = {@JoinColumn(name = "TRIP_ID")},
+			inverseJoinColumns = {@JoinColumn(name = "USER_ID")})
 	private Set<Mushroomer> mushroomers;
 
 	@OneToMany(mappedBy = "trip")
 	private Set<Discovery> discoveries;
 
-	protected Trip() { }
+	protected Trip() {
+		mushroomers = new HashSet<>();
+		discoveries = new HashSet<>();
+	}
 
 	public Trip(Date date, Time time, String place) {
+		this();
 		this.date = date;
 		this.time = time;
 		this.place = place;
-
-		mushroomers = new HashSet<>();
-		discoveries = new HashSet<>();
 	}
 
 	public UUID getId() {
@@ -80,18 +84,9 @@ public class Trip implements Serializable{
 		this.mushroomers = mushroomers;
 	}
 
-	public void addMushroomer(final Mushroomer mushroomer)
-	{
-		if (mushroomers == null)
-		{
-			mushroomers = new LinkedHashSet<>();
-		}
-		mushroomers.add(mushroomer);
-	}
+	public void addMushroomer(final Mushroomer mushroomer) { mushroomers.add(mushroomer); }
 
-	public Set<Discovery> getDiscoveries() {
-		return discoveries;
-	}
+	public Set<Discovery> getDiscoveries() { return discoveries; }
 
 	public void setDiscoveries(Set<Discovery> discoveries) {
 		this.discoveries = discoveries;
