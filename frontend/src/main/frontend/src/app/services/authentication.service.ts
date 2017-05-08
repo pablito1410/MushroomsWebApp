@@ -23,7 +23,7 @@ export class AuthenticationService {
                 //     // store user details
                 //     localStorage.setItem('user', user);
                 // }
-                let token = response.headers.get('Authorization');
+                let token = response.headers.get('Authorization').replace('Bearer ', '');
                 if (token) {
                     // store jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('token', token);
@@ -46,5 +46,14 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
+    }
+
+    jwt() {
+        // create authorization header with jwt token
+        let token = localStorage.getItem('token');
+        if (token) {
+            let headers = new Headers({ 'Authorization': 'Bearer ' + token });
+            return new RequestOptions({ headers: headers });
+        }
     }
 }
