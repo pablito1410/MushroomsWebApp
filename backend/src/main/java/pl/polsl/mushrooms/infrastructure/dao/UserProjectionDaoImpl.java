@@ -22,6 +22,11 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
 
 
     @Override
+    public Map<String, Object> findOneByUsername(String username, Projection projection) {
+        return userProjectionRepository.findOneByUsername(username, projection);
+    }
+
+    @Override
     public Map<String, Object> findOne(UUID id, Projection projection) {
         return userProjectionRepository.findOne(id, projection);
     }

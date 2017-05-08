@@ -10,7 +10,7 @@ public class MushroomOrder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "MUSH_ORDER_ID")
 	private UUID id;
 
 	@Column(name = "NAME", nullable = false)

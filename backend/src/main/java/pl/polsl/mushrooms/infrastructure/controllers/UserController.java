@@ -64,7 +64,7 @@ public class UserController {
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
             @PathVariable(name = "id") UUID id,
-            @RequestParam(value = "projection", required = false, defaultValue = "BASIC") UserProjectionDao.Projection projection) {
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") UserProjectionDao.Projection projection) {
         final Map<String, Object> user = userProjectionService.findOne(id, projection);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

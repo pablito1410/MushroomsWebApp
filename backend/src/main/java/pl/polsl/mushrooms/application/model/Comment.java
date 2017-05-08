@@ -14,7 +14,7 @@ public class Comment extends Commentable implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "COMMENT_ID")
 	protected UUID id;
 
 	@Column(name = "CONTENTS", nullable = false)

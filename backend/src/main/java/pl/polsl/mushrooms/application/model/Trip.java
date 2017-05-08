@@ -11,7 +11,7 @@ public class Trip implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "TRIP_ID")
 	private UUID id;
 
 	@Column(name = "DATE", nullable = false)

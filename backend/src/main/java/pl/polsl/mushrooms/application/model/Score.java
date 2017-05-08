@@ -11,7 +11,7 @@ public class Score {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "SCORE_ID")
 	private UUID id;
 
 	@Column(name = "VALUE", nullable = false)

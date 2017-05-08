@@ -23,6 +23,7 @@ public class Mushroomer extends User {
 	private Date birthDate;
 
 	@Column(name = "GENDER")
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
 	@Column(name = "LEVEL")

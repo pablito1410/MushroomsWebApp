@@ -8,6 +8,7 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
@@ -79,7 +80,36 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(UpdateCommand command) {
+        final Optional<User> optionalUser = Optional.of(repo.findUser(command.getUserId()));
+        final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
 
+        switch (user.getRole())
+        {
+            case USER:
+                user.setEmail(command.getEmail());
+                user.setUsername(command.getUsername());
+                user.setPassword(command.getPassword());
+                break;
+
+            case ADMIN:
+                user.setEmail(command.getEmail());
+                user.setUsername(command.getUsername());
+                user.setPassword(command.getPassword());
+                break;
+
+            case MUSHROOMER:
+                final Mushroomer mushroomer = (Mushroomer)user;
+                mushroomer.setEmail(command.getEmail());
+                mushroomer.setUsername(command.getUsername());
+                mushroomer.setPassword(command.getPassword());
+                mushroomer.setFirstName(command.getFirstName());
+                mushroomer.setLastName(command.getLastName());
+                mushroomer.setBirthDate(command.getBirthDate());
+                mushroomer.setGender(command.getGender());
+                break;
+        }
+
+        repo.save(user);
     }
 
     @Override

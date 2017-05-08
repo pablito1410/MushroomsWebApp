@@ -13,5 +13,7 @@ public interface UserProjectionDao {
         FULL
     }
 
+    Map<String,Object> findOneByUsername(String username, Projection projection);
+
     Map<String,Object> findOne(UUID id, Projection projection);
 }

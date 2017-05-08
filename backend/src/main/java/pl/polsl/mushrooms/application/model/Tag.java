@@ -9,7 +9,7 @@ public class Tag {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "TAG_ID")
 	private UUID id;
 
 	@Column(name = "NAME", nullable = false)

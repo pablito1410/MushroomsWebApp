@@ -12,7 +12,7 @@ public class Discovery extends Commentable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "DISCOVERY_ID")
 	protected UUID id;
 
 	@Column(name = "COORDINATE_X")
