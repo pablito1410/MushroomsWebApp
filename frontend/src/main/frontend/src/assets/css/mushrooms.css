@@ -79,7 +79,10 @@ my-app .main-panel .main-content .card{
     margin-top: 0;
 }
 
-.authentication{
-    background: url(../img/forest.jpg) no-repeat center center fixed;
-    background-size: cover;
+.png-icon{
+    margin: 5px auto auto;
+    padding: 0;
+    display: inline-block;
+    background-repeat: no-repeat no-repeat;
+    pointer-events: none;
 }
