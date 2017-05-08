@@ -23,6 +23,7 @@ import { AuthenticationModule } from "./authentication/authentication.module";
 
 @NgModule({
     imports: [
+        FormsModule,
         BrowserModule,
         HttpModule,
         DashboardModule,
