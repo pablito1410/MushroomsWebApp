@@ -3,9 +3,6 @@ Pobieramy postgres'a:
 Pobieramy Squirrel'a:
     http://squirrel-sql.sourceforge.net/#installation
 
-    Instrukcja:
-    http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf
-
 ! UWAGA: Driver postgresa musi być conajmniej w wersji 9.4.1211 !
 
 W folderze bin, gdzie zainstalowaliśmy postgres'a znajduje się plik psql.exe.
@@ -20,3 +17,7 @@ Wykonujemy w tym folderze następujące polecenia:
 > psql.exe -U admin mushrooms
 
 Następnie wykonujemy skrypt Mushrooms.dll. Można to zrobić już w Squirrelu.
+
+    Instrukcja jak połączyć się z bazą:
+    http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf
+
