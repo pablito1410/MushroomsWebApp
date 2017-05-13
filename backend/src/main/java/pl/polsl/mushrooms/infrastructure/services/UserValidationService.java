@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import pl.polsl.mushrooms.application.commands.user.CreateCommand;
+import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.services.UserService;
 
 /**
@@ -22,23 +22,23 @@ public class UserValidationService implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return clazz.equals(CreateCommand.class);
+        return clazz.equals(CreateUserCommand.class);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        CreateCommand form = (CreateCommand) target;
+        CreateUserCommand form = (CreateUserCommand) target;
         validatePasswords(errors, form);
         validateEmail(errors, form);
     }
 
-    private void validatePasswords(Errors errors, CreateCommand form) {
+    private void validatePasswords(Errors errors, CreateUserCommand form) {
         if (!form.getPassword().equals(form.getPassword())) {
             errors.reject("password.no_match", "Passwords do not match");
         }
     }
 
-    private void validateEmail(Errors errors, CreateCommand form) {
+    private void validateEmail(Errors errors, CreateUserCommand form) {
         if (userService.getUserByEmail(form.getEmail()).isPresent()) {
             errors.reject("email.exists", "User with this email already exists");
         }

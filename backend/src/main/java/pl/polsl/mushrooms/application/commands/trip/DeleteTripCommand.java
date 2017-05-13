@@ -1,4 +1,4 @@
-package pl.polsl.mushrooms.application.commands.comment;
+package pl.polsl.mushrooms.application.commands.trip;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
@@ -7,13 +7,13 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-public class DeleteCommand implements VoidCommand {
+public class DeleteTripCommand implements VoidCommand {
 
     private UUID id;
 
-    protected DeleteCommand() { }
+    protected DeleteTripCommand() { }
 
-    public DeleteCommand(UUID id) {
+    public DeleteTripCommand(UUID id) {
         this.id = id;
     }
 

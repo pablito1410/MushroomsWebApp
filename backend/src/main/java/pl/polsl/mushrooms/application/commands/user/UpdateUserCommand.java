@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-public class UpdateCommand implements VoidCommand {
+public class UpdateUserCommand implements VoidCommand {
 
     private UUID userId;
     private String username;
@@ -20,7 +20,7 @@ public class UpdateCommand implements VoidCommand {
     private Date birthDate;
     private Gender gender;
 
-    private UpdateCommand() { }
+    private UpdateUserCommand() { }
 
     public UUID getUserId() {
         return userId;

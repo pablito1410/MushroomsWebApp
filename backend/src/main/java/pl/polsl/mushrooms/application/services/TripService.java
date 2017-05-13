@@ -1,21 +1,17 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.trip.CreateCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.trip.GetCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateCommand;
-import pl.polsl.mushrooms.application.model.Trip;
+import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
 public interface TripService {
 
-    void handle(CreateCommand command);
+    void handle(CreateTripCommand command);
 
-    Trip handle(GetCommand command);
+    void handle(UpdateTripCommand command);
 
-    void handle(UpdateCommand command);
-
-    void handle(DeleteCommand command);
+    void handle(DeleteTripCommand command);
 }

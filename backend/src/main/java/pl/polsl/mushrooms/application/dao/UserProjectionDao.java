@@ -6,12 +6,7 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
  */
-public interface UserProjectionDao {
-
-    public enum Projection {
-        BASIC,
-        FULL
-    }
+public interface UserProjectionDao extends ProjectionDao {
 
     Map<String,Object> findOneByUsername(String username, Projection projection);
 

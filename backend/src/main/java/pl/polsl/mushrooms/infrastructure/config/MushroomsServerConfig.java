@@ -4,8 +4,19 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
+import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.DiscoveryDao;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
@@ -13,7 +24,6 @@ import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionServiceImpl;
-import pl.polsl.mushrooms.infrastructure.authentication.JwtLoginFilter;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
@@ -32,29 +42,22 @@ public class MushroomsServerConfig {
             CommentService commentService,
             CommandHandlerRegistry registry) {
         return () -> {
-            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.CreateCommand.class);
-            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.GetCommand.class);
-            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.UpdateCommand.class);
-            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.DeleteCommand.class);
-            registry.register(userService::handle, pl.polsl.mushrooms.application.commands.user.GetAllUsersCommand.class);
+            registry.register(userService::handle, CreateUserCommand.class);
+            registry.register(userService::handle, UpdateUserCommand.class);
+            registry.register(userService::handle, DeleteUserCommand.class);
 
 
-            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.CreateCommand.class);
-            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.UpdateCommand.class);
-            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.DeleteCommand.class);
-            registry.register(tripService::handle, pl.polsl.mushrooms.application.commands.trip.GetCommand.class);
+            registry.register(tripService::handle, CreateTripCommand.class);
+            registry.register(tripService::handle, UpdateTripCommand.class);
+            registry.register(tripService::handle, DeleteTripCommand.class);
 
-            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.CreateCommand.class);
-            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.UpdateCommand.class);
-            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.DeleteCommand.class);
-            registry.register(discoveryService::handle, pl.polsl.mushrooms.application.commands.discovery.GetCommand.class);
+            registry.register(discoveryService::handle, CreateDiscoveryCommand.class);
+            registry.register(discoveryService::handle, UpdateDiscoveryCommand.class);
+            registry.register(discoveryService::handle, DeleteDiscoveryCommand.class);
 
-            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.CreateCommand.class);
-            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.UpdateCommand.class);
-            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.DeleteCommand.class);
-            registry.register(commentService::handle, pl.polsl.mushrooms.application.commands.comment.GetCommand.class);
-
-
+            registry.register(commentService::handle, CreateCommentCommand.class);
+            registry.register(commentService::handle, UpdateCommentCommand.class);
+            registry.register(commentService::handle, DeleteCommentCommand.class);
         };
 
     }

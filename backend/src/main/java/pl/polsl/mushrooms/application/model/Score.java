@@ -1,13 +1,13 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "SCORES")
-public class Score {
+public class Score implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +17,8 @@ public class Score {
 	@Column(name = "VALUE", nullable = false)
 	private int value;
 
-	@Column(name = "DATE", nullable = false)
-	private Date date;
-
-	@Column(name = "TIME", nullable = false)
-	private Time time;
+	@Column(name = "DATE_TIME", nullable = false)
+	private LocalDateTime dateTime;
 
 	@ManyToOne(optional = false)
 	private Discovery discovery;
@@ -31,10 +28,9 @@ public class Score {
 
 	protected Score() { }
 
-	public Score(int value, Date date, Time time, Discovery discovery, Mushroomer mushroomer) {
+	public Score(int value, LocalDateTime dateTime, Discovery discovery, Mushroomer mushroomer) {
 		this.value = value;
-		this.date = date;
-		this.time = time;
+		this.dateTime = dateTime;
 		this.discovery = discovery;
 		this.mushroomer = mushroomer;
 	}
@@ -55,20 +51,12 @@ public class Score {
 		this.value = value;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public LocalDateTime getDateTime() {
+		return this.dateTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Time getTime() {
-		return this.time;
-	}
-
-	public void setTime(Time time) {
-		this.time = time;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public Discovery getDiscovery() {
@@ -100,11 +88,8 @@ public class Score {
 		if ( this.id != null ) {
 			hashCode += this.id.hashCode();
 		}
-		if ( this.date != null ) {
-			hashCode += this.date.hashCode();
-		}
-		if ( this.time != null ) {
-			hashCode += this.time.hashCode();
+		if ( this.dateTime != null ) {
+			hashCode += this.dateTime.hashCode();
 		}
 		if ( this.discovery != null ) {
 			hashCode += this.discovery.hashCode();
@@ -127,10 +112,8 @@ public class Score {
 			equals &= ((this.id == scoreObject.id)
 				|| (this.id != null && this.id.equals(scoreObject.id)));
 			equals &= this.value == scoreObject.value;
-			equals &= ((this.date == scoreObject.date)
-				|| (this.date != null && this.date.equals(scoreObject.date)));
-			equals &= ((this.time == scoreObject.time)
-				|| (this.time != null && this.time.equals(scoreObject.time)));
+			equals &= ((this.dateTime == scoreObject.dateTime)
+				|| (this.dateTime != null && this.dateTime.equals(scoreObject.dateTime)));
 			equals &= ((this.discovery == scoreObject.discovery)
 				|| (this.discovery != null && this.discovery.equals(scoreObject.discovery)));
 			equals &= ((this.mushroomer == scoreObject.mushroomer)

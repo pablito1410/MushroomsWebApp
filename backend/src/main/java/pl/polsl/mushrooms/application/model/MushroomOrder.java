@@ -1,12 +1,13 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "MUSHROOMS_ORDERS")
-public class MushroomOrder {
+public class MushroomOrder implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

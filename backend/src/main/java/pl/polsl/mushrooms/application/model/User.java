@@ -31,10 +31,6 @@ public abstract class User implements Serializable {
 	@Column(name = "PASSWORD", nullable = false)
 	protected String password;
 
-//	@Column(name = "ROLE", nullable = false, insertable = false, updatable = false)
-//	@Enumerated(EnumType.STRING)
-//	protected UserRole role;
-
 	@OneToMany(mappedBy = "user")
 	protected Set<Comment> comments;
 

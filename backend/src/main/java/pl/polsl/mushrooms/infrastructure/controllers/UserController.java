@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.user.*;
-import pl.polsl.mushrooms.application.dao.UserProjectionDao;
+import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
+import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
@@ -44,7 +46,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UUID> create(@RequestBody CreateCommand command) {
+    public ResponseEntity<UUID> create(@RequestBody CreateUserCommand command) {
         final UUID id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -54,17 +56,10 @@ public class UserController {
      * @param id
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, params = "id")
-    public ResponseEntity<User> getById(@RequestParam("id") String id) {
-        final GetCommand command = new GetCommand(UUID.fromString(id));
-        final User userProfile = commandGateway.dispatch(command);
-        return new ResponseEntity<>(userProfile, HttpStatus.OK);
-    }
-
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
             @PathVariable(name = "id") UUID id,
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") UserProjectionDao.Projection projection) {
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final Map<String, Object> user = userProjectionService.findOne(id, projection);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -77,9 +72,8 @@ public class UserController {
     public ResponseEntity<Collection<User>> getAll() {
 
         // TODO projection
-        final GetAllUsersCommand command = new GetAllUsersCommand();
-        final Collection<User> users = commandGateway.dispatch(command);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -88,7 +82,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody UpdateCommand command) {
+    public ResponseEntity<Void> update(@RequestBody UpdateUserCommand command) {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -101,7 +95,7 @@ public class UserController {
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID id) {
 
-        final DeleteCommand command = new DeleteCommand(id);
+        final DeleteUserCommand command = new DeleteUserCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

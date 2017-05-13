@@ -42,6 +42,7 @@ public class Mushroomer extends User {
 	protected Mushroomer() { }
 
 	@Override
+	@Enumerated(EnumType.STRING)
 	public UserRole getRole() {
 		return UserRole.MUSHROOMER;
 	}

@@ -1,9 +1,8 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.discovery.CreateCommand;
-import pl.polsl.mushrooms.application.commands.discovery.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.discovery.GetCommand;
-import pl.polsl.mushrooms.application.commands.discovery.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.dao.DiscoveryDao;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.model.Discovery;
@@ -26,7 +25,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         this.tripRepository = tripDao;
     }
     @Override
-    public void handle(CreateCommand command) {
+    public void handle(CreateDiscoveryCommand command) {
 
         final Trip trip = tripRepository.findTrip(command.getTripId());
 //        final MushroomSpecies mushroomSpecies =
@@ -46,17 +45,12 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     }
 
     @Override
-    public Discovery handle(GetCommand command) {
-        return null;
-    }
-
-    @Override
-    public void handle(UpdateCommand command) {
+    public void handle(UpdateDiscoveryCommand command) {
 
     }
 
     @Override
-    public void handle(DeleteCommand command) {
+    public void handle(DeleteDiscoveryCommand command) {
 
     }
 }

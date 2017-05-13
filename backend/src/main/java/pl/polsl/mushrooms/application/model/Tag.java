@@ -1,11 +1,12 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table(name = "TAG")
-public class Tag {
+public class Tag implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

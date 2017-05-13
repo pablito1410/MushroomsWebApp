@@ -9,14 +9,14 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-public class CreateCommand implements VoidCommand {
+public class CreateTripCommand implements VoidCommand {
 
     private Date date;
     private Time time;
     private String place;
     private UUID userId;
 
-    protected CreateCommand() { }
+    protected CreateTripCommand() { }
 
     public Date getDate() {
         return date;

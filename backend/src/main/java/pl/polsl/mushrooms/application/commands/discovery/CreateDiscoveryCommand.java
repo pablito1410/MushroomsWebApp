@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-public class CreateCommand implements VoidCommand {
+public class CreateDiscoveryCommand implements VoidCommand {
 
     private String coordinateX;
     private String coordinateY;
@@ -23,7 +23,7 @@ public class CreateCommand implements VoidCommand {
 
     private String mushroomSpieceId;
 
-    protected CreateCommand() { }
+    protected CreateDiscoveryCommand() { }
 
     public String getCoordinateX() {
         return coordinateX;
