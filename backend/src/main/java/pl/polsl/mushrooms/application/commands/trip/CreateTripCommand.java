@@ -2,8 +2,7 @@ package pl.polsl.mushrooms.application.commands.trip;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -11,20 +10,11 @@ import java.util.UUID;
  */
 public class CreateTripCommand implements VoidCommand {
 
-    private Date date;
-    private Time time;
+    private LocalDateTime dateTime;
     private String place;
     private UUID userId;
 
     protected CreateTripCommand() { }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
 
     public String getPlace() {
         return place;
@@ -32,5 +22,9 @@ public class CreateTripCommand implements VoidCommand {
 
     public UUID getUserId() {
         return userId;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 }

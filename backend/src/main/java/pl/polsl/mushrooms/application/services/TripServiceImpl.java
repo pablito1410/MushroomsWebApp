@@ -25,7 +25,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public void handle(CreateTripCommand command) {
         final Trip trip = new Trip(
-             command.getDate(), command.getTime(), command.getPlace());
+             command.getDateTime(), command.getPlace());
 
         final Mushroomer user = (Mushroomer)userRepo.findUser(command.getUserId());
 

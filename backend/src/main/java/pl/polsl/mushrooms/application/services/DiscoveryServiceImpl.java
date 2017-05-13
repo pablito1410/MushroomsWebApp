@@ -34,8 +34,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             command.getCoordinateX(),
                 command.getCoordinateY(),
                 command.getPhoto(),
-                command.getDate(),
-                command.getTime(),
+                command.getDateTime(),
                 trip,
                 null, // TODO
                 null// TODO
