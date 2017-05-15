@@ -1,7 +1,7 @@
 enum Gender {MALE, FEMALE}
 enum Role {USER, ADMIN}
 export class User {
-    id: number;
+    id: string;
     username: string;
     firstName: string;
     lastName: string;
@@ -9,6 +9,6 @@ export class User {
     password: string;
     birthDate: string;
     gender: string;
-    role: Role;
+    role: string;
     level: number;
 }

@@ -18,15 +18,15 @@ export class AuthenticationService {
         return this.http.post('/login', body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let user = response.json();
-                if (user) {
-                    // store user details
-                    localStorage.setItem('currentUser', user);
-                }
                 let token = response.headers.get('Authorization').replace('Bearer ', '');
                 if (token) {
                     // store jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('token', token);
+                }
+                let user = response.json();
+                if (user) {
+                    // store user details
+                    localStorage.setItem('currentUser', user);
                 }
             });
     }
