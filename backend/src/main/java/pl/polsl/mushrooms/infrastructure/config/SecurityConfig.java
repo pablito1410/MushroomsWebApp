@@ -57,7 +57,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
         auth.inMemoryAuthentication()
-            .withUser("admin")
+            .withUser("admin@mail.com")
             .password("password")
             .roles("ADMIN");
     }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import { Location} from '@angular/common';
 import { Router } from "@angular/router";
+import {DOCUMENT} from "@angular/platform-browser";
 
 declare var $:any;
 
@@ -13,7 +14,9 @@ export class AppComponent implements OnInit {
 
     location: Location;
 
-    constructor(location:Location) {
+    constructor(
+        location: Location,
+        @Inject(DOCUMENT) private document) {
         this.location = location;
     }
 
@@ -34,7 +37,11 @@ export class AppComponent implements OnInit {
     }
 
     public isLoggedIn() : boolean {
-        if (!localStorage.getItem('token')) {
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+            return true;
+        }
+        if (localStorage.getItem('token')) {
             // logged in so return true
             return true;
         }

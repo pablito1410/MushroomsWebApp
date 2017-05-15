@@ -17,6 +17,5 @@ export class HomeComponent implements OnInit{
             var $checkbox = $(this);
             $checkbox.checkbox();
         });
-        // initDemo();
     }
 }

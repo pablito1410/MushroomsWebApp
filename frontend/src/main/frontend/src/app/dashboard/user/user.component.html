@@ -8,59 +8,68 @@
                         <p class="category">Complete your profile</p>
                     </div>
                     <div class="card-content">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Email address</label>
-                                        <input type="email" class="form-control" >
-                                    </div>
-                                </div>
-                            </div>
-
+                        <form name="user-form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Fist Name</label>
-                                        <input type="text" class="form-control" >
+                                    <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!email.valid || !email.pristine) }">
+                                        <label class="control-label">Email</label>
+                                        <input type="email" class="form-control" name="email"  [(ngModel)]="model.email"
+                                               #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required />
+                                        <div *ngIf="f.submitted && (!email.valid || !email.pristine)" class="help-block">
+                                            Email is required format should be <i>name@mail.com</i>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Last Name</label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">City</label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group form-black label-floating is-empty">
-                                        <label class="control-label">Country</label>
-                                        <input type="text" class="form-control" >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <div class="form-group form-black label-floating is-empty">
-                                            <label class="control-label"> About Me</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                    <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!username.valid || !username.pristine) }">
+                                        <label class="control-label">Username</label>
+                                        <input type="text" class="form-control" name="username" [(ngModel)]="model.username"
+                                               #username="ngModel" minlength="4" maxlength="30" required />
+                                        <div *ngIf="f.submitted && (!username.valid || !username.pristine)" class="help-block">
+                                            Username is required, should contain between 4 and 30 characters
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
-                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!firstName.valid || !firstName.pristine) }">
+                                        <label class="control-label">Fist Name</label>
+                                        <input type="text" class="form-control" name="first-name" [(ngModel)]="model.firstName"
+                                               #firstName="ngModel" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!lastName.valid || !lastName.pristine) }">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" name="last-name" [(ngModel)]="model.lastName"
+                                               #lastName="ngModel"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!birthDate.valid || !birthDate.pristine) }">
+                                        <label class="control-label">Birth Date</label>
+                                        <input type="text" class="form-control" name="birth-date" [(ngModel)]="model.birthDate"
+                                               #birthDate="ngModel" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!gender.valid || !gender.pristine) }">
+                                        <label class="control-label">Gender</label>
+                                        <input type="text" class="form-control" name="gender" [(ngModel)]="model.gender"
+                                               #gender="ngModel" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button [disabled]="loading" class="btn btn-primary pull-right">Update Profile</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -68,14 +77,14 @@
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
-                        <a href="#pablo">
+                        <!--<a [routerLink]="'user'">-->
                             <img class="img" src="..\assets\img\faces\example-user.jpg" />
-                        </a>
+                        <!--</a>-->
                     </div>
 
                     <div class="content">
-                        <h6 class="category text-gray">username</h6>
-                        <h4 class="card-title">Name Lastname</h4>
+                        <h5 class="category text-gray">Username</h5>
+                        <h4 class="card-title">First Name Last Name</h4>
                         <a href="#pablo" class="btn btn-primary btn-round">Change Profile Picture</a>
                     </div>
                 </div>

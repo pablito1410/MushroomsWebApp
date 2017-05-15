@@ -9,10 +9,13 @@ import { TripsComponent } from "./trips/trips.component";
 import { NotificationsComponent } from "./notifications/notifications.component";
 import { DiscoveriesComponent } from "./discoveries/discoveries.component";
 import { MapsComponent} from "./maps/maps.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [
-       RouterModule, CommonModule
+        RouterModule,
+        CommonModule,
+        FormsModule
     ],
     declarations: [
         DashboardComponent,
