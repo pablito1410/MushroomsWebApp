@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,9 +21,12 @@ public class MushroomClass implements Serializable {
 	@OneToMany(mappedBy = "mushroomClass")
 	private Set<MushroomOrder> orders;
 
-	protected MushroomClass() { }
+	protected MushroomClass() {
+		orders = new HashSet<>();
+	}
 
 	public MushroomClass(String name) {
+		this();
 		this.name = name;
 	}
 

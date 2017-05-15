@@ -1,6 +1,6 @@
 package pl.polsl.mushrooms.application.commands.trip;
 
-import pl.polsl.mushrooms.application.commands.VoidCommand;
+import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-public class CreateTripCommand implements VoidCommand {
+public class CreateTripCommand implements ReturningCommand<UUID> {
 
     private LocalDateTime dateTime;
     private String place;

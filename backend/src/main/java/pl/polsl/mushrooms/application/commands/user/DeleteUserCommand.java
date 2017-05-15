@@ -10,13 +10,16 @@ import java.util.UUID;
 public class DeleteUserCommand implements VoidCommand {
 
 
-    private final UUID id;
+    private UUID id;
+    private String password;
 
-    public DeleteUserCommand(UUID id) {
-        this.id = id;
-    }
+    private DeleteUserCommand() { }
 
     public UUID getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

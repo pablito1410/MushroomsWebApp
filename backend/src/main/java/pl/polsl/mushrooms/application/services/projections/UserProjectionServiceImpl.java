@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services.projections;
 
+import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 
 import java.util.Map;
@@ -26,5 +27,20 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     @Override
     public Map<String, Object> findOneByUsername(String username, UserProjectionDao.Projection projection) {
         return userProjectionDao.findOneByUsername(username, projection);
+    }
+
+    @Override
+    public UUID getId(String email) {
+        return userProjectionDao.getId(email);
+    }
+
+    @Override
+    public Map<String, Object> findAll(String email, ProjectionDao.Projection projection) {
+        return findAll(getId(email), projection);
+    }
+
+    @Override
+    public Map<String, Object> findAll(UUID id, ProjectionDao.Projection projection) {
+        return userProjectionDao.findAll(id, projection);
     }
 }

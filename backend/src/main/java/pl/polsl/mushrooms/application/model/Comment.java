@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,9 +26,12 @@ public class Comment extends Commentable{
 	@OneToMany(mappedBy = "answers")
 	private Set<Comment> answers;
 
-	protected Comment() { }
+	protected Comment() {
+		answers = new HashSet<>();
+	}
 
 	public Comment(String contents, LocalDateTime dateTime, Commentable target, User user) {
+		this();
 		this.contents = contents;
 		this.dateTime = dateTime;
 		this.dateTime = dateTime;

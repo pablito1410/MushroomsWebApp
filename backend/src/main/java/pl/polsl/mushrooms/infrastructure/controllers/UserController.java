@@ -3,16 +3,14 @@ package pl.polsl.mushrooms.infrastructure.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
-import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
@@ -69,11 +67,11 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Collection<User>> getAll() {
-
-        // TODO projection
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Map<String, Object>> getAll(
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
+        final String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Map<String, Object> users = userProjectionService.findAll(currentUserEmail, projection);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     /**
@@ -94,9 +92,8 @@ public class UserController {
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID id) {
-
-        final DeleteUserCommand command = new DeleteUserCommand(id);
-        commandGateway.dispatch(command);
+//        final DeleteUserCommand command = new DeleteUserCommand(id);
+//        commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -1,9 +1,7 @@
 package pl.polsl.mushrooms.application.dao;
 
-import org.springframework.data.domain.Sort;
 import pl.polsl.mushrooms.application.model.User;
 
-import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -12,9 +10,9 @@ import java.util.UUID;
 public interface UserDao {
     User save(User user);
 
-    User findUser(UUID id);
+    User findOne(UUID id);
 
     User findUserByEmail(String email);
 
-    Collection<User> findAllUsers(Sort sort);
+    void delete(UUID id);
 }

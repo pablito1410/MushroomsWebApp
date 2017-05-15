@@ -17,15 +17,12 @@ import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
-import pl.polsl.mushrooms.application.dao.DiscoveryDao;
-import pl.polsl.mushrooms.application.dao.TripDao;
-import pl.polsl.mushrooms.application.dao.UserDao;
-import pl.polsl.mushrooms.application.dao.UserProjectionDao;
+import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.*;
-import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
-import pl.polsl.mushrooms.application.services.projections.UserProjectionServiceImpl;
+import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
+import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -71,8 +68,8 @@ public class MushroomsServerConfig {
     public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
 
     @Bean
-    public UserProjectionRepository userProjectionRepository(JdbcTemplate jdbcTemplate) {
-        return new UserProjectionRepository(jdbcTemplate);
+    public UserProjectionRepository userProjectionRepository(JdbcTemplate jdbcTemplate, UserRepository userRepository) {
+        return new UserProjectionRepository(jdbcTemplate, userRepository);
     }
 
     @Bean
@@ -81,11 +78,29 @@ public class MushroomsServerConfig {
     }
 
     @Bean
-    public DiscoveryService discoveryService(DiscoveryDao discoveryDao, TripDao tripDao) {
-        return new DiscoveryServiceImpl(discoveryDao, tripDao); }
+    CommentProjectionService commentProjectionService() {
+        return new CommentProjectionServiceImpl();
+    }
 
     @Bean
-    public CommentService commentService() { return new CommentServiceImpl(); }
+    DiscoveryProjectionService discoveryProjectionService() {
+        return new DiscoveryProjectionServiceImpl();
+    }
+
+    @Bean
+    TripProjectionService tripProjectionService(TripProjectionDao tripProjectionDao) {
+        return new TripProjectionServiceImpl(tripProjectionDao);
+    }
+
+    @Bean
+    public DiscoveryService discoveryService(
+            DiscoveryDao discoveryDao, TripDao tripDao, UserDao userDao, MushroomSpeciesDao mushroomSpeciesDao) {
+        return new DiscoveryServiceImpl(discoveryDao, tripDao, userDao, mushroomSpeciesDao); }
+
+    @Bean
+    public CommentService commentService(UserDao userDao, CommentDao commentDao) {
+        return new CommentServiceImpl(userDao, commentDao);
+    }
 
     @Bean
     public UserDetailsService userDetailsService(final UserService userService) {

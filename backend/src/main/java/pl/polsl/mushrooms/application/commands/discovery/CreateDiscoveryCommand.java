@@ -1,6 +1,6 @@
 package pl.polsl.mushrooms.application.commands.discovery;
 
-import pl.polsl.mushrooms.application.commands.VoidCommand;
+import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -8,20 +8,30 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-public class CreateDiscoveryCommand implements VoidCommand {
+public class CreateDiscoveryCommand implements ReturningCommand<UUID> {
+
+    private UUID userId;
+    private UUID tripId;
+    private UUID mushroomSpieceId;
 
     private String coordinateX;
     private String coordinateY;
     private byte[] photo;
     private LocalDateTime dateTime;
 
-    private String tripId;
-
-    private String mushroomerId;
-
-    private String mushroomSpieceId;
-
     protected CreateDiscoveryCommand() { }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public UUID getTripId() {
+        return tripId;
+    }
+
+    public UUID getMushroomSpieceId() {
+        return mushroomSpieceId;
+    }
 
     public String getCoordinateX() {
         return coordinateX;
@@ -37,17 +47,5 @@ public class CreateDiscoveryCommand implements VoidCommand {
 
     public LocalDateTime getDateTime() {
         return dateTime;
-    }
-
-    public UUID getTripId() {
-        return UUID.fromString(tripId);
-    }
-
-    public UUID getMushroomerId() {
-        return UUID.fromString(mushroomerId);
-    }
-
-    public UUID getMushroomSpieceId() {
-        return UUID.fromString(mushroomSpieceId);
     }
 }

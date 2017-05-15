@@ -2,7 +2,7 @@ package pl.polsl.mushrooms.infrastructure.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.polsl.mushrooms.application.model.Comment;
+import pl.polsl.mushrooms.application.model.Commentable;
 
 import java.util.UUID;
 
@@ -11,5 +11,5 @@ import java.util.UUID;
  */
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, UUID> {
+public interface CommentRepository extends JpaRepository<Commentable, UUID> {
 }

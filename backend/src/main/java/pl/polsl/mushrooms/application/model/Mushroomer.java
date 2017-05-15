@@ -7,6 +7,7 @@ import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -39,22 +40,35 @@ public class Mushroomer extends User {
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Discovery> discoveries;
 
-	protected Mushroomer() { }
+	@OneToMany(mappedBy = "friends")
+	private Set<Mushroomer> friends;
 
-	@Override
-	@Enumerated(EnumType.STRING)
-	public UserRole getRole() {
-		return UserRole.MUSHROOMER;
-	}
+    @Override
+    @Enumerated(EnumType.STRING)
+    public UserRole getRole() {
+        return UserRole.MUSHROOMER;
+    }
+
+	protected Mushroomer() {
+        trips = new HashSet<>();
+        scores = new HashSet<>();
+        discoveries = new HashSet<>();
+        friends = new HashSet<>();
+    }
 
 	public Mushroomer(
 			String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender, MushroomerLevel level) {
-		super(username, email, password);
+	    super(username, email, password);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.gender = gender;
 		this.level = level;
+
+        trips = new HashSet<>();
+        scores = new HashSet<>();
+        discoveries = new HashSet<>();
+        friends = new HashSet<>();
 	}
 
 	public String getFirstName() {
@@ -121,6 +135,14 @@ public class Mushroomer extends User {
 		this.discoveries = discoveries;
 	}
 
+    public Set<Mushroomer> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<Mushroomer> friends) {
+        this.friends = friends;
+    }
+
 	public int hashCode() {
 		int hashCode = 0;
 		if ( this.firstName != null ) {
@@ -159,8 +181,10 @@ public class Mushroomer extends User {
 			equals &= this.trips == mushroomerObject.trips;
 			equals &= this.scores == mushroomerObject.scores;
 			equals &= this.discoveries == mushroomerObject.discoveries;
+			equals &= this.friends == mushroomerObject.friends;
 			return equals;
 		}
 		return false;
 	}
+
 }

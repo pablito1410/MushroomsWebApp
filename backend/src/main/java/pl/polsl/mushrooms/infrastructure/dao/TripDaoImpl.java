@@ -5,7 +5,6 @@ import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.model.Trip;
 import pl.polsl.mushrooms.infrastructure.repositories.TripRepository;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -34,7 +33,8 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public List<Trip> findAllTrips() {
-        return repository.findAll();
+    public void delete(UUID id) {
+        repository.delete(id);
     }
+
 }

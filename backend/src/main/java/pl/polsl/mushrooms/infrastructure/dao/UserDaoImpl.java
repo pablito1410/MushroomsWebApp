@@ -1,13 +1,10 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.UserDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
-import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -30,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findUser(UUID id) {
+    public User findOne(UUID id) {
         return repository.findOne(id);
     }
 
@@ -40,7 +37,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Collection<User> findAllUsers(Sort sort) {
-        return repository.findAll(sort);
+    public void delete(UUID id) {
+        repository.delete(id);
     }
 }

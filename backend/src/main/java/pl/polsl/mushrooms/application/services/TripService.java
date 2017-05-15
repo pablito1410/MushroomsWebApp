@@ -4,12 +4,14 @@ import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 
+import java.util.UUID;
+
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
 public interface TripService {
 
-    void handle(CreateTripCommand command);
+    UUID handle(CreateTripCommand command);
 
     void handle(UpdateTripCommand command);
 

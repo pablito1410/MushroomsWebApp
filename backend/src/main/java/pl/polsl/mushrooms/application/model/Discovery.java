@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,10 +40,15 @@ public class Discovery extends Commentable{
 	@OneToMany(mappedBy = "target")
 	private Set<Comment> comments;
 
-	protected Discovery() { }
+	protected Discovery() {
+		scores = new HashSet<>();
+		tags = new HashSet<>();
+		comments = new HashSet<>();
+	}
 
 	public Discovery(
 			String coordinateX, String coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
+		this();
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.photo = photo;

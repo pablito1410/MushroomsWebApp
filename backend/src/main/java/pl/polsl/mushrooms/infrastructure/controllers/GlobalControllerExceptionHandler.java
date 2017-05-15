@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
@@ -16,5 +18,11 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(EntityAlreadyExistException.class)
     public void handleConflict() {
         //
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+    @ExceptionHandler(EntityNotFoundException.class)
+    public void notFound() {
+
     }
 }

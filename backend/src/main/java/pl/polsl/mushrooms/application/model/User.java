@@ -15,7 +15,6 @@ import java.util.UUID;
 @DiscriminatorColumn(name = "ROLE", discriminatorType = DiscriminatorType.STRING)
 public abstract class User implements Serializable {
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
@@ -34,14 +33,15 @@ public abstract class User implements Serializable {
 	@OneToMany(mappedBy = "user")
 	protected Set<Comment> comments;
 
-	protected User() { }
+	protected User() {
+		comments = new HashSet<>();
+	}
 
 	public User(String username, String email, String password) {
+		this();
 		this.username = username;
 		this.email = email;
 		this.password = password;
-
-		comments = new HashSet<>();
 	}
 
 	public UUID getId() {

@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -29,13 +30,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UUID handle(CreateUserCommand command) {
         if (userExist(command.getEmail())) {
-            throw new EntityAlreadyExistException("User with an e-mail = " + command.getEmail() + " already exist.");
+            throw new EntityAlreadyExistException(
+                    "User with an e-mail = " + command.getEmail() + " already exist.");
         }
+
+        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String encodedPassword = encoder.encode(command.getPassword());
 
         final Mushroomer user = new Mushroomer(
                 command.getUsername(),
                 command.getEmail(),
-                command.getPassword(),
+                encodedPassword,
                 command.getFirstName(),
                 command.getLastName(),
                 command.getBirthDate(),
@@ -54,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(UpdateUserCommand command) {
-        final Optional<User> optionalUser = Optional.of(repo.findUser(command.getUserId()));
+        final Optional<User> optionalUser = Optional.of(repo.findOne(command.getUserId()));
         final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
 
         switch (user.getRole())
@@ -82,16 +87,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(DeleteUserCommand command) {
-
+        repo.delete(command.getId());
     }
 
     private boolean userExist(final String email) {
-        if (repo.findUserByEmail(email) == null) {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return repo.findUserByEmail(email) == null ? false : true;
     }
 }

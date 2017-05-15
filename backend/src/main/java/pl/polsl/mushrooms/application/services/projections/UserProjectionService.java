@@ -1,6 +1,6 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import pl.polsl.mushrooms.application.dao.UserProjectionDao;
+import pl.polsl.mushrooms.application.dao.ProjectionDao;
 
 import java.util.Map;
 import java.util.UUID;
@@ -10,7 +10,13 @@ import java.util.UUID;
  */
 public interface UserProjectionService {
 
-    Map<String, Object> findOne(UUID id, UserProjectionDao.Projection projection);
+    Map<String, Object> findOne(UUID id, ProjectionDao.Projection projection);
 
-    Map<String, Object> findOneByUsername(String username, UserProjectionDao.Projection projection);
+    Map<String, Object> findOneByUsername(String username, ProjectionDao.Projection projection);
+
+    UUID getId(String email);
+
+    Map<String,Object> findAll(String currentUserEmail, ProjectionDao.Projection projection);
+
+    Map<String,Object> findAll(UUID id, ProjectionDao.Projection projection);
 }
