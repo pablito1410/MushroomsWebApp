@@ -23,14 +23,32 @@
             </li>
             <li routerLinkActive="active">
                 <a  [routerLink]="[menuItems[2].path]">
-                    <i class="{{menuItems[2].icon}}">content_paste</i>
+                    <i class="{{menuItems[2].icon}}">directions_walk</i>
                     <p>{{menuItems[2].title}}</p>
                 </a>
             </li>
             <li routerLinkActive="active">
+                <a  [routerLink]="menuItems[3].path">
+                    <i class="{{menuItems[3].icon}}">library_books</i>
+                    <p>{{menuItems[3].title}}</p>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a  [routerLink]="[menuItems[4].path]">
+                    <i class="{{menuItems[4].icon}}">supervisor_account</i>
+                    <p>{{menuItems[4].title}}</p>
+                </a>
+            </li>
+            <li routerLinkActive="active">
                 <a  [routerLink]="[menuItems[5].path]">
-                    <i class="{{menuItems[5].icon}}">location_on</i>
+                    <i class="{{menuItems[5].icon}}">notifications</i>
                     <p>{{menuItems[5].title}}</p>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a  [routerLink]="[menuItems[6].path]">
+                    <i class="{{menuItems[6].icon}}">location_on</i>
+                    <p>{{menuItems[6].title}}</p>
                 </a>
             </li>
         </ul>

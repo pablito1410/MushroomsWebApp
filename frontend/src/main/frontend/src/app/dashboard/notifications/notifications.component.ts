@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'notifications-cmp',
     moduleId: module.id,
+    selector: 'notifications-cmp',
     templateUrl: 'notifications.component.html'
 })
 

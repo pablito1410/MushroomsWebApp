@@ -1,35 +1,44 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
-import java.util.LinkedHashSet;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Trip")
-public class Trip {
+@Table(name = "TRIPS")
+public class Trip implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "TRIP_ID")
 	private UUID id;
-	private Date date;
-	private Time time;
+
+	@Column(name = "DATE", nullable = false)
+	private LocalDateTime dateTime;
+
+	@Column(name = "PLACE")
 	private String place;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "USERS_TRIPS",
+			joinColumns = {@JoinColumn(name = "TRIP_ID")},
+			inverseJoinColumns = {@JoinColumn(name = "USER_ID")})
 	private Set<Mushroomer> mushroomers;
 
 	@OneToMany(mappedBy = "trip")
 	private Set<Discovery> discoveries;
 
-	protected Trip() { }
+	protected Trip() {
+		mushroomers = new HashSet<>();
+		discoveries = new HashSet<>();
+	}
 
-	public Trip(Date date, Time time, String place) {
-		this.date = date;
-		this.time = time;
+	public Trip(LocalDateTime dateTime, String place) {
+		this();
+		this.dateTime = dateTime;
 		this.place = place;
 	}
 
@@ -41,20 +50,12 @@ public class Trip {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public LocalDateTime getDateTime() {
+		return this.dateTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Time getTime() {
-		return this.time;
-	}
-
-	public void setTime(Time time) {
-		this.time = time;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getPlace() {
@@ -73,18 +74,9 @@ public class Trip {
 		this.mushroomers = mushroomers;
 	}
 
-	public void addMushroomer(final Mushroomer mushroomer)
-	{
-		if (mushroomers == null)
-		{
-			mushroomers = new LinkedHashSet<>();
-		}
-		mushroomers.add(mushroomer);
-	}
+	public void addMushroomer(final Mushroomer mushroomer) { mushroomers.add(mushroomer); }
 
-	public Set<Discovery> getDiscoveries() {
-		return discoveries;
-	}
+	public Set<Discovery> getDiscoveries() { return discoveries; }
 
 	public void setDiscoveries(Set<Discovery> discoveries) {
 		this.discoveries = discoveries;
@@ -95,11 +87,8 @@ public class Trip {
 		if ( this.id != null ) {
 			hashCode += this.id.hashCode();
 		}
-		if ( this.date != null ) {
-			hashCode += this.date.hashCode();
-		}
-		if ( this.time != null ) {
-			hashCode += this.time.hashCode();
+		if ( this.dateTime != null ) {
+			hashCode += this.dateTime.hashCode();
 		}
 		if ( this.place != null ) {
 			hashCode += this.place.hashCode();
@@ -118,10 +107,8 @@ public class Trip {
 			boolean equals = true;
 			equals &= ((this.id == tripObject.id)
 				|| (this.id != null && this.id.equals(tripObject.id)));
-			equals &= ((this.date == tripObject.date)
-				|| (this.date != null && this.date.equals(tripObject.date)));
-			equals &= ((this.time == tripObject.time)
-				|| (this.time != null && this.time.equals(tripObject.time)));
+			equals &= ((this.dateTime == tripObject.dateTime)
+				|| (this.dateTime != null && this.dateTime.equals(tripObject.dateTime)));
 			equals &= ((this.place == tripObject.place)
 				|| (this.place != null && this.place.equals(tripObject.place)));
 			equals &= this.mushroomers == tripObject.mushroomers;

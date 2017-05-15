@@ -1,32 +1,33 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Discovery")
+@Table(name = "DISCOVERIES")
 public class Discovery extends Commentable{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
-	protected UUID id;
+	@Column(name = "COORDINATE_X")
 	private String coordinateX;
-	private String coordinateY;
-	private byte[] photo;
-	private Date date;
-	private Time time;
 
-	@ManyToOne
+	@Column(name = "COORDINATE_Y")
+	private String coordinateY;
+
+	@Column(name = "PHOTO")
+	private byte[] photo;
+
+	@Column(name = "DATE_TIME", nullable = false)
+	private LocalDateTime dateTime;
+
+	@ManyToOne(optional = false)
 	private Trip trip;
 
 	@ManyToOne
 	private MushroomSpecies mushroomSpecies;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Mushroomer mushroomer;
 
 	@OneToMany(mappedBy = "discovery")
@@ -35,10 +36,21 @@ public class Discovery extends Commentable{
 	@ManyToMany(mappedBy = "discovery")
 	private Set<Tag> tags;
 
-	@OneToMany
+	@OneToMany(mappedBy = "target")
 	private Set<Comment> comments;
 
 	protected Discovery() { }
+
+	public Discovery(
+			String coordinateX, String coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.photo = photo;
+		this.dateTime = dateTime;
+		this.trip = trip;
+		this.mushroomSpecies = mushroomSpecies;
+		this.mushroomer = mushroomer;
+	}
 
 	public UUID getId() {
 		return this.id;
@@ -72,20 +84,12 @@ public class Discovery extends Commentable{
 		this.photo = photo;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public LocalDateTime getDateTime() {
+		return this.dateTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Time getTime() {
-		return this.time;
-	}
-
-	public void setTime(Time time) {
-		this.time = time;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public Trip getTrip() {
@@ -147,11 +151,8 @@ public class Discovery extends Commentable{
 		if ( this.coordinateY != null ) {
 			hashCode += this.coordinateY.hashCode();
 		}
-		if ( this.date != null ) {
-			hashCode += this.date.hashCode();
-		}
-		if ( this.time != null ) {
-			hashCode += this.time.hashCode();
+		if ( this.dateTime != null ) {
+			hashCode += this.dateTime.hashCode();
 		}
 		if ( this.trip != null ) {
 			hashCode += this.trip.hashCode();
@@ -181,10 +182,8 @@ public class Discovery extends Commentable{
 			equals &= ((this.coordinateY == discoveryObject.coordinateY)
 				|| (this.coordinateY != null && this.coordinateY.equals(discoveryObject.coordinateY)));
 			equals &= this.photo == discoveryObject.photo;
-			equals &= ((this.date == discoveryObject.date)
-				|| (this.date != null && this.date.equals(discoveryObject.date)));
-			equals &= ((this.time == discoveryObject.time)
-				|| (this.time != null && this.time.equals(discoveryObject.time)));
+			equals &= ((this.dateTime == discoveryObject.dateTime)
+				|| (this.dateTime != null && this.dateTime.equals(discoveryObject.dateTime)));
 			equals &= ((this.trip == discoveryObject.trip)
 				|| (this.trip != null && this.trip.equals(discoveryObject.trip)));
 			equals &= ((this.mushroomSpecies == discoveryObject.mushroomSpecies)

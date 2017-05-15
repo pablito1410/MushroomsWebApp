@@ -1,26 +1,34 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MushroomGenus")
-public class MushroomGenus {
+@Table(name = "MUSHROOMS_GENUSES")
+public class MushroomGenus implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "MUSH_GENUS_ID")
 	private UUID id;
+
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private MushroomFamily family;
 
 	@OneToMany(mappedBy = "genus")
 	private Set<MushroomSpecies> species;
 
 	protected MushroomGenus() { }
+
+	public MushroomGenus(String name, MushroomFamily family) {
+		this.name = name;
+		this.family = family;
+	}
 
 	public UUID getId() {
 		return this.id;

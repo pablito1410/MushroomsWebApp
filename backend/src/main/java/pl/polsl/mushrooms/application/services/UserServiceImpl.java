@@ -1,13 +1,15 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.springframework.data.domain.Sort;
-import pl.polsl.mushrooms.application.commands.*;
+import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
-import java.util.Collection;
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,9 +21,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao repo;
 
-    public UserServiceImpl(UserDao repo) {
+    public UserServiceImpl(UserDao userDao) {
 
-        this.repo = repo;
+        this.repo = userDao;
     }
 
     @Override
@@ -34,33 +36,15 @@ public class UserServiceImpl implements UserService {
                 command.getUsername(),
                 command.getEmail(),
                 command.getPassword(),
-                command.getRole()
+                command.getFirstName(),
+                command.getLastName(),
+                command.getBirthDate(),
+                command.getGender(),
+                MushroomerLevel.INTERMEDIATE
         );
 
         repo.save(user);
-
         return user.getId();
-    }
-
-    @Override
-    public User handle(GetUserCommand command) {
-
-        Optional<User> user = Optional.ofNullable(repo.findUser(command.getId()));
-
-        if (user.isPresent()) {
-//            return new UserProfile(
-//                    user.get().getId(),
-//                    user.get().getNick(),
-//                    user.get().getEmail(),
-//                    user.get().getAge(),
-//                    user.get().getGender(),
-//                    user.get().getRole()
-//            );
-            return user.get();
-        }
-        else {
-            return null;
-        }
     }
 
     @Override
@@ -69,17 +53,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> handle(GetAllUsersCommand command) {
-        return repo.findAllUsers(new Sort("username"));
+    public void handle(UpdateUserCommand command) {
+        final Optional<User> optionalUser = Optional.of(repo.findUser(command.getUserId()));
+        final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
+
+        switch (user.getRole())
+        {
+            case ADMIN:
+                user.setEmail(command.getEmail());
+                user.setUsername(command.getUsername());
+                user.setPassword(command.getPassword());
+                break;
+
+            case MUSHROOMER:
+                final Mushroomer mushroomer = (Mushroomer)user;
+                mushroomer.setEmail(command.getEmail());
+                mushroomer.setUsername(command.getUsername());
+                mushroomer.setPassword(command.getPassword());
+                mushroomer.setFirstName(command.getFirstName());
+                mushroomer.setLastName(command.getLastName());
+                mushroomer.setBirthDate(command.getBirthDate());
+                mushroomer.setGender(command.getGender());
+                break;
+        }
+
+        repo.save(user);
     }
 
     @Override
-    public void handle(UpdateUserCommand updateUserCommand) {
-
-    }
-
-    @Override
-    public void handle(DeleteUserCommand deleteUserCommand) {
+    public void handle(DeleteUserCommand command) {
 
     }
 

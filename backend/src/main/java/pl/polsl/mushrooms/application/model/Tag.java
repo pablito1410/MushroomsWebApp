@@ -1,22 +1,30 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Tag")
-public class Tag {
+@Table(name = "TAG")
+public class Tag implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "Id")
+	@Column(name = "TAG_ID")
 	private UUID id;
+
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Discovery discovery;
 
 	protected Tag() { }
+
+	public Tag(String name, Discovery discovery) {
+		this.name = name;
+		this.discovery = discovery;
+	}
 
 	public UUID getId() {
 		return this.id;

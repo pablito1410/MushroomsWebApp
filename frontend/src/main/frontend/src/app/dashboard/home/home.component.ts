@@ -4,8 +4,8 @@ import { Component, OnInit, trigger, state, style, transition, animate } from '@
 declare var $:any;
 
 @Component({
-    selector: 'home-cmp',
     moduleId: module.id,
+    selector: 'home-cmp',
     templateUrl: 'home.component.html'
 })
 
@@ -17,6 +17,5 @@ export class HomeComponent implements OnInit{
             var $checkbox = $(this);
             $checkbox.checkbox();
         });
-        // initDemo();
     }
 }

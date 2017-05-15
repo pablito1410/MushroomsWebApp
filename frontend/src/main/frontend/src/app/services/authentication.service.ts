@@ -8,8 +8,8 @@ export class AuthenticationService {
     constructor(private http: Http) { }
 
     login(email: string, password: string) {
-         let headers = new Headers ();
-         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let headers = new Headers ();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('email', email);
         urlSearchParams.append('password', password);
@@ -19,15 +19,41 @@ export class AuthenticationService {
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
-                // if (user) { // && user.token
-                //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                //     localStorage.setItem('currentUser', JSON.stringify(user));
-                // }
+                if (user) {
+                    // store user details
+                    localStorage.setItem('currentUser', user);
+                }
+                let token = response.headers.get('Authorization').replace('Bearer ', '');
+                if (token) {
+                    // store jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('token', token);
+                }
             });
     }
 
+    // login(email: string, password: string) {
+    //     return this.http.post('/login', JSON.stringify({ email: email, password: password }))
+    //         .map((response: Response) => {
+    //             // login successful if there's a jwt token in the response
+    //             let user = response.json();
+    //             if (user && user.token) {
+    //                 // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //                 localStorage.setItem('currentUser', JSON.stringify(user));
+    //             }
+    //         });
+    // }
+
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
+    }
+
+    jwt() {
+        // create authorization header with jwt token
+        let token = localStorage.getItem('token');
+        if (token) {
+            let headers = new Headers({ 'Authorization': 'Bearer ' + token });
+            return new RequestOptions({ headers: headers });
+        }
     }
 }

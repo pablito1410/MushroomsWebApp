@@ -10,7 +10,6 @@ import {AppComponent} from "../../app.component";
     selector: 'login-cmp',
     templateUrl: 'login.component.html'
 })
-
 export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;

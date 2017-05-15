@@ -1,23 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MODULE_COMPONENTS, MODULE_ROUTES } from '../app.routes';
-import {AppComponent} from "../app.component";
-import {AuthenticationComponent} from "./authentication.component";
-import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component";
-import {AlertComponent} from "./alert/alert.component";
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
-import {CommonModule} from "@angular/common";
+import { AuthenticationComponent } from "./authentication.component";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { CommonModule } from "@angular/common";
+import { AlertModule } from "../shared/alert/alert.module";
+import { FormsModule } from "@angular/forms";
+import { EqualValidator } from "./equal-validator.directive";
 
 @NgModule({
     imports: [
-        RouterModule, CommonModule
+        FormsModule,
+        RouterModule,
+        CommonModule,
+        AlertModule
     ],
     declarations: [
-
+        AuthenticationComponent,
+        RegisterComponent,
+        LoginComponent,
+        EqualValidator
+    ],
+    exports: [
+        AuthenticationComponent,
+        RegisterComponent,
+        LoginComponent
     ]
 })
-
 export class AuthenticationModule{}

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { LocationStrategy, PlatformLocation, Location} from '@angular/common';
-import { ActivatedRoute, Router } from "@angular/router";
+import {Component, OnInit, Inject} from '@angular/core';
+import { Location} from '@angular/common';
+import { Router } from "@angular/router";
+import {DOCUMENT} from "@angular/platform-browser";
 
 declare var $:any;
 
@@ -13,7 +14,9 @@ export class AppComponent implements OnInit {
 
     location: Location;
 
-    constructor(location:Location, private route:Router) {
+    constructor(
+        location: Location,
+        @Inject(DOCUMENT) private document) {
         this.location = location;
     }
 
@@ -33,7 +36,15 @@ export class AppComponent implements OnInit {
         }
     }
 
-    public isAuthorizationPage() : boolean {
-        return ((this.route.url === '/login') || (this.route.url === '/register'));
+    public isLoggedIn() : boolean {
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+            return true;
+        }
+        if (localStorage.getItem('token')) {
+            // logged in so return true
+            return true;
+        }
+        return false;
     }
 }
