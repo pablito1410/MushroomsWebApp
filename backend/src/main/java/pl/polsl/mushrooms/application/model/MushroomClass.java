@@ -1,16 +1,17 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "MUSHROOMS_CLASSES")
-public class MushroomClass {
+public class MushroomClass implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "MUSH_CLASS_ID")
 	private UUID id;
 
 	@Column(name = "NAME", nullable = false)

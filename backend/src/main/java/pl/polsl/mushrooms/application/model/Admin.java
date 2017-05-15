@@ -11,6 +11,7 @@ public class Admin extends User {
 	protected Admin() { }
 
 	@Override
+	@Enumerated(EnumType.STRING)
 	public UserRole getRole() {
 		return UserRole.ADMIN;
 	}

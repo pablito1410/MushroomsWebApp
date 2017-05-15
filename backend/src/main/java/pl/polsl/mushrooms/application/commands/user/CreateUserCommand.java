@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
-public class CreateCommand implements ReturningCommand<UUID> {
+public class CreateUserCommand implements ReturningCommand<UUID> {
 
     @NotNull
     protected String username;
@@ -29,9 +29,9 @@ public class CreateCommand implements ReturningCommand<UUID> {
     private Gender gender;
 
 
-    private CreateCommand() { }
+    private CreateUserCommand() { }
 
-    public CreateCommand(String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender) {
+    public CreateUserCommand(String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender) {
         this.username = username;
         this.email = email;
         this.password = password;

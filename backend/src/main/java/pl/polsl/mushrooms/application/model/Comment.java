@@ -1,33 +1,23 @@
 package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
 
 @Entity
 @Table(name = "COMMENTS")
-public class Comment extends Commentable implements Serializable {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
-	protected UUID id;
+public class Comment extends Commentable{
 
 	@Column(name = "CONTENTS", nullable = false)
 	private String contents;
 
-	@Column(name = "DATE", nullable = false)
-	private Date date;
-
-	@Column(name = "TIME", nullable = false)
-	private Time time;
+	@Column(name = "DATE_TIME", nullable = false)
+	private LocalDateTime dateTime;
 
 	@OneToOne(optional = false)
-	private Comment target;
+	private Commentable target;
 
 	@ManyToOne(optional = false)
 	private User user;
@@ -37,10 +27,10 @@ public class Comment extends Commentable implements Serializable {
 
 	protected Comment() { }
 
-	public Comment(String contents, Date date, Time time, Comment target, User user) {
+	public Comment(String contents, LocalDateTime dateTime, Commentable target, User user) {
 		this.contents = contents;
-		this.date = date;
-		this.time = time;
+		this.dateTime = dateTime;
+		this.dateTime = dateTime;
 		this.target = target;
 		this.user = user;
 	}
@@ -61,26 +51,21 @@ public class Comment extends Commentable implements Serializable {
 		this.contents = contents;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public LocalDateTime getDateTime() {
+		return this.dateTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
-	public Time getTime() {
-		return this.time;
+	public Commentable getTarget() {
+		return target;
 	}
 
-	public void setTime(Time time) {
-		this.time = time;
+	public void setTarget(Commentable target) {
+		this.target = target;
 	}
-
-
-//	public void setTarget(Commentable target) {
-//		this.target = target;
-//	}
 
 	public User getUser() {
 		return this.user;
@@ -98,10 +83,6 @@ public class Comment extends Commentable implements Serializable {
 		this.answers = answers;
 	}
 
-//	public void setTarget(Comment target) {
-//		this.target = target;
-//	}
-
 	public int hashCode() {
 		int hashCode = 0;
 		if ( this.id != null ) {
@@ -110,15 +91,12 @@ public class Comment extends Commentable implements Serializable {
 		if ( this.contents != null ) {
 			hashCode += this.contents.hashCode();
 		}
-		if ( this.date != null ) {
-			hashCode += this.date.hashCode();
+		if ( this.dateTime != null ) {
+			hashCode += this.dateTime.hashCode();
 		}
-		if ( this.time != null ) {
-			hashCode += this.time.hashCode();
+		if ( this.target != null ) {
+			hashCode += this.target.hashCode();
 		}
-//		if ( this.target != null ) {
-//			hashCode += this.target.hashCode();
-//		}
 		if ( this.user != null ) {
 			hashCode += this.user.hashCode();
 		}
@@ -138,12 +116,10 @@ public class Comment extends Commentable implements Serializable {
 				|| (this.id != null && this.id.equals(commentObject.id)));
 			equals &= ((this.contents == commentObject.contents)
 				|| (this.contents != null && this.contents.equals(commentObject.contents)));
-			equals &= ((this.date == commentObject.date)
-				|| (this.date != null && this.date.equals(commentObject.date)));
-			equals &= ((this.time == commentObject.time)
-				|| (this.time != null && this.time.equals(commentObject.time)));
-//			equals &= ((this.target == commentObject.target)
-//				|| (this.target != null && this.target.equals(commentObject.target)));
+			equals &= ((this.dateTime == commentObject.dateTime)
+				|| (this.dateTime != null && this.dateTime.equals(commentObject.dateTime)));
+			equals &= ((this.target == commentObject.target)
+				|| (this.target != null && this.target.equals(commentObject.target)));
 			equals &= ((this.user == commentObject.user)
 				|| (this.user != null && this.user.equals(commentObject.user)));
 			equals &= this.answers == commentObject.answers;
@@ -152,7 +128,4 @@ public class Comment extends Commentable implements Serializable {
 		return false;
 	}
 
-	public Comment getTarget() {
-		return target;
-	}
 }

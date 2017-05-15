@@ -2,8 +2,10 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TRIPS")
@@ -11,14 +13,11 @@ public class Trip implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "TRIP_ID")
 	private UUID id;
 
 	@Column(name = "DATE", nullable = false)
-	private Date date;
-
-	@Column(name = "TIME", nullable = false)
-	private Time time;
+	private LocalDateTime dateTime;
 
 	@Column(name = "PLACE")
 	private String place;
@@ -37,10 +36,9 @@ public class Trip implements Serializable{
 		discoveries = new HashSet<>();
 	}
 
-	public Trip(Date date, Time time, String place) {
+	public Trip(LocalDateTime dateTime, String place) {
 		this();
-		this.date = date;
-		this.time = time;
+		this.dateTime = dateTime;
 		this.place = place;
 	}
 
@@ -52,20 +50,12 @@ public class Trip implements Serializable{
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public LocalDateTime getDateTime() {
+		return this.dateTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Time getTime() {
-		return this.time;
-	}
-
-	public void setTime(Time time) {
-		this.time = time;
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getPlace() {
@@ -97,11 +87,8 @@ public class Trip implements Serializable{
 		if ( this.id != null ) {
 			hashCode += this.id.hashCode();
 		}
-		if ( this.date != null ) {
-			hashCode += this.date.hashCode();
-		}
-		if ( this.time != null ) {
-			hashCode += this.time.hashCode();
+		if ( this.dateTime != null ) {
+			hashCode += this.dateTime.hashCode();
 		}
 		if ( this.place != null ) {
 			hashCode += this.place.hashCode();
@@ -120,10 +107,8 @@ public class Trip implements Serializable{
 			boolean equals = true;
 			equals &= ((this.id == tripObject.id)
 				|| (this.id != null && this.id.equals(tripObject.id)));
-			equals &= ((this.date == tripObject.date)
-				|| (this.date != null && this.date.equals(tripObject.date)));
-			equals &= ((this.time == tripObject.time)
-				|| (this.time != null && this.time.equals(tripObject.time)));
+			equals &= ((this.dateTime == tripObject.dateTime)
+				|| (this.dateTime != null && this.dateTime.equals(tripObject.dateTime)));
 			equals &= ((this.place == tripObject.place)
 				|| (this.place != null && this.place.equals(tripObject.place)));
 			equals &= this.mushroomers == tripObject.mushroomers;

@@ -1,9 +1,10 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.user.*;
+import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.model.User;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,15 +13,11 @@ import java.util.UUID;
  */
 public interface UserService {
 
-    UUID handle(CreateCommand command);
+    UUID handle(CreateUserCommand command);
 
-    User handle(GetCommand command);
+    void handle(UpdateUserCommand command);
 
-    void handle(UpdateCommand command);
-
-    void handle(DeleteCommand command);
-
-    Collection<User> handle(GetAllUsersCommand command);
+    void handle(DeleteUserCommand command);
 
     Optional<User> getUserByEmail(String email);
 }

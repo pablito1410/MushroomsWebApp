@@ -1,0 +1,23 @@
+Pobieramy postgres'a:
+    https://www.postgresql.org/download/
+Pobieramy Squirrel'a:
+    http://squirrel-sql.sourceforge.net/#installation
+
+! UWAGA: Driver postgresa musi być conajmniej w wersji 9.4.1211 !
+
+W folderze bin, gdzie zainstalowaliśmy postgres'a znajduje się plik psql.exe.
+Wykonujemy w tym folderze następujące polecenia:
+
+> psql.exe -U postgres
+	hasło jak dla lokalnego użytkownika
+> create user admin with superuser password 'admin1';
+> create database mushrooms;
+> grant all privileges on database "mushrooms" to admin;
+> \q
+> psql.exe -U admin mushrooms
+
+Następnie wykonujemy skrypt Mushrooms.dll. Można to zrobić już w Squirrelu.
+
+    Instrukcja jak połączyć się z bazą:
+    http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf
+

@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface UserProjectionService {
 
     Map<String, Object> findOne(UUID id, UserProjectionDao.Projection projection);
+
+    Map<String, Object> findOneByUsername(String username, UserProjectionDao.Projection projection);
 }

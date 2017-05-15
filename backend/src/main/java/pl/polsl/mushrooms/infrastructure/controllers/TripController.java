@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.trip.CreateCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.trip.GetCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
-import pl.polsl.mushrooms.application.model.Trip;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.UUID;
@@ -29,7 +28,7 @@ public class TripController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody CreateCommand command) {
+    public ResponseEntity<Void> create(@RequestBody CreateTripCommand command) {
 
         try {
             commandGateway.dispatch(command);
@@ -41,26 +40,27 @@ public class TripController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody UpdateCommand command) {
+    public ResponseEntity<Void> update(@RequestBody UpdateTripCommand command) {
 
         commandGateway.dispatch(command);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET, params = "id")
-    public ResponseEntity<Trip> get(@RequestParam("id") String id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity getById(
+            @PathVariable(name = "id") UUID id,
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
 
-        final GetCommand command = new GetCommand(UUID.fromString(id));
-        final Trip trip = commandGateway.dispatch(command);
+        // TODO projection
 
-        return new ResponseEntity<>(trip, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") String id) {
 
-        final DeleteCommand command = new DeleteCommand(UUID.fromString(id));
+        final DeleteTripCommand command = new DeleteTripCommand(UUID.fromString(id));
         commandGateway.dispatch(command);
 
         return new ResponseEntity<>(HttpStatus.OK);
