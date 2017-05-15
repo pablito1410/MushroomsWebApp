@@ -2,20 +2,18 @@ package pl.polsl.mushrooms.application.commands.discovery;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-public class CreateCommand implements VoidCommand {
+public class CreateDiscoveryCommand implements VoidCommand {
 
     private String coordinateX;
     private String coordinateY;
     private byte[] photo;
-    private Date date;
-    private Time time;
+    private LocalDateTime dateTime;
 
     private String tripId;
 
@@ -23,7 +21,7 @@ public class CreateCommand implements VoidCommand {
 
     private String mushroomSpieceId;
 
-    protected CreateCommand() { }
+    protected CreateDiscoveryCommand() { }
 
     public String getCoordinateX() {
         return coordinateX;
@@ -37,12 +35,8 @@ public class CreateCommand implements VoidCommand {
         return photo;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public Time getTime() {
-        return time;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     public UUID getTripId() {

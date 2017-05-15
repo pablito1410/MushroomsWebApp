@@ -1,21 +1,17 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.comment.CreateCommand;
-import pl.polsl.mushrooms.application.commands.comment.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.comment.GetCommand;
-import pl.polsl.mushrooms.application.commands.comment.UpdateCommand;
-import pl.polsl.mushrooms.application.model.Comment;
+import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
 public interface CommentService {
 
-    void handle(CreateCommand command);
+    void handle(CreateCommentCommand command);
 
-    Comment handle(GetCommand command);
+    void handle(UpdateCommentCommand command);
 
-    void handle(UpdateCommand command);
-
-    void handle(DeleteCommand command);
+    void handle(DeleteCommentCommand command);
 }

@@ -22,4 +22,9 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     public Map<String, Object> findOne(UUID id, UserProjectionDao.Projection projection) {
         return userProjectionDao.findOne(id, projection);
     }
+
+    @Override
+    public Map<String, Object> findOneByUsername(String username, UserProjectionDao.Projection projection) {
+        return userProjectionDao.findOneByUsername(username, projection);
+    }
 }

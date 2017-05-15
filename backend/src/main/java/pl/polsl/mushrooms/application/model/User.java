@@ -18,7 +18,7 @@ public abstract class User implements Serializable {
 	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@Column(name = "USER_ID")
 	protected UUID id;
 
 	@Column(name = "USERNAME", nullable = false)
@@ -30,10 +30,6 @@ public abstract class User implements Serializable {
 	@JsonIgnore
 	@Column(name = "PASSWORD", nullable = false)
 	protected String password;
-
-//	@Column(name = "ROLE", nullable = false)
-//	@Enumerated(EnumType.STRING)
-//	protected UserRole role;
 
 	@OneToMany(mappedBy = "user")
 	protected Set<Comment> comments;

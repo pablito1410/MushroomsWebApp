@@ -1,9 +1,8 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.comment.CreateCommand;
-import pl.polsl.mushrooms.application.commands.comment.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.comment.GetCommand;
-import pl.polsl.mushrooms.application.commands.comment.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
 import pl.polsl.mushrooms.application.model.Comment;
 
 /**
@@ -13,22 +12,17 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public void handle(CreateCommand command) {
+    public void handle(CreateCommentCommand command) {
 
     }
 
     @Override
-    public Comment handle(GetCommand command) {
-        return null;
-    }
-
-    @Override
-    public void handle(UpdateCommand command) {
+    public void handle(UpdateCommentCommand command) {
 
     }
 
     @Override
-    public void handle(DeleteCommand command) {
+    public void handle(DeleteCommentCommand command) {
 
     }
 }

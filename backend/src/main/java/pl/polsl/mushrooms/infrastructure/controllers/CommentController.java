@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.comment.CreateCommand;
-import pl.polsl.mushrooms.application.commands.comment.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.comment.GetCommand;
-import pl.polsl.mushrooms.application.commands.comment.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
+import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
+import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
-import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.UUID;
@@ -30,7 +29,7 @@ public class CommentController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody CreateCommand command) {
+    public ResponseEntity<Void> create(@RequestBody CreateCommentCommand command) {
 
         try {
             commandGateway.dispatch(command);
@@ -42,26 +41,27 @@ public class CommentController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody UpdateCommand command) {
+    public ResponseEntity<Void> update(@RequestBody UpdateCommentCommand command) {
 
         commandGateway.dispatch(command);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET, params = "id")
-    public ResponseEntity<Comment> get(@RequestParam("id") String id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity getById(
+            @PathVariable(name = "id") UUID id,
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
 
-        final GetCommand command = new GetCommand(UUID.fromString(id));
-        final Comment comment = commandGateway.dispatch(command);
+        // TODO projection
 
-        return new ResponseEntity<>(comment, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") String id) {
 
-        final DeleteCommand command = new DeleteCommand(UUID.fromString(id));
+        final DeleteCommentCommand command = new DeleteCommentCommand(UUID.fromString(id));
         commandGateway.dispatch(command);
 
         return new ResponseEntity<>(HttpStatus.OK);

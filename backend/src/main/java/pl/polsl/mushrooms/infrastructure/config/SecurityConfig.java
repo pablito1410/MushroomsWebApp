@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtAuthenticationFilter;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtLoginFilter;
 
@@ -21,6 +22,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserProjectionService userProjectionService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,7 +50,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
             .rememberMe()
             .and()
             // We filter the api/login requests
-            .addFilterBefore(new JwtLoginFilter("/login", authenticationManager()),
+            .addFilterBefore(new JwtLoginFilter(
+                    "/login", authenticationManager(), userProjectionService),
                     UsernamePasswordAuthenticationFilter.class)
             // And filter other requests to check the presence of JWT in header
             .addFilterBefore(new JwtAuthenticationFilter(),

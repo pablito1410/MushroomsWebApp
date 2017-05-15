@@ -1,9 +1,8 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.trip.CreateCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteCommand;
-import pl.polsl.mushrooms.application.commands.trip.GetCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateCommand;
+import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
@@ -24,9 +23,9 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void handle(CreateCommand command) {
+    public void handle(CreateTripCommand command) {
         final Trip trip = new Trip(
-             command.getDate(), command.getTime(), command.getPlace());
+             command.getDateTime(), command.getPlace());
 
         final Mushroomer user = (Mushroomer)userRepo.findUser(command.getUserId());
 
@@ -36,12 +35,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip handle(GetCommand command) {
-        return null;
-    }
-
-    @Override
-    public void handle(UpdateCommand command) {
+    public void handle(UpdateTripCommand command) {
 
         final Trip trip = tripRepo.findTrip(command.getTripId());
         final Mushroomer mushroomer = (Mushroomer)userRepo.findUser(command.getUserId());
@@ -51,7 +45,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void handle(DeleteCommand command) {
+    public void handle(DeleteTripCommand command) {
 
     }
 }

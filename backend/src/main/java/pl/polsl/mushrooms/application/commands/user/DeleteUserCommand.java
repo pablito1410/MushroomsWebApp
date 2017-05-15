@@ -7,12 +7,12 @@ import java.util.UUID;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-public class DeleteCommand implements VoidCommand {
+public class DeleteUserCommand implements VoidCommand {
 
 
     private final UUID id;
 
-    public DeleteCommand(UUID id) {
+    public DeleteUserCommand(UUID id) {
         this.id = id;
     }
 
