@@ -3116,7 +3116,7 @@ footer {
     background: linear-gradient(60deg, #ef5350, #e53935);
     box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2); }
   .card [data-background-color="brown"] {
-    background: linear-gradient(60deg, #8d6e63, #6d4c41);
+    background: #793d00;
     box-shadow: 0 12px 20px -10px rgba(121, 61, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(121, 61, 0, 0.2); }
   .card [data-background-color] {
     color: #FFFFFF; }

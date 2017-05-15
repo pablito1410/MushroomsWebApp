@@ -7,7 +7,7 @@ export class AuthenticationGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             // if (route.fragment.indexOf('login') >= 0 || route.fragment.indexOf('register') >= 0) {
             //     this.router.navigate(['']);
             //     return false;
