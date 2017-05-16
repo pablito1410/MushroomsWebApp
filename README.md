@@ -2,6 +2,7 @@
 
 Pobieramy postgres'a:
 * [Postgres](https://www.postgresql.org/download/)
+
 Pobieramy Squirrel'a:
 * [Squirrel](http://squirrel-sql.sourceforge.net/#installation)
 
