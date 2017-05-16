@@ -22,7 +22,7 @@ grant all privileges on database "mushrooms" to admin;
 psql.exe -U admin mushrooms
 ```
 
-Nastêpnie wykonujemy skrypt Mushrooms.dll. Mo¿na to zrobiæ ju¿ w Squirrelu.
+Nastêpnie wykonujemy skrypt Mushrooms.dll znajduj¹cy siê w backend/db. Mo¿na to zrobiæ ju¿ w Squirrelu.
 Instrukcja jak po³¹czyæ siê z baz¹:
 * [Instrukcja](http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf)
 
