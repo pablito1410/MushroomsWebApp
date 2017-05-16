@@ -25,7 +25,7 @@ public class UserProjectionRepository {
         projections.put(UserProjectionDao.Projection.BASIC, " USERNAME, EMAIL");
         projections.put(
                 UserProjectionDao.Projection.FULL,
-                " USER_ID as        \"id\", " +
+                " USER_ID::varchar as        \"id\", " +
                 " USERNAME as       \"username\"," +
                 " FIRST_NAME as     \"firstName\"," +
                 " LAST_NAME as      \"lastName\"," +

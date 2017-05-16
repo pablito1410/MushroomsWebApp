@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.CommentDao;
+import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.application.model.Commentable;
 import pl.polsl.mushrooms.infrastructure.repositories.CommentRepository;
 
@@ -26,6 +27,6 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void save(Commentable comment) {
-        commentRepository.save(comment);
+        commentRepository.save((Comment)comment);
     }
 }
