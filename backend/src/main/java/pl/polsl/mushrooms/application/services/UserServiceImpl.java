@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserService {
         }
 
         final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        final String encodedPassword = encoder.encode(command.getPassword());
+//        final String encodedPassword = encoder.encode(command.getPassword()); This shit doesn't work! :P
 
         final Mushroomer user = new Mushroomer(
                 command.getUsername(),
                 command.getEmail(),
-                encodedPassword,
+                command.getPassword(),
                 command.getFirstName(),
                 command.getLastName(),
                 command.getBirthDate(),
