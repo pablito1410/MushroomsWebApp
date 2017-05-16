@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
+import {User} from "../../model/user";
 
 @Component({
     moduleId: module.id,
@@ -16,9 +17,7 @@ export class UserComponent implements OnInit {
         private userService: UserService) { }
 
     ngOnInit() {
-        if (localStorage.getItem('currentUser')) {
-            this.model = localStorage.getItem('currentUser');
-        }
+        this.model = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     update() {

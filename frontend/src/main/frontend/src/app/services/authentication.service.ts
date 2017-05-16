@@ -26,7 +26,7 @@ export class AuthenticationService {
                 let user = response.json();
                 if (user) {
                     // store user details
-                    localStorage.setItem('currentUser', user);
+                    localStorage.setItem('currentUser', JSON.stringify(user));
                 }
             });
     }
@@ -46,6 +46,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
+        localStorage.removeItem('currentUser');
     }
 
     jwt() {
