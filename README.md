@@ -52,3 +52,11 @@ mvn spring-boot:run
 cd frontend/src/main/frontend
 ng serve
 ```
+
+## Kontakt
+
+W razie problemów prosimy kontaktowaæ siê niezw³ocznie:
+
+Mateusz Chudy   matechu268@student.polsl.pl
+
+Pawe³ Krosny    pawekro700@student.polsl.pl
