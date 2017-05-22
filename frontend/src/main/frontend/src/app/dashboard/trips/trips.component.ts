@@ -12,7 +12,7 @@ import {User} from "../../model/user";
 
 export class TripsComponent implements OnInit {
 
-    trips: Observable<Array<Trip>>;
+    trips: Array<Trip>;
     model: any = {};
 
     constructor(
@@ -21,7 +21,11 @@ export class TripsComponent implements OnInit {
     ngOnInit() {
         this.model = JSON.parse(localStorage.getItem('currentUser'));
         let user = this.model;
-        this.trips = this.tripService.getAll();
+        this.tripService.getAll().subscribe(
+            value => this.trips = value
+            // error => this.anyErrors = true,
+            // () => this.finished = true
+        );
     }
 
 }

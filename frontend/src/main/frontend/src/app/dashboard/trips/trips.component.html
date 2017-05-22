@@ -13,21 +13,15 @@
                                 <tr>
                                     <th>Place</th>
                                     <th>Time</th>
-                                    <th>Friends</th>
-                                    <th>Discoveries</th>
+                                    <!--<th>Status</th>-->
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <template let-trips ngFor [ngForOf]="trips">
-                                    <tr *ngFor="let trip of trips">
-                                        <td>{{trip.place}}</td>
-                                        <td>{{trip.place}}</td>
-                                        <td>{{trip.place}}</td>
-                                        <td>{{trip.place}}</td>
-                                    </tr>
-                                </template>
-
+                                <tr *ngFor="let trip of trips">
+                                    <td>{{trip.place}}</td>
+                                    <td>{{trip.dateTime}}</td>
+                                    <!--<td>{{trip.status()}}</td>-->
+                                </tr>
                             </tbody>
                         </table>
                     </div>

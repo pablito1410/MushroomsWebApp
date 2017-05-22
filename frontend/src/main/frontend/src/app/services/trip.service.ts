@@ -9,7 +9,7 @@ export class TripService {
     constructor(private http: Http, private authenticationService: AuthenticationService) { }
 
     getAll() {
-        return this.http.get('/api/trips', this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/trips', this.authenticationService.jwt()).map((response: Response) => <Trip[]>response.json());
     }
 
     getById(id: number) {
