@@ -3,14 +3,14 @@ CREATE TABLE USERS (
   USERNAME   varchar(255) NOT NULL, 
   EMAIL      varchar(255) NOT NULL, 
   PASSWORD   varchar(255) NOT NULL, 
-  ROLE       char(5) NOT NULL, 
+  ROLE       char(10) NOT NULL, 
   FIRST_NAME varchar(255), 
   LAST_NAME  varchar(255), 
   BIRTH_DATE date, 
   COUNTRY    varchar(255), 
   CITY       varchar(255), 
   GENDER     char(6), 
-  LEVEL      int4, 
+  LEVEL      char(30), 
   PHOTO      bytea, 
   PRIMARY KEY (USER_ID));
 CREATE TABLE TRIPS (

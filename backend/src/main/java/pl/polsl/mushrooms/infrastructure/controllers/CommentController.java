@@ -12,7 +12,6 @@ import pl.polsl.mushrooms.application.services.projections.CommentProjectionServ
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -33,8 +32,8 @@ public class CommentController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<UUID> create(@RequestBody CreateCommentCommand command) {
-        final UUID id = commandGateway.dispatch(command);
+    public ResponseEntity<Long> create(@RequestBody CreateCommentCommand command) {
+        final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -46,15 +45,15 @@ public class CommentController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(
-            @PathVariable(name = "id") UUID id,
+            @PathVariable(name = "id") long id,
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final Map<String, Object> comment = commentProjectionService.findOne(id, projection);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") String id) {
-        final DeleteCommentCommand command = new DeleteCommentCommand(UUID.fromString(id));
+    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+        final DeleteCommentCommand command = new DeleteCommentCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

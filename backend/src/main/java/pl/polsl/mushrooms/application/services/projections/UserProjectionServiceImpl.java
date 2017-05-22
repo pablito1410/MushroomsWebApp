@@ -20,7 +20,7 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Map<String, Object> findOne(UUID id, UserProjectionDao.Projection projection) {
+    public Map<String, Object> findOne(long id, UserProjectionDao.Projection projection) {
         return userProjectionDao.findOne(id, projection);
     }
 
@@ -30,7 +30,7 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public UUID getId(String email) {
+    public long getId(String email) {
         return userProjectionDao.getId(email);
     }
 
@@ -40,7 +40,7 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Map<String, Object> findAll(UUID id, ProjectionDao.Projection projection) {
+    public Map<String, Object> findAll(long id, ProjectionDao.Projection projection) {
         return userProjectionDao.findAll(id, projection);
     }
 }

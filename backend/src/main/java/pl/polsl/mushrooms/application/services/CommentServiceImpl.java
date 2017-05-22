@@ -26,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public UUID handle(CreateCommentCommand command) {
+    public long handle(CreateCommentCommand command) {
 
         final User user = userDao.findOne(command.getUserId());
         final Commentable target = commentDao.findOne(command.getTargetId());

@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.infrastructure.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
@@ -12,7 +13,6 @@ import pl.polsl.mushrooms.application.services.projections.TripProjectionService
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
@@ -31,8 +31,8 @@ public class TripController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<UUID> create(@RequestBody CreateTripCommand command) {
-        final UUID id = commandGateway.dispatch(command);
+    public ResponseEntity<Long> create(@RequestBody CreateTripCommand command) {
+        final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -44,15 +44,27 @@ public class TripController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") UUID id,
+            @PathVariable(name = "id") long id,
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final Map<String, Object> trip = tripProjectionService.findOne(id, projection);
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
+    /**
+     * READ
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getAll(
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
+        final String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Map<String, Object> trips = tripProjectionService.findAll(currentUserEmail, projection);
+        return new ResponseEntity<>(trips, HttpStatus.OK);
+    }
+
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") String id) {
-        final DeleteTripCommand command = new DeleteTripCommand(UUID.fromString(id));
+    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+        final DeleteTripCommand command = new DeleteTripCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

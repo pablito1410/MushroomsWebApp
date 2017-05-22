@@ -28,7 +28,17 @@ public class Mushroomer extends User {
 	private Gender gender;
 
 	@Column(name = "LEVEL")
+	@Enumerated(EnumType.STRING)
 	private MushroomerLevel level;
+
+	@Column(name = "COUNTRY")
+	private String country;
+
+	@Column(name = "CITY")
+	private String city;
+
+	@Column(name = "PHOTO")
+	private byte[] photo;
 
 	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
 			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -69,6 +79,30 @@ public class Mushroomer extends User {
         scores = new HashSet<>();
         discoveries = new HashSet<>();
         friends = new HashSet<>();
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	public String getFirstName() {

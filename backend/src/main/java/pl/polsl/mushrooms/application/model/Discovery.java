@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "DISCOVERIES")
@@ -58,11 +57,11 @@ public class Discovery extends Commentable{
 		this.mushroomer = mushroomer;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -148,9 +147,9 @@ public class Discovery extends Commentable{
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.coordinateX != null ) {
 			hashCode += this.coordinateX.hashCode();
 		}
@@ -182,7 +181,7 @@ public class Discovery extends Commentable{
 			Discovery discoveryObject = (Discovery) object;
 			boolean equals = true;
 			equals &= ((this.id == discoveryObject.id)
-				|| (this.id != null && this.id.equals(discoveryObject.id)));
+				|| (this.id == discoveryObject.id));
 			equals &= ((this.coordinateX == discoveryObject.coordinateX)
 				|| (this.coordinateX != null && this.coordinateX.equals(discoveryObject.coordinateX)));
 			equals &= ((this.coordinateY == discoveryObject.coordinateY)

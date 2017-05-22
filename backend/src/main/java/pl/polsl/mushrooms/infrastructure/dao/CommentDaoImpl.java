@@ -6,8 +6,6 @@ import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.application.model.Commentable;
 import pl.polsl.mushrooms.infrastructure.repositories.CommentRepository;
 
-import java.util.UUID;
-
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
@@ -21,8 +19,8 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public Commentable findOne(UUID id) {
-        return commentRepository.findOne(id);
+    public Commentable findOne(long commentId) {
+        return commentRepository.findOne(commentId);
     }
 
     @Override
