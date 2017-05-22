@@ -3,16 +3,15 @@ package pl.polsl.mushrooms.application.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "SCORES")
 public class Score implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "SCORE_ID")
-	private UUID id;
+	private long id;
 
 	@Column(name = "VALUE", nullable = false)
 	private int value;
@@ -35,11 +34,11 @@ public class Score implements Serializable {
 		this.mushroomer = mushroomer;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -85,9 +84,9 @@ public class Score implements Serializable {
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.dateTime != null ) {
 			hashCode += this.dateTime.hashCode();
 		}
@@ -110,7 +109,7 @@ public class Score implements Serializable {
 			Score scoreObject = (Score) object;
 			boolean equals = true;
 			equals &= ((this.id == scoreObject.id)
-				|| (this.id != null && this.id.equals(scoreObject.id)));
+				|| (this.id == scoreObject.id));
 			equals &= this.value == scoreObject.value;
 			equals &= ((this.dateTime == scoreObject.dateTime)
 				|| (this.dateTime != null && this.dateTime.equals(scoreObject.dateTime)));

@@ -3,18 +3,26 @@ package pl.polsl.mushrooms.application.commands.user;
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
 public class UpdateUserCommand implements VoidCommand {
 
-    private UUID userId;
+    @NotNull
+    private long id;
+
+    @NotNull
     private String username;
+
+    @NotNull
     private String email;
+
+    @NotNull
     private String password;
+
     private String firstName;
     private String lastName;
     private Date birthDate;
@@ -22,8 +30,8 @@ public class UpdateUserCommand implements VoidCommand {
 
     private UpdateUserCommand() { }
 
-    public UUID getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
     public String getUsername() {

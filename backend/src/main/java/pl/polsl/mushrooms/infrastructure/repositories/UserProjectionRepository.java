@@ -41,7 +41,7 @@ public class UserProjectionRepository {
         this.userRepository = userRepository;
     }
 
-    public Map<String,Object> findOne(UUID id, ProjectionDao.Projection projection) {
+    public Map<String,Object> findOne(long id, ProjectionDao.Projection projection) {
         return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS where USER_ID = ?", id);
     }
 
@@ -49,11 +49,12 @@ public class UserProjectionRepository {
         return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS where USERNAME = ?", email);
     }
 
-    public UUID getId(String email) {
-        return jdbcTemplate.queryForObject("select UserId from USERS where EMAIL = ?", UUID.class, email);
+    public Long getId(String email) {
+        // TODO zwracac malego longa lub rzuca wyjatkiem
+        return jdbcTemplate.queryForObject("select UserId from USERS where EMAIL = ?", Long.class, email);
     }
 
-    public Map<String,Object> findAll(UUID id, ProjectionDao.Projection projection) {
+    public Map<String,Object> findAll(long id, ProjectionDao.Projection projection) {
         final ObjectMapper mapper = new ObjectMapper();
         final User user = userRepository.findOne(id);
 

@@ -2,7 +2,6 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 22.04.2017.
@@ -13,11 +12,11 @@ import java.util.UUID;
 public abstract class Commentable implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID")
-    protected UUID id;
+    protected long id;
 
-    public abstract UUID getId();
+    public abstract long getId();
 
-    public abstract void setId(UUID id);
+    public abstract void setId(long id);
 }

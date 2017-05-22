@@ -10,5 +10,5 @@ import java.util.UUID;
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
 @Repository
-public interface TripRepository extends JpaRepository<Trip, UUID> {
+public interface TripRepository extends JpaRepository<Trip, Long> {
 }

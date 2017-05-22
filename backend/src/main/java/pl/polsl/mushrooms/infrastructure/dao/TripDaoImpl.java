@@ -28,12 +28,12 @@ public class TripDaoImpl implements TripDao {
     }
 
     @Override
-    public Trip findTrip(UUID tripId) {
+    public Trip findTrip(long tripId) {
         return repository.findOne(tripId);
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(long id) {
         repository.delete(id);
     }
 

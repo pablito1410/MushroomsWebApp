@@ -2,22 +2,20 @@ package pl.polsl.mushrooms.application.commands.comment;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
-import java.util.UUID;
-
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
 public class DeleteCommentCommand implements VoidCommand {
 
-    private UUID id;
+    private long id;
 
     protected DeleteCommentCommand() { }
 
-    public DeleteCommentCommand(UUID id) {
+    public DeleteCommentCommand(long id) {
         this.id = id;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 }

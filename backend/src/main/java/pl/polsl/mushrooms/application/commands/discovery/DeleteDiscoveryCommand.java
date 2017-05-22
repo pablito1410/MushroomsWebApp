@@ -2,22 +2,20 @@ package pl.polsl.mushrooms.application.commands.discovery;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
-import java.util.UUID;
-
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
 public class DeleteDiscoveryCommand implements VoidCommand {
 
-    private UUID id;
+    private long id;
 
     protected DeleteDiscoveryCommand() { }
 
-    public DeleteDiscoveryCommand(UUID id) {
+    public DeleteDiscoveryCommand(long id) {
         this.id = id;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 }

@@ -4,16 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "MUSHROOMS_CLASSES")
 public class MushroomClass implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "MUSH_CLASS_ID")
-	private UUID id;
+	private long id;
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
@@ -30,11 +29,11 @@ public class MushroomClass implements Serializable {
 		this.name = name;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -56,9 +55,9 @@ public class MushroomClass implements Serializable {
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.name != null ) {
 			hashCode += this.name.hashCode();
 		}
@@ -75,7 +74,7 @@ public class MushroomClass implements Serializable {
 			MushroomClass mushroomClassObject = (MushroomClass) object;
 			boolean equals = true;
 			equals &= ((this.id == mushroomClassObject.id)
-				|| (this.id != null && this.id.equals(mushroomClassObject.id)));
+				|| (this.id == mushroomClassObject.id));
 			equals &= ((this.name == mushroomClassObject.name)
 				|| (this.name != null && this.name.equals(mushroomClassObject.name)));
 			equals &= this.orders == mushroomClassObject.orders;

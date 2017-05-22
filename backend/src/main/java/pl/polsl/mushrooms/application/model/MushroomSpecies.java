@@ -4,16 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "MUSHROOMS_SPECIES")
 public class MushroomSpecies implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "MUSH_SPECIES_ID")
-	private UUID id;
+	private long id;
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
@@ -38,11 +37,11 @@ public class MushroomSpecies implements Serializable {
 		this.genus = genus;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -80,9 +79,9 @@ public class MushroomSpecies implements Serializable {
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.name != null ) {
 			hashCode += this.name.hashCode();
 		}
@@ -102,7 +101,7 @@ public class MushroomSpecies implements Serializable {
 			MushroomSpecies mushroomSpeciesObject = (MushroomSpecies) object;
 			boolean equals = true;
 			equals &= ((this.id == mushroomSpeciesObject.id)
-				|| (this.id != null && this.id.equals(mushroomSpeciesObject.id)));
+				|| (this.id == mushroomSpeciesObject.id));
 			equals &= ((this.name == mushroomSpeciesObject.name)
 				|| (this.name != null && this.name.equals(mushroomSpeciesObject.name)));
 			equals &= this.examplePhoto == mushroomSpeciesObject.examplePhoto;

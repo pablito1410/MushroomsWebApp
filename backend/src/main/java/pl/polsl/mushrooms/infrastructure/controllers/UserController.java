@@ -12,7 +12,6 @@ import pl.polsl.mushrooms.application.services.projections.UserProjectionService
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 31.03.2017.
@@ -44,8 +43,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UUID> create(@RequestBody CreateUserCommand command) {
-        final UUID id = commandGateway.dispatch(command);
+    public ResponseEntity<Long> create(@RequestBody CreateUserCommand command) {
+        final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -56,7 +55,7 @@ public class UserController {
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") UUID id,
+            @PathVariable(name = "id") long id,
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final Map<String, Object> user = userProjectionService.findOne(id, projection);
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -91,7 +90,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable(name = "id") UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
 //        final DeleteUserCommand command = new DeleteUserCommand(id);
 //        commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -3,21 +3,20 @@ package pl.polsl.mushrooms.application.commands.comment;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-public class CreateCommentCommand implements ReturningCommand<UUID> {
+public class CreateCommentCommand implements ReturningCommand<Long> {
 
-    private UUID userId;
+    private long userId;
     private String contents;
-    private UUID targetId;
+    private long targetId;
     private LocalDateTime dateTime;
 
     protected CreateCommentCommand() { }
 
-    public UUID getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -25,7 +24,7 @@ public class CreateCommentCommand implements ReturningCommand<UUID> {
         return contents;
     }
 
-    public UUID getTargetId() {
+    public long getTargetId() {
         return targetId;
     }
 

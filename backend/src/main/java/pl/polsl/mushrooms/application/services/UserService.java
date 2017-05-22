@@ -6,14 +6,13 @@ import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
 public interface UserService {
 
-    UUID handle(CreateUserCommand command);
+    long handle(CreateUserCommand command);
 
     void handle(UpdateUserCommand command);
 

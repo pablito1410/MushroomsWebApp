@@ -12,8 +12,6 @@ import pl.polsl.mushrooms.application.model.MushroomSpecies;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Trip;
 
-import java.util.UUID;
-
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
@@ -37,7 +35,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         this.mushroomSpeciesDao = mushroomSpeciesDao;
     }
     @Override
-    public UUID handle(CreateDiscoveryCommand command) {
+    public long handle(CreateDiscoveryCommand command) {
 
         final Trip trip = tripDao.findTrip(command.getTripId());
         final Mushroomer mushroomer = (Mushroomer)userDao.findOne(command.getUserId());

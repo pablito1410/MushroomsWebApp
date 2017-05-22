@@ -27,17 +27,17 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
     @Override
-    public Map<String, Object> findOne(UUID id, Projection projection) {
+    public Map<String, Object> findOne(long id, Projection projection) {
         return userProjectionRepository.findOne(id, projection);
     }
 
     @Override
-    public UUID getId(String email) {
+    public long getId(String email) {
         return userProjectionRepository.getId(email);
     }
 
     @Override
-    public Map<String, Object> findAll(UUID id, Projection projection) {
+    public Map<String, Object> findAll(long id, Projection projection) {
         return userProjectionRepository.findAll(id, projection);
     }
 }

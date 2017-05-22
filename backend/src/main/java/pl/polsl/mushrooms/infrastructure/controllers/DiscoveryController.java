@@ -12,7 +12,6 @@ import pl.polsl.mushrooms.application.services.projections.DiscoveryProjectionSe
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -33,8 +32,8 @@ public class DiscoveryController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<UUID> create(@RequestBody CreateDiscoveryCommand command) {
-        final UUID id = commandGateway.dispatch(command);
+    public ResponseEntity<Long> create(@RequestBody CreateDiscoveryCommand command) {
+        final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
@@ -46,15 +45,15 @@ public class DiscoveryController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") UUID id,
+            @PathVariable(name = "id") long id,
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final Map<String, Object> discovery = discoveryProjectionService.findOne(id, projection);
         return new ResponseEntity<>(discovery, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") String id) {
-        final DeleteDiscoveryCommand command = new DeleteDiscoveryCommand(UUID.fromString(id));
+    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+        final DeleteDiscoveryCommand command = new DeleteDiscoveryCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
