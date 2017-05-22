@@ -10,12 +10,15 @@ import { NotificationsComponent } from "./notifications/notifications.component"
 import { DiscoveriesComponent } from "./discoveries/discoveries.component";
 import { MapsComponent} from "./maps/maps.component";
 import { FormsModule } from "@angular/forms";
+import { MdNativeDateModule, MaterialModule } from "@angular/material";
 
 @NgModule({
     imports: [
         RouterModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        MaterialModule,
+        MdNativeDateModule
     ],
     declarations: [
         DashboardComponent,
