@@ -35,8 +35,8 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Set<Object> findAll(String email, ProjectionDao.Projection projection) {
-        return findAll(getId(email), projection);
+    public Set<Object> findAll(String userName, ProjectionDao.Projection projection) {
+        return findAll(getId(userName), projection);
     }
 
     @Override

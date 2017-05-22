@@ -38,4 +38,9 @@ public class UserDaoImpl implements UserDao {
     public void delete(long id) {
         repository.delete(id);
     }
+
+    @Override
+    public User findOneByUsername(String username) {
+        return repository.findOneByUsername(username);
+    }
 }
