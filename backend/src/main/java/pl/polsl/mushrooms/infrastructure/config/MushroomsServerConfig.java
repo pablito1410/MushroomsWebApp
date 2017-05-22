@@ -14,6 +14,7 @@ import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.commands.user.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -44,6 +45,7 @@ public class MushroomsServerConfig {
             registry.register(userService::handle, CreateUserCommand.class);
             registry.register(userService::handle, UpdateUserCommand.class);
             registry.register(userService::handle, DeleteUserCommand.class);
+            registry.register(userService::handle, AddFriendCommand.class);
 
 
             registry.register(tripService::handle, CreateTripCommand.class);

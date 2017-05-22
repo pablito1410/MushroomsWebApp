@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import pl.polsl.mushrooms.application.commands.user.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -19,4 +20,6 @@ public interface UserService {
     void handle(DeleteUserCommand command);
 
     Optional<User> getUserByEmail(String email);
+
+    void handle(AddFriendCommand addFriendCommand);
 }

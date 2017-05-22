@@ -18,12 +18,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                    <tr *ngFor="let row of trips">
-                                    <td>{{trip.place}}</td>
-                                    <td>{{trip.date}}</td>
-                                    <td>{{trip.place}}</td>
-                                    <td>{{trip.place}}</td>
-                                </tr>
+
+                                <template let-trips ngFor [ngForOf]="trips">
+                                    <tr *ngFor="let trip of trips">
+                                        <td>{{trip.place}}</td>
+                                        <td>{{trip.place}}</td>
+                                        <td>{{trip.place}}</td>
+                                        <td>{{trip.place}}</td>
+                                    </tr>
+                                </template>
+
                             </tbody>
                         </table>
                     </div>

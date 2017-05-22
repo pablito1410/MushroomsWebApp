@@ -12,7 +12,7 @@ import {User} from "../../model/user";
 
 export class TripsComponent implements OnInit {
 
-    trips: Observable<Trip>;
+    trips: Observable<Array<Trip>>;
     model: any = {};
 
     constructor(

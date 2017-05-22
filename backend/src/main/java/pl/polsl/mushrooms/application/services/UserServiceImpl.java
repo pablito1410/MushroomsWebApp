@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.services;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.polsl.mushrooms.application.commands.user.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -57,6 +58,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void handle(AddFriendCommand command) {
+        final Mushroomer friend = (Mushroomer)repo.findOne(command.getFriendId());
+        final Mushroomer user = (Mushroomer)repo.findOne(command.getUserId());
+        user.addFriend(friend);
+        repo.save(user);
+    }
+
+    @Override
     public void handle(UpdateUserCommand command) {
         final Optional<User> optionalUser = Optional.of(repo.findOne(command.getId()));
         final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
@@ -66,14 +75,12 @@ public class UserServiceImpl implements UserService {
             case ADMIN:
                 user.setEmail(command.getEmail());
                 user.setUsername(command.getUsername());
-                user.setPassword(command.getPassword());
                 break;
 
             case MUSHROOMER:
                 final Mushroomer mushroomer = (Mushroomer)user;
                 mushroomer.setEmail(command.getEmail());
                 mushroomer.setUsername(command.getUsername());
-                mushroomer.setPassword(command.getPassword());
                 mushroomer.setFirstName(command.getFirstName());
                 mushroomer.setLastName(command.getLastName());
                 mushroomer.setBirthDate(command.getBirthDate());

@@ -20,8 +20,6 @@ public class UpdateUserCommand implements VoidCommand {
     @NotNull
     private String email;
 
-    @NotNull
-    private String password;
 
     private String firstName;
     private String lastName;
@@ -40,10 +38,6 @@ public class UpdateUserCommand implements VoidCommand {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getFirstName() {

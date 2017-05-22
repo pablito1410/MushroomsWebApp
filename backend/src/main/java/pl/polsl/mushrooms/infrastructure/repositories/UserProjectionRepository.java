@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.infrastructure.repositories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
@@ -8,8 +7,9 @@ import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 26.04.2017.
@@ -49,14 +49,14 @@ public class UserProjectionRepository {
         return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS where USERNAME = ?", email);
     }
 
-    public Long getId(String email) {
+    public Long getId(String userName) {
         // TODO zwracac malego longa lub rzuca wyjatkiem
-        return jdbcTemplate.queryForObject("select UserId from USERS where EMAIL = ?", Long.class, email);
+        return jdbcTemplate.queryForObject("select USER_ID from USERS where USERNAME = ?", Long.class, userName);
     }
 
-    public Map<String,Object> findAll(long id, ProjectionDao.Projection projection) {
-        final ObjectMapper mapper = new ObjectMapper();
+    public Set<Object> findAll(long id, ProjectionDao.Projection projection) {
         final User user = userRepository.findOne(id);
+
 
         switch(user.getRole()) {
 
@@ -64,7 +64,10 @@ public class UserProjectionRepository {
                 throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
 
             case MUSHROOMER:
-                return mapper.convertValue(((Mushroomer)user).getFriends(), Map.class);
+                Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
+                Set<Object> friendsJSON = new HashSet<>();
+                friends.forEach(t -> friendsJSON.add(findOne(t.getId(), ProjectionDao.Projection.FULL)));
+                return friendsJSON;
 
                 default:
                     throw new RuntimeException(String.format("Unhandled switch exception - %s", user.getRole()));
