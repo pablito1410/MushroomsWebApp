@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Trip} from "../../model/trip";
+import {TripService} from "../../services/trip.service";
+import {Observable} from "rxjs";
+import {User} from "../../model/user";
 
 @Component({
     moduleId: module.id,
@@ -6,4 +10,18 @@ import { Component } from '@angular/core';
     templateUrl: 'trips.component.html'
 })
 
-export class TripsComponent{}
+export class TripsComponent implements OnInit {
+
+    trips: Observable<Trip>;
+    model: any = {};
+
+    constructor(
+        private tripService: TripService) { }
+
+    ngOnInit() {
+        this.model = JSON.parse(localStorage.getItem('currentUser'));
+        let user = this.model;
+        this.trips = this.tripService.getAll();
+    }
+
+}

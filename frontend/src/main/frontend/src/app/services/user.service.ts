@@ -21,7 +21,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put('/api/users/' + user.id, user, this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.put('/api/users/', user, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {
