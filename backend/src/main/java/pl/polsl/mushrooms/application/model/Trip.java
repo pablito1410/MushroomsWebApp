@@ -11,7 +11,7 @@ import java.util.Set;
 public class Trip implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TRIP_ID")
 	private long id;
 

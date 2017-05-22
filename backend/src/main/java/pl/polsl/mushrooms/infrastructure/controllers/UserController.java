@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import pl.polsl.mushrooms.application.commands.user.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
@@ -12,6 +13,7 @@ import pl.polsl.mushrooms.application.services.projections.UserProjectionService
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 31.03.2017.
@@ -66,10 +68,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAll(
+    public ResponseEntity<Set<Object>> getAll(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Map<String, Object> users = userProjectionService.findAll(currentUserEmail, projection);
+        final Set<Object> users = userProjectionService.findAll(currentUserEmail, projection);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -95,6 +97,13 @@ public class UserController {
 //        commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/add-friend", method = RequestMethod.POST)
+    public ResponseEntity<Void> addFriend(@RequestBody AddFriendCommand command) {
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
     // TODO PK Nie usuwać! Przyda się w przyszłości

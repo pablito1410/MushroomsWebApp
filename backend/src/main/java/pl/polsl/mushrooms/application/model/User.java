@@ -15,7 +15,7 @@ import java.util.Set;
 public abstract class User implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	protected long id;
 
@@ -29,6 +29,7 @@ public abstract class User implements Serializable {
 	@Column(name = "PASSWORD", nullable = false)
 	protected String password;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	protected Set<Comment> comments;
 
