@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 
 @Entity
@@ -39,11 +38,11 @@ public class Comment extends Commentable{
 		this.user = user;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -89,9 +88,9 @@ public class Comment extends Commentable{
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.contents != null ) {
 			hashCode += this.contents.hashCode();
 		}
@@ -117,7 +116,7 @@ public class Comment extends Commentable{
 			Comment commentObject = (Comment) object;
 			boolean equals = true;
 			equals &= ((this.id == commentObject.id)
-				|| (this.id != null && this.id.equals(commentObject.id)));
+				|| (this.id == commentObject.id));
 			equals &= ((this.contents == commentObject.contents)
 				|| (this.contents != null && this.contents.equals(commentObject.contents)));
 			equals &= ((this.dateTime == commentObject.dateTime)

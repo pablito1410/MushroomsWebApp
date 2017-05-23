@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "USERS")
@@ -16,9 +15,9 @@ import java.util.UUID;
 public abstract class User implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "USER_ID")
-	protected UUID id;
+	protected long id;
 
 	@Column(name = "USERNAME", nullable = false)
 	protected String username;
@@ -44,11 +43,11 @@ public abstract class User implements Serializable {
 		this.password = password;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -88,9 +87,9 @@ public abstract class User implements Serializable {
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.username != null ) {
 			hashCode += this.username.hashCode();
 		}
@@ -116,7 +115,7 @@ public abstract class User implements Serializable {
 			User userObject = (User) object;
 			boolean equals = true;
 			equals &= ((this.id == userObject.id)
-				|| (this.id != null && this.id.equals(userObject.id)));
+				|| (this.id == userObject.id));
 			equals &= ((this.username == userObject.username)
 				|| (this.username != null && this.username.equals(userObject.username)));
 			equals &= ((this.email == userObject.email)

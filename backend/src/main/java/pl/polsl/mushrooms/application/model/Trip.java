@@ -5,18 +5,17 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TRIPS")
 public class Trip implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "TRIP_ID")
-	private UUID id;
+	private long id;
 
-	@Column(name = "DATE", nullable = false)
+	@Column(name = "DATE_TIME", nullable = false)
 	private LocalDateTime dateTime;
 
 	@Column(name = "PLACE")
@@ -42,11 +41,11 @@ public class Trip implements Serializable{
 		this.place = place;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -84,9 +83,9 @@ public class Trip implements Serializable{
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.dateTime != null ) {
 			hashCode += this.dateTime.hashCode();
 		}
@@ -106,7 +105,7 @@ public class Trip implements Serializable{
 			Trip tripObject = (Trip) object;
 			boolean equals = true;
 			equals &= ((this.id == tripObject.id)
-				|| (this.id != null && this.id.equals(tripObject.id)));
+				|| (this.id == tripObject.id));
 			equals &= ((this.dateTime == tripObject.dateTime)
 				|| (this.dateTime != null && this.dateTime.equals(tripObject.dateTime)));
 			equals &= ((this.place == tripObject.place)

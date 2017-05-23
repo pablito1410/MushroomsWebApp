@@ -4,16 +4,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "MUSHROOMS_FAMILIES")
 public class MushroomFamily implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "MUSH_FAMILY_ID")
-	private UUID id;
+	private long id;
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
@@ -34,11 +33,11 @@ public class MushroomFamily implements Serializable {
 		this.order = order;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -68,9 +67,9 @@ public class MushroomFamily implements Serializable {
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.name != null ) {
 			hashCode += this.name.hashCode();
 		}
@@ -90,7 +89,7 @@ public class MushroomFamily implements Serializable {
 			MushroomFamily mushroomFamilyObject = (MushroomFamily) object;
 			boolean equals = true;
 			equals &= ((this.id == mushroomFamilyObject.id)
-				|| (this.id != null && this.id.equals(mushroomFamilyObject.id)));
+				|| (this.id == mushroomFamilyObject.id));
 			equals &= ((this.name == mushroomFamilyObject.name)
 				|| (this.name != null && this.name.equals(mushroomFamilyObject.name)));
 			equals &= ((this.order == mushroomFamilyObject.order)

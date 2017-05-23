@@ -2,16 +2,15 @@ package pl.polsl.mushrooms.application.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TAG")
 public class Tag implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "TAG_ID")
-	private UUID id;
+	private long id;
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
@@ -26,11 +25,11 @@ public class Tag implements Serializable {
 		this.discovery = discovery;
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return this.id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -52,9 +51,9 @@ public class Tag implements Serializable {
 
 	public int hashCode() {
 		int hashCode = 0;
-		if ( this.id != null ) {
-			hashCode += this.id.hashCode();
-		}
+//		if ( this.id != null ) {
+//			hashCode += this.id.hashCode();
+//		}
 		if ( this.name != null ) {
 			hashCode += this.name.hashCode();
 		}
@@ -74,7 +73,7 @@ public class Tag implements Serializable {
 			Tag tagObject = (Tag) object;
 			boolean equals = true;
 			equals &= ((this.id == tagObject.id)
-				|| (this.id != null && this.id.equals(tagObject.id)));
+				|| (this.id == tagObject.id));
 			equals &= ((this.name == tagObject.name)
 				|| (this.name != null && this.name.equals(tagObject.name)));
 			equals &= ((this.discovery == tagObject.discovery)

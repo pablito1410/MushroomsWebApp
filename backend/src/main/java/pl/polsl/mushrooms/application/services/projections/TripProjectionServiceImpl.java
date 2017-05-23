@@ -13,13 +13,26 @@ public class TripProjectionServiceImpl implements TripProjectionService {
 
 
     private final TripProjectionDao tripProjectionDao;
+    private final UserProjectionService userProjectionService;
 
-    public TripProjectionServiceImpl(TripProjectionDao tripProjectionDao) {
+    public TripProjectionServiceImpl(TripProjectionDao tripProjectionDao, final UserProjectionService userProjectionService) {
 
         this.tripProjectionDao = tripProjectionDao;
+        this.userProjectionService = userProjectionService;
     }
     @Override
-    public Map<String, Object> findOne(UUID id, ProjectionDao.Projection projection) {
+    public Map<String, Object> findOne(long id, ProjectionDao.Projection projection) {
         return null;
+    }
+
+    @Override
+    public Map<String, Object> findAll(String currentUserEmail, ProjectionDao.Projection projection) {
+        final long userId = userProjectionService.getId(currentUserEmail);
+        return tripProjectionDao.findAll(userId, projection);
+    }
+
+    @Override
+    public Map<String, Object> findAll(long userId, ProjectionDao.Projection projection) {
+        return tripProjectionDao.findAll(userId, projection);
     }
 }

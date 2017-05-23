@@ -25,7 +25,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public UUID handle(CreateTripCommand command) {
+    public long handle(CreateTripCommand command) {
         final Trip trip = new Trip(command.getDateTime(), command.getPlace());
 
         final Mushroomer user = (Mushroomer)userRepo.findOne(command.getUserId());

@@ -12,7 +12,6 @@ import pl.polsl.mushrooms.application.model.User;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UUID handle(CreateUserCommand command) {
+    public long handle(CreateUserCommand command) {
         if (userExist(command.getEmail())) {
             throw new EntityAlreadyExistException(
                     "User with an e-mail = " + command.getEmail() + " already exist.");
@@ -59,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(UpdateUserCommand command) {
-        final Optional<User> optionalUser = Optional.of(repo.findOne(command.getUserId()));
+        final Optional<User> optionalUser = Optional.of(repo.findOne(command.getId()));
         final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
 
         switch (user.getRole())

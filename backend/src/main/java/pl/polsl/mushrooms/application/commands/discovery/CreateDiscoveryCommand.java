@@ -3,16 +3,15 @@ package pl.polsl.mushrooms.application.commands.discovery;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-public class CreateDiscoveryCommand implements ReturningCommand<UUID> {
+public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
-    private UUID userId;
-    private UUID tripId;
-    private UUID mushroomSpieceId;
+    private long userId;
+    private long tripId;
+    private long mushroomSpieceId;
 
     private String coordinateX;
     private String coordinateY;
@@ -21,15 +20,15 @@ public class CreateDiscoveryCommand implements ReturningCommand<UUID> {
 
     protected CreateDiscoveryCommand() { }
 
-    public UUID getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public UUID getTripId() {
+    public long getTripId() {
         return tripId;
     }
 
-    public UUID getMushroomSpieceId() {
+    public long getMushroomSpieceId() {
         return mushroomSpieceId;
     }
 

@@ -5,8 +5,6 @@ import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
-import java.util.UUID;
-
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
@@ -27,7 +25,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findOne(UUID id) {
+    public User findOne(long id) {
         return repository.findOne(id);
     }
 
@@ -37,7 +35,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(long id) {
         repository.delete(id);
     }
 }

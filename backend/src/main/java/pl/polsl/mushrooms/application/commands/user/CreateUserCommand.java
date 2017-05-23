@@ -1,18 +1,15 @@
 package pl.polsl.mushrooms.application.commands.user;
 
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
-import pl.polsl.mushrooms.application.commands.VoidCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
-import pl.polsl.mushrooms.application.model.User;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
-public class CreateUserCommand implements ReturningCommand<UUID> {
+public class CreateUserCommand implements ReturningCommand<Long> {
 
     @NotNull
     protected String username;

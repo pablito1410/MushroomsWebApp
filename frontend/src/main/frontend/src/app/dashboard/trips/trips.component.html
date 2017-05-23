@@ -1,7 +1,34 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <!--TODO-->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" data-background-color="brown">
+                        <h4 class="title">Your trips</h4>
+                        <p class="category">Complete your profile</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th>Place</th>
+                                    <th>Time</th>
+                                    <th>Friends</th>
+                                    <th>Discoveries</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr *ngFor="let row of trips">
+                                    <td>{{trip.place}}</td>
+                                    <td>{{trip.date}}</td>
+                                    <td>{{trip.place}}</td>
+                                    <td>{{trip.place}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

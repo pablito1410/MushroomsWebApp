@@ -21,6 +21,8 @@ import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
+import pl.polsl.mushrooms.infrastructure.repositories.TripProjectionRepository;
+import pl.polsl.mushrooms.infrastructure.repositories.TripRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
@@ -73,6 +75,11 @@ public class MushroomsServerConfig {
     }
 
     @Bean
+    public TripProjectionRepository tripProjectionRepository(final JdbcTemplate jdbcTemplate, final TripRepository tripRepository, final UserRepository userRepository) {
+        return new TripProjectionRepository(jdbcTemplate, tripRepository, userRepository);
+    }
+
+    @Bean
     UserProjectionService userProjectionService(UserProjectionDao userProjectionDao) {
         return new UserProjectionServiceImpl(userProjectionDao);
     }
@@ -88,8 +95,8 @@ public class MushroomsServerConfig {
     }
 
     @Bean
-    TripProjectionService tripProjectionService(TripProjectionDao tripProjectionDao) {
-        return new TripProjectionServiceImpl(tripProjectionDao);
+    TripProjectionService tripProjectionService(TripProjectionDao tripProjectionDao, UserProjectionService userProjectionService) {
+        return new TripProjectionServiceImpl(tripProjectionDao, userProjectionService);
     }
 
     @Bean
