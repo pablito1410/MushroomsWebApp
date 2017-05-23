@@ -12,9 +12,14 @@ import { MapsComponent} from "./maps/maps.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MdNativeDateModule, MaterialModule } from "@angular/material";
 import { AgmCoreModule } from "angular2-google-maps/core";
+import { SearchFriendsComponent } from "./friends/search-friends/search-friends.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
     imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
         RouterModule,
         CommonModule,
         FormsModule,
@@ -33,7 +38,11 @@ import { AgmCoreModule } from "angular2-google-maps/core";
         TripsComponent,
         NotificationsComponent,
         DiscoveriesComponent,
-        MapsComponent
+        MapsComponent,
+        SearchFriendsComponent
+    ],
+    entryComponents: [
+        SearchFriendsComponent
     ],
     exports: [
         DashboardComponent,
