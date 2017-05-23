@@ -86,3 +86,10 @@ my-app .main-panel .main-content .card{
     background-repeat: no-repeat no-repeat;
     pointer-events: none;
 }
+
+/*
+Dopisać styla
+ */
+.friend-card{
+    width: 20rem;
+}

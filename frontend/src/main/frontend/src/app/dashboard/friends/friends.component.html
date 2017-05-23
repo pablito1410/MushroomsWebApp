@@ -1,7 +1,22 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
-            <!--TODO-->
-        </div>
+        <!--<div class="row">-->
+        <md-grid-list cols="2">
+            <md-grid-tile>
+                <div *ngFor="let user of users">
+                    <div class="card card-profile friend-card">
+                        <div class="card-avatar">
+                            <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Amanita_muscaria_%28fly_agaric%29.JPG/220px-Amanita_muscaria_%28fly_agaric%29.JPG"/>
+                        </div>
+                        <div class="content">
+                            <h5 class="category text-gray">{{user.username}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </md-grid-tile>
+
+        </md-grid-list>
+
+        <!--</div>-->
     </div>
 </div>
