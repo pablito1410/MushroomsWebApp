@@ -1,5 +1,5 @@
 export class Discovery {
-    id: number;
+    id: string;
     coordinateX: string;
     coordinateY: string;
     photo: string;
