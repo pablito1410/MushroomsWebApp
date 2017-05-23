@@ -86,3 +86,7 @@ my-app .main-panel .main-content .card{
     background-repeat: no-repeat no-repeat;
     pointer-events: none;
 }
+
+.sebm-google-map-container {
+    height: 900px;
+}

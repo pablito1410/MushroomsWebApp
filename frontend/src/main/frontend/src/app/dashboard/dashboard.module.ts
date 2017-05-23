@@ -11,6 +11,7 @@ import { DiscoveriesComponent } from "./discoveries/discoveries.component";
 import { MapsComponent} from "./maps/maps.component";
 import { FormsModule } from "@angular/forms";
 import { MdNativeDateModule, MaterialModule } from "@angular/material";
+import { AgmCoreModule } from "angular2-google-maps/core";
 
 @NgModule({
     imports: [
@@ -18,7 +19,10 @@ import { MdNativeDateModule, MaterialModule } from "@angular/material";
         CommonModule,
         FormsModule,
         MaterialModule,
-        MdNativeDateModule
+        MdNativeDateModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDd7pfi7_Du2senx4g4lLArVguhMd2LUKY'
+        })
     ],
     declarations: [
         DashboardComponent,

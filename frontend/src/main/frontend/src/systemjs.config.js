@@ -25,10 +25,15 @@
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
       // other libraries
       'rxjs':                      'npm:rxjs',
+      'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
+      // app: {
+      //     main: '',
+      //     defaultExtension: ''
+      // },
       rxjs: {
         defaultExtension: 'js'
       }
