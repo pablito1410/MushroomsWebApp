@@ -16,7 +16,7 @@ public interface UserProjectionService {
 
     long getId(String email);
 
-    Set<Object> findAll(String currentUserEmail, ProjectionDao.Projection projection);
+    Set<Object> findAll(String userName, ProjectionDao.Projection projection);
 
     Set<Object> findAll(long id, ProjectionDao.Projection projection);
 }
