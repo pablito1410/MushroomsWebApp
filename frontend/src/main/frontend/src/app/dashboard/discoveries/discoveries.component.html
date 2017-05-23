@@ -1,9 +1,27 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
-                    <!--TODO-->
+                    <div class="card-header" data-background-color="brown">
+                        <h4 class="title">Yours Friends</h4>
+                    </div>
+                    <div class="card-content">
+                        <md-grid-list cols="4:2">
+                            <div *ngFor="let discovery of discoveries">
+                                <md-grid-tile>
+                                    <div class="card card-profile friend-card">
+                                        <div class="card-avatar">
+                                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="category text-gray">{{discovery.id}}</h5>
+                                        </div>
+                                    </div>
+                                </md-grid-tile>
+                            </div>
+                        </md-grid-list>
+                    </div>
                 </div>
             </div>
         </div>
