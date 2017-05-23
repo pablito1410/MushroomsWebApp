@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
@@ -40,18 +41,26 @@ public class Mushroomer extends User {
 	@Column(name = "PHOTO")
 	private byte[] photo;
 
+	@JsonIgnore
 	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
 			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Trip> trips;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Score> scores;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Discovery> discoveries;
 
-	@OneToMany(mappedBy = "friends")
-	private Set<Mushroomer> friends;
+	@ManyToMany(targetEntity = Mushroomer.class,
+			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "USERS_USERS",
+			joinColumns = {@JoinColumn(name = "USER_ID")},
+			inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
+	@JsonIgnore
+	private Set<Mushroomer> users;
 
     @Override
     @Enumerated(EnumType.STRING)
@@ -63,7 +72,7 @@ public class Mushroomer extends User {
         trips = new HashSet<>();
         scores = new HashSet<>();
         discoveries = new HashSet<>();
-        friends = new HashSet<>();
+        users = new HashSet<>();
     }
 
 	public Mushroomer(
@@ -78,7 +87,7 @@ public class Mushroomer extends User {
         trips = new HashSet<>();
         scores = new HashSet<>();
         discoveries = new HashSet<>();
-        friends = new HashSet<>();
+        users = new HashSet<>();
 	}
 
 	public String getCountry() {
@@ -170,12 +179,14 @@ public class Mushroomer extends User {
 	}
 
     public Set<Mushroomer> getFriends() {
-        return friends;
+        return users;
     }
 
     public void setFriends(Set<Mushroomer> friends) {
-        this.friends = friends;
+        this.users = friends;
     }
+
+	public void addFriend(Mushroomer friend) { this.users.add(friend); }
 
 	public int hashCode() {
 		int hashCode = 0;
@@ -215,7 +226,7 @@ public class Mushroomer extends User {
 			equals &= this.trips == mushroomerObject.trips;
 			equals &= this.scores == mushroomerObject.scores;
 			equals &= this.discoveries == mushroomerObject.discoveries;
-			equals &= this.friends == mushroomerObject.friends;
+			equals &= this.users == mushroomerObject.users;
 			return equals;
 		}
 		return false;

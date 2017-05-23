@@ -20,21 +20,20 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="assets/css/mushrooms.css" rel="stylesheet" />
 
-    <!--     Fonts and icons     -->
+    <!--  Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 
     <!-- Polyfill for older browsers -->
     <script src="assets/js/shim.min.js"></script>
-    <script src="assets/js/zone.js"></script>
     <script src="assets/js/Reflect.js"></script>
     <script src="assets/js/system.src.js"></script>
     <script src="assets/js/jquery.js" type="text/javascript"></script>
 
-    <!-- 2. Configure SystemJS -->
+    <!-- Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
-    System.import('app').catch(function(err){ console.error(err); });
+        System.import('app').catch(function(err){ console.error(err); });
     </script>
 
 </head>
@@ -59,9 +58,6 @@
 
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
-
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbSUKBOMIbcRQRwM06tAIW0GFFcvoFYf4"></script>
 
 <!-- Material Dashboard javascript methods -->
 <script src="assets/js/material-dashboard.js"></script>

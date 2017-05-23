@@ -19,4 +19,5 @@ public interface UserService {
     void handle(DeleteUserCommand command);
 
     Optional<User> getUserByEmail(String email);
+
 }

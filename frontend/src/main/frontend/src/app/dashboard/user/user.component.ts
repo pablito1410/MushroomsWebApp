@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
-import {User} from "../../model/user";
 
 @Component({
     moduleId: module.id,
@@ -11,13 +10,37 @@ import {User} from "../../model/user";
 export class UserComponent implements OnInit {
     model: any = {};
     loading = false;
+    imageSrc: string = '';
 
     constructor(
         private router: Router,
         private userService: UserService) { }
 
     ngOnInit() {
-        this.model = JSON.parse(localStorage.getItem('currentUser'));
+        let currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+            this.model = JSON.parse(currentUser);
+        }
+    }
+
+    handleReaderLoaded(e) {
+        var reader = e.target;
+        this.imageSrc = reader.result;
+    }
+
+    handleInputChange(e) {
+        var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+
+        var pattern = /image-*/;
+        var reader = new FileReader();
+
+        if (!file.type.match(pattern)) {
+            alert('invalid format');
+            return;
+        }
+
+        reader.onload = this.handleReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
     }
 
     update() {

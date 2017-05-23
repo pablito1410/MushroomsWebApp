@@ -4,7 +4,7 @@ import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
 
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
@@ -26,13 +26,13 @@ public class TripProjectionServiceImpl implements TripProjectionService {
     }
 
     @Override
-    public Map<String, Object> findAll(String currentUserEmail, ProjectionDao.Projection projection) {
-        final long userId = userProjectionService.getId(currentUserEmail);
+    public Set<Map<String, Object>> findAll(String userName, ProjectionDao.Projection projection) {
+        final long userId = userProjectionService.getId(userName);
         return tripProjectionDao.findAll(userId, projection);
     }
 
     @Override
-    public Map<String, Object> findAll(long userId, ProjectionDao.Projection projection) {
+    public Set<Map<String, Object>> findAll(long userId, ProjectionDao.Projection projection) {
         return tripProjectionDao.findAll(userId, projection);
     }
 }

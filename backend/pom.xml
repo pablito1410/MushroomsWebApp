@@ -109,7 +109,7 @@
             <!--<groupId>com.h2database</groupId>-->
             <!--<artifactId>h2</artifactId>-->
             <!--<scope>runtime</scope>-->
-        <!--</dependency>&ndash;&gt;-->
+        <!--</dependency>-->
          <!--https://mvnrepository.com/artifact/postgresql/postgresql-->
         <dependency>
             <groupId>org.postgresql</groupId>

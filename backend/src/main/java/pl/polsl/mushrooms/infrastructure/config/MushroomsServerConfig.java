@@ -14,6 +14,7 @@ import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -36,6 +37,7 @@ public class MushroomsServerConfig {
     @Bean
     public InitializingBean mushroomsServerInitializer(
             UserService userService,
+            FriendService friendService,
             TripService tripService,
             DiscoveryService discoveryService,
             CommentService commentService,
@@ -44,6 +46,8 @@ public class MushroomsServerConfig {
             registry.register(userService::handle, CreateUserCommand.class);
             registry.register(userService::handle, UpdateUserCommand.class);
             registry.register(userService::handle, DeleteUserCommand.class);
+
+            registry.register(friendService::handle, AddFriendCommand.class);
 
 
             registry.register(tripService::handle, CreateTripCommand.class);
@@ -64,6 +68,11 @@ public class MushroomsServerConfig {
     @Bean
     public UserService userService(UserDao repo) {
         return new UserServiceImpl(repo);
+    }
+
+    @Bean
+    public FriendService friendService(UserDao repo) {
+        return new FriendServiceImpl(repo);
     }
 
     @Bean

@@ -5,7 +5,7 @@ import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
 
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
@@ -32,12 +32,12 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
     @Override
-    public long getId(String email) {
-        return userProjectionRepository.getId(email);
+    public long getId(String userName) {
+        return userProjectionRepository.getId(userName);
     }
 
     @Override
-    public Map<String, Object> findAll(long id, Projection projection) {
+    public Set<Object> findAll(long id, Projection projection) {
         return userProjectionRepository.findAll(id, projection);
     }
 }

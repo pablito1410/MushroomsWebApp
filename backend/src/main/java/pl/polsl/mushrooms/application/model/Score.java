@@ -16,8 +16,8 @@ public class Score implements Serializable {
 	@Column(name = "VALUE", nullable = false)
 	private int value;
 
-	@Column(name = "DATE_TIME", nullable = false)
-	private LocalDateTime dateTime;
+//	@Column(name = "DATE_TIME", nullable = false)
+//	private LocalDateTime dateTime;
 
 	@ManyToOne(optional = false)
 	private Discovery discovery;
@@ -29,7 +29,7 @@ public class Score implements Serializable {
 
 	public Score(int value, LocalDateTime dateTime, Discovery discovery, Mushroomer mushroomer) {
 		this.value = value;
-		this.dateTime = dateTime;
+//		this.dateTime = dateTime;
 		this.discovery = discovery;
 		this.mushroomer = mushroomer;
 	}
@@ -50,13 +50,13 @@ public class Score implements Serializable {
 		this.value = value;
 	}
 
-	public LocalDateTime getDateTime() {
-		return this.dateTime;
-	}
+//	public LocalDateTime getDateTime() {
+//		return this.dateTime;
+//	}
 
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
-	}
+//	public void setDateTime(LocalDateTime dateTime) {
+//		this.dateTime = dateTime;
+//	}
 
 	public Discovery getDiscovery() {
 		return this.discovery;
@@ -87,9 +87,9 @@ public class Score implements Serializable {
 //		if ( this.id != null ) {
 //			hashCode += this.id.hashCode();
 //		}
-		if ( this.dateTime != null ) {
-			hashCode += this.dateTime.hashCode();
-		}
+//		if ( this.dateTime != null ) {
+//			hashCode += this.dateTime.hashCode();
+//		}
 		if ( this.discovery != null ) {
 			hashCode += this.discovery.hashCode();
 		}
@@ -111,8 +111,8 @@ public class Score implements Serializable {
 			equals &= ((this.id == scoreObject.id)
 				|| (this.id == scoreObject.id));
 			equals &= this.value == scoreObject.value;
-			equals &= ((this.dateTime == scoreObject.dateTime)
-				|| (this.dateTime != null && this.dateTime.equals(scoreObject.dateTime)));
+//			equals &= ((this.dateTime == scoreObject.dateTime)
+//				|| (this.dateTime != null && this.dateTime.equals(scoreObject.dateTime)));
 			equals &= ((this.discovery == scoreObject.discovery)
 				|| (this.discovery != null && this.discovery.equals(scoreObject.discovery)));
 			equals &= ((this.mushroomer == scoreObject.mushroomer)

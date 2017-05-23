@@ -12,6 +12,7 @@ import pl.polsl.mushrooms.application.services.projections.UserProjectionService
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 31.03.2017.
@@ -66,10 +67,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getAll(
+    public ResponseEntity<Set<Object>> getAll(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Map<String, Object> users = userProjectionService.findAll(currentUserEmail, projection);
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<Object> users = userProjectionService.findAll(userName, projection);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
