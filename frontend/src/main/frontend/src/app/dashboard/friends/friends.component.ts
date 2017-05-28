@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
-import { MdDialog} from "@angular/material";
+import {MdDialog} from "@angular/material";
 import {SearchFriendsComponent} from "./search-friends/search-friends.component";
 
 @Component({
@@ -16,7 +16,11 @@ export class FriendsComponent implements OnInit {
     constructor(public dialog: MdDialog) {}
 
     openSearchFriendsDialog() {
-        let dialogRef = this.dialog.open(SearchFriendsComponent);
+        let dialogRef = this.dialog.open(SearchFriendsComponent, {
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
         });

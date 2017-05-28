@@ -1,9 +1,6 @@
 enum Gender {MALE, FEMALE}
 enum Role {USER, ADMIN}
 export class User {
-    constructor(name: string){
-        this.username = name;
-    }
     id: string;
     username: string;
     firstName: string;
