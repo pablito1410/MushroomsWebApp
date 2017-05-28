@@ -20,6 +20,8 @@ public class FriendServiceImpl implements FriendService {
         final Mushroomer friend = (Mushroomer)repo.findOne(command.getFriendId());
         final Mushroomer user = (Mushroomer)repo.findOneByUsername(command.getUsername());
         user.addFriend(friend);
+        friend.addFriend(user);
         repo.save(user);
+        repo.save(friend);
     }
 }

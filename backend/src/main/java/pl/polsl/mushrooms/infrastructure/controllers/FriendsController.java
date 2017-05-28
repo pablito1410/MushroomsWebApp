@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
+import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 23.05.2017.
@@ -35,5 +35,13 @@ public class FriendsController {
         command.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Set<Object>> getAll(
+            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<Object> users = userProjectionService.findAll(userName, projection);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

@@ -1,10 +1,34 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
-                    <!--TODO-->
+                    <div class="card-header" data-background-color="brown">
+                        <h4 class="title">Your Discoveries</h4>
+                    </div>
+                    <div class="card-content">
+                        <md-grid-list cols="4:2">
+                            <div *ngFor="let discovery of discoveries">
+                                <md-grid-tile>
+                                    <div class="card card-profile">
+                                        <div class="card-avatar">
+                                            <img class="img" src="..\assets\img\mushrooms-icon.png"/>
+                                        </div>
+                                        <div class="content">
+                                            <h5 class="category text-gray">{{discovery.id}}</h5>
+                                        </div>
+                                    </div>
+                                </md-grid-tile>
+                            </div>
+                        </md-grid-list>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" (click)="openAddDiscoveryDialog()">Add Discovery</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" (click)="openSearchDiscoveryDialog()">Search Discoveries</button>
             </div>
         </div>
     </div>
