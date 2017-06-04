@@ -8,7 +8,7 @@ export class AuthenticationService {
     constructor(private http: Http) { }
 
     login(email: string, password: string) {
-        let headers = new Headers ();
+        let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('email', email);

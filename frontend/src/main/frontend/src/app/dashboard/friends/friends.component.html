@@ -1,8 +1,8 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 col-md-push-8">
-                <button class="btn btn-primary text-center" (click)="openSearchFriendsDialog()">Search Friends</button>
+            <div class="col-md-4 col-md-push-8 text-center">
+                <button class="btn btn-primary" (click)="openSearchFriendsDialog()">Search Friends</button>
             </div>
             <div class="col-md-8 col-md-pull-4">
                 <div class="card">
@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-content">
                         <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
-                            <div class="card card-profile friend-card" (click)="openFriendDetailsDialog()">
+                            <div class="card card-profile" (click)="openFriendDetailsDialog()">
                                 <div class="card-avatar">
                                     <img class="img" src="..\assets\img\faces\default-user.png"/>
                                 </div>

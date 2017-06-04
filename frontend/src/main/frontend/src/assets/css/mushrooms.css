@@ -99,17 +99,8 @@ my-app .main-panel .main-content .card{
     margin-top:40px;
 }
 
-.row-centered {
-    text-align:center;
-}
-
-.col-centered {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
+.add-friend-checkbox {
+    right: 35%;
 }
 
 .mat-calendar {
