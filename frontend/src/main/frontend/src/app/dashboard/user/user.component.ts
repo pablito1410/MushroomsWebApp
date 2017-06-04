@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
     }
 
     handleInputChange(event) {
+        console.log('jest');
         var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
         var pattern = /image-*/;
         var reader = new FileReader();
@@ -36,9 +37,17 @@ export class UserComponent implements OnInit {
             alert('invalid format');
             return;
         }
+        console.log(file);
         reader.onload = this.handleReaderLoaded.bind(this);
         reader.readAsDataURL(file);
-        this.userService.updateImage(file);
+        console.log(file);
+        this.userService.updateImage(file).subscribe(
+            data => {
+                this.router.navigate(['/user']);
+            },
+            error => {
+                this.loading = false;
+            });
     }
 
     update() {

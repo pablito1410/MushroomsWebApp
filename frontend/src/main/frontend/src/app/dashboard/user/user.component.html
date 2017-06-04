@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && (!birthDate.valid || !birthDate.pristine) }">
-                                        <!--<md-input-container >-->
+                                        <!--<md-input-container>-->
                                             <input mdInput [mdDatepicker]="picker" class="form-control" name="birth-date" [(ngModel)]="model.birthDate"
                                                 #birthDate="ngModel" placeholder="Birth Date" />
                                             <button mdSuffix [mdDatepickerToggle]="picker"></button>

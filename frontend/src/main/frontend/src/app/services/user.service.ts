@@ -31,16 +31,7 @@ export class UserService {
     updateImage(image: File) {
         let formData: FormData = new FormData();
         formData.append('files', image, image.name);
-        return this.http.post('/api/users/image', formData, this.authenticationService.jwt()).subscribe(
-            res => {
-                let responseData = res.json();
-                // resolve(this.responseData);
-            },
-            error => {
-                this.router.navigate(['/user']);
-                // reject(error);
-            }
-        );
+        return this.http.post('/api/users/image', formData, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
 
