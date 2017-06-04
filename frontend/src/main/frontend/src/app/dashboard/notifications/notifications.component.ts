@@ -18,6 +18,6 @@ export class NotificationsComponent implements OnInit {
     }
 
     deleteNotification(index: number) {
-
+        this.notifications.splice(index, 1);
     }
 }
