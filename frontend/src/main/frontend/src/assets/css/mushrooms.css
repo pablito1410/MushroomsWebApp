@@ -90,3 +90,33 @@ my-app .main-panel .main-content .card{
 .sebm-google-map-container {
     height: 900px;
 }
+
+.sebm-google-map-container-small {
+    height: 600px;
+}
+
+.top-buffer {
+    margin-top:40px;
+}
+
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+.mat-calendar {
+    background: #EEEEEE;
+}
+
+.mat-calendar-body-selected {
+    background-color: rgb(121, 61, 0) !important;
+    color: rgba(255,255,255,.87);
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -6,6 +6,18 @@ import { Component } from '@angular/core';
     templateUrl: 'notifications.component.html'
 })
 
-export class NotificationsComponent{
+export class NotificationsComponent implements OnInit {
+    notifications: any[];
+    constructor() {}
+    ngOnInit() {
+        this.notifications = [
+            { icon : 'person', message : 'Marian would like to add you to your friends' },
+            { icon : 'add_alert', message : 'Kasia invited you on a trip' },
+            { icon : 'directions_walk', message : 'Michael found the mushroom on a trip in Krakow' }
+        ]
+    }
 
+    deleteNotification(index: number) {
+
+    }
 }

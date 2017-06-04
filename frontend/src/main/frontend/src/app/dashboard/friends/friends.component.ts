@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../model/user";
 import {MdDialog} from "@angular/material";
 import {SearchFriendsComponent} from "./search-friends/search-friends.component";
+import {FriendDetailsComponent} from "./friend-details/friend-details.component";
 
 @Component({
     moduleId: module.id,
@@ -14,17 +15,6 @@ export class FriendsComponent implements OnInit {
     selectedOption: string;
 
     constructor(public dialog: MdDialog) {}
-
-    openSearchFriendsDialog() {
-        let dialogRef = this.dialog.open(SearchFriendsComponent, {
-            hasBackdrop: true,
-            height: '80%',
-            width: '80%',
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            this.selectedOption = result;
-        });
-    }
 
     ngOnInit(){
         this.users = [
@@ -45,5 +35,28 @@ export class FriendsComponent implements OnInit {
             {username : 'grzyb'},
             {username : 'kurka'}
         ]
+    }
+
+    openSearchFriendsDialog() {
+        let dialogRef = this.dialog.open(SearchFriendsComponent, {
+            data: this.users,
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
+    }
+
+    openFriendDetailsDialog() {
+        let dialogRef = this.dialog.open(FriendDetailsComponent, {
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
     }
 }

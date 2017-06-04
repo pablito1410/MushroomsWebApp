@@ -15,6 +15,11 @@ import { AgmCoreModule } from "angular2-google-maps/core";
 import { SearchFriendsComponent } from "./friends/search-friends/search-friends.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
+import {AddDiscoveryComponent} from "./discoveries/add-discovery/add-discovery.component";
+import {DiscoveryDetailsComponent} from "./discoveries/discovery-details/discovery-details.component";
+import {FriendDetailsComponent} from "./friends/friend-details/friend-details.component";
+import {TripDetailsComponent} from "./trips/trip-details/trip-details.component";
+import {AddTripComponent} from "./trips/add-trip/add-trip.component";
 
 @NgModule({
     imports: [
@@ -40,10 +45,20 @@ import { BrowserModule } from "@angular/platform-browser";
         NotificationsComponent,
         DiscoveriesComponent,
         MapsComponent,
-        SearchFriendsComponent
+        SearchFriendsComponent,
+        AddDiscoveryComponent,
+        DiscoveryDetailsComponent,
+        FriendDetailsComponent,
+        TripDetailsComponent,
+        AddTripComponent
     ],
     entryComponents: [
-        SearchFriendsComponent
+        SearchFriendsComponent,
+        AddDiscoveryComponent,
+        DiscoveryDetailsComponent,
+        FriendDetailsComponent,
+        TripDetailsComponent,
+        AddTripComponent
     ],
     exports: [
         DashboardComponent,

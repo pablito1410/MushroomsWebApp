@@ -9,7 +9,6 @@ import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AuthenticationGuard } from "./authentication/authentication.guard";
-import { AlertService } from "./services/alert.service";
 import { AuthenticationService } from "./services/authentication.service";
 import { UserService } from "./services/user.service";
 import { APP_ROUTES } from "./app.routes";
@@ -38,7 +37,6 @@ import { AuthenticationModule } from "./authentication/authentication.module";
     ],
     providers: [
         AuthenticationGuard,
-        AlertService,
         AuthenticationService,
         UserService,
         TripService,

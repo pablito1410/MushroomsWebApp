@@ -1,26 +1,29 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4 col-md-push-8">
+                <button class="btn btn-primary" (click)="openAddTripDialog()">Add Trip</button>
+            </div>
+            <div class="col-md-8 col-md-pull-4">
                 <div class="card">
                     <div class="card-header" data-background-color="brown">
                         <h4 class="title">Your Trips</h4>
                     </div>
                     <div class="card-content table-responsive">
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead class="text-danger">
-                                <tr>
-                                    <th>Place</th>
-                                    <th>Time</th>
-                                    <!--<th>Status</th>-->
-                                </tr>
+                            <tr>
+                                <th>Place</th>
+                                <th>Time</th>
+                                <!--<th>Status</th>-->
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let trip of trips">
-                                    <td>{{trip.place}}</td>
-                                    <td>{{trip.dateTime}}</td>
-                                    <!--<td>{{trip.status()}}</td>-->
-                                </tr>
+                            <tr *ngFor="let trip of trips" (click)="openTripDetailsDialog()">
+                                <td>{{trip.place}}</td>
+                                <td>{{trip.dateTime}}</td>
+                                <!--<td>{{trip.status()}}</td>-->
+                            </tr>
                             </tbody>
                         </table>
                     </div>

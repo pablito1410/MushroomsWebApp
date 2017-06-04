@@ -1,31 +1,27 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4 col-md-push-8">
+                <button class="btn btn-primary text-center" (click)="openSearchFriendsDialog()">Search Friends</button>
+            </div>
+            <div class="col-md-8 col-md-pull-4">
                 <div class="card">
                     <div class="card-header" data-background-color="brown">
                         <h4 class="title">Yours Friends</h4>
                     </div>
                     <div class="card-content">
-                        <md-grid-list cols="4:2">
-                            <div *ngFor="let user of users">
-                                <md-grid-tile>
-                                    <div class="card card-profile friend-card">
-                                        <div class="card-avatar">
-                                            <img class="img" src="..\assets\img\faces\default-user.png"/>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="category text-gray">{{user.username}}</h5>
-                                        </div>
-                                    </div>
-                                </md-grid-tile>
+                        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
+                            <div class="card card-profile friend-card" (click)="openFriendDetailsDialog()">
+                                <div class="card-avatar">
+                                    <img class="img" src="..\assets\img\faces\default-user.png"/>
+                                </div>
+                                <div class="content">
+                                    <h5 class="category text-gray">{{user.username}}</h5>
+                                </div>
                             </div>
-                        </md-grid-list>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary" (click)="openSearchFriendsDialog()">Search Friends</button>
             </div>
         </div>
     </div>

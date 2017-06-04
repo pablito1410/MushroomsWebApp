@@ -4,7 +4,6 @@ import { AuthenticationComponent } from "./authentication.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { CommonModule } from "@angular/common";
-import { AlertModule } from "../shared/alert/alert.module";
 import { FormsModule } from "@angular/forms";
 import { EqualValidator } from "./equal-validator.directive";
 
@@ -12,8 +11,7 @@ import { EqualValidator } from "./equal-validator.directive";
     imports: [
         FormsModule,
         RouterModule,
-        CommonModule,
-        AlertModule
+        CommonModule
     ],
     declarations: [
         AuthenticationComponent,

@@ -1,16 +1,30 @@
 <h1 md-dialog-title>Search Friends</h1>
 <div md-dialog-content>
-    <form role="search">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-            <span class="material-input"></span>
+    <div class="row top-buffer">
+        <form role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="material-input"></span>
+            </div>
+            <!--<button type="submit" class="btn btn-white btn-round btn-just-icon">-->
+                <!--<i class="material-icons">search</i><div class="ripple-container"></div>-->
+            <!--</button>-->
+        </form>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
+            <div class="card card-profile friend-card">
+                <div class="card-avatar">
+                    <img class="img" src="..\assets\img\faces\default-user.png"/>
+                </div>
+                <div class="content">
+                    <h5 class="category text-gray">{{user.username}}</h5>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i><div class="ripple-container"></div>
-        </button>
-    </form>
+    </div>
 </div>
-<div md-dialog-actions>
-    <button class="btn btn-primary" md-button (click)="dialogRef.close('Ok')">Ok</button>
-    <button class="btn btn-primary" md-button (click)="dialogRef.close('Close')">Close</button>
+<div md-dialog-actions align="end">
+    <button class="btn btn-primary dialog-btn" md-button (click)="dialogRef.close('Ok')">Ok</button>
+    <button class="btn btn-primary dialog-btn" md-button (click)="dialogRef.close('Close')">Close</button>
 </div>

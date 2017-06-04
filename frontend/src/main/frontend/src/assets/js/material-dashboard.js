@@ -144,3 +144,20 @@ function debounce(func, wait, immediate) {
 		if (immediate && !timeout) func.apply(context, args);
 	};
 };
+
+function showNotification(from, align, icon, message) {
+    color = Math.floor((Math.random() * 4) + 1);
+
+    $.notify({
+        icon: icon,
+        message: message
+
+    },{
+        type: type[color],
+        timer: 4000,
+        placement: {
+            from: from,
+            align: align
+        }
+    });
+};

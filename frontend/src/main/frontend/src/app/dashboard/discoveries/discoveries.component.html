@@ -1,34 +1,38 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4 col-md-push-8">
+                <button class="btn btn-primary" (click)="openAddDiscoveryDialog()">Add Discovery</button>
+            </div>
+            <div class="col-md-8 col-md-pull-4">
                 <div class="card">
                     <div class="card-header" data-background-color="brown">
                         <h4 class="title">Your Discoveries</h4>
                     </div>
                     <div class="card-content">
-                        <md-grid-list cols="4:2">
-                            <div *ngFor="let discovery of discoveries">
-                                <md-grid-tile>
-                                    <div class="card card-profile">
-                                        <div class="card-avatar">
-                                            <img class="img" src="..\assets\img\mushrooms-icon.png"/>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="category text-gray">{{discovery.id}}</h5>
-                                        </div>
+                        <div class="top-buffer">
+                            <input type="text" class="form-control" placeholder="Search" >
+                            <span class="material-input"></span>
+                        </div>
+                        <div class="top-buffer">
+                            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let discovery of discoveries">
+                                <!--<img class="img" src="..\assets\img\mushrooms-icon.png"/>-->
+                                <!--<h5 class="category text-gray">{{discovery.id}}</h5>-->
+                                <div class="card card-stats" (click)="openDiscoveryDetailsDialog()">
+                                    <div class="card-image">
+                                        <img class="img" src="..\assets\img\mushrooms-icon.png"/>
                                     </div>
-                                </md-grid-tile>
+                                    <div class="card-content">
+                                        <p class="category text-gray">{{discovery.date}}</p>
+                                        <h3 class="title text-gray">{{discovery.id}}</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                    </div>
+                                </div>
                             </div>
-                        </md-grid-list>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary" (click)="openAddDiscoveryDialog()">Add Discovery</button>
-            </div>
-            <div class="col-md-4">
-                <button class="btn btn-primary" (click)="openSearchDiscoveryDialog()">Search Discoveries</button>
             </div>
         </div>
     </div>
