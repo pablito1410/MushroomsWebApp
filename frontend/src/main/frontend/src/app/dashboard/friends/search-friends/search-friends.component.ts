@@ -12,7 +12,6 @@ import {UserService} from "../../../services/user.service";
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
     users: any[];
-    searchTerm$ = new Subject<string>();
 
     constructor(
         public dialog: MdDialog,
