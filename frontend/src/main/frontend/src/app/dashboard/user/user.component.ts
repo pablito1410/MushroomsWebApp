@@ -1,6 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
+import { MdSnackBar } from "@angular/material";
 
 @Component({
     moduleId: module.id,
@@ -14,7 +15,8 @@ export class UserComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private userService: UserService) { }
+        private userService: UserService,
+        public snackBar: MdSnackBar) { }
 
     ngOnInit() {
         let currentUser = localStorage.getItem('currentUser');
@@ -23,13 +25,18 @@ export class UserComponent implements OnInit {
         }
     }
 
+    private openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 2000,
+        });
+    }
+
     handleReaderLoaded(e) {
         var reader = e.target;
         this.imageSrc = reader.result;
     }
 
     handleInputChange(event) {
-        console.log('jest');
         var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
         var pattern = /image-*/;
         var reader = new FileReader();
@@ -43,10 +50,11 @@ export class UserComponent implements OnInit {
         console.log(file);
         this.userService.updateImage(file).subscribe(
             data => {
-                this.router.navigate(['/user']);
+                this.openSnackBar('Photo Saved', '×');
             },
             error => {
                 this.loading = false;
+                this.openSnackBar('Change Profile Photo Error', '×');
             });
     }
 
@@ -55,12 +63,11 @@ export class UserComponent implements OnInit {
         this.userService.update(this.model)
             .subscribe(
                 data => {
-                    // this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/user']);
+                    this.openSnackBar('Profile Uploaded', '×');
                 },
                 error => {
-                    // this.alertService.error(error);
                     this.loading = false;
+                    this.openSnackBar('Update Error', '×');
                 });
     }
 }

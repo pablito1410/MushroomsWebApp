@@ -10,7 +10,10 @@ import { NotificationsComponent } from "./notifications/notifications.component"
 import { DiscoveriesComponent } from "./discoveries/discoveries.component";
 import { MapsComponent} from "./maps/maps.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MdNativeDateModule, MdDialogModule, MdDatepickerModule } from "@angular/material";
+import {
+    MdNativeDateModule, MdDialogModule, MdDatepickerModule, MdSnackBarModule, MdSnackBar,
+    LiveAnnouncer
+} from "@angular/material";
 import { AgmCoreModule } from "angular2-google-maps/core";
 import { SearchFriendsComponent } from "./friends/search-friends/search-friends.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -20,6 +23,7 @@ import {DiscoveryDetailsComponent} from "./discoveries/discovery-details/discove
 import {FriendDetailsComponent} from "./friends/friend-details/friend-details.component";
 import {TripDetailsComponent} from "./trips/trip-details/trip-details.component";
 import {AddTripComponent} from "./trips/add-trip/add-trip.component";
+import {TreeModule} from "angular-tree-component";
 
 @NgModule({
     imports: [
@@ -31,7 +35,9 @@ import {AddTripComponent} from "./trips/add-trip/add-trip.component";
         MdDatepickerModule,
         MdNativeDateModule,
         MdDialogModule,
+        MdSnackBarModule,
         ReactiveFormsModule,
+        TreeModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDd7pfi7_Du2senx4g4lLArVguhMd2LUKY'
         })
@@ -69,6 +75,9 @@ import {AddTripComponent} from "./trips/add-trip/add-trip.component";
         NotificationsComponent,
         DiscoveriesComponent,
         MapsComponent
+    ],
+    providers: [
+        LiveAnnouncer
     ]
 })
 export class DashboardModule{}
