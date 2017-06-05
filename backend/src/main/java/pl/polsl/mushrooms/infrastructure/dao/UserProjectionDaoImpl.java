@@ -4,8 +4,8 @@ import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
@@ -37,7 +37,12 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
     @Override
-    public Set<Object> findAll(long id, Projection projection) {
+    public List<Map<String,Object>> findAll(long id, Projection projection) {
         return userProjectionRepository.findAll(id, projection);
+    }
+
+    @Override
+    public List<Map<String, Object>> search(String value, Projection projection) {
+        return userProjectionRepository.search(value, projection);
     }
 }

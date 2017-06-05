@@ -1,7 +1,7 @@
 package pl.polsl.mushrooms.application.dao;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
@@ -14,5 +14,7 @@ public interface UserProjectionDao extends ProjectionDao {
 
     long getId(String email);
 
-    Set<Object> findAll(long id, Projection projection);
+    List<Map<String, Object>> findAll(long id, Projection projection);
+
+    List<Map<String,Object>> search(String value, Projection projection);
 }

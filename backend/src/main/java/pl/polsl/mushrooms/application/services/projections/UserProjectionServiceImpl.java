@@ -3,8 +3,8 @@ package pl.polsl.mushrooms.application.services.projections;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 30.04.2017.
@@ -35,12 +35,18 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Set<Object> findAll(String userName, ProjectionDao.Projection projection) {
+    public List<Map<String,Object>> findAll(String userName, ProjectionDao.Projection projection) {
         return findAll(getId(userName), projection);
     }
 
     @Override
-    public Set<Object> findAll(long id, ProjectionDao.Projection projection) {
+    public List<Map<String,Object>> findAll(long id, ProjectionDao.Projection projection) {
         return userProjectionDao.findAll(id, projection);
     }
+
+    @Override
+    public List<Map<String, Object>> search(String value, ProjectionDao.Projection projection) {
+        return userProjectionDao.search(value, projection);
+    }
+
 }
