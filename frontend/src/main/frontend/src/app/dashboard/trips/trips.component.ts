@@ -31,10 +31,6 @@ export class TripsComponent implements OnInit {
             // error => this.anyErrors = true,
             // () => this.finished = true
         );
-        // this.trips = [
-        //     {place : 'Katowice', dateTime : '14.06.2017 9:00'},
-        //     {place : 'Gliwice', dateTime : '26.06.2017 8:30'}
-        // ]
     }
 
     openTripDetailsDialog() {

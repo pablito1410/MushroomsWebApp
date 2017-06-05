@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,4 +10,6 @@ import java.util.Map;
  */
 public interface DiscoveryProjectionService {
     Map<String,Object> findOne(long id, ProjectionDao.Projection projection);
+
+    List<Map<String, Object>> findAll(String userName, ProjectionDao.Projection projection);
 }

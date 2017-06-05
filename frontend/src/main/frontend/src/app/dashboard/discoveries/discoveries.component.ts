@@ -4,6 +4,7 @@ import { MdDialog} from "@angular/material";
 import {SearchFriendsComponent} from "../friends/search-friends/search-friends.component";
 import {AddDiscoveryComponent} from "./add-discovery/add-discovery.component";
 import {DiscoveryDetailsComponent} from "./discovery-details/discovery-details.component";
+import {DiscoveryService} from "../../services/discovery.service";
 
 @Component({
     moduleId: module.id,
@@ -15,16 +16,14 @@ export class DiscoveriesComponent implements OnInit {
     discoveries: any[];
     selectedOption: string;
 
-    constructor(public dialog: MdDialog) {}
+    constructor(
+        public dialog: MdDialog,
+        private discoveryService: DiscoveryService) {}
 
     ngOnInit(){
-        this.discoveries = [
-            {id : 'Podgrzybek'},
-            {id : 'Maślak'},
-            {id : 'Pieczarka'},
-            {id : 'Kurka'},
-            {id : 'Muchomor'}
-        ]
+        this.discoveryService.getAll().subscribe(
+            value => this.discoveries = value
+        );
     }
 
     openAddDiscoveryDialog() {

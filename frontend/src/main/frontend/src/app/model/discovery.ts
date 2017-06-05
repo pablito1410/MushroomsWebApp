@@ -5,4 +5,5 @@ export class Discovery {
     photo: string;
     date: Date;
     time: string;
+    name: string;
 }
