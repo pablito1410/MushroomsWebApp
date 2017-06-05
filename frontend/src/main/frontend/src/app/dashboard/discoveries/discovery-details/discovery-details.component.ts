@@ -9,6 +9,7 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 })
 export class DiscoveryDetailsComponent implements OnInit {
     discovery: any;
+    comments: any;
     constructor(public dialogRef: MdDialogRef<DiscoveryDetailsComponent>) { }
     ngOnInit() {
         this.discovery = {
@@ -19,5 +20,29 @@ export class DiscoveryDetailsComponent implements OnInit {
             photo: null,
             date: '12.05.2017 9:44'
         };
+        this.comments = [
+            {
+                id: 1,
+                name: 'root1',
+                children: [
+                    { id: 2, name: 'child1' },
+                    { id: 3, name: 'child2' }
+                ]
+            },
+            {
+                id: 4,
+                name: 'root2',
+                children: [
+                    { id: 5, name: 'child2.1' },
+                    {
+                        id: 6,
+                        name: 'child2.2',
+                        children: [
+                            { id: 7, name: 'subsub' }
+                        ]
+                    }
+                ]
+            }
+        ];
     }
 }

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import {AppComponent} from "../../app.component";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
     moduleId: module.id,
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService) { }
+        private authenticationService: AuthenticationService,
+        public snackBar: MdSnackBar) { }
 
     ngOnInit() {
         // reset login status
@@ -27,6 +29,12 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
+    private openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 2000,
+        });
+    }
+
     login() {
 
         this.loading = true;
@@ -34,9 +42,11 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    this.openSnackBar('Login Success', '×');
                 },
                 error => {
                     this.loading = false;
+                    this.openSnackBar('Login Error', '×');
                 });
     }
 }
