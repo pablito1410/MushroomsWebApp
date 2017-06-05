@@ -3,7 +3,7 @@
     <div class="row top-buffer">
         <form role="search">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" (keyup)="searchTerm$.next($event.target.value)">
+                <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
                 <span class="material-input"></span>
             </div>
             <!--<button type="submit" class="btn btn-white btn-round btn-just-icon">-->

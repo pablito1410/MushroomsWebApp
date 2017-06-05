@@ -12,20 +12,15 @@ import {UserService} from "../../../services/user.service";
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
     users: any[];
-    searchTerm$ = new Subject<string>();
 
     constructor(
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<SearchFriendsComponent>,
-        private userService: UserService) {
-        this.userService.search(this.searchTerm$)
-            .subscribe(results => {
-                this.users = results;
-            });
-    }
+        private userService: UserService) { }
 
     ngOnInit() {
     }
+
     openUserDetailsDialog() {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
             hasBackdrop: true,
@@ -36,4 +31,12 @@ export class SearchFriendsComponent implements OnInit {
             this.selectedOption = result;
         });
     }
+
+    search(term: string) {
+        this.userService.search(term)
+            .subscribe(results => {
+                this.users = results;
+            });
+    }
+
 }
