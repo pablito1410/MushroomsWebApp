@@ -39,15 +39,7 @@ export class UserService {
         return this.http.post('/api/users/image', formData, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    search(terms: Observable<string>) {
-        return terms.debounceTime(400)
-            .distinctUntilChanged()
-            .switchMap(term => this.searchEntries(term));
-    }
-
-    searchEntries(term) {
-        return this.http
-            .get('/api/users?search=' + term)
-            .map(res => res.json());
+    search(term) {
+        return this.http.get('/api/users/search?value=' + term, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }

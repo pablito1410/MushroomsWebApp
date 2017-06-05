@@ -27,7 +27,6 @@ export class FriendsComponent implements OnInit {
 
     openSearchFriendsDialog() {
         let dialogRef = this.dialog.open(SearchFriendsComponent, {
-            data: this.users,
             hasBackdrop: true,
             height: '80%',
             width: '80%',
@@ -37,8 +36,9 @@ export class FriendsComponent implements OnInit {
         });
     }
 
-    openFriendDetailsDialog() {
+    openFriendDetailsDialog(user) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
+            data: user,
             hasBackdrop: true,
             height: '80%',
             width: '80%',

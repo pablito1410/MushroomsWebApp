@@ -11,17 +11,16 @@ import {UserService} from "../../../services/user.service";
 })
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
-    results: Object;
+    users: any[];
     searchTerm$ = new Subject<string>();
 
     constructor(
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<SearchFriendsComponent>,
-        @Inject(MD_DIALOG_DATA) public users: any,
         private userService: UserService) {
         this.userService.search(this.searchTerm$)
             .subscribe(results => {
-                this.results = results.results;
+                this.users = results;
             });
     }
 

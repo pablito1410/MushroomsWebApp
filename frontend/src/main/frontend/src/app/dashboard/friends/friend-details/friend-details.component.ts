@@ -8,19 +8,21 @@ import {User} from "../../../model/user";
     templateUrl: 'friend-details.component.html'
 })
 export class FriendDetailsComponent implements OnInit {
-    user: any;
-    constructor(public dialogRef: MdDialogRef<FriendDetailsComponent>) { }
+    constructor(
+        public dialogRef: MdDialogRef<FriendDetailsComponent>,
+        @Inject(MD_DIALOG_DATA) public user: any) { }
+
     ngOnInit() {
-        this.user = {
-            id: 1,
-            username: 'mati',
-            firstName: 'Mateusz',
-            lastName: 'Nowak',
-            email: 'email@email.com',
-            birthDate: '22.10.1995',
-            gender: 'male',
-            role: 'admin',
-            level: 'beginner'
-        };
+        // this.user = {
+        //     id: 1,
+        //     username: 'mati',
+        //     firstName: 'Mateusz',
+        //     lastName: 'Nowak',
+        //     email: 'email@email.com',
+        //     birthDate: '22.10.1995',
+        //     gender: 'male',
+        //     role: 'admin',
+        //     level: 'beginner'
+        // };
     }
 }
