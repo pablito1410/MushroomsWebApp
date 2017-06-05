@@ -1,6 +1,49 @@
 <h1 md-dialog-title>Discovery Details</h1>
 <div md-dialog-content>
-    <!-- TODO -->
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png" />
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Name:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Coordinate X:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.coordinateX}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Coordinate Y:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.coordinateY}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Date:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.date}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <sebm-google-map [latitude]="discovery.coordinateX" [longitude]="discovery.coordinateY" class="sebm-google-map-container-small">
+                    <sebm-google-map-marker [latitude]="discovery.coordinateX" [longitude]="discovery.coordinateY"></sebm-google-map-marker>
+                </sebm-google-map>
+            </div>
+        </div>
+    </div>
 </div>
 <div md-dialog-actions align="end">
     <button class="btn btn-primary" md-button (click)="dialogRef.close('Ok')">Ok</button>

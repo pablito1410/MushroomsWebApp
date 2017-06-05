@@ -1,8 +1,77 @@
-<h1 md-dialog-title>Friend Details</h1>
+<h1 md-dialog-title>User Details</h1>
 <div md-dialog-content>
-    <!--TODO-->
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img" width="80%" height="80%" src="..\assets\img\faces\default-user.png"/>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Username:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.username}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">First Name:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.firstName}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Last Name:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.lastName}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Email:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.email}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Birth Date:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.birthDate}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-gray">Gender:</div>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.gender}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Role:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.role}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Level:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{user.level}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div md-dialog-actions align="end">
-    <button class="btn btn-primary dialog-btn" md-button (click)="dialogRef.close('Ok')">Ok</button>
     <button class="btn btn-primary dialog-btn" md-button (click)="dialogRef.close('Close')">Close</button>
 </div>
