@@ -9,5 +9,5 @@ export class User {
     birthDate: string;
     gender: string;
     role: string;
-    level: number;
+    level: string;
 }

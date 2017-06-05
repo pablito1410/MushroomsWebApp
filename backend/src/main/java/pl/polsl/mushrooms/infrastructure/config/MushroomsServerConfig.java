@@ -11,10 +11,10 @@ import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
-import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -22,10 +22,7 @@ import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
-import pl.polsl.mushrooms.infrastructure.repositories.TripProjectionRepository;
-import pl.polsl.mushrooms.infrastructure.repositories.TripRepository;
-import pl.polsl.mushrooms.infrastructure.repositories.UserProjectionRepository;
-import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
+import pl.polsl.mushrooms.infrastructure.repositories.*;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -89,6 +86,11 @@ public class MushroomsServerConfig {
     }
 
     @Bean
+    public DiscoveryProjectionRepository discoveryProjectionRepository(final JdbcTemplate jdbcTemplate, final DiscoveryRepository discoveryRepository, final UserRepository userRepository) {
+        return new DiscoveryProjectionRepository(jdbcTemplate, discoveryRepository, userRepository);
+    }
+
+    @Bean
     UserProjectionService userProjectionService(UserProjectionDao userProjectionDao) {
         return new UserProjectionServiceImpl(userProjectionDao);
     }
@@ -99,8 +101,8 @@ public class MushroomsServerConfig {
     }
 
     @Bean
-    DiscoveryProjectionService discoveryProjectionService() {
-        return new DiscoveryProjectionServiceImpl();
+    DiscoveryProjectionService discoveryProjectionService(final DiscoveryProjectionDao discoveryProjectionDao, UserProjectionService userProjectionService) {
+        return new DiscoveryProjectionServiceImpl(discoveryProjectionDao, userProjectionService);
     }
 
     @Bean

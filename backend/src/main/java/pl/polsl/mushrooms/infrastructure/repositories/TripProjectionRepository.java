@@ -1,16 +1,10 @@
 package pl.polsl.mushrooms.infrastructure.repositories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
-import pl.polsl.mushrooms.application.model.Trip;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by pawel_zaqkxkn on 22.05.2017.
@@ -25,9 +19,9 @@ public class TripProjectionRepository {
     {
         projections.put(
                 UserProjectionDao.Projection.FULL,
-                        " TRIP_ID::varchar as       \"id\", " +
-                        " DATE_TIME::varchar as              \"dateTime\"," +
-                        " PLACE as                  \"place\"");
+                        " T.TRIP_ID::varchar as       \"id\",\n" +
+                        " T.DATE_TIME::varchar as              \"dateTime\",\n" +
+                        " T.PLACE as                  \"place\"\n");
     };
 
     public TripProjectionRepository(final JdbcTemplate jdbcTemplate, TripRepository tripRepository, final UserRepository userRepository) {
@@ -36,16 +30,19 @@ public class TripProjectionRepository {
         this.userRepository = userRepository;
     }
 
-    public Set<Map<String, Object>> findAll(long userId, ProjectionDao.Projection projection) {
-        final ObjectMapper mapper = new ObjectMapper();
-        final Mushroomer mushroomer = (Mushroomer)userRepository.findOne(userId);
-        final Set<Trip> trips = mushroomer.getTrips();
-        final Set<Map<String, Object>> tripsJSON = new HashSet<>();
-        trips.forEach(t -> tripsJSON.add(findOne(t.getId(), ProjectionDao.Projection.FULL)));
-        return tripsJSON;
+    public List<Map<String, Object>> findAll(long userId, ProjectionDao.Projection projection) {
+
+        List<Map<String, Object>> trips = jdbcTemplate.queryForList(
+                "SELECT " + projections.get(projection)
+                    + " FROM TRIPS T\n"
+                    + " LEFT JOIN USERS_TRIPS TS ON TS.TRIP_ID = T.TRIP_ID"
+                    + " WHERE TS.USER_ID = ?", userId);
+
+        return trips;
     }
 
     private Map<String, Object> findOne(long id, ProjectionDao.Projection projection) {
-        return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from TRIPS where TRIP_ID = ?", id);
+        return jdbcTemplate.queryForMap(
+                "SELECT " + projections.get(projection) + " FROM TRIPS T WHERE TRIP_ID = ?", id);
     }
 }

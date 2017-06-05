@@ -4,8 +4,8 @@ import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
 import pl.polsl.mushrooms.infrastructure.repositories.TripProjectionRepository;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
@@ -21,7 +21,7 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
     }
 
     @Override
-    public Set<Map<String, Object>> findAll(long userId, Projection projection) {
+    public List<Map<String, Object>> findAll(long userId, Projection projection) {
         return tripProjectionRepository.findAll(userId, projection);
     }
 }

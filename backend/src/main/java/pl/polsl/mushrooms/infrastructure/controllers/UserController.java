@@ -2,15 +2,20 @@ package pl.polsl.mushrooms.infrastructure.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.Set;
 
@@ -80,7 +85,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody UpdateUserCommand command) {
+    public ResponseEntity<Void> update(
+            @RequestBody UpdateUserCommand command) {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -99,14 +105,15 @@ public class UserController {
 
 
     // TODO PK Nie usuwać! Przyda się w przyszłości
-//    @RequestMapping(path = "store-image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public StoreImageResponse receiveImage(
-//            @RequestParam("file") List<MultipartFile> files, @RequestParam("info") String info) {
-//
-//        ImageData imageData = new ImageData(files, info);
-//        StoreImageResponse response = imageService.storeImage(imageData);
-//
-//        return response;
-//    }
+    @RequestMapping(path = "image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void image(@RequestParam("files") MultipartFile image) {
+        try {
+            final File file = new File("C:/Users/pawel_zaqkxkn/Desktop/drive-download-20170604T205910Z-001/" + image.getOriginalFilename());
+            file.createNewFile();
+            Files.write(file.toPath(), image.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

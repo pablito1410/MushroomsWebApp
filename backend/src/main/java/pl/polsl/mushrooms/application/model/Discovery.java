@@ -24,7 +24,7 @@ public class Discovery extends Commentable{
 	@ManyToOne(optional = false)
 	private Trip trip;
 
-	@ManyToOne
+	@ManyToOne()
 	private MushroomSpecies mushroomSpecies;
 
 	@ManyToOne(optional = false)
