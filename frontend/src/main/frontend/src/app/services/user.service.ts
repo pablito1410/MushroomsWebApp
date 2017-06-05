@@ -4,6 +4,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { User } from '../model/user';
 import {AuthenticationService} from "./authentication.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class UserService {
@@ -28,14 +29,25 @@ export class UserService {
         return this.http.put('/api/users/', user, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
+    delete(id: number) {
+        return this.http.delete('/api/users/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
     updateImage(image: File) {
         let formData: FormData = new FormData();
         formData.append('files', image, image.name);
         return this.http.post('/api/users/image', formData, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
+    search(terms: Observable<string>) {
+        return terms.debounceTime(400)
+            .distinctUntilChanged()
+            .switchMap(term => this.searchEntries(term));
+    }
 
-    delete(id: number) {
-        return this.http.delete('/api/users/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    searchEntries(term) {
+        return this.http
+            .get('/api/users?search=' + term)
+            .map(res => res.json());
     }
 }
