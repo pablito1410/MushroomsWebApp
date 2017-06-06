@@ -35,9 +35,16 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(
             HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException, ServletException {
-        User user = new User(
-                req.getParameter("email"), req.getParameter("password"),
-                Collections.emptyList());
+
+        final String email = req.getParameter("email");
+        final String password = req.getParameter("password");
+        if (email == null || email.isEmpty() || password == null || password.isEmpty())
+        {
+            return null;
+        }
+
+        User user = new User(email, password, Collections.emptyList());
+
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
