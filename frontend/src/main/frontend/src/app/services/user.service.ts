@@ -13,7 +13,7 @@ export class UserService {
         private router: Router,
         private authenticationService: AuthenticationService) { }
 
-    getAll() {
+    get() {
         return this.http.get('http://localhost:8080/api/users', this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 

@@ -19,10 +19,9 @@ export class UserComponent implements OnInit {
         public snackBar: MdSnackBar) { }
 
     ngOnInit() {
-        let currentUser = localStorage.getItem('currentUser');
-        if (currentUser) {
-            this.model = JSON.parse(currentUser);
-        }
+        this.userService.get().subscribe(
+            value => this.model = value
+        );
     }
 
     private openSnackBar(message: string, action: string) {

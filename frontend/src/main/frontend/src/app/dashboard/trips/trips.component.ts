@@ -24,12 +24,8 @@ export class TripsComponent implements OnInit {
         private tripService: TripService) { }
 
     ngOnInit() {
-        this.model = JSON.parse(localStorage.getItem('currentUser'));
-        let user = this.model;
         this.tripService.getAll().subscribe(
             value => this.trips = value
-            // error => this.anyErrors = true,
-            // () => this.finished = true
         );
     }
 
