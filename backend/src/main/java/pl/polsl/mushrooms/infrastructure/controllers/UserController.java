@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
@@ -13,9 +14,7 @@ import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -80,9 +79,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String, Object>>> search(
-            @RequestParam(value = "value") String value) {
-//        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+    public ResponseEntity<List<Map<String, Object>>> search(@RequestParam(value = "value") String value) {
         final List<Map<String, Object>> users = userProjectionService.search(value, ProjectionDao.Projection.FULL);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -93,8 +90,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(
-            @RequestBody UpdateUserCommand command) {
+    public ResponseEntity<Void> update(@RequestBody UpdateUserCommand command) {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -114,14 +110,18 @@ public class UserController {
 
     // TODO PK Nie usuwać! Przyda się w przyszłości
     @RequestMapping(path = "image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void image(@RequestParam("files") UpdateProfileImageCommand image) {
+    public ResponseEntity<Void> image(@RequestParam("files") MultipartFile image) {
+
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         try {
-            final File file = new File("C:/Users/pawel_zaqkxkn/Desktop/drive-download-20170604T205910Z-001/" + image.getOriginalFilename());
-            file.createNewFile();
-            Files.write(file.toPath(), image.getBytes());
+            final UpdateProfileImageCommand command = new UpdateProfileImageCommand(username, image.getBytes());
+            commandGateway.dispatch(command);
         } catch (IOException e) {
-            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INSUFFICIENT_STORAGE);
         }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

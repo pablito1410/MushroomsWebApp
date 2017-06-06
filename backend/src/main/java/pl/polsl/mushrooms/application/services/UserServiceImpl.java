@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.application.services;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
@@ -54,6 +55,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getUserByEmail(String email) {
         return Optional.ofNullable(repo.findUserByEmail(email));
+    }
+
+    @Override
+    public void handle(UpdateProfileImageCommand command) {
+        final Mushroomer user = (Mushroomer)repo.findOneByUsername(command.getUsername());
+        user.setPhoto(command.getPhoto());
+        repo.save(user);
     }
 
     @Override

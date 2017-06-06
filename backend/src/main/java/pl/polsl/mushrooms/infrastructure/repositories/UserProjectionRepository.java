@@ -5,6 +5,7 @@ import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,8 @@ public class UserProjectionRepository {
                 " U.BIRTH_DATE as     \"birthDate\"," +
                 " U.GENDER as         \"gender\"," +
                 " U.ROLE as           \"role\"," +
-                " U.LEVEL as          \"level\"");
+                " U.LEVEL as          \"level\"," +
+                " U.PHOTO as          \"photo\"");
     };
 
     public UserProjectionRepository(final JdbcTemplate jdbcTemplate, final UserRepository userRepository) {
@@ -40,11 +42,11 @@ public class UserProjectionRepository {
     }
 
     public Map<String,Object> findOne(long id, ProjectionDao.Projection projection) {
-        return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS where USER_ID = ?", id);
+        return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS U where U.USER_ID = ?", id);
     }
 
     public Map<String, Object> findOneByUsername(String email, ProjectionDao.Projection projection) {
-        return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS where USERNAME = ?", email);
+        return jdbcTemplate.queryForMap("select " + projections.get(projection) + " from USERS U where U.USERNAME = ?", email);
     }
 
     public Long getId(String userName) {
@@ -62,15 +64,17 @@ public class UserProjectionRepository {
                 throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
 
             case MUSHROOMER:
-                List<Map<String, Object>> friends = jdbcTemplate.queryForList(
-                        "SELECT " + projections.get(projection)
-                                + " FROM USERS U\n"
-                                + " LEFT JOIN USERS_USERS F ON F.USER_ID = U.USER_ID OR F.FRIEND_ID = U.USER_ID"
-                                + " WHERE U.USER_ID = ?", id);
+                List<String> friendIds = jdbcTemplate.queryForList(
+                        "SELECT FRIEND_ID::varchar \n"
+                                + " FROM USERS_USERS\n"
+                                + " WHERE USER_ID = ?",
+                        String.class,
+                        id);
 
-//                Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
-//                Set<Object> friendsJSON = new HashSet<>();
-//                friends.forEach(t -> friendsJSON.add(findOne(t.getId(), ProjectionDao.Projection.FULL)));
+                List<Map<String, Object>> friends = new ArrayList<>();
+
+                friendIds.forEach(t -> friends.add(findOne(Long.valueOf(t), ProjectionDao.Projection.FULL)));
+
                 return friends;
 
                 default:
