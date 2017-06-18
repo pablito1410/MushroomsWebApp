@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -23,6 +24,12 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @ExceptionHandler(EntityNotFoundException.class)
     public void notFound() {
+        //
+    }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
+    @ExceptionHandler(NoRequiredPermissions.class)
+    public void noRequiredPermission() {
+        //
     }
 }

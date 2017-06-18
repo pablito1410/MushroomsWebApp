@@ -10,4 +10,5 @@ export class User {
     gender: string;
     role: string;
     level: string;
+    photo: any;
 }

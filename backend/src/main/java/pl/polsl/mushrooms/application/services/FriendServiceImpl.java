@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
@@ -17,11 +18,15 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public void handle(AddFriendCommand command) {
-        final Mushroomer friend = (Mushroomer)repo.findOne(command.getFriendId());
-        final Mushroomer user = (Mushroomer)repo.findOneByUsername(command.getUsername());
-        user.addFriend(friend);
-        friend.addFriend(user);
-        repo.save(user);
-        repo.save(friend);
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer user = (Mushroomer)repo.findOneByUsername(currentUsername);
+
+        for (long friendId : command.getFriendIds()) {
+            final Mushroomer friend = (Mushroomer)repo.findOne(friendId);
+            user.addFriend(friend);
+            friend.addFriend(user);
+            repo.save(user);
+            repo.save(friend);
+        }
     }
 }

@@ -10,18 +10,18 @@ import javax.validation.constraints.NotNull;
 public class DeleteUserCommand implements VoidCommand {
 
     @NotNull
-    private long id;
+    private long[] ids;
 
     @NotNull
-    private String password;
+    private String adminPassword;
 
     private DeleteUserCommand() { }
 
-    public long getId() {
-        return id;
+    public long[] getIds() {
+        return ids;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAdminPassword() {
+        return adminPassword;
     }
 }

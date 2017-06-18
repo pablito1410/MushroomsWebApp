@@ -27,6 +27,6 @@ export class AuthenticationComponent implements OnInit {
     }
 
     private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
+        this.userService.get().subscribe(users => { this.users = users; });
     }
 }

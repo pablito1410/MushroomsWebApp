@@ -33,7 +33,6 @@ public class FriendsController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> addFriend(@RequestBody AddFriendCommand command) {
-        command.setUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

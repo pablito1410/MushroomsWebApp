@@ -27,4 +27,9 @@ public class CommentDaoImpl implements CommentDao {
     public void save(Commentable comment) {
         commentRepository.save((Comment)comment);
     }
+
+    @Override
+    public void delete(long id) {
+        commentRepository.delete(id);
+    }
 }

@@ -8,4 +8,8 @@ import pl.polsl.mushrooms.application.model.Discovery;
 
 public interface DiscoveryDao {
     void save(Discovery discovery);
+
+    Discovery findDiscovery(long discoveryId);
+
+    void delete(long id);
 }

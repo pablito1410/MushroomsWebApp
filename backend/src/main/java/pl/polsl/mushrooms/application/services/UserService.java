@@ -15,7 +15,7 @@ public interface UserService {
 
     long handle(CreateUserCommand command);
 
-    void handle(UpdateUserCommand command);
+    User handle(UpdateUserCommand command);
 
     void handle(DeleteUserCommand command);
 

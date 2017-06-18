@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.commands.comment;
 
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -9,16 +10,12 @@ import java.time.LocalDateTime;
  */
 public class CreateCommentCommand implements ReturningCommand<Long> {
 
-    private long userId;
+    @NotNull
     private String contents;
     private long targetId;
     private LocalDateTime dateTime;
 
     protected CreateCommentCommand() { }
-
-    public long getUserId() {
-        return userId;
-    }
 
     public String getContents() {
         return contents;

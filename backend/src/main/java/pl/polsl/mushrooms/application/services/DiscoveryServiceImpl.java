@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
@@ -36,18 +37,18 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     }
     @Override
     public long handle(CreateDiscoveryCommand command) {
-
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
         final Trip trip = tripDao.findTrip(command.getTripId());
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOne(command.getUserId());
         final MushroomSpecies mushroomSpecie = mushroomSpeciesDao.findOne(command.getMushroomSpieceId());
         final Discovery discovery = new Discovery(
             command.getCoordinateX(),
-                command.getCoordinateY(),
-                command.getPhoto(),
-                command.getDateTime(),
-                trip,
-                mushroomSpecie,
-                mushroomer
+            command.getCoordinateY(),
+            command.getPhoto(),
+            command.getDateTime(),
+            trip,
+            mushroomSpecie,
+            mushroomer
         );
 
         discoveryDao.save(discovery);
@@ -57,11 +58,32 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
     @Override
     public void handle(UpdateDiscoveryCommand command) {
-
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Discovery discovery =  discoveryDao.findDiscovery(command.getId());
+        if (discovery == null || !discovery.getMushroomer().equals(mushroomer)) {
+            // TODO
+        }
+        else
+        {
+            discovery.setDateTime(command.getDateTime());
+            discovery.setCoordinateX(command.getCoordinateX());
+            discovery.setCoordinateY(command.getCoordinateY());
+            discovery.setPhoto(command.getPhoto());
+            discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpieceId()));
+//            discovery.setTags(); TODO
+        }
     }
 
     @Override
     public void handle(DeleteDiscoveryCommand command) {
-
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Discovery discovery =  discoveryDao.findDiscovery(command.getId());
+        if (discovery == null || !discovery.getMushroomer().equals(mushroomer)) {
+            // TODO
+        } else {
+            discoveryDao.delete(discovery.getId());
+        }
     }
 }

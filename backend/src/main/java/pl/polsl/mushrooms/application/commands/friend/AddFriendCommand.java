@@ -9,26 +9,12 @@ import javax.validation.constraints.NotNull;
  */
 public class AddFriendCommand implements VoidCommand {
 
-    private String username;
-
     @NotNull
-    private long friendId;
+    private long[] friendIds;
 
     protected AddFriendCommand() { }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String userName) {
-        this.username = userName;
-    }
-
-    public void setFriendId(long friendId) {
-        this.friendId = friendId;
-    }
-
-    public long getFriendId() {
-        return friendId;
+    public long[] getFriendIds() {
+        return friendIds;
     }
 }

@@ -11,11 +11,11 @@ public class DeleteTripCommand implements VoidCommand {
 
     protected DeleteTripCommand() { }
 
-    public DeleteTripCommand(long id) {
-        this.id = id;
+    public DeleteTripCommand(long tripId) {
+        this.id = tripId;
     }
 
-    public long getId() {
+    public long getTripId() {
         return id;
     }
 }

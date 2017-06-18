@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
@@ -8,6 +9,7 @@ import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
@@ -65,7 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void handle(UpdateUserCommand command) {
+    public User handle(UpdateUserCommand command) {
         final Optional<User> optionalUser = Optional.of(repo.findOne(command.getId()));
         final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
 
@@ -88,11 +90,24 @@ public class UserServiceImpl implements UserService {
         }
 
         repo.save(user);
+
+        return user;
     }
 
     @Override
     public void handle(DeleteUserCommand command) {
-        repo.delete(command.getId());
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final User currentUser = repo.findOneByUsername(currentUsername);
+        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String encodedAdminPassword = encoder.encode(command.getAdminPassword());
+        if (encoder.matches(currentUser.getPassword(), encodedAdminPassword)) {
+            for (long id : command.getIds()) {
+                repo.delete(id);
+            }
+        }
+        else {
+            throw new NoRequiredPermissions("Admin permissions required");
+        }
     }
 
     private boolean userExist(final String email) {

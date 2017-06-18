@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
     model: any = {};
     loading = false;
     imageSrc: string = '';
+    photo: any;
 
     constructor(
         private router: Router,

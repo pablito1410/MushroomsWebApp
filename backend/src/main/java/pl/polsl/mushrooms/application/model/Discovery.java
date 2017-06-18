@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "DISCOVERIES")
-public class Discovery extends Commentable{
+public class Discovery extends Commentable {
 
 	@Column(name = "COORDINATE_X")
 	private String coordinateX;
@@ -150,25 +150,25 @@ public class Discovery extends Commentable{
 //		if ( this.id != null ) {
 //			hashCode += this.id.hashCode();
 //		}
-		if ( this.coordinateX != null ) {
+		if (this.coordinateX != null) {
 			hashCode += this.coordinateX.hashCode();
 		}
-		if ( this.coordinateY != null ) {
+		if (this.coordinateY != null) {
 			hashCode += this.coordinateY.hashCode();
 		}
-		if ( this.dateTime != null ) {
+		if (this.dateTime != null) {
 			hashCode += this.dateTime.hashCode();
 		}
-		if ( this.trip != null ) {
+		if (this.trip != null) {
 			hashCode += this.trip.hashCode();
 		}
-		if ( this.mushroomSpecies != null ) {
+		if (this.mushroomSpecies != null) {
 			hashCode += this.mushroomSpecies.hashCode();
 		}
-		if ( this.mushroomer != null ) {
+		if (this.mushroomer != null) {
 			hashCode += this.mushroomer.hashCode();
 		}
-		if ( hashCode == 0 ) {
+		if (hashCode == 0) {
 			hashCode = super.hashCode();
 		}
 		return hashCode;
@@ -181,20 +181,20 @@ public class Discovery extends Commentable{
 			Discovery discoveryObject = (Discovery) object;
 			boolean equals = true;
 			equals &= ((this.id == discoveryObject.id)
-				|| (this.id == discoveryObject.id));
+					|| (this.id == discoveryObject.id));
 			equals &= ((this.coordinateX == discoveryObject.coordinateX)
-				|| (this.coordinateX != null && this.coordinateX.equals(discoveryObject.coordinateX)));
+					|| (this.coordinateX != null && this.coordinateX.equals(discoveryObject.coordinateX)));
 			equals &= ((this.coordinateY == discoveryObject.coordinateY)
-				|| (this.coordinateY != null && this.coordinateY.equals(discoveryObject.coordinateY)));
+					|| (this.coordinateY != null && this.coordinateY.equals(discoveryObject.coordinateY)));
 			equals &= this.photo == discoveryObject.photo;
 			equals &= ((this.dateTime == discoveryObject.dateTime)
-				|| (this.dateTime != null && this.dateTime.equals(discoveryObject.dateTime)));
+					|| (this.dateTime != null && this.dateTime.equals(discoveryObject.dateTime)));
 			equals &= ((this.trip == discoveryObject.trip)
-				|| (this.trip != null && this.trip.equals(discoveryObject.trip)));
+					|| (this.trip != null && this.trip.equals(discoveryObject.trip)));
 			equals &= ((this.mushroomSpecies == discoveryObject.mushroomSpecies)
-				|| (this.mushroomSpecies != null && this.mushroomSpecies.equals(discoveryObject.mushroomSpecies)));
+					|| (this.mushroomSpecies != null && this.mushroomSpecies.equals(discoveryObject.mushroomSpecies)));
 			equals &= ((this.mushroomer == discoveryObject.mushroomer)
-				|| (this.mushroomer != null && this.mushroomer.equals(discoveryObject.mushroomer)));
+					|| (this.mushroomer != null && this.mushroomer.equals(discoveryObject.mushroomer)));
 			equals &= this.scores == discoveryObject.scores;
 			equals &= this.tags == discoveryObject.tags;
 			equals &= this.comments == discoveryObject.comments;
