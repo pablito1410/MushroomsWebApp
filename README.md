@@ -45,6 +45,9 @@ Password: admin1
 * W zakładce "SQL" wklejamy zawartość pliku "Mushrooms.sql" z katalogu "backend/db", następnie klikamy "ctrl+Enter"
 * Po wykonaniu skryptu, w zakładce "Objects" w Mushrooms/public/Table powinny znajdować się tabele
 
+- *Szczegółowa instrukcja jak połączyć się z bazą przy użyciu programu SQuirreL:
+-* [Instrukcja](http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf)
+
 ## Uruchomienie projektu
 
 Zainstalować Node.js:
