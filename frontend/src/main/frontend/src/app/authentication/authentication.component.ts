@@ -10,23 +10,11 @@ import { UserService } from '../services/user.service';
 })
 
 export class AuthenticationComponent implements OnInit {
-    token: any;
-    currentUser: User;
-    users: User[] = [];
 
-    constructor(private userService: UserService) {
-        this.token = localStorage.getItem('token');
+    constructor() {
     }
 
     ngOnInit() {
-        this.loadAllUsers();
-    }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
     }
 }

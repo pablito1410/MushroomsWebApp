@@ -11,7 +11,8 @@ import { MdSnackBar } from "@angular/material";
 export class UserComponent implements OnInit {
     model: any = {};
     loading = false;
-    imageSrc: string = '';
+    imageSrc: string;
+    file: File;
 
     constructor(
         private router: Router,

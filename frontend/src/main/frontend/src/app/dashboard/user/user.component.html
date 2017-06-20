@@ -81,9 +81,12 @@
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
-                        <!--<a [routerLink]="'user'">-->
+                        <div *ngIf="imageSrc != null">
                             <img class="img" src="..\assets\img\faces\example-user.jpg" />
-                        <!--</a>-->
+                        </div>
+                        <div *ngIf="imageSrc == null">
+                            <img class="img" src="..\assets\img\faces\default-user.png" />
+                        </div>
                     </div>
 
                     <div class="content">
