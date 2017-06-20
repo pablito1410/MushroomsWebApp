@@ -1,15 +1,15 @@
 ## Instalacja bazy danych
 
-Pobieramy postgres'a:
+Pobieramy postgresa:
 * [Postgres](https://www.postgresql.org/download/)
 
 Pobieramy driver:
 * [PostgreSQL JDBC Driver](https://mvnrepository.com/artifact/org.postgresql/postgresql/9.4.1211)
 
-Pobieramy Squirrel'a:
+Pobieramy Squirrela:
 * [Squirrel](http://squirrel-sql.sourceforge.net/#installation)
 
-W folderze bin, gdzie zainstalowaliśmy postgres'a znajduje się plik psql.exe.
+W folderze `bin`, gdzie zainstalowaliśmy postgresa znajduje się plik `psql.exe`.
 Wykonujemy w tym folderze z konsoli następujące polecenia:
 ```bash
 psql.exe -U postgres
@@ -24,13 +24,13 @@ psql.exe -U admin mushrooms
 ```
 W tym momencie możemy zarządzać bazą danych z konsoli. Wygodniej jednak będzie skorzystać z dedykowanego środowiska, np. Squirrela.
 
-* Uruchamiamy plik squirrel-sql.bat z lokalizacji gdzie wcześniej pobraliśmy Squirrela. 
-* Klikamy z lewej strony zakładkę "Drivers"
-* Z listy wyszukujemy "PostgreSQL" i klikamy 2 razy
-* W zakładce "Extra Class Path" klikamy przycisk "Add" i znajdujemy plik ".jar" z PostgreSQL JDBC Driver, który pobraliśmy wcześniej
-* Klikamy OK
-* Przechodzimy do zakładki Aliases
-* Klikamy "+", aby utworzyć nowy alias
+* Uruchamiamy plik `squirrel-sql.bat` z lokalizacji gdzie wcześniej pobraliśmy Squirrela. 
+* Klikamy z lewej strony zakładkę `Drivers`
+* Z listy wyszukujemy `PostgreSQL` i klikamy 2 razy
+* W zakładce `Extra Class Path` klikamy przycisk `Add` i znajdujemy plik `.jar` z PostgreSQL JDBC Driver, który pobraliśmy wcześniej
+* Klikamy `OK`
+* Przechodzimy do zakładki `Aliases`
+* Klikamy `+`, aby utworzyć nowy alias
 * Wpisujemy następujące dane:
 ```bash
 Name: Mushrooms
@@ -40,12 +40,13 @@ Username: admin
 Password: admin1
 ```
 
-* Klikamy "Test", aby sprawdzić połączenie, następnie klikamy "OK"
-* Klikamy 2 razy na nowo uwtorzonym aliasie, następnie "Connect"
-* W zakładce "SQL" wklejamy zawartość pliku "Mushrooms.sql" z katalogu "backend/db", następnie klikamy "ctrl+Enter"
-* Po wykonaniu skryptu, w zakładce "Objects" w Mushrooms/public/Table powinny znajdować się tabele
+* Klikamy `Test`, aby sprawdzić połączenie, następnie klikamy `OK`
+* Klikamy 2 razy na nowo utworzonym aliasie, następnie `Connect`
+* W zakładce "SQL" wklejamy zawartość pliku `Mushrooms_creates.sql` z katalogu `backend/db`, następnie klikamy `CTRL+Enter`
+* Po wykonaniu skryptu, w zakładce `Objects` w `Mushrooms/public/Table` powinny znajdować się tabele
+* Można również wykonać skrypt `Mushrooms_inserts.sql`, który zawiera przykładowe dane. Wymagane jest rozszerzenie `pgcrypto`, które powinno być domyślnie zainstalowane z pgsql
 
-Szczegółowa instrukcja jak połączyć się z bazą przy użyciu programu SQuirreL:
+Szczegółowa instrukcja jak połączyć się z bazą przy użyciu programu Squirrel:
 * [Instrukcja](http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf)
 
 ## Uruchomienie projektu
