@@ -1,7 +1,8 @@
 package pl.polsl.mushrooms.application.commands.user;
 
-import pl.polsl.mushrooms.application.commands.VoidCommand;
+import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
+import pl.polsl.mushrooms.application.model.User;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -9,10 +10,7 @@ import java.util.Date;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-public class UpdateUserCommand implements VoidCommand {
-
-    @NotNull
-    private long id;
+public class UpdateUserCommand implements ReturningCommand<User>{
 
     @NotNull
     private String username;
@@ -27,10 +25,6 @@ public class UpdateUserCommand implements VoidCommand {
     private Gender gender;
 
     private UpdateUserCommand() { }
-
-    public long getId() {
-        return id;
-    }
 
     public String getUsername() {
         return username;

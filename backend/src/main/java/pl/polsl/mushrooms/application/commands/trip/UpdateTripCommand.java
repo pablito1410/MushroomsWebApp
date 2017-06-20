@@ -2,13 +2,16 @@ package pl.polsl.mushrooms.application.commands.trip;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
 public class UpdateTripCommand implements VoidCommand {
 
     private long tripId;
-    private long userId;
+    private LocalDateTime dateTime;
+    private String place;
 
     protected UpdateTripCommand() { }
 
@@ -16,7 +19,11 @@ public class UpdateTripCommand implements VoidCommand {
         return tripId;
     }
 
-    public long getUserId() {
-        return userId;
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public String getPlace() {
+        return place;
     }
 }

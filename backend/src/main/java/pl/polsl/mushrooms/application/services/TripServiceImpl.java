@@ -1,14 +1,17 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Trip;
 
-import java.util.UUID;
+import javax.ws.rs.NotFoundException;
+import java.util.Optional;
 
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
@@ -26,27 +29,40 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public long handle(CreateTripCommand command) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer user = (Mushroomer)userRepo.findOneByUsername(currentUsername);
+
         final Trip trip = new Trip(command.getDateTime(), command.getPlace());
-
-        final Mushroomer user = (Mushroomer)userRepo.findOne(command.getUserId());
         trip.addMushroomer(user);
-
         tripRepo.save(trip);
+
         return trip.getId();
     }
 
     @Override
     public void handle(UpdateTripCommand command) {
+        final Trip trip = Optional.of(
+                tripRepo.findTrip(command.getTripId()))
+                    .orElseThrow(NotFoundException::new);
 
-        final Trip trip = tripRepo.findTrip(command.getTripId());
-        final Mushroomer mushroomer = (Mushroomer)userRepo.findOne(command.getUserId());
-
-        trip.addMushroomer(mushroomer);
+        trip.setPlace(command.getPlace());
+        trip.setDateTime(command.getDateTime());
         tripRepo.save(trip);
     }
 
     @Override
     public void handle(DeleteTripCommand command) {
-        tripRepo.delete(command.getId());
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer currentUser = (Mushroomer)userRepo.findOneByUsername(currentUsername);
+        final Trip trip = Optional.of(
+                tripRepo.findTrip(command.getTripId()))
+                    .orElseThrow(NotFoundException::new);
+
+        if (!trip.getMushroomers().contains(currentUser)) {
+            throw new NoRequiredPermissions("User should be a participant of the trip.");
+        }
+
+        tripRepo.delete(command.getTripId());
     }
+
 }

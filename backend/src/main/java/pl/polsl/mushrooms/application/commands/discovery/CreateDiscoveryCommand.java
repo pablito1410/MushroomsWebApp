@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.commands.discovery;
 
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -9,20 +10,22 @@ import java.time.LocalDateTime;
  */
 public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
-    private long userId;
+    @NotNull
     private long tripId;
+    @NotNull
     private long mushroomSpieceId;
-
+    @NotNull
     private String coordinateX;
+    @NotNull
     private String coordinateY;
+    @NotNull
     private byte[] photo;
+    @NotNull
     private LocalDateTime dateTime;
 
-    protected CreateDiscoveryCommand() { }
+    private String[] tags;
 
-    public long getUserId() {
-        return userId;
-    }
+    protected CreateDiscoveryCommand() { }
 
     public long getTripId() {
         return tripId;
@@ -46,5 +49,9 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public String[] getTags() {
+        return tags;
     }
 }

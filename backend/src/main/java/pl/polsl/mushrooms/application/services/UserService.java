@@ -1,7 +1,7 @@
 package pl.polsl.mushrooms.application.services;
 
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.model.User;
@@ -15,9 +15,9 @@ public interface UserService {
 
     long handle(CreateUserCommand command);
 
-    void handle(UpdateUserCommand command);
+    User handle(UpdateUserCommand command);
 
-    void handle(DeleteUserCommand command);
+    void handle(DeleteUsersCommand command);
 
     Optional<User> getUserByEmail(String email);
 

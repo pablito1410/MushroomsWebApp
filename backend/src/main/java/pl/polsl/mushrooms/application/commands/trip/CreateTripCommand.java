@@ -13,9 +13,6 @@ import java.time.LocalDateTime;
 public class CreateTripCommand implements ReturningCommand<Long> {
 
     @NotNull
-    private long userId;
-
-    @NotNull
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateTime;
 
@@ -27,10 +24,6 @@ public class CreateTripCommand implements ReturningCommand<Long> {
 
     public String getPlace() {
         return place;
-    }
-
-    public long getUserId() {
-        return userId;
     }
 
     public LocalDateTime getDateTime() {

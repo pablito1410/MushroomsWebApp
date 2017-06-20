@@ -1,17 +1,20 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
 /**
@@ -59,15 +62,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(UpdateProfileImageCommand command) {
-        final Mushroomer user = (Mushroomer)repo.findOneByUsername(command.getUsername());
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer user = (Mushroomer)Optional.of(
+                repo.findOneByUsername(username))
+                    .orElseThrow(NotFoundException::new);
+
         user.setPhoto(command.getPhoto());
         repo.save(user);
     }
 
     @Override
-    public void handle(UpdateUserCommand command) {
-        final Optional<User> optionalUser = Optional.of(repo.findOne(command.getId()));
-        final User user = optionalUser.orElseThrow(EntityNotFoundException::new);
+    public User handle(UpdateUserCommand command) {
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final User user = Optional.of(
+                repo.findOneByUsername(username))
+                    .orElseThrow(NotFoundException::new);
 
         switch (user.getRole())
         {
@@ -88,11 +97,27 @@ public class UserServiceImpl implements UserService {
         }
 
         repo.save(user);
+
+        return user;
     }
 
     @Override
-    public void handle(DeleteUserCommand command) {
-        repo.delete(command.getId());
+    public void handle(DeleteUsersCommand command) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final User currentUser = Optional.of(
+                repo.findOneByUsername(currentUsername))
+                    .orElseThrow(EntityNotFoundException::new);
+
+        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String encodedAdminPassword = encoder.encode(command.getAdminPassword());
+
+        if (!encoder.matches(currentUser.getPassword(), encodedAdminPassword)) {
+            throw new NoRequiredPermissions("Admin permissions required");
+        }
+
+        for (long id : command.getIds()) {
+            repo.delete(id);
+        }
     }
 
     private boolean userExist(final String email) {

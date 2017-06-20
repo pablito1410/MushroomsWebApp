@@ -7,11 +7,9 @@ import pl.polsl.mushrooms.application.commands.VoidCommand;
  */
 public class UpdateProfileImageCommand implements VoidCommand {
 
-    private final String username;
     private final byte[] photo;
 
-    public UpdateProfileImageCommand(String username, byte[] photo) {
-        this.username = username;
+    public UpdateProfileImageCommand(byte[] photo) {
         this.photo = photo;
     }
 
@@ -19,7 +17,4 @@ public class UpdateProfileImageCommand implements VoidCommand {
         return photo;
     }
 
-    public String getUsername() {
-        return username;
-    }
 }

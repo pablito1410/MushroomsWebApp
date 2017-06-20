@@ -10,4 +10,6 @@ public interface CommentDao {
     Commentable findOne(long targetId);
 
     void save(Commentable comment);
+
+    void delete(long id);
 }

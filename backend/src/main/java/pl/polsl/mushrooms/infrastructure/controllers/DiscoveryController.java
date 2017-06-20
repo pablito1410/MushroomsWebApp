@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
@@ -67,4 +68,11 @@ public class DiscoveryController {
         final List<Map<String, Object>> discoveries = discoveryProjectionService.findAll(userName, projection);
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/add-score", method = RequestMethod.POST)
+    public ResponseEntity<Void> addScore(@RequestBody AddScoreToDiscoveryCommand command) {
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

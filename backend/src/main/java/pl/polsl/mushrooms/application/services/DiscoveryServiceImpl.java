@@ -1,16 +1,17 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
-import pl.polsl.mushrooms.application.dao.DiscoveryDao;
-import pl.polsl.mushrooms.application.dao.MushroomSpeciesDao;
-import pl.polsl.mushrooms.application.dao.TripDao;
-import pl.polsl.mushrooms.application.dao.UserDao;
-import pl.polsl.mushrooms.application.model.Discovery;
-import pl.polsl.mushrooms.application.model.MushroomSpecies;
-import pl.polsl.mushrooms.application.model.Mushroomer;
-import pl.polsl.mushrooms.application.model.Trip;
+import pl.polsl.mushrooms.application.dao.*;
+import pl.polsl.mushrooms.application.model.*;
+
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -22,32 +23,44 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     private final TripDao tripDao;
     private final UserDao userDao;
     private final MushroomSpeciesDao mushroomSpeciesDao;
+    private final ScoreDao scoreDao;
 
     public DiscoveryServiceImpl(
             final DiscoveryDao discoveryDao,
             final TripDao tripDao,
             final UserDao userDao,
-            final MushroomSpeciesDao mushroomSpeciesDao)
+            final MushroomSpeciesDao mushroomSpeciesDao,
+            ScoreDao scoreDao)
     {
         this.discoveryDao = discoveryDao;
         this.tripDao = tripDao;
         this.userDao = userDao;
         this.mushroomSpeciesDao = mushroomSpeciesDao;
+        this.scoreDao = scoreDao;
     }
     @Override
     public long handle(CreateDiscoveryCommand command) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
 
         final Trip trip = tripDao.findTrip(command.getTripId());
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOne(command.getUserId());
+        if (trip == null) {
+            throw new NotFoundException("Trip not found");
+        }
+
         final MushroomSpecies mushroomSpecie = mushroomSpeciesDao.findOne(command.getMushroomSpieceId());
+        if (mushroomSpecie == null) {
+            throw new NotFoundException("MushtoomSpecies nof found");
+        }
+
         final Discovery discovery = new Discovery(
             command.getCoordinateX(),
-                command.getCoordinateY(),
-                command.getPhoto(),
-                command.getDateTime(),
-                trip,
-                mushroomSpecie,
-                mushroomer
+            command.getCoordinateY(),
+            command.getPhoto(),
+            command.getDateTime(),
+            trip,
+            mushroomSpecie,
+            mushroomer
         );
 
         discoveryDao.save(discovery);
@@ -57,11 +70,55 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
     @Override
     public void handle(UpdateDiscoveryCommand command) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Discovery discovery =  Optional.of(
+                discoveryDao.findDiscovery(command.getId()))
+                    .orElseThrow(NotFoundException::new);
 
+        if (!discovery.getMushroomer().equals(mushroomer)) {
+            throw new NotAuthorizedException("This discovery was not created by user with id=" + mushroomer.getId());
+        }
+
+        discovery.setDateTime(command.getDateTime());
+        discovery.setCoordinateX(command.getCoordinateX());
+        discovery.setCoordinateY(command.getCoordinateY());
+        discovery.setPhoto(command.getPhoto());
+        discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpieceId()));
+//            discovery.setTags(); TODO
     }
 
     @Override
     public void handle(DeleteDiscoveryCommand command) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Discovery discovery =  Optional.of(
+                discoveryDao.findDiscovery(command.getId()))
+                    .orElseThrow(NotFoundException::new);
 
+        if (!discovery.getMushroomer().equals(mushroomer)) {
+            throw new NotAuthorizedException("This discovery was not created by user with id=" + mushroomer.getId());
+        }
+
+        discoveryDao.delete(discovery.getId());
+    }
+
+    @Override
+    public void handle(AddScoreToDiscoveryCommand addScoreToDiscoveryCommand) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+
+        final Discovery discovery =  Optional.of(
+                discoveryDao.findDiscovery(addScoreToDiscoveryCommand.getDiscoveryId()))
+                    .orElseThrow(NotFoundException::new);
+
+        final Score score = new Score(
+                addScoreToDiscoveryCommand.getScore(),
+                LocalDateTime.now(),
+                discovery,
+                mushroomer);
+
+        scoreDao.save(score);
+        discoveryDao.save(discovery);
     }
 }

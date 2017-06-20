@@ -22,4 +22,14 @@ public class DiscoveryDaoImpl implements DiscoveryDao {
     public void save(Discovery discovery) {
         discoveryRepository.save(discovery);
     }
+
+    @Override
+    public Discovery findDiscovery(long discoveryId) {
+        return discoveryRepository.findOne(discoveryId);
+    }
+
+    @Override
+    public void delete(long id) {
+        discoveryRepository.delete(id);
+    }
 }
