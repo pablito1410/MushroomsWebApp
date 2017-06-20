@@ -33,7 +33,7 @@ public class DiscoveryProjectionRepository {
                         " D.COORDINATE_Y::varchar as \"coordinateY\",\n" +
                         " D.PHOTO as \"photo\",\n" +
                         " D.DATE_TIME as \"dateTime\"\n");
-    };
+    }
 
     public List<Map<String, Object>> findAll(long userId, ProjectionDao.Projection projection) {
 
