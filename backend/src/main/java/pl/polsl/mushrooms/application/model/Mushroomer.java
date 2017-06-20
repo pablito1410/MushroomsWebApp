@@ -232,4 +232,7 @@ public class Mushroomer extends User {
 		return false;
 	}
 
+    public boolean removeFriend(Mushroomer friend) {
+    	return this.users.remove(friend);
+    }
 }

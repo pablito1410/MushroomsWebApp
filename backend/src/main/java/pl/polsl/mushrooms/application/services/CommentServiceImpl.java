@@ -10,6 +10,10 @@ import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.application.model.Commentable;
 import pl.polsl.mushrooms.application.model.User;
 
+import javax.ws.rs.NotAuthorizedException;
+import javax.ws.rs.NotFoundException;
+import java.util.Optional;
+
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
@@ -40,23 +44,29 @@ public class CommentServiceImpl implements CommentService {
     public void handle(UpdateCommentCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = userDao.findOneByUsername(currentUsername);
-        final Comment comment = (Comment)commentDao.findOne(command.getId());
-        if (comment == null || !comment.getUser().equals(user)) {
-            // TODO
-        } else {
-            comment.setContents(command.getContents());
+        final Comment comment = (Comment) Optional.of(
+                commentDao.findOne(command.getId()))
+                    .orElseThrow(NotFoundException::new);
+
+        if (!comment.getUser().equals(user)) {
+            throw new NotAuthorizedException("This comment was not written by user with id=" + user.getId());
         }
+
+        comment.setContents(command.getContents());
     }
 
     @Override
     public void handle(DeleteCommentCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = userDao.findOneByUsername(currentUsername);
-        final Comment comment = (Comment)commentDao.findOne(command.getId());
-        if (comment == null || !comment.getUser().equals(user)) {
-            // TODO
-        } else {
-            commentDao.delete(comment.getId());
+        final Comment comment = (Comment) Optional.of(
+                commentDao.findOne(command.getId()))
+                    .orElseThrow(NotFoundException::new);
+
+        if (!comment.getUser().equals(user)) {
+            throw new NotAuthorizedException("This comment was not written by user with id=" + user.getId());
         }
+
+        commentDao.delete(comment.getId());
     }
 }

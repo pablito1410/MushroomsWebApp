@@ -13,9 +13,6 @@ import java.util.Date;
 public class UpdateUserCommand implements ReturningCommand<User>{
 
     @NotNull
-    private long id;
-
-    @NotNull
     private String username;
 
     @NotNull
@@ -28,10 +25,6 @@ public class UpdateUserCommand implements ReturningCommand<User>{
     private Gender gender;
 
     private UpdateUserCommand() { }
-
-    public long getId() {
-        return id;
-    }
 
     public String getUsername() {
         return username;

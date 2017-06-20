@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
@@ -104,8 +104,8 @@ public class UserController {
      * @param command
      * @return
      */
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(DeleteUserCommand command) {
+    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(DeleteUsersCommand command) {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -113,9 +113,8 @@ public class UserController {
 
     @RequestMapping(path = "image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> image(@RequestParam("files") MultipartFile image) {
-        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
         try {
-            final UpdateProfileImageCommand command = new UpdateProfileImageCommand(username, image.getBytes());
+            final UpdateProfileImageCommand command = new UpdateProfileImageCommand(image.getBytes());
             commandGateway.dispatch(command);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INSUFFICIENT_STORAGE);

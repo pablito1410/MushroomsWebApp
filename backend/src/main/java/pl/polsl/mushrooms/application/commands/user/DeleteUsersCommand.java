@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-public class DeleteUserCommand implements VoidCommand {
+public class DeleteUsersCommand implements VoidCommand {
 
     @NotNull
     private long[] ids;
@@ -15,7 +15,7 @@ public class DeleteUserCommand implements VoidCommand {
     @NotNull
     private String adminPassword;
 
-    private DeleteUserCommand() { }
+    private DeleteUsersCommand() { }
 
     public long[] getIds() {
         return ids;

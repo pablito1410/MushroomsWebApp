@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
+import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +34,9 @@ public class FriendsController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> addFriend(@RequestBody AddFriendCommand command) {
-        commandGateway.dispatch(command);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Collection<Long>> addFriend(@RequestBody AddFriendCommand command) {
+        Collection<Long> addedFriends = commandGateway.dispatch(command);
+        return new ResponseEntity<>(addedFriends, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -44,4 +46,11 @@ public class FriendsController {
         final List<Map<String,Object>> users = userProjectionService.findAll(userName, projection);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    public ResponseEntity<Collection<Long>> delete(DeleteFriendsCommand command) {
+        final Collection<Long> removedFriends = commandGateway.dispatch(command);
+        return new ResponseEntity<>(removedFriends, HttpStatus.OK);
+    }
+
 }

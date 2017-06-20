@@ -8,15 +8,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
+import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
+import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
-import pl.polsl.mushrooms.application.commands.user.DeleteUserCommand;
+import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.*;
@@ -43,10 +45,11 @@ public class MushroomsServerConfig {
         return () -> {
             registry.register(userService::handle, CreateUserCommand.class);
             registry.register(userService::handle, UpdateUserCommand.class);
-            registry.register(userService::handle, DeleteUserCommand.class);
+            registry.register(userService::handle, DeleteUsersCommand.class);
             registry.register(userService::handle, UpdateProfileImageCommand.class);
 
             registry.register(friendService::handle, AddFriendCommand.class);
+            registry.register(friendService::handle, DeleteFriendsCommand.class);
 
 
             registry.register(tripService::handle, CreateTripCommand.class);
@@ -56,6 +59,7 @@ public class MushroomsServerConfig {
             registry.register(discoveryService::handle, CreateDiscoveryCommand.class);
             registry.register(discoveryService::handle, UpdateDiscoveryCommand.class);
             registry.register(discoveryService::handle, DeleteDiscoveryCommand.class);
+            registry.register(discoveryService::handle, AddScoreToDiscoveryCommand.class);
 
             registry.register(commentService::handle, CreateCommentCommand.class);
             registry.register(commentService::handle, UpdateCommentCommand.class);
@@ -114,8 +118,8 @@ public class MushroomsServerConfig {
 
     @Bean
     public DiscoveryService discoveryService(
-            DiscoveryDao discoveryDao, TripDao tripDao, UserDao userDao, MushroomSpeciesDao mushroomSpeciesDao) {
-        return new DiscoveryServiceImpl(discoveryDao, tripDao, userDao, mushroomSpeciesDao); }
+            DiscoveryDao discoveryDao, TripDao tripDao, UserDao userDao, MushroomSpeciesDao mushroomSpeciesDao, ScoreDao scoreDao) {
+        return new DiscoveryServiceImpl(discoveryDao, tripDao, userDao, mushroomSpeciesDao, scoreDao); }
 
     @Bean
     public CommentService commentService(UserDao userDao, CommentDao commentDao) {

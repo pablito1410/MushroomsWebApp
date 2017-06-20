@@ -8,6 +8,7 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.NotFoundException;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -23,13 +24,19 @@ public class GlobalControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
     @ExceptionHandler(EntityNotFoundException.class)
-    public void notFound() {
+    public void entityNotFound() {
         //
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
     @ExceptionHandler(NoRequiredPermissions.class)
     public void noRequiredPermission() {
+        //
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
+    @ExceptionHandler(NotFoundException.class)
+    public void notFound() {
         //
     }
 }
