@@ -24,6 +24,7 @@ import {FriendDetailsComponent} from "./friends/friend-details/friend-details.co
 import {TripDetailsComponent} from "./trips/trip-details/trip-details.component";
 import {AddTripComponent} from "./trips/add-trip/add-trip.component";
 import {TreeModule} from "angular-tree-component";
+import {CommentsComponent} from "./comments/comments.component";
 
 @NgModule({
     imports: [
@@ -56,7 +57,8 @@ import {TreeModule} from "angular-tree-component";
         DiscoveryDetailsComponent,
         FriendDetailsComponent,
         TripDetailsComponent,
-        AddTripComponent
+        AddTripComponent,
+        CommentsComponent
     ],
     entryComponents: [
         SearchFriendsComponent,

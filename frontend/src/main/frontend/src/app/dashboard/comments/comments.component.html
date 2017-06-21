@@ -1,0 +1,36 @@
+<ul class="list-group">
+    <li *ngFor="let comment of comments" class="list-group-item">
+        <div class="row">
+            <div class="col-md-2 text-right">
+                <div class="comment-img-mask">
+                    <img class="comment-img" src="..\..\assets\img\faces\example-user.jpg" />
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <span class="list-group-item"><h4>{{comment.content}}</h4></span>
+                    damdbnjkahadsjdmima djwqK DMKASJ DM AWJ DMQWK M
+                </div>
+                <div class="row">
+                    <button *ngIf="!comment.textBox" class="text-button" (click)="comment.write()">reply</button>
+                    <div *ngIf="comment.answers.length">
+                        <div *ngIf="comment.expanded; else hide">
+                            <button class="text-button" (click)="comment.toggle()">hide answers</button>
+                            <comments-cmp [comments]="comment.answers"></comments-cmp>
+                        </div>
+                        <ng-template #hide>
+                            <button class="text-button" (click)="comment.toggle()">show answers</button>
+                        </ng-template>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="comment.textBox">
+                            <textarea class="form-control" placeholder="Answer" rows="5"></textarea>
+                            <button class="text-button" (click)="comment.ok()">ok</button>
+                            <button class="text-button" (click)="comment.cancel()">cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
