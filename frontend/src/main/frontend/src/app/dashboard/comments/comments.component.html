@@ -25,7 +25,7 @@
                     <div class="row">
                         <div *ngIf="comment.textBox">
                             <textarea class="form-control" placeholder="Answer" rows="5"></textarea>
-                            <button class="text-button" (click)="comment.ok()">ok</button>
+                            <button class="text-button" (click)="comment.submit()">submit</button>
                             <button class="text-button" (click)="comment.cancel()">cancel</button>
                         </div>
                     </div>

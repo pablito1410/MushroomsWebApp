@@ -25,6 +25,7 @@ import {TripDetailsComponent} from "./trips/trip-details/trip-details.component"
 import {AddTripComponent} from "./trips/add-trip/add-trip.component";
 import {TreeModule} from "angular-tree-component";
 import {CommentsComponent} from "./comments/comments.component";
+import {RatingModule} from "ngx-rating";
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import {CommentsComponent} from "./comments/comments.component";
         MdSnackBarModule,
         ReactiveFormsModule,
         TreeModule,
+        RatingModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDd7pfi7_Du2senx4g4lLArVguhMd2LUKY'
         })

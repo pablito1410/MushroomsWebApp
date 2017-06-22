@@ -29,7 +29,7 @@ export class Comment {
         this.textBox = false;
     }
 
-    ok() {
+    submit() {
         this.textBox = false;
     }
 }

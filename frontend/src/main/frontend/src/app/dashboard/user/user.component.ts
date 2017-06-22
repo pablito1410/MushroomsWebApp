@@ -26,12 +26,6 @@ export class UserComponent implements OnInit {
         );
     }
 
-    private openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-            duration: 2000,
-        });
-    }
-
     handleReaderLoaded(e) {
         var reader = e.target;
         this.imageSrc = reader.result;
@@ -52,11 +46,15 @@ export class UserComponent implements OnInit {
         this.userService.updateImage(file).subscribe(
             data => {
                 this.router.navigate(['/users']);
-                this.openSnackBar('Photo Saved', '×');
+                this.snackBar.open('Photo Saved', '×', {
+                    duration: 2000,
+                });
             },
             error => {
                 this.loading = false;
-                this.openSnackBar('Change Profile Photo Error', '×');
+                this.snackBar.open('Photo Saved', '×', {
+                    duration: 2000,
+                });
             });
     }
 
@@ -66,11 +64,15 @@ export class UserComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate(['/users']);
-                    this.openSnackBar('Profile Uploaded', '×');
+                    this.snackBar.open('Photo Saved', '×', {
+                        duration: 2000,
+                    });
                 },
                 error => {
                     this.loading = false;
-                    this.openSnackBar('Update Error', '×');
+                    this.snackBar.open('Error', '×', {
+                        duration: 2000,
+                    });
                 });
     }
 }

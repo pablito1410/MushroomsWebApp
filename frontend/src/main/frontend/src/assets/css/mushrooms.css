@@ -120,6 +120,11 @@ my-app .main-panel .main-content .card{
     list-style-type: none;
 }
 
+.list-group ul li {
+    position: relative;
+    left: -10%;
+}
+
 .list-group-item {
     border: none;
 }
@@ -134,6 +139,11 @@ my-app .main-panel .main-content .card{
 
 .comment-img {
     max-width: 100%;
+}
+
+.comment-textarea {
+    margin: 10%;
+    width: 80%;
 }
 
 .text-button {

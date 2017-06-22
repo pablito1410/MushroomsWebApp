@@ -1,7 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import { MdDialogRef } from "@angular/material";
+import {MdDialogRef, MdSnackBar} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {Comment} from "../../../model/comment";
+import {Score} from "../../../model/score";
 
 @Component({
     moduleId: module.id,
@@ -11,7 +12,16 @@ import {Comment} from "../../../model/comment";
 export class DiscoveryDetailsComponent implements OnInit {
     discovery: any;
     comments: Array<Comment>;
-    constructor(public dialogRef: MdDialogRef<DiscoveryDetailsComponent>) { }
+    score: Score;
+    starsCount: number;
+    showRating: boolean;
+
+    constructor(
+        public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
+        public snackBar: MdSnackBar) {
+        this.showRating = true;
+    }
+
     ngOnInit() {
         this.discovery = {
             id: 1,
@@ -48,5 +58,16 @@ export class DiscoveryDetailsComponent implements OnInit {
         let comment23 = new Comment("Item 2.3", [comment231, comment232, comment233]);
         let comment2 = new Comment("Item 2", [comment21, comment22, comment23]);
         this.comments = [comment1, comment2];
+    }
+
+    rate() {
+        this.showRating = false;
+        this.snackBar.open('Discovery Has Rated ', '×', {
+            duration: 2000,
+        });
+    }
+
+    comment() {
+
     }
 }

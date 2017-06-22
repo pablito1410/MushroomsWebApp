@@ -24,7 +24,8 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
       // other libraries
-      'rxjs':                      'npm:rxjs',
+      'rxjs': 'npm:rxjs',
+      'ngx-rating': 'npm:ngx-rating',
       'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
@@ -36,6 +37,10 @@
       // },
       rxjs: {
         defaultExtension: 'js'
+      },
+      'ngx-rating': {
+          'main': 'index.js',
+          'defaultExtension': 'js'
       }
     }
   });
