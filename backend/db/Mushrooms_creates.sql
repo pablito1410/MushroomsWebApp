@@ -22,9 +22,9 @@ CREATE TABLE DISCOVERIES (
   DISCOVERY_ID    BIGSERIAL NOT NULL, 
   TRIP_ID         int8 NOT NULL, 
   MUSH_SPECIES_ID int8 NOT NULL, 
-  USER_ID         int8 NOT NULL, 
-  COORDINATE_X    varchar(255) NOT NULL, 
-  COORDINATE_Y    varchar(255) NOT NULL, 
+  USER_ID         int8 NOT NULL,
+  COORDINATE_X    float8 NOT NULL, 
+  COORDINATE_Y    float8 NOT NULL, 
   PHOTO           bytea NOT NULL, 
   DATE_TIME       timestamp NOT NULL, 
   PRIMARY KEY (DISCOVERY_ID));
