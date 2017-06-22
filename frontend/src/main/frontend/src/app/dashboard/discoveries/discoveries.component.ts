@@ -20,10 +20,18 @@ export class DiscoveriesComponent implements OnInit {
         public dialog: MdDialog,
         private discoveryService: DiscoveryService) {}
 
-    ngOnInit(){
-        this.discoveryService.getAll().subscribe(
-            value => this.discoveries = value
-        );
+    ngOnInit() {
+        // this.discoveryService.getAll().subscribe(
+        //     value => this.discoveries = value
+        // );
+        this.discoveries = [
+            {
+                'id': '1',
+                'coordinateX': 45.345566,
+                'coordinateY': 35.463566,
+                'name': 'grzyb'
+            }
+        ];
     }
 
     openAddDiscoveryDialog() {

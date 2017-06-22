@@ -24,8 +24,9 @@ import {FriendDetailsComponent} from "./friends/friend-details/friend-details.co
 import {TripDetailsComponent} from "./trips/trip-details/trip-details.component";
 import {AddTripComponent} from "./trips/add-trip/add-trip.component";
 import {TreeModule} from "angular-tree-component";
-import {CommentsComponent} from "./comments/comments.component";
+import {CommentsTreeComponent} from "./comments/comments-tree/comments-tree.component";
 import {RatingModule} from "ngx-rating";
+import {CommentComponent} from "./comments/comment/comment.component";
 
 @NgModule({
     imports: [
@@ -60,7 +61,8 @@ import {RatingModule} from "ngx-rating";
         FriendDetailsComponent,
         TripDetailsComponent,
         AddTripComponent,
-        CommentsComponent
+        CommentsTreeComponent,
+        CommentComponent
     ],
     entryComponents: [
         SearchFriendsComponent,
