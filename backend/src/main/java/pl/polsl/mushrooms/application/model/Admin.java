@@ -3,7 +3,9 @@ package pl.polsl.mushrooms.application.model;
 
 import pl.polsl.mushrooms.application.enums.UserRole;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 public class Admin extends User {
@@ -34,4 +36,5 @@ public class Admin extends User {
 		}
 		return false;
 	}
+
 }

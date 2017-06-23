@@ -84,7 +84,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         discovery.setCoordinateX(command.getCoordinateX());
         discovery.setCoordinateY(command.getCoordinateY());
         discovery.setPhoto(command.getPhoto());
-        discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpieceId()));
+        discovery.setMushroomsSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpieceId()));
 //            discovery.setTags(); TODO
     }
 

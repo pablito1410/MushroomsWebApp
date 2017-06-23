@@ -10,10 +10,10 @@ import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 23.05.2017.
@@ -40,10 +40,10 @@ public class FriendsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String,Object>>> getAll(
+    public ResponseEntity<Set<MushroomerDto>> getAll(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final List<Map<String,Object>> users = userProjectionService.findAll(userName, projection);
+        final Set<MushroomerDto> users = userProjectionService.findAll(userName, projection);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.services.TokenAuthenticationService;
 
 import javax.servlet.FilterChain;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Map;
 
 public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -65,7 +65,7 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     private void addUserJson(HttpServletResponse res, String username) throws IOException {
-        final Map<String, Object> user = userProjectionService.findOneByUsername(username, UserProjectionDao.Projection.FULL);
+        final UserDto user = userProjectionService.findOneByUsername(username, UserProjectionDao.Projection.FULL);
         final Gson gson = new GsonBuilder().serializeNulls().create();
         res.getWriter().write(gson.toJson(user));
         res.setContentType("application/json");

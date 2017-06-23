@@ -21,9 +21,10 @@ public class MushroomSpecies implements Serializable {
 	private byte[] examplePhoto;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "MUSH_GENUS_ID")
 	private MushroomGenus genus;
 
-	@OneToMany(mappedBy = "mushroomSpecies")
+	@OneToMany(mappedBy = "mushroomsSpecies")
 	private Set<Discovery> discoveries;
 
 	protected MushroomSpecies() {
@@ -70,11 +71,11 @@ public class MushroomSpecies implements Serializable {
 	}
 
 	public Set<Discovery> getDiscoveries() {
-		throw new UnsupportedOperationException();
+		return discoveries;
 	}
 
 	public void setDiscoveries(Set<Discovery> discoveries) {
-		throw new UnsupportedOperationException();
+		this.discoveries = discoveries;
 	}
 
 	public int hashCode() {

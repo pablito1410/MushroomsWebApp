@@ -20,6 +20,7 @@ public class Comment extends Commentable{
 	private Commentable target;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "USER_ID")
 	private User user;
 
 	@OneToMany(mappedBy = "answers")

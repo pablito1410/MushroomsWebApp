@@ -16,6 +16,7 @@ public class Tag implements Serializable {
 	private String name;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "DISCOVERY_ID")
 	private Discovery discovery;
 
 	protected Tag() { }

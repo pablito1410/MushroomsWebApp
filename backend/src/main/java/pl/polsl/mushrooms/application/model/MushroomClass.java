@@ -46,11 +46,11 @@ public class MushroomClass implements Serializable {
 	}
 
 	public Set<MushroomOrder> getOrders() {
-		throw new UnsupportedOperationException();
+		return orders;
 	}
 
 	public void setOrders(Set<MushroomOrder> orders) {
-		throw new UnsupportedOperationException();
+		this.orders = orders;
 	}
 
 	public int hashCode() {

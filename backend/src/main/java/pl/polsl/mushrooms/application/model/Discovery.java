@@ -22,12 +22,15 @@ public class Discovery extends Commentable {
 	private LocalDateTime dateTime;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "TRIP_ID")
 	private Trip trip;
 
-	@ManyToOne()
-	private MushroomSpecies mushroomSpecies;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "MUSH_SPECIES_ID")
+	private MushroomSpecies mushroomsSpecies;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "USER_ID")
 	private Mushroomer mushroomer;
 
 	@OneToMany(mappedBy = "discovery")
@@ -46,14 +49,14 @@ public class Discovery extends Commentable {
 	}
 
 	public Discovery(
-			String coordinateX, String coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
+			String coordinateX, String coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomsSpecies, Mushroomer mushroomer) {
 		this();
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.photo = photo;
 		this.dateTime = dateTime;
 		this.trip = trip;
-		this.mushroomSpecies = mushroomSpecies;
+		this.mushroomsSpecies = mushroomsSpecies;
 		this.mushroomer = mushroomer;
 	}
 
@@ -105,12 +108,12 @@ public class Discovery extends Commentable {
 		this.trip = trip;
 	}
 
-	public MushroomSpecies getMushroomSpecies() {
-		return this.mushroomSpecies;
+	public MushroomSpecies getMushroomsSpecies() {
+		return this.mushroomsSpecies;
 	}
 
-	public void setMushroomSpecies(MushroomSpecies mushroomSpecies) {
-		this.mushroomSpecies = mushroomSpecies;
+	public void setMushroomsSpecies(MushroomSpecies mushroomsSpecies) {
+		this.mushroomsSpecies = mushroomsSpecies;
 	}
 
 	public Mushroomer getMushroomer() {
@@ -122,27 +125,27 @@ public class Discovery extends Commentable {
 	}
 
 	public Set<Score> getScores() {
-		throw new UnsupportedOperationException();
+		return scores;
 	}
 
 	public void setScores(Set<Score> scores) {
-		throw new UnsupportedOperationException();
+		this.scores = scores;
 	}
 
 	public Set<Tag> getTags() {
-		throw new UnsupportedOperationException();
+		return tags;
 	}
 
 	public void setTags(Set<Tag> tags) {
-		throw new UnsupportedOperationException();
+		this.tags = tags;
 	}
 
 	public Set<Comment> getComments() {
-		throw new UnsupportedOperationException();
+		return comments;
 	}
 
 	public void setComments(Set<Comment> comments) {
-		throw new UnsupportedOperationException();
+		this.comments = comments;
 	}
 
 	public int hashCode() {
@@ -162,8 +165,8 @@ public class Discovery extends Commentable {
 		if (this.trip != null) {
 			hashCode += this.trip.hashCode();
 		}
-		if (this.mushroomSpecies != null) {
-			hashCode += this.mushroomSpecies.hashCode();
+		if (this.mushroomsSpecies != null) {
+			hashCode += this.mushroomsSpecies.hashCode();
 		}
 		if (this.mushroomer != null) {
 			hashCode += this.mushroomer.hashCode();
@@ -191,8 +194,8 @@ public class Discovery extends Commentable {
 					|| (this.dateTime != null && this.dateTime.equals(discoveryObject.dateTime)));
 			equals &= ((this.trip == discoveryObject.trip)
 					|| (this.trip != null && this.trip.equals(discoveryObject.trip)));
-			equals &= ((this.mushroomSpecies == discoveryObject.mushroomSpecies)
-					|| (this.mushroomSpecies != null && this.mushroomSpecies.equals(discoveryObject.mushroomSpecies)));
+			equals &= ((this.mushroomsSpecies == discoveryObject.mushroomsSpecies)
+					|| (this.mushroomsSpecies != null && this.mushroomsSpecies.equals(discoveryObject.mushroomsSpecies)));
 			equals &= ((this.mushroomer == discoveryObject.mushroomer)
 					|| (this.mushroomer != null && this.mushroomer.equals(discoveryObject.mushroomer)));
 			equals &= this.scores == discoveryObject.scores;
