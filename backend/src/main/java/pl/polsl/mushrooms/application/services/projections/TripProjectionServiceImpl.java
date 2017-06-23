@@ -2,9 +2,10 @@ package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
+import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
@@ -26,13 +27,13 @@ public class TripProjectionServiceImpl implements TripProjectionService {
     }
 
     @Override
-    public List<Map<String, Object>> findAll(String userName, ProjectionDao.Projection projection) {
+    public Set<TripDto> findAll(String userName, ProjectionDao.Projection projection) {
         final long userId = userProjectionService.getId(userName);
         return tripProjectionDao.findAll(userId, projection);
     }
 
     @Override
-    public List<Map<String, Object>> findAll(long userId, ProjectionDao.Projection projection) {
+    public Set<TripDto> findAll(long userId, ProjectionDao.Projection projection) {
         return tripProjectionDao.findAll(userId, projection);
     }
 }

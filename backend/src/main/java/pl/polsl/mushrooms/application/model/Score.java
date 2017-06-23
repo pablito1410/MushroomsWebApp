@@ -20,9 +20,11 @@ public class Score implements Serializable {
 //	private LocalDateTime dateTime;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "DISCOVERY_ID")
 	private Discovery discovery;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "USER_ID")
 	private Mushroomer mushroomer;
 
 	protected Score() { }
@@ -64,14 +66,6 @@ public class Score implements Serializable {
 
 	public void setDiscovery(Discovery discovery) {
 		this.discovery = discovery;
-	}
-
-	public User getUser() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setUser(User user) {
-		throw new UnsupportedOperationException();
 	}
 
 	public Mushroomer getMushroomer() {

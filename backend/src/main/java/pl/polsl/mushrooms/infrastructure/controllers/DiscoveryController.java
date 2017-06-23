@@ -12,9 +12,10 @@ import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.DiscoveryProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -62,10 +63,10 @@ public class DiscoveryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String, Object>>> getAll(
+    public ResponseEntity<Set<DiscoveryDto>> getAll(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final List<Map<String, Object>> discoveries = discoveryProjectionService.findAll(userName, projection);
+        final Set<DiscoveryDto> discoveries = discoveryProjectionService.findAll(userName, projection);
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
 

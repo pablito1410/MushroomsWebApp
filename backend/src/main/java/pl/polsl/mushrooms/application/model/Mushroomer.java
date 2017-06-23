@@ -1,7 +1,6 @@
 package pl.polsl.mushrooms.application.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
@@ -41,16 +40,13 @@ public class Mushroomer extends User {
 	@Column(name = "PHOTO")
 	private byte[] photo;
 
-	@JsonIgnore
 	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
 			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Trip> trips;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Score> scores;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Discovery> discoveries;
 
@@ -59,7 +55,6 @@ public class Mushroomer extends User {
 	@JoinTable(name = "USERS_USERS",
 			joinColumns = {@JoinColumn(name = "USER_ID")},
 			inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
-	@JsonIgnore
 	private Set<Mushroomer> users;
 
     @Override
@@ -232,7 +227,7 @@ public class Mushroomer extends User {
 		return false;
 	}
 
-    public boolean removeFriend(Mushroomer friend) {
+	public boolean removeFriend(Mushroomer friend) {
     	return this.users.remove(friend);
     }
 }

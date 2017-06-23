@@ -116,4 +116,10 @@ public class Trip implements Serializable{
 		}
 		return false;
 	}
+
+    public Set<Long> getMushroomersIds() {
+        final Set<Long> ids = new HashSet<>();
+        mushroomers.forEach(m -> ids.add(m.getId()));
+        return ids;
+    }
 }

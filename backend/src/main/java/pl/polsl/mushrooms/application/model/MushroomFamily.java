@@ -18,6 +18,7 @@ public class MushroomFamily implements Serializable {
 	private String name;
 
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "MUSH_ORDER_ID")
 	private MushroomOrder order;
 
 	@OneToMany(mappedBy = "family")
@@ -58,11 +59,11 @@ public class MushroomFamily implements Serializable {
 	}
 
 	public Set<MushroomGenus> getGenuses() {
-		throw new UnsupportedOperationException();
+		return genuses;
 	}
 
 	public void setGenuses(Set<MushroomGenus> genuses) {
-		throw new UnsupportedOperationException();
+		this.genuses = genuses;
 	}
 
 	public int hashCode() {

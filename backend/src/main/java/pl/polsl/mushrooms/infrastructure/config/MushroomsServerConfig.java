@@ -82,21 +82,6 @@ public class MushroomsServerConfig {
     public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
 
     @Bean
-    public UserProjectionRepository userProjectionRepository(JdbcTemplate jdbcTemplate, UserRepository userRepository) {
-        return new UserProjectionRepository(jdbcTemplate, userRepository);
-    }
-
-    @Bean
-    public TripProjectionRepository tripProjectionRepository(final JdbcTemplate jdbcTemplate, final TripRepository tripRepository, final UserRepository userRepository) {
-        return new TripProjectionRepository(jdbcTemplate, tripRepository, userRepository);
-    }
-
-    @Bean
-    public DiscoveryProjectionRepository discoveryProjectionRepository(final JdbcTemplate jdbcTemplate, final DiscoveryRepository discoveryRepository, final UserRepository userRepository) {
-        return new DiscoveryProjectionRepository(jdbcTemplate, discoveryRepository, userRepository);
-    }
-
-    @Bean
     UserProjectionService userProjectionService(UserProjectionDao userProjectionDao) {
         return new UserProjectionServiceImpl(userProjectionDao);
     }

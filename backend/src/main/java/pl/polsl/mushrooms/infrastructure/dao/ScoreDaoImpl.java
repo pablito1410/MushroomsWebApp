@@ -19,6 +19,6 @@ public class ScoreDaoImpl implements ScoreDao {
 
     @Override
     public Score save(Score score) {
-        return null;
+        return scoreRepository.save(score);
     }
 }

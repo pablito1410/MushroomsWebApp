@@ -1,20 +1,22 @@
 package pl.polsl.mushrooms.application.dao;
 
-import java.util.List;
-import java.util.Map;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
+
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
  */
 public interface UserProjectionDao extends ProjectionDao {
 
-    Map<String,Object> findOneByUsername(String username, Projection projection);
+    UserDto findOneByUsername(String username, Projection projection);
 
-    Map<String,Object> findOne(long id, Projection projection);
+    UserDto findOne(long id, Projection projection);
 
     long getId(String email);
 
-    List<Map<String, Object>> findAll(long id, Projection projection);
+    Set<MushroomerDto> findAll(long id, Projection projection);
 
-    List<Map<String,Object>> search(String value, Projection projection);
+    Set<MushroomerDto> search(String value, Projection projection);
 }

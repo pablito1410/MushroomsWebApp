@@ -15,10 +15,11 @@ import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 31.03.2017.
@@ -55,10 +56,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getById(
+    public ResponseEntity<UserDto> getById(
             @PathVariable(name = "id") long id,
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final Map<String, Object> user = userProjectionService.findOne(id, projection);
+        final UserDto user = userProjectionService.findOne(id, projection);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -67,24 +68,24 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Map<String,Object>> get(
+    public ResponseEntity<UserDto> get(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Map<String,Object> user = userProjectionService.findOneByUsername(userName, projection);
+        final UserDto user = userProjectionService.findOneByUsername(userName, projection);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/all", method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String,Object>>> getAll(
+    public ResponseEntity<Set<MushroomerDto>> getAll(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final List<Map<String,Object>> users = userProjectionService.findAll(userName, projection);
+        final Set<MushroomerDto> users = userProjectionService.findAll(userName, projection);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String, Object>>> search(@RequestParam(value = "value") String value) {
-        final List<Map<String, Object>> users = userProjectionService.search(value, ProjectionDao.Projection.FULL);
+    public ResponseEntity<Set<MushroomerDto>> search(@RequestParam(value = "value") String value) {
+        final Set<MushroomerDto> users = userProjectionService.search(value, ProjectionDao.Projection.FULL);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
