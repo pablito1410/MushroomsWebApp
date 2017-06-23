@@ -21,17 +21,17 @@ export class DiscoveriesComponent implements OnInit {
         private discoveryService: DiscoveryService) {}
 
     ngOnInit() {
-        // this.discoveryService.getAll().subscribe(
-        //     value => this.discoveries = value
-        // );
-        this.discoveries = [
-            {
-                'id': '1',
-                'coordinateX': 45.345566,
-                'coordinateY': 35.463566,
-                'name': 'grzyb'
-            }
-        ];
+        this.discoveryService.getAll().subscribe(
+            value => this.discoveries = value
+        );
+        // this.discoveries = [
+        //     {
+        //         'id': '1',
+        //         'coordinateX': 45.345566,
+        //         'coordinateY': 35.463566,
+        //         'name': 'grzyb'
+        //     }
+        // ];
     }
 
     openAddDiscoveryDialog() {
@@ -45,8 +45,9 @@ export class DiscoveriesComponent implements OnInit {
         });
     }
 
-    openDiscoveryDetailsDialog() {
+    openDiscoveryDetailsDialog(discovery) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
+            data: discovery,
             hasBackdrop: true,
             height: '80%',
             width: '80%',

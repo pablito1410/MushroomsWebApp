@@ -21,8 +21,9 @@ export class SearchFriendsComponent implements OnInit {
     ngOnInit() {
     }
 
-    openUserDetailsDialog() {
+    openUserDetailsDialog(user) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
+            data: user,
             hasBackdrop: true,
             height: '80%',
             width: '80%',

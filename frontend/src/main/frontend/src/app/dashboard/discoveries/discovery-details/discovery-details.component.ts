@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {MdDialogRef, MdSnackBar} from "@angular/material";
+import {Component, OnInit, Inject} from "@angular/core";
+import {MdDialogRef, MdSnackBar, MD_DIALOG_DATA} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {Comment} from "../../../model/comment";
 import {Score} from "../../../model/score";
@@ -10,7 +10,7 @@ import {Score} from "../../../model/score";
     templateUrl: 'discovery-details.component.html'
 })
 export class DiscoveryDetailsComponent implements OnInit {
-    discovery: any;
+    // discovery: any;
     comments: Array<Comment>;
     score: Score;
     starsCount: number;
@@ -18,19 +18,20 @@ export class DiscoveryDetailsComponent implements OnInit {
 
     constructor(
         public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
+        @Inject(MD_DIALOG_DATA) public discovery: any,
         public snackBar: MdSnackBar) {
         this.showRating = true;
     }
 
     ngOnInit() {
-        this.discovery = {
-            id: 1,
-            name: 'Podgrzybek',
-            coordinateX: 51.673858,
-            coordinateY: 7.815982,
-            photo: null,
-            date: '12.05.2017 9:44'
-        };
+        // this.discovery = {
+        //     id: 1,
+        //     name: 'Podgrzybek',
+        //     coordinateX: 51.673858,
+        //     coordinateY: 7.815982,
+        //     photo: null,
+        //     date: '12.05.2017 9:44'
+        // };
         let comment111 = new Comment("Item 1.1.1", []);
         let comment112 = new Comment("Item 1.1.2", []);
         let comment113 = new Comment("Item 1.1.3", []);

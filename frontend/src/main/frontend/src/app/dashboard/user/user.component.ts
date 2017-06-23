@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                this.snackBar.open('Photo Saved', '×', {
+                this.snackBar.open('Error', '×', {
                     duration: 2000,
                 });
             });

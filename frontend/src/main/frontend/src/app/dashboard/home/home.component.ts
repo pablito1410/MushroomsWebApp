@@ -10,12 +10,8 @@ declare var $:any;
 })
 
 export class HomeComponent implements OnInit{
+    constructor() {
+    }
     ngOnInit(){
-        $('[data-toggle="checkbox"]').each(function () {
-            if($(this).data('toggle') == 'switch') return;
-
-            var $checkbox = $(this);
-            $checkbox.checkbox();
-        });
     }
 }
