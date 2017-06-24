@@ -15,9 +15,9 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
     @NotNull
     private long mushroomSpieceId;
     @NotNull
-    private String coordinateX;
+    private double coordinateX;
     @NotNull
-    private String coordinateY;
+    private double coordinateY;
     @NotNull
     private byte[] photo;
     @NotNull
@@ -35,11 +35,11 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
         return mushroomSpieceId;
     }
 
-    public String getCoordinateX() {
+    public double getCoordinateX() {
         return coordinateX;
     }
 
-    public String getCoordinateY() {
+    public double getCoordinateY() {
         return coordinateY;
     }
 

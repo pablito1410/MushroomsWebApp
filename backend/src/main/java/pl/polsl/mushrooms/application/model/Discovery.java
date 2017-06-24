@@ -10,10 +10,10 @@ import java.util.Set;
 public class Discovery extends Commentable {
 
 	@Column(name = "COORDINATE_X")
-	private String coordinateX;
+	private double coordinateX;
 
 	@Column(name = "COORDINATE_Y")
-	private String coordinateY;
+	private double coordinateY;
 
 	@Column(name = "PHOTO")
 	private byte[] photo;
@@ -49,7 +49,7 @@ public class Discovery extends Commentable {
 	}
 
 	public Discovery(
-			String coordinateX, String coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomsSpecies, Mushroomer mushroomer) {
+			double coordinateX, double coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomsSpecies, Mushroomer mushroomer) {
 		this();
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
@@ -68,19 +68,19 @@ public class Discovery extends Commentable {
 		this.id = id;
 	}
 
-	public String getCoordinateX() {
+	public double getCoordinateX() {
 		return this.coordinateX;
 	}
 
-	public void setCoordinateX(String coordinateX) {
+	public void setCoordinateX(double coordinateX) {
 		this.coordinateX = coordinateX;
 	}
 
-	public String getCoordinateY() {
+	public double getCoordinateY() {
 		return this.coordinateY;
 	}
 
-	public void setCoordinateY(String coordinateY) {
+	public void setCoordinateY(double coordinateY) {
 		this.coordinateY = coordinateY;
 	}
 
@@ -153,12 +153,12 @@ public class Discovery extends Commentable {
 //		if ( this.id != null ) {
 //			hashCode += this.id.hashCode();
 //		}
-		if (this.coordinateX != null) {
-			hashCode += this.coordinateX.hashCode();
-		}
-		if (this.coordinateY != null) {
-			hashCode += this.coordinateY.hashCode();
-		}
+//		if (this.coordinateX != null) {
+//			hashCode += this.coordinateX.hashCode();
+//		}
+//		if (this.coordinateY != null) {
+//			hashCode += this.coordinateY.hashCode();
+//		}
 		if (this.dateTime != null) {
 			hashCode += this.dateTime.hashCode();
 		}
@@ -185,10 +185,8 @@ public class Discovery extends Commentable {
 			boolean equals = true;
 			equals &= ((this.id == discoveryObject.id)
 					|| (this.id == discoveryObject.id));
-			equals &= ((this.coordinateX == discoveryObject.coordinateX)
-					|| (this.coordinateX != null && this.coordinateX.equals(discoveryObject.coordinateX)));
-			equals &= ((this.coordinateY == discoveryObject.coordinateY)
-					|| (this.coordinateY != null && this.coordinateY.equals(discoveryObject.coordinateY)));
+			equals &= (this.coordinateX == discoveryObject.coordinateX);
+			equals &= (this.coordinateY == discoveryObject.coordinateY);
 			equals &= this.photo == discoveryObject.photo;
 			equals &= ((this.dateTime == discoveryObject.dateTime)
 					|| (this.dateTime != null && this.dateTime.equals(discoveryObject.dateTime)));

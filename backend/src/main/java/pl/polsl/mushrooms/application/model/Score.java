@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Score implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SCORE_ID")
 	private long id;
 
