@@ -3,6 +3,14 @@
     <div class="row">
         <sebm-google-map [latitude]="lat" [longitude]="lng" class="sebm-google-map-container-medium">
             <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+
+
+            <sebm-google-map-circle [latitude]="lat + 0.3" [longitude]="lng"
+                                    [radius]="5000"
+                                    [fillColor]="'green'"
+                                    [circleDraggable]="true"
+                                    [editable]="true">
+            </sebm-google-map-circle>
         </sebm-google-map>
     </div>
 </div>

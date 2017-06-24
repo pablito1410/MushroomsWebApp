@@ -14,6 +14,10 @@ export class UserComponent implements OnInit {
     imageSrc: string;
     file: File;
     photo: any;
+    genders = [
+        {value: 'MALE', viewValue: 'Male'},
+        {value: 'FEMALE', viewValue: 'Female'}
+    ];
 
     constructor(
         private router: Router,
@@ -58,7 +62,7 @@ export class UserComponent implements OnInit {
             });
     }
 
-    update() {
+    add() {
         this.loading = true;
         this.userService.update(this.model)
             .subscribe(

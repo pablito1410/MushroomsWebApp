@@ -39,15 +39,6 @@ export class MapsComponent implements OnInit {
         console.log(`clicked the marker: ${label || index}`);
     }
 
-    mapClicked($event: any) {
-        this.markers.push({
-            lat: $event.coords.lat,
-            lng: $event.coords.lng,
-            label: null,
-            draggable: null
-        });
-    }
-
     markerDragEnd(m: Marker, $event: MouseEvent) {
         console.log('dragEnd', m, $event);
     }

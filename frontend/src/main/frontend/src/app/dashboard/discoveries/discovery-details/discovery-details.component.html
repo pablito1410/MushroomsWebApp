@@ -54,6 +54,11 @@
                 (click)="rate()" >
         </rating>
     </div>
+    <div class="row">
+        <div class="col-xs-3" *ngFor="let tag of discovery.tags">
+            #{{tag.name}}
+        </div>
+    </div>
     <div class="row top-buffer">
         <comments-tree-cmp [comments]="comments"></comments-tree-cmp>
         <textarea class="form-control comment-textarea" placeholder="Comment" rows="5"></textarea>

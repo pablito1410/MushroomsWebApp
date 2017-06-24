@@ -59,6 +59,28 @@ export class DiscoveryDetailsComponent implements OnInit {
         let comment23 = new Comment("Item 2.3", [comment231, comment232, comment233]);
         let comment2 = new Comment("Item 2", [comment21, comment22, comment23]);
         this.comments = [comment1, comment2];
+        this.discovery.tags = [
+            {
+                id: 1,
+                name: 'grzyb',
+                discoveryId: 1
+            },
+            {
+                id: 2,
+                name: 'las',
+                discoveryId: 1
+            },
+            {
+                id: 3,
+                name: 'gliwice',
+                discoveryId: 1
+            },
+            {
+                id: 4,
+                name: 'pogrzybek',
+                discoveryId: 1
+            }
+        ];
     }
 
     rate() {
