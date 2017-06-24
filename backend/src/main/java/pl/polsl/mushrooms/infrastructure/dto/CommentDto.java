@@ -13,8 +13,7 @@ import java.util.Set;
 @Setter
 public class CommentDto extends CommentableDto{
 
-    private long id;
-    private String contents;
+    private String content;
     private LocalDateTime dateTime;
     private Long targetId;
     private UserDto user;

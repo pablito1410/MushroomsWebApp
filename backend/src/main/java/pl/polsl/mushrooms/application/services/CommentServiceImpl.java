@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
             throw new NotAuthorizedException("This comment was not written by user with id=" + user.getId());
         }
 
-        comment.setContents(command.getContents());
+        comment.setContent(command.getContents());
     }
 
     @Override

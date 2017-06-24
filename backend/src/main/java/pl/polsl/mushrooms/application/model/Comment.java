@@ -10,8 +10,8 @@ import java.util.Set;
 @Table(name = "COMMENTS")
 public class Comment extends Commentable{
 
-	@Column(name = "CONTENTS", nullable = false)
-	private String contents;
+	@Column(name = "CONTENT", nullable = false)
+	private String content;
 
 	@Column(name = "DATE_TIME", nullable = false)
 	private LocalDateTime dateTime;
@@ -30,9 +30,9 @@ public class Comment extends Commentable{
 		answers = new HashSet<>();
 	}
 
-	public Comment(String contents, LocalDateTime dateTime, Commentable target, User user) {
+	public Comment(String content, LocalDateTime dateTime, Commentable target, User user) {
 		this();
-		this.contents = contents;
+		this.content = content;
 		this.dateTime = dateTime;
 		this.dateTime = dateTime;
 		this.target = target;
@@ -47,12 +47,12 @@ public class Comment extends Commentable{
 		this.id = id;
 	}
 
-	public String getContents() {
-		return this.contents;
+	public String getContent() {
+		return this.content;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public LocalDateTime getDateTime() {
@@ -92,8 +92,8 @@ public class Comment extends Commentable{
 //		if ( this.id != null ) {
 //			hashCode += this.id.hashCode();
 //		}
-		if ( this.contents != null ) {
-			hashCode += this.contents.hashCode();
+		if ( this.content != null ) {
+			hashCode += this.content.hashCode();
 		}
 		if ( this.dateTime != null ) {
 			hashCode += this.dateTime.hashCode();
@@ -118,8 +118,8 @@ public class Comment extends Commentable{
 			boolean equals = true;
 			equals &= ((this.id == commentObject.id)
 				|| (this.id == commentObject.id));
-			equals &= ((this.contents == commentObject.contents)
-				|| (this.contents != null && this.contents.equals(commentObject.contents)));
+			equals &= ((this.content == commentObject.content)
+				|| (this.content != null && this.content.equals(commentObject.content)));
 			equals &= ((this.dateTime == commentObject.dateTime)
 				|| (this.dateTime != null && this.dateTime.equals(commentObject.dateTime)));
 			equals &= ((this.target == commentObject.target)

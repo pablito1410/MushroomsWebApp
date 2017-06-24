@@ -5,6 +5,7 @@ import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -47,6 +48,9 @@ public class UserProjectionServiceImpl implements UserProjectionService {
 
     @Override
     public Set<MushroomerDto> search(String value, ProjectionDao.Projection projection) {
+        if (value == null || value.isEmpty()) {
+            return Collections.emptySet();
+        }
         return userProjectionDao.search(value, projection);
     }
 

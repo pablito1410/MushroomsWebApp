@@ -1,5 +1,8 @@
 package pl.polsl.mushrooms.infrastructure.config;
 
+import org.hibernate.context.internal.ThreadLocalSessionContext;
+import org.hibernate.context.spi.CurrentSessionContext;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.infrastructure.dao;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.model.Admin;
@@ -33,6 +34,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
 
+    @Transactional(readOnly = true)
     @Override
     public UserDto findOneByUsername(String username, Projection projection) {
         final Optional<User> user = Optional.ofNullable(userRepository.findOneByUsername(username));
