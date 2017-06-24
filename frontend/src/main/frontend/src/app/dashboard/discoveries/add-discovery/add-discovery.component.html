@@ -1,6 +1,36 @@
 <h1 md-dialog-title>Add Discovery</h1>
 <div md-dialog-content>
-    <!-- TODO -->
+    <div class="row">
+        <div class="col-md-6">
+            <div *ngIf="file != null">
+                <img class="img" [attr.src]="file.toString()" />
+            </div>
+            <div *ngIf="file == null">
+                <label class="btn btn-primary btn-round text-center">
+                    <input type="file" name="file" accept="image/*"
+                           (change)="handleInputChange($event)" style="display:none">
+                    Add Photo
+                </label>
+            </div>
+            <sebm-google-map [latitude]="defaultCoordinateX" [longitude]="defaultCoordinateY"
+                             class="sebm-google-map-container-small">
+                <sebm-google-map-marker
+                        (markerClick)="clickedMarker(marker.label)"
+                        [latitude]="marker.lat"
+                        [longitude]="marker.lng"
+                        [label]="marker.label"
+                        [markerDraggable]="marker.draggable"
+                        (dragEnd)="markerDragEnd(marker, $event)"
+                        (mapClick)="mapClicked($event)">
+                </sebm-google-map-marker>
+            </sebm-google-map>
+        </div>
+        <div class="col-md-6">
+            <md-select placeholder="Species" [(ngModel)]="myState">
+                <md-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</md-option>
+            </md-select>
+        </div>
+    </div>
 </div>
 <div md-dialog-actions align="end">
     <button class="btn btn-primary" md-button (click)="dialogRef.close('Ok')">Ok</button>
