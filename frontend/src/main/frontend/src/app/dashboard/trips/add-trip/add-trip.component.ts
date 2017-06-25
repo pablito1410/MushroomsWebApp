@@ -1,9 +1,11 @@
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from "@angular/core";
-import { MdDialogRef } from "@angular/material";
+import {MdDialog, MdDialogRef} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {FormControl} from "@angular/forms";
 import {MapsAPILoader} from "angular2-google-maps/core";
 import {Trip} from "../../../model/trip";
+import {FriendDetailsComponent} from "../../friends/friend-details/friend-details.component";
+import {UserService} from "../../../services/user.service";
 
 @Component({
     moduleId: module.id,
@@ -12,22 +14,24 @@ import {Trip} from "../../../model/trip";
 })
 export class AddTripComponent implements OnInit {
     trip: Trip;
+    users: any[];
     defaultCoordinateX: number = 52.345566;
     defaultCoordinateY: number = 24.463566;
-    public latitude: number;
-    public longitude: number;
     public searchControl: FormControl;
     public zoom: number = 4;
     public radius: number = 1000;
     marker: Marker;
+    selectedOption: string;
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
 
     constructor(
+        public dialog: MdDialog,
         public dialogRef: MdDialogRef<AddTripComponent>,
         private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private userService: UserService
     ) {
         this.marker = {
             lat: this.defaultCoordinateX,
@@ -101,5 +105,24 @@ export class AddTripComponent implements OnInit {
             }
             // alert("Place: " + this.trip.place);
         });
+    }
+
+    openUserDetailsDialog(user) {
+        let dialogRef = this.dialog.open(FriendDetailsComponent, {
+            data: user,
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
+    }
+
+    search(term: string) {
+        this.userService.search(term)
+            .subscribe(results => {
+                this.users = results;
+            });
     }
 }

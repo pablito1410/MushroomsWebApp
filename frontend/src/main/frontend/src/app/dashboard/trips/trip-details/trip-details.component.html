@@ -1,6 +1,42 @@
 <h1 md-dialog-title>Trip Details</h1>
 <div md-dialog-content>
-    <!-- TODO -->
+    <div class="row top-buffer">
+        <sebm-google-map [latitude]="marker.lat" [longitude]="marker.lng" class="sebm-google-map-container-small">
+            <sebm-google-map-circle [latitude]="marker.lat" [longitude]="marker.lng"
+                                    [radius]="radius"
+                                    [fillColor]="'green'"
+                                    [circleDraggable]="true"
+                                    [editable]="true">
+            </sebm-google-map-circle>
+        </sebm-google-map>
+    </div>
+    <div class="row top-buffer">
+        <form role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
+                <span class="material-input"></span>
+            </div>
+        </form>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
+            <div class="card card-profile">
+                <div class="checkbox add-friend-checkbox">
+                    <label>
+                        <input type="checkbox" name="selectToAdd">
+                    </label>
+                </div>
+                <div (click)="openUserDetailsDialog(user)">
+                    <div class="card-avatar">
+                        <img class="img" src="..\assets\img\faces\default-user.png"/>
+                    </div>
+                    <div class="content">
+                        <h5 class="category text-gray">{{user.username}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div md-dialog-actions align="end">
     <button class="btn btn-primary" md-button (click)="dialogRef.close('Ok')">Ok</button>

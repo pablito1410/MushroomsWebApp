@@ -1,6 +1,6 @@
 <h1 md-dialog-title>Add Trip</h1>
 <div md-dialog-content>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="container">
             <div class="form-group">
                 <input placeholder="Search for location" id="search" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="trip.place"
@@ -15,6 +15,33 @@
                     (dragEnd)="circleDragEnd(marker, $event)">
                 </sebm-google-map-circle>
             </sebm-google-map>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <form role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
+                <span class="material-input"></span>
+            </div>
+        </form>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
+            <div class="card card-profile">
+                <div class="checkbox add-friend-checkbox">
+                    <label>
+                        <input type="checkbox" name="selectToAdd">
+                    </label>
+                </div>
+                <div (click)="openUserDetailsDialog(user)">
+                    <div class="card-avatar">
+                        <img class="img" src="..\assets\img\faces\default-user.png"/>
+                    </div>
+                    <div class="content">
+                        <h5 class="category text-gray">{{user.username}}</h5>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

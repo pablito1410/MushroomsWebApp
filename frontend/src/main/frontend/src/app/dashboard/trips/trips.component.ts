@@ -27,10 +27,34 @@ export class TripsComponent implements OnInit {
         this.tripService.getAll().subscribe(
             value => this.trips = value
         );
+        // this.trips = [
+        //     {
+        //         id: 1,
+        //         dateTime: '22.12.2017 18:22:33',
+        //         place: 'Katowice',
+        //         mushroomersIds: [],
+        //         discoveries: []
+        //     },
+        //     {
+        //         id: 2,
+        //         dateTime: '12.06.2017 15:12:35',
+        //         place: 'Rybnik',
+        //         mushroomersIds: [],
+        //         discoveries: []
+        //     },
+        //     {
+        //         id: 3,
+        //         dateTime: '24.10.2017 11:21:26',
+        //         place: 'Gliwice',
+        //         mushroomersIds: [],
+        //         discoveries: []
+        //     }
+        // ];
     }
 
-    openTripDetailsDialog() {
+    openTripDetailsDialog(trip) {
         let dialogRef = this.dialog.open(TripDetailsComponent, {
+            data: trip,
             hasBackdrop: true,
             height: '80%',
             width: '80%',
