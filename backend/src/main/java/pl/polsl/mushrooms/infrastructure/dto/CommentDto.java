@@ -15,7 +15,7 @@ public class CommentDto extends CommentableDto{
 
     private String content;
     private LocalDateTime dateTime;
-    private Long targetId;
+    private long targetId;
     private UserDto user;
     private Set<CommentDto> answers;
 }

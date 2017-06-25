@@ -14,5 +14,5 @@ public class MushroomClassDto {
 
     private long id;
     private String name;
-    private Set<MushroomOrderDto> orders;
+    private Set<Long> ordersIds;
 }

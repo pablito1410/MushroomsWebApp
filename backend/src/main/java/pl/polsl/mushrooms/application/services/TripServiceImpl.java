@@ -53,7 +53,10 @@ public class TripServiceImpl implements TripService {
     @Override
     public void handle(DeleteTripCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Mushroomer currentUser = (Mushroomer)userRepo.findOneByUsername(currentUsername);
+        final Mushroomer currentUser = (Mushroomer)Optional.ofNullable(
+                userRepo.findOneByUsername(currentUsername))
+                    .orElseThrow(NotFoundException::new);
+
         final Trip trip = Optional.of(
                 tripRepo.findTrip(command.getTripId()))
                     .orElseThrow(NotFoundException::new);

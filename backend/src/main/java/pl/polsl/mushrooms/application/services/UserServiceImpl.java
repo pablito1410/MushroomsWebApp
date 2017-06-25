@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
@@ -12,6 +13,9 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.AdminDto;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotFoundException;
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserDao repo;
+    final ModelMapper modelMapper = new ModelMapper();
 
     public UserServiceImpl(UserDao userDao) {
 
@@ -63,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void handle(UpdateProfileImageCommand command) {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Mushroomer user = (Mushroomer)Optional.of(
+        final Mushroomer user = (Mushroomer)Optional.ofNullable(
                 repo.findOneByUsername(username))
                     .orElseThrow(NotFoundException::new);
 
@@ -72,9 +77,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User handle(UpdateUserCommand command) {
+    public UserDto handle(UpdateUserCommand command) {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        final User user = Optional.of(
+        final User user = Optional.ofNullable(
                 repo.findOneByUsername(username))
                     .orElseThrow(NotFoundException::new);
 
@@ -83,7 +88,8 @@ public class UserServiceImpl implements UserService {
             case ADMIN:
                 user.setEmail(command.getEmail());
                 user.setUsername(command.getUsername());
-                break;
+                repo.save(user);
+                return modelMapper.map(user, AdminDto.class);
 
             case MUSHROOMER:
                 final Mushroomer mushroomer = (Mushroomer)user;
@@ -93,18 +99,18 @@ public class UserServiceImpl implements UserService {
                 mushroomer.setLastName(command.getLastName());
                 mushroomer.setBirthDate(command.getBirthDate());
                 mushroomer.setGender(command.getGender());
-                break;
+                repo.save(user);
+                return modelMapper.map(mushroomer, MushroomerDto.class);
+
+            default:
+                return modelMapper.map(user, UserDto.class);
         }
-
-        repo.save(user);
-
-        return user;
     }
 
     @Override
     public void handle(DeleteUsersCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        final User currentUser = Optional.of(
+        final User currentUser = Optional.ofNullable(
                 repo.findOneByUsername(currentUsername))
                     .orElseThrow(EntityNotFoundException::new);
 

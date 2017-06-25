@@ -5,6 +5,7 @@ import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     long handle(CreateUserCommand command);
 
-    User handle(UpdateUserCommand command);
+    UserDto handle(UpdateUserCommand command);
 
     void handle(DeleteUsersCommand command);
 

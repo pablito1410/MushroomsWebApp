@@ -28,7 +28,7 @@ public class TripProjectionServiceImpl implements TripProjectionService {
 
     @Override
     public Set<TripDto> findAll(String userName, ProjectionDao.Projection projection) {
-        final long userId = userProjectionService.getId(userName);
+        final long userId = userProjectionService.getId(userName); // TODO wczytać usera od razu
         return tripProjectionDao.findAll(userId, projection);
     }
 

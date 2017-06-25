@@ -49,10 +49,12 @@ export class UserComponent implements OnInit {
         console.log(file);
         this.userService.updateImage(file).subscribe(
             data => {
+                this.model = data;
                 this.router.navigate(['/users']);
                 this.snackBar.open('Photo Saved', '×', {
                     duration: 2000,
                 });
+
             },
             error => {
                 this.loading = false;
@@ -62,7 +64,7 @@ export class UserComponent implements OnInit {
             });
     }
 
-    add() {
+    update() {
         this.loading = true;
         this.userService.update(this.model)
             .subscribe(

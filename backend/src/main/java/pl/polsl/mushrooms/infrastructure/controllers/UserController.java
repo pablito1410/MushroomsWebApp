@@ -12,7 +12,6 @@ import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
-import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
@@ -95,8 +94,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<User> update(@RequestBody UpdateUserCommand command) {
-        final User user = commandGateway.dispatch(command);
+    public ResponseEntity<UserDto> update(@RequestBody UpdateUserCommand command) {
+        final UserDto user = commandGateway.dispatch(command);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

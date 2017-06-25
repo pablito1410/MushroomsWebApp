@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.application.commands.trip;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
  */
 public class UpdateTripCommand implements VoidCommand {
 
+    @NotNull
     private long tripId;
     private LocalDateTime dateTime;
     private String place;

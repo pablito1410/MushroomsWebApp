@@ -1,12 +1,8 @@
 package pl.polsl.mushrooms.infrastructure.config;
 
-import org.hibernate.context.internal.ThreadLocalSessionContext;
-import org.hibernate.context.spi.CurrentSessionContext;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
@@ -17,6 +13,7 @@ import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
+import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
@@ -28,7 +25,7 @@ import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
-import pl.polsl.mushrooms.infrastructure.repositories.*;
+import pl.polsl.mushrooms.application.dao.ScoreProjectionDao;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -44,6 +41,7 @@ public class MushroomsServerConfig {
             TripService tripService,
             DiscoveryService discoveryService,
             CommentService commentService,
+            ScoreService scoreService,
             CommandHandlerRegistry registry) {
         return () -> {
             registry.register(userService::handle, CreateUserCommand.class);
@@ -67,6 +65,8 @@ public class MushroomsServerConfig {
             registry.register(commentService::handle, CreateCommentCommand.class);
             registry.register(commentService::handle, UpdateCommentCommand.class);
             registry.register(commentService::handle, DeleteCommentCommand.class);
+
+            registry.register(scoreService:: handle, AddScoreCommand.class);
         };
 
     }
@@ -83,6 +83,15 @@ public class MushroomsServerConfig {
 
     @Bean
     public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
+
+    @Bean
+    public ScoreService scoreService(ScoreDao scoreDao, UserDao userDao, DiscoveryDao discoveryDao) {
+        return new ScoreServiceImpl(scoreDao, userDao, discoveryDao); }
+
+    @Bean
+    ScoreProjectionService scoreProjectionService(ScoreProjectionDao scoreProjectionDao, UserProjectionService userProjectionService) {
+        return new ScoreProjectionServiceImpl(scoreProjectionDao, userProjectionService);
+    }
 
     @Bean
     UserProjectionService userProjectionService(UserProjectionDao userProjectionDao) {

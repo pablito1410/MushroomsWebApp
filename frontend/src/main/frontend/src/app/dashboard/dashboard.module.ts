@@ -28,6 +28,7 @@ import {CommentsTreeComponent} from "./comments/comments-tree/comments-tree.comp
 import {RatingModule} from "ngx-rating";
 import {CommentComponent} from "./comments/comment/comment.component";
 
+
 @NgModule({
     imports: [
         BrowserModule,

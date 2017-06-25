@@ -66,6 +66,12 @@ public class MushroomGenus implements Serializable {
 		this.species = species;
 	}
 
+	public Set<Long> getSpeciesIds() {
+		final Set<Long> ids = new HashSet<>();
+		species.forEach(s -> ids.add(s.getId()));
+		return ids;
+	}
+
 	public int hashCode() {
 		int hashCode = 0;
 //		if ( this.id != null ) {

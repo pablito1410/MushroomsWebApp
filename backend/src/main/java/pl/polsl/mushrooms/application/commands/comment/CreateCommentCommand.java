@@ -12,7 +12,9 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
 
     @NotNull
     private String contents;
+    @NotNull
     private long targetId;
+    @NotNull
     private LocalDateTime dateTime;
 
     protected CreateCommentCommand() { }

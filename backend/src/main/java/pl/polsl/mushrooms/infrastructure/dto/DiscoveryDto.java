@@ -14,8 +14,8 @@ import java.util.Set;
 public class DiscoveryDto {
 
     protected long id;
-    private String coordinateX;
-    private String coordinateY;
+    private double coordinateX;
+    private double coordinateY;
     private byte[] photo;
     private LocalDateTime dateTime;
     private long tripId;

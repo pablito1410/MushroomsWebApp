@@ -82,13 +82,13 @@
                                 <div class="col-md-6">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios">
+                                            <input type="radio" name="optionsRadios" value="{{genders.MALE}}">
                                             Male
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" checked="true">
+                                            <input type="radio" name="optionsRadios" checked="true" value="[[genders.FEMALE]">
                                             Female
                                         </label>
                                     </div>
@@ -111,10 +111,10 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <div *ngIf="model.photo != null">
-                            <img class="img" src="..\assets\img\faces\example-user.jpg" />
+                            <img class="img" [src]="model.photo" />
                         </div>
                         <div *ngIf="model.photo == null">
-                            <img class="img" src="..\assets\img\faces\default-user.png" />
+                            <img class="img" src="..\assets\img\faces\example-user.jpg" />
                         </div>
                     </div>
 
