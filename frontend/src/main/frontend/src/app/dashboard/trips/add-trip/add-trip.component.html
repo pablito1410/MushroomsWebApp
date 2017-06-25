@@ -1,17 +1,21 @@
 <h1 md-dialog-title>Add Trip</h1>
 <div md-dialog-content>
     <div class="row">
-        <sebm-google-map [latitude]="lat" [longitude]="lng" class="sebm-google-map-container-medium">
-            <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-
-
-            <sebm-google-map-circle [latitude]="lat + 0.3" [longitude]="lng"
-                                    [radius]="5000"
-                                    [fillColor]="'green'"
-                                    [circleDraggable]="true"
-                                    [editable]="true">
-            </sebm-google-map-circle>
-        </sebm-google-map>
+        <div class="container">
+            <div class="form-group">
+                <input placeholder="Search for location" id="search" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="trip.place"
+                       type="text" class="form-control" #search [formControl]="searchControl">
+            </div>
+            <sebm-google-map [latitude]="marker.lat" [longitude]="marker.lng" class="sebm-google-map-container-small">
+                <sebm-google-map-circle [latitude]="marker.lat" [longitude]="marker.lng"
+                    [radius]="radius"
+                    [fillColor]="'green'"
+                    [circleDraggable]="true"
+                    [editable]="true"
+                    (dragEnd)="circleDragEnd(marker, $event)">
+                </sebm-google-map-circle>
+            </sebm-google-map>
+        </div>
     </div>
 </div>
 <div md-dialog-actions align="end">

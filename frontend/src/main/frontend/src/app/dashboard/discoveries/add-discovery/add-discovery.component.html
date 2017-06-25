@@ -26,8 +26,8 @@
             </sebm-google-map>
         </div>
         <div class="col-md-6">
-            <md-select placeholder="Species" [(ngModel)]="myState">
-                <md-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</md-option>
+            <md-select placeholder="Species" [(ngModel)]="speciesId">
+                <md-option *ngFor="let species of mushroomSpecies" [value]="species.id">{{species.name}}</md-option>
             </md-select>
         </div>
     </div>

@@ -44,7 +44,8 @@ import {CommentComponent} from "./comments/comment/comment.component";
         TreeModule,
         RatingModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDd7pfi7_Du2senx4g4lLArVguhMd2LUKY'
+            apiKey: 'AIzaSyDd7pfi7_Du2senx4g4lLArVguhMd2LUKY',
+            libraries: ['places']
         })
     ],
     declarations: [

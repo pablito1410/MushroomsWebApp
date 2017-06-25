@@ -116,6 +116,18 @@ my-app .main-panel .main-content .card{
     color: rgba(255,255,255,.87);
 }
 
+.mat-option.mat-selected.mat-primary, .mat-primary .mat-option.mat-selected {
+    color: rgb(121, 61, 0) !important;
+}
+
+.mat-select-arrow, .mat-select-disabled .mat-select-value, .mat-select-trigger {
+    color: rgb(121, 61, 0) !important;
+}
+
+.mat-select-underline {
+    background-color: rgb(121, 61, 0) !important;
+}
+
 .list-group ul {
     list-style-type: none;
 }
