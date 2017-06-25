@@ -4,6 +4,8 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
 import {DiscoveryService} from "../../../services/discovery.service";
+import {Discovery} from "../../../model/discovery";
+import {MushroomSpecies} from "../../../model/mushroom-species";
 
 @Component({
     moduleId: module.id,
@@ -11,6 +13,8 @@ import {DiscoveryService} from "../../../services/discovery.service";
     templateUrl: 'add-discovery.component.html'
 })
 export class AddDiscoveryComponent implements OnInit {
+    discovery: Discovery;
+    mushroomSpecies: Array<MushroomSpecies>;
     defaultCoordinateX: number = 52.345566;
     defaultCoordinateY: number = 24.463566;
     photo: any;
@@ -19,6 +23,7 @@ export class AddDiscoveryComponent implements OnInit {
     marker: Marker;
     imageSrc: string;
     file: File;
+    speciesId: number;
 
     constructor(
         public dialogRef: MdDialogRef<AddDiscoveryComponent>,
@@ -31,6 +36,26 @@ export class AddDiscoveryComponent implements OnInit {
             label: 'Yours Discovery',
             draggable: true
         };
+        this.mushroomSpecies = [
+            {
+                id: 1,
+                name: "Podgrzybek",
+                examplePhoto: null,
+                genus: null
+            },
+            {
+                id: 2,
+                name: "Kurka",
+                examplePhoto: null,
+                genus: null
+            },
+            {
+                id: 3,
+                name: "Maslak",
+                examplePhoto: null,
+                genus: null
+            }
+        ];
     }
 
     ngOnInit() {

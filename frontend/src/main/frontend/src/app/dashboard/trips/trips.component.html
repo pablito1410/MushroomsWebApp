@@ -19,7 +19,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let trip of trips" (click)="openTripDetailsDialog()">
+                            <tr *ngFor="let trip of trips" (click)="openTripDetailsDialog(trip)">
                                 <td>{{trip.place}}</td>
                                 <td>{{trip.dateTime}}</td>
                                 <!--<td>{{trip.status()}}</td>-->

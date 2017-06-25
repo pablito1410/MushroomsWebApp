@@ -56,6 +56,7 @@
     "@angular/typescript": "^2.0.0-5d0e199",
     "@types/chartist": "~0.9.33",
     "@types/core-js": "~0.9.34",
+    "@types/googlemaps": "^3.26.14",
     "@types/jasmine": "2.5.38",
     "@types/jquery": "~2.0.34",
     "@types/node": "~6.0.45",

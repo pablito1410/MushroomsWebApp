@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MapsAPILoader} from "angular2-google-maps/core";
 
 @Component({
     moduleId: module.id,
@@ -11,6 +12,9 @@ export class MapsComponent implements OnInit {
     lat: number = 50.287977;
     lng: number = 18.677049;
     markers: Marker[];
+
+    constructor(
+        private mapsAPILoader: MapsAPILoader) {}
 
     ngOnInit() {
         this.markers = [
