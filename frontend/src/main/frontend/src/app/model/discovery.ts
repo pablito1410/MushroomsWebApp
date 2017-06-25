@@ -3,8 +3,8 @@ import {Score} from "./score";
 import {Tag} from "./tag";
 export class Discovery {
     id: number;
-    coordinateX: string;
-    coordinateY: string;
+    coordinateX: number;
+    coordinateY: number;
     photo: any;
     dateTime: string;
     tripId: number;
