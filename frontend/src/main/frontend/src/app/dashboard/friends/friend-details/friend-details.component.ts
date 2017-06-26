@@ -1,6 +1,7 @@
 import {Component, OnInit, Inject} from "@angular/core";
 import {MdDialogRef, MD_DIALOG_DATA} from "@angular/material";
 import {User} from "../../../model/user";
+import {DOCUMENT} from "@angular/platform-browser";
 
 @Component({
     moduleId: module.id,
@@ -8,21 +9,17 @@ import {User} from "../../../model/user";
     templateUrl: 'friend-details.component.html'
 })
 export class FriendDetailsComponent implements OnInit {
+
     constructor(
         public dialogRef: MdDialogRef<FriendDetailsComponent>,
-        @Inject(MD_DIALOG_DATA) public user: any) { }
+        @Inject(MD_DIALOG_DATA) public user: any,
+        @Inject(DOCUMENT) private document) { }
 
     ngOnInit() {
-        // this.user = {
-        //     id: 1,
-        //     username: 'mati',
-        //     firstName: 'Mateusz',
-        //     lastName: 'Nowak',
-        //     email: 'email@email.com',
-        //     birthDate: '22.10.1995',
-        //     gender: 'male',
-        //     role: 'admin',
-        //     level: 'beginner'
-        // };
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+        } else {
+            // TODO
+        }
     }
 }

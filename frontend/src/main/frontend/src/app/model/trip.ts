@@ -3,8 +3,9 @@ export class Trip {
     id: number;
     dateTime: string;
     place: string;
-    mushroomersIds: Array<number>;
-    discoveries: Array<Discovery>;
+    coordinateX: number;
+    coordinateY: number;
+    radius: number;
 
     // status(): string {
     //     let now = new Date();

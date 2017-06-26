@@ -3,5 +3,4 @@ export class MushroomSpecies {
     id: number;
     name: string;
     examplePhoto: any;
-    genus: MushroomGenus;
 }

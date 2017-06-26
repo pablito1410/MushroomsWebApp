@@ -10,13 +10,13 @@
                         <h4 class="title">Yours Friends</h4>
                     </div>
                     <div class="card-content">
-                        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
-                            <div class="card card-profile" (click)="openFriendDetailsDialog(user)">
+                        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
+                            <div class="card card-profile" (click)="openFriendDetailsDialog(friend)">
                                 <div class="card-avatar">
                                     <img class="img" src="..\assets\img\faces\default-user.png"/>
                                 </div>
                                 <div class="content">
-                                    <h5 class="category text-gray">{{user.username}}</h5>
+                                    <h5 class="category text-gray">{{friend.username}}</h5>
                                 </div>
                             </div>
                         </div>

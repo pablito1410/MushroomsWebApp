@@ -18,4 +18,8 @@ export class FriendService {
     delete(id: number) {
         return this.http.delete('/api/friends/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
+
+    search(term) {
+        return this.http.get('/api/friends/search?value=' + term, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
 }

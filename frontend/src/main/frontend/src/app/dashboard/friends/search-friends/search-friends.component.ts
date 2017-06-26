@@ -3,6 +3,8 @@ import {MdDialogRef, MD_DIALOG_DATA, MdDialog} from "@angular/material";
 import {FriendDetailsComponent} from "../friend-details/friend-details.component";
 import {Subject} from "rxjs";
 import {UserService} from "../../../services/user.service";
+import {DOCUMENT} from "@angular/platform-browser";
+import {User} from "../../../model/user";
 
 @Component({
     moduleId: module.id,
@@ -11,14 +13,20 @@ import {UserService} from "../../../services/user.service";
 })
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
-    users: any[];
+    users: User[];
 
     constructor(
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<SearchFriendsComponent>,
+        @Inject(DOCUMENT) private document,
         private userService: UserService) { }
 
     ngOnInit() {
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+        } else {
+            // TODO
+        }
     }
 
     openUserDetailsDialog(user) {
