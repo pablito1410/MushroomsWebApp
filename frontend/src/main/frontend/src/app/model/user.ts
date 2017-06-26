@@ -15,7 +15,4 @@ export class User {
     country: string;
     city: string;
     photo: any;
-    trips: Array<Trip>;
-    scores: Array<Score>;
-    discoveries: Array<Discovery>;
 }

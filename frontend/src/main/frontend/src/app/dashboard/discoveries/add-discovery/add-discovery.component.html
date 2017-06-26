@@ -12,15 +12,15 @@
                     Add Photo
                 </label>
             </div>
-            <sebm-google-map [latitude]="defaultCoordinateX" [longitude]="defaultCoordinateY"
-                             class="sebm-google-map-container-small">
+            <sebm-google-map [latitude]="discovery.coordinateX" [longitude]="discovery.coordinateY"
+                             class="sebm-google-map-container-small" [zoom]="zoom">
                 <sebm-google-map-marker
                         (markerClick)="clickedMarker(marker.label)"
-                        [latitude]="marker.lat"
-                        [longitude]="marker.lng"
-                        [label]="marker.label"
-                        [markerDraggable]="marker.draggable"
-                        (dragEnd)="markerDragEnd(marker, $event)"
+                        [latitude]="discovery.coordinateX"
+                        [longitude]="discovery.coordinateY"
+                        [label]="'Your Discovery'"
+                        [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd(discovery, $event)"
                         (mapClick)="mapClicked($event)">
                 </sebm-google-map-marker>
             </sebm-google-map>

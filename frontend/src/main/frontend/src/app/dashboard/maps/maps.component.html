@@ -1,17 +1,16 @@
 <sebm-google-map
-        [latitude]="lat"
-        [longitude]="lng"
+        [latitude]="coordinateX"
+        [longitude]="coordinateY"
         [zoom]="zoom"
         [disableDefaultUI]="false"
         [zoomControl]="false">
 
     <sebm-google-map-marker
-            *ngFor="let m of markers; let i = index"
-            (markerClick)="clickedMarker(m.label, i)"
-            [latitude]="m.lat"
-            [longitude]="m.lng"
-            [label]="m.label"
-            [markerDraggable]="m.draggable"
+            *ngFor="let discovery of discoveries"
+            [latitude]="discovery.coordinateX"
+            [longitude]="discovery.coordinateY"
+            [label]="'Mushroom'"
+            [markerDraggable]="false"
             (dragEnd)="markerDragEnd(m, $event)">
 
         <sebm-google-map-info-window>
@@ -19,5 +18,15 @@
         </sebm-google-map-info-window>
 
     </sebm-google-map-marker>
+
+    <sebm-google-map-circle
+            *ngFor="let trip of trips"
+            [latitude]="trip.coordinateX"
+            [longitude]="trip.coordinateY"
+            [radius]="trip.radius"
+            [fillColor]="'green'"
+            [circleDraggable]="false"
+            [editable]="false">
+    </sebm-google-map-circle>
 
 </sebm-google-map>

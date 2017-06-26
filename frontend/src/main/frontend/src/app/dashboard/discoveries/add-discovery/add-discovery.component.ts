@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import {MdDialogRef, MdSnackBar} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {UserService} from "../../../services/user.service";
@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {DiscoveryService} from "../../../services/discovery.service";
 import {Discovery} from "../../../model/discovery";
 import {MushroomSpecies} from "../../../model/mushroom-species";
+import {DOCUMENT} from "@angular/platform-browser";
 
 @Component({
     moduleId: module.id,
@@ -15,12 +16,7 @@ import {MushroomSpecies} from "../../../model/mushroom-species";
 export class AddDiscoveryComponent implements OnInit {
     discovery: Discovery;
     mushroomSpecies: Array<MushroomSpecies>;
-    defaultCoordinateX: number = 52.345566;
-    defaultCoordinateY: number = 24.463566;
-    photo: any;
-    dateTime: string;
     zoom: number = 4;
-    marker: Marker;
     imageSrc: string;
     file: File;
     speciesId: number;
@@ -28,37 +24,35 @@ export class AddDiscoveryComponent implements OnInit {
     constructor(
         public dialogRef: MdDialogRef<AddDiscoveryComponent>,
         private router: Router,
-        private discoveryService: DiscoveryService,
-        public snackBar: MdSnackBar) {
-        this.marker = {
-            lat: this.defaultCoordinateX,
-            lng: this.defaultCoordinateY,
-            label: 'Yours Discovery',
-            draggable: true
-        };
-        this.mushroomSpecies = [
-            {
-                id: 1,
-                name: "Podgrzybek",
-                examplePhoto: null,
-                genus: null
-            },
-            {
-                id: 2,
-                name: "Kurka",
-                examplePhoto: null,
-                genus: null
-            },
-            {
-                id: 3,
-                name: "Maslak",
-                examplePhoto: null,
-                genus: null
-            }
-        ];
-    }
+        public snackBar: MdSnackBar,
+        @Inject(DOCUMENT) private document,
+        private discoveryService: DiscoveryService) { }
 
     ngOnInit() {
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+            this.mushroomSpecies = [
+                {
+                    id: 1,
+                    name: "Podgrzybek",
+                    examplePhoto: null
+                },
+                {
+                    id: 2,
+                    name: "Kurka",
+                    examplePhoto: null
+                },
+                {
+                    id: 3,
+                    name: "Maslak",
+                    examplePhoto: null
+                }
+            ];
+        } else {
+            // TODO
+        }
+        this.discovery = new Discovery();
+        this.setCurrentPosition();
     }
 
     clickedMarker(label: string) {
@@ -66,16 +60,12 @@ export class AddDiscoveryComponent implements OnInit {
     }
 
     mapClicked($event: any) {
-        this.marker = {
-            lat: $event.coords.lat,
-            lng: $event.coords.lng,
-            label: 'Your Discoveries',
-            draggable: false
-        };
+        this.discovery.coordinateX = $event.coords.lat;
+        this.discovery.coordinateY = $event.coords.lng;
     }
 
-    markerDragEnd(m: Marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    markerDragEnd(discovery: Discovery, $event: MouseEvent) {
+        console.log('dragEnd', discovery, $event);
     }
 
     handleReaderLoaded(e) {
@@ -108,4 +98,15 @@ export class AddDiscoveryComponent implements OnInit {
             //     });
             // });
     }
+
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.discovery.coordinateX = position.coords.latitude;
+                this.discovery.coordinateY = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
+    }
+
 }

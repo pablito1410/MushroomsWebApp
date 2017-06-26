@@ -13,7 +13,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
                                         <label class="control-label">Email</label>
-                                        <input type="email" class="form-control" name="email"  [(ngModel)]="model.email"
+                                        <input type="email" class="form-control" name="email"  [(ngModel)]="user.email"
                                                #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required />
                                         <div *ngIf="f.submitted && !email.valid" class="help-block">
                                             Email is required format should be <i>name@mail.com</i>
@@ -23,7 +23,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                                         <label class="control-label">Username</label>
-                                        <input type="text" class="form-control" name="username" [(ngModel)]="model.username"
+                                        <input type="text" class="form-control" name="username" [(ngModel)]="user.username"
                                                #username="ngModel" minlength="4" maxlength="30" required />
                                         <div *ngIf="f.submitted && !username.valid" class="help-block">
                                             Username is required, should contain between 4 and 30 characters
@@ -36,14 +36,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
                                         <label class="control-label">First Name</label>
-                                        <input type="text" class="form-control" name="first-name" [(ngModel)]="model.firstName"
+                                        <input type="text" class="form-control" name="first-name" [(ngModel)]="user.firstName"
                                                #firstName="ngModel" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
                                         <label class="control-label">Last Name</label>
-                                        <input type="text" class="form-control" name="last-name" [(ngModel)]="model.lastName"
+                                        <input type="text" class="form-control" name="last-name" [(ngModel)]="user.lastName"
                                                #lastName="ngModel"/>
                                     </div>
                                 </div>
@@ -53,14 +53,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !country.valid }">
                                         <label class="control-label">Country</label>
-                                        <input type="text" class="form-control" name="first-name" [(ngModel)]="model.country"
+                                        <input type="text" class="form-control" name="first-name" [(ngModel)]="user.country"
                                                #country="ngModel" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !city.valid }">
                                         <label class="control-label">City</label>
-                                        <input type="text" class="form-control" name="last-name" [(ngModel)]="model.city"
+                                        <input type="text" class="form-control" name="last-name" [(ngModel)]="user.city"
                                                #city="ngModel"/>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                             <span class="input-group-addon">
                                                 <button mdSuffix [mdDatepickerToggle]="picker"><i class="material-icons">event</i></button>
                                             </span>
-                                            <input mdInput [mdDatepicker]="picker" class="form-control" name="birth-date" [(ngModel)]="model.birthDate"
+                                            <input mdInput [mdDatepicker]="picker" class="form-control" name="birth-date" [(ngModel)]="user.birthDate"
                                                 #birthDate="ngModel" placeholder="Birth Date" />
                                             <md-datepicker #picker></md-datepicker>
                                         </div>
@@ -82,13 +82,13 @@
                                 <div class="col-md-6">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" value="{{genders.MALE}}">
+                                            <input type="radio" name="optionsRadios" value="genders.MALE">
                                             Male
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" checked="true" value="[[genders.FEMALE]">
+                                            <input type="radio" name="optionsRadios" checked="true" value="genders.FEMALE">
                                             Female
                                         </label>
                                     </div>
@@ -110,18 +110,18 @@
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
-                        <div *ngIf="model.photo != null">
-                            <img class="img" [src]="model.photo" />
+                        <div *ngIf="user.photo != null">
+                            <img class="img" [src]="user.photo" />
                         </div>
-                        <div *ngIf="model.photo == null">
+                        <div *ngIf="user.photo == null">
                             <img class="img" src="..\assets\img\faces\example-user.jpg" />
                         </div>
                     </div>
 
                     <div class="content">
-                        <h5 class="category text-gray">{{model.username}}</h5>
-                        <h4 class="card-title">{{model.firstName}} {{model.lastName}}</h4>
-                        <h4 class="card-title">{{model.level}}</h4>
+                        <h5 class="category text-gray">{{user.username}}</h5>
+                        <h4 class="card-title">{{user.firstName}} {{user.lastName}}</h4>
+                        <h4 class="card-title">{{user.level}}</h4>
                         <label class="btn btn-primary btn-round">
                             <input type="file" name="file" accept="image/*"
                                    (change)="handleInputChange($event)" style="display:none">

@@ -2,6 +2,8 @@ import {Component, OnInit, Inject} from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
+import {DOCUMENT} from "@angular/platform-browser";
+import {User} from "../../model/user";
 
 @Component({
     moduleId: module.id,
@@ -9,11 +11,10 @@ import { MdSnackBar } from "@angular/material";
     templateUrl: 'user.component.html'
 })
 export class UserComponent implements OnInit {
-    model: any = {};
+    user: User;
     loading = false;
     imageSrc: string;
     file: File;
-    photo: any;
     genders = [
         {value: 'MALE', viewValue: 'Male'},
         {value: 'FEMALE', viewValue: 'Female'}
@@ -22,12 +23,30 @@ export class UserComponent implements OnInit {
     constructor(
         private router: Router,
         private userService: UserService,
-        public snackBar: MdSnackBar) { }
+        public snackBar: MdSnackBar,
+        @Inject(DOCUMENT) private document) { }
 
     ngOnInit() {
-        this.userService.get().subscribe(
-            value => this.model = value
-        );
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+            this.user = {
+                id: 1,
+                username: 'bob123',
+                email: 'booby@mail.com',
+                firstName: 'Bob',
+                lastName: 'Smith',
+                birthDate: '22.05.1987',
+                gender: 'MALE',
+                level: 'BEGINNER',
+                country: 'USA',
+                city: 'Los Angeles',
+                photo: null
+            };
+        } else {
+            this.userService.get().subscribe(
+                result => this.user = result
+            );
+        }
     }
 
     handleReaderLoaded(e) {
@@ -49,7 +68,7 @@ export class UserComponent implements OnInit {
         console.log(file);
         this.userService.updateImage(file).subscribe(
             data => {
-                this.model = data;
+                this.user = data;
                 this.router.navigate(['/users']);
                 this.snackBar.open('Photo Saved', '×', {
                     duration: 2000,
@@ -66,7 +85,7 @@ export class UserComponent implements OnInit {
 
     update() {
         this.loading = true;
-        this.userService.update(this.model)
+        this.userService.update(this.user)
             .subscribe(
                 data => {
                     this.router.navigate(['/users']);

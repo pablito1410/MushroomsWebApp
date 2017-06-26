@@ -1,14 +1,12 @@
 import {User} from "./user";
 export class Comment {
     id: number;
-    contents: string;
+    content: string;
     dateTime: string;
-    targetId: number;
-    user: User;
-    answers: Array<Comment>;
+    answers: Comment[]; // TODO
 
-    constructor(contents, answers) {
-        this.contents = contents;
+    constructor(content, answers) {
+        this.content = content;
         this.answers = answers;
     }
 }
