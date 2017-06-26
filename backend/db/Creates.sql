@@ -47,7 +47,6 @@ CREATE TABLE "COMMENTS" (
   "DISCOVERY_ID"      int8 NOT NULL,
   "USER_ID"           int8 NOT NULL,
   "TARGET_COMMENT_ID" int8,
-  "TARGET"            varchar(255) NOT NULL,
   "CONTENT"           varchar(255) NOT NULL,
   "DATE_TIME"         timestamp NOT NULL,
   PRIMARY KEY ("COMMENT_ID"));
