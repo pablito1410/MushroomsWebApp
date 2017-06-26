@@ -65,7 +65,9 @@ export class AddTripComponent implements OnInit {
                 }
             ];
         } else {
-            // TODO
+            this.friendService.getAll().subscribe(
+                result => this.friends = result
+            );
         }
         this.trip = new Trip();
         this.trip.radius = 1000;
