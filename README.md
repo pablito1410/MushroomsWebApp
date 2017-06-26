@@ -42,9 +42,9 @@ Password: admin1
 
 * Klikamy `Test`, aby sprawdzić połączenie, następnie klikamy `OK`
 * Klikamy 2 razy na nowo utworzonym aliasie, następnie `Connect`
-* W zakładce "SQL" wklejamy zawartość pliku `Mushrooms_creates.sql` z katalogu `backend/db`, następnie klikamy `CTRL+Enter`
+* W zakładce "SQL" wklejamy zawartość pliku `Creates.sql` z katalogu `backend/db`, następnie klikamy `CTRL+Enter`
 * Po wykonaniu skryptu, w zakładce `Objects` w `Mushrooms/public/Table` powinny znajdować się tabele
-* Można również wykonać skrypt `Mushrooms_inserts.sql`, który zawiera przykładowe dane. Wymagane jest rozszerzenie `pgcrypto`, które powinno być domyślnie zainstalowane z pgsql
+* Można również wykonać skrypt `Inserts.sql`, który zawiera przykładowe dane. Wymagane jest rozszerzenie `pgcrypto`, które powinno być domyślnie zainstalowane z pgsql
 
 Szczegółowa instrukcja jak połączyć się z bazą przy użyciu programu Squirrel:
 * [Instrukcja](http://squirrel-sql.sourceforge.net/paper/GettingStartedusingtheSQuirreLSQLClient.pdf)
