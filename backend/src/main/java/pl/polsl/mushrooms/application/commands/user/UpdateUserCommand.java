@@ -1,8 +1,9 @@
 package pl.polsl.mushrooms.application.commands.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
+import pl.polsl.mushrooms.infrastructure.controllers.DateDeserializer;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import javax.validation.constraints.NotNull;
@@ -19,8 +20,7 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     private String firstName;
     private String lastName;
-    @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonDeserialize(using = DateDeserializer.class)
     private Date birthDate;
     private Gender gender;
     private String city;
