@@ -6,10 +6,8 @@ import pl.polsl.mushrooms.application.enums.UserRole;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"USERS\"")
 public class Admin extends User {
 
 	public Admin() { }

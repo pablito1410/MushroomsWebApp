@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import pl.polsl.mushrooms.application.enums.Gender;
@@ -17,6 +18,8 @@ public class MushroomerDto extends UserDto {
 
     private String firstName;
     private String lastName;
+    @JsonFormat
+            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date birthDate;
     private Gender gender;
     private MushroomerLevel level;

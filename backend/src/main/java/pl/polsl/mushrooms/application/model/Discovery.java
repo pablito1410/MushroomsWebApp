@@ -10,7 +10,7 @@ import java.util.Set;
 public class Discovery  {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "\"DISCOVERY_ID\"")
 	protected Long id;
 

@@ -11,7 +11,7 @@ import java.util.Set;
 public class Comment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "\"COMMENT_ID\"")
 	protected Long id;
 

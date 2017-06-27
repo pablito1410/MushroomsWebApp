@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.commands.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
 
@@ -22,6 +23,9 @@ public class CreateUserCommand implements ReturningCommand<Long> {
 
     private String firstName;
     private String lastName;
+
+    @JsonFormat
+            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date birthDate;
     private Gender gender;
 

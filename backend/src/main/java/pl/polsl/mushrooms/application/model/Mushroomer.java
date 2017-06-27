@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.model;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
@@ -11,7 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "\"USERS\"")
 public class Mushroomer extends User {
 
 	@Column(name = "\"FIRST_NAME\"")
@@ -20,6 +20,8 @@ public class Mushroomer extends User {
 	@Column(name = "\"LAST_NAME\"")
 	private String lastName;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "\"BIRTH_DATE\"")
 	private Date birthDate;
 

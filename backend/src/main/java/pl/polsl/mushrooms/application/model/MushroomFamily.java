@@ -10,7 +10,7 @@ import java.util.Set;
 public class MushroomFamily implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "\"MUSH_FAMILY_ID\"")
 	private long id;
 
