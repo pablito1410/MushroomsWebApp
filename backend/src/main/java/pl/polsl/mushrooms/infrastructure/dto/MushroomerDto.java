@@ -18,9 +18,10 @@ public class MushroomerDto extends UserDto {
 
     private String firstName;
     private String lastName;
-    @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date birthDate;
+
     private Gender gender;
     private MushroomerLevel level;
     private String country;

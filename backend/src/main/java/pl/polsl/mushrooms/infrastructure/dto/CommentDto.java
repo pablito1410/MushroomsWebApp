@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +12,15 @@ import java.util.Set;
  */
 @Getter
 @Setter
-public class CommentDto extends CommentableDto{
+public class CommentDto {
 
     private String content;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime dateTime;
+
     private Long discoveryId;
+    private Long targetId;
     private Long commentId;
     private UserDto user;
     private Set<CommentDto> answers;

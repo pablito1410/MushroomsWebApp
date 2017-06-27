@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,10 @@ public class DiscoveryDto {
     private double coordinateX;
     private double coordinateY;
     private byte[] photo;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime dateTime;
+
     private long tripId;
     private MushroomSpeciesDto mushroomSpecies;
     private long mushroomerId;
