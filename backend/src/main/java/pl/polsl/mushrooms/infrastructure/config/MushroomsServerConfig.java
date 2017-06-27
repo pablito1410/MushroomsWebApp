@@ -116,6 +116,11 @@ public class MushroomsServerConfig {
     }
 
     @Bean
+    MushSpeciesProjectionService mushSpeciesProjectionService(MushSpeciesProjectionDao mushSpeciesProjectionDao) {
+        return new MushSpeciesProjectionServiceImpl(mushSpeciesProjectionDao);
+    }
+
+    @Bean
     public DiscoveryService discoveryService(
             DiscoveryDao discoveryDao, TripDao tripDao, UserDao userDao, MushroomSpeciesDao mushroomSpeciesDao, ScoreDao scoreDao) {
         return new DiscoveryServiceImpl(discoveryDao, tripDao, userDao, mushroomSpeciesDao, scoreDao); }
