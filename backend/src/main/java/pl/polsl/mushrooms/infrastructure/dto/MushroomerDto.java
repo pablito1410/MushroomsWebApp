@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
+import pl.polsl.mushrooms.application.enums.UserRole;
 
 import java.util.Date;
 
@@ -22,5 +23,6 @@ public class MushroomerDto extends UserDto {
     private String country;
     private String city;
     private byte[] photo;
+    private UserRole role;
 
 }
