@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-                                        <label class="control-label">Email</label>
+                                        <label class="control-label" [class.active]="user.email && user.email.length > 0">Email</label>
                                         <input type="email" class="form-control" name="email"  [(ngModel)]="user.email"
                                                #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required />
                                         <div *ngIf="f.submitted && !email.valid" class="help-block">
@@ -71,7 +71,7 @@
                                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !birthDate.valid }">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <button mdSuffix [mdDatepickerToggle]="picker"><i class="material-icons">event</i></button>
+                                                <button type="button" mdSuffix [mdDatepickerToggle]="picker"><i class="material-icons">event</i></button>
                                             </span>
                                             <input mdInput [mdDatepicker]="picker" class="form-control" name="birth-date" [(ngModel)]="user.birthDate"
                                                 #birthDate="ngModel" placeholder="Birth Date" />
@@ -82,19 +82,13 @@
                                 <div class="col-md-6">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" checked="true" value="FEMALE">
-                                            Female
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
                                             <input type="radio" name="optionsRadios" value="MALE">
                                             Male
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" checked="true" value="FEMALE">
+                                            <input type="radio" name="optionsRadios" value="FEMALE">
                                             Female
                                         </label>
                                     </div>
