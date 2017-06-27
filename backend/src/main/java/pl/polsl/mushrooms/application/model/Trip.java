@@ -22,13 +22,13 @@ public class Trip implements Serializable{
 	private String place;
 
 	@Column(name = "\"COORDINATE_X\"")
-	private double coordinateX;
+	private Double coordinateX;
 
 	@Column(name = "\"COORDINATE_Y\"")
-	private double coordinateY;
+	private Double coordinateY;
 
 	@Column(name = "\"RADIUS\"")
-	private double radius;
+	private Double radius;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "\"USERS_TRIPS\"",
@@ -44,10 +44,12 @@ public class Trip implements Serializable{
 		discoveries = new HashSet<>();
 	}
 
-	public Trip(LocalDateTime dateTime, String place) {
-		this();
+	public Trip(LocalDateTime dateTime, String place, Double coordinateX, Double coordinateY, Double radius) {
 		this.dateTime = dateTime;
 		this.place = place;
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.radius = radius;
 	}
 
 	public Long getId() {

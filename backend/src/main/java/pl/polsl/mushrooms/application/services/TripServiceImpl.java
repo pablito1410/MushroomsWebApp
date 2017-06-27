@@ -34,7 +34,13 @@ public class TripServiceImpl implements TripService {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         final Mushroomer user = (Mushroomer)userRepo.findOneByUsername(currentUsername);
 
-        final Trip trip = new Trip(command.getDateTime(), command.getPlace());
+        final Trip trip = new Trip(
+                command.getDateTime(),
+                command.getPlace(),
+                command.getCoordinateX(),
+                command.getCoordinateY(),
+                command.getRadius());
+
         trip.addMushroomer(user);
         tripRepo.save(trip);
 
