@@ -48,7 +48,8 @@ export class AddTripComponent implements OnInit {
                     level: 'BEGINNER',
                     country: 'Polska',
                     city: 'Gliwice',
-                    photo: null
+                    photo: null,
+                    role: 'MUSHROOMER'
                 },
                 {
                     id: 2,
@@ -61,7 +62,8 @@ export class AddTripComponent implements OnInit {
                     level: 'BEGINNER',
                     country: 'Germany',
                     city: 'Berlin',
-                    photo: null
+                    photo: null,
+                    role: 'MUSHROOMER'
                 }
             ];
         } else {

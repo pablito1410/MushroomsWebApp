@@ -35,12 +35,13 @@ export class UserComponent implements OnInit {
                 email: 'booby@mail.com',
                 firstName: 'Bob',
                 lastName: 'Smith',
-                birthDate: '22.05.1987',
+                birthDate: '2016-06-27',
                 gender: 'MALE',
                 level: 'BEGINNER',
                 country: 'USA',
                 city: 'Los Angeles',
-                photo: null
+                photo: null,
+                role: 'MUSHROOMER'
             };
         } else {
             this.user = new User();
@@ -85,6 +86,9 @@ export class UserComponent implements OnInit {
     }
 
     update() {
+        let birthDate = new Date(this.user.birthDate);
+        // birthDate.setHours(birthDate.getHours() + 2);
+        this.user.birthDate = birthDate.toISOString();
         this.loading = true;
         this.userService.update(this.user)
             .subscribe(
