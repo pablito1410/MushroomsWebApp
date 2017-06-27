@@ -12,15 +12,15 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     @NotNull
     private long tripId;
-    @NotNull
+//    @NotNull
     private long mushroomSpieceId;
     @NotNull
     private double coordinateX;
     @NotNull
     private double coordinateY;
-    @NotNull
+//    @NotNull
     private byte[] photo;
-    @NotNull
+//    @NotNull
     private LocalDateTime dateTime;
 
     private String[] tags;

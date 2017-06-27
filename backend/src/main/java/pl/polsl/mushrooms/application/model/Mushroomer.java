@@ -11,33 +11,33 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "\"USERS\"")
 public class Mushroomer extends User {
 
-	@Column(name = "FIRST_NAME")
+	@Column(name = "\"FIRST_NAME\"")
 	private String firstName;
 
-	@Column(name = "LAST_NAME")
+	@Column(name = "\"LAST_NAME\"")
 	private String lastName;
 
-	@Column(name = "BIRTH_DATE")
+	@Column(name = "\"BIRTH_DATE\"")
 	private Date birthDate;
 
-	@Column(name = "GENDER")
+	@Column(name = "\"GENDER\"")
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@Column(name = "LEVEL")
+	@Column(name = "\"LEVEL\"")
 	@Enumerated(EnumType.STRING)
 	private MushroomerLevel level;
 
-	@Column(name = "COUNTRY")
+	@Column(name = "\"COUNTRY\"")
 	private String country;
 
-	@Column(name = "CITY")
+	@Column(name = "\"CITY\"")
 	private String city;
 
-	@Column(name = "PHOTO")
+	@Column(name = "\"PHOTO\"")
 	private byte[] photo;
 
 	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
@@ -52,9 +52,9 @@ public class Mushroomer extends User {
 
 	@ManyToMany(targetEntity = Mushroomer.class,
 			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "USERS_USERS",
-			joinColumns = {@JoinColumn(name = "USER_ID")},
-			inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
+	@JoinTable(name = "\"USERS_USERS\"",
+			joinColumns = {@JoinColumn(name = "\"USER_ID\"")},
+			inverseJoinColumns = {@JoinColumn(name = "\"FRIEND_ID\"")})
 	private Set<Mushroomer> users;
 
     @Override

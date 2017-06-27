@@ -1,7 +1,6 @@
 package pl.polsl.mushrooms.application.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.*;
@@ -10,26 +9,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS")
-@DiscriminatorColumn(name = "ROLE", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "\"USERS\"")
+@DiscriminatorColumn(name = "\"ROLE\"", discriminatorType = DiscriminatorType.STRING)
 public abstract class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_ID")
-	protected long id;
+	@Column(name = "\"USER_ID\"")
+	protected Long id;
 
-	@Column(name = "USERNAME", nullable = false)
+	@Column(name = "\"USERNAME\"", nullable = false)
 	protected String username;
 
-	@Column(name = "EMAIL", nullable = false)
+	@Column(name = "\"EMAIL\"", nullable = false)
 	protected String email;
 
-	@JsonIgnore
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "\"PASSWORD\"", nullable = false)
 	protected String password;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	protected Set<Comment> comments;
 
@@ -44,7 +41,7 @@ public abstract class User implements Serializable {
 		this.password = password;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 

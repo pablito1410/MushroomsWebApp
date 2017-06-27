@@ -6,19 +6,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "MUSHROOMS_FAMILIES")
+@Table(name = "\"MUSHROOMS_FAMILIES\"")
 public class MushroomFamily implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "MUSH_FAMILY_ID")
+	@Column(name = "\"MUSH_FAMILY_ID\"")
 	private long id;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "\"NAME\"", nullable = false)
 	private String name;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "MUSH_ORDER_ID")
+	@JoinColumn(name = "\"MUSH_ORDER_ID\"")
 	private MushroomOrder order;
 
 	@OneToMany(mappedBy = "family")

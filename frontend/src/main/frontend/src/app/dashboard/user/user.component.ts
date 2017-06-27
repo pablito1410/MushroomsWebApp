@@ -68,11 +68,11 @@ export class UserComponent implements OnInit {
         console.log(file);
         this.userService.updateImage(file).subscribe(
             data => {
-                this.user = data;
                 this.router.navigate(['/users']);
                 this.snackBar.open('Photo Saved', '×', {
                     duration: 2000,
                 });
+                this.user.photo = file;
 
             },
             error => {
@@ -87,11 +87,12 @@ export class UserComponent implements OnInit {
         this.loading = true;
         this.userService.update(this.user)
             .subscribe(
-                data => {
+                result => {
                     this.router.navigate(['/users']);
                     this.snackBar.open('Photo Saved', '×', {
                         duration: 2000,
                     });
+                    this.user = result;
                 },
                 error => {
                     this.loading = false;

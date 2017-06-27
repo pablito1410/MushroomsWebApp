@@ -7,20 +7,30 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "COMMENTS")
-public class Comment extends Commentable{
+@Table(name = "\"COMMENTS\"")
+public class Comment {
 
-	@Column(name = "CONTENT", nullable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name = "\"COMMENT_ID\"")
+	protected Long id;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "\"DISCOVERY_ID\"")
+	private Discovery discovery;
+
+	@Column(name = "\"CONTENT\"", nullable = false)
 	private String content;
 
-	@Column(name = "DATE_TIME", nullable = false)
+	@Column(name = "\"DATE_TIME\"", nullable = false)
 	private LocalDateTime dateTime;
 
 	@OneToOne(optional = false)
-	private Commentable target;
+	@JoinColumn(name = "\"TARGET_COMMENT_ID\"", referencedColumnName = "\"COMMENT_ID\"")
+	private Comment target;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name = "\"USER_ID\"")
 	private User user;
 
 	@OneToMany(mappedBy = "answers")
@@ -30,7 +40,7 @@ public class Comment extends Commentable{
 		answers = new HashSet<>();
 	}
 
-	public Comment(String content, LocalDateTime dateTime, Commentable target, User user) {
+	public Comment(String content, LocalDateTime dateTime, Comment target, User user) {
 		this();
 		this.content = content;
 		this.dateTime = dateTime;
@@ -39,12 +49,16 @@ public class Comment extends Commentable{
 		this.user = user;
 	}
 
-	public long getId() {
-		return this.id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public Discovery getDiscovery() {
+		return discovery;
+	}
+
+	public Comment getTargetComment() {
+		return target;
 	}
 
 	public String getContent() {
@@ -61,14 +75,6 @@ public class Comment extends Commentable{
 
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
-	}
-
-	public Commentable getTarget() {
-		return target;
-	}
-
-	public void setTarget(Commentable target) {
-		this.target = target;
 	}
 
 	public User getUser() {
@@ -116,8 +122,8 @@ public class Comment extends Commentable{
 		} else if (object instanceof Comment) {
 			Comment commentObject = (Comment) object;
 			boolean equals = true;
-			equals &= ((this.id == commentObject.id)
-				|| (this.id == commentObject.id));
+//			equals &= ((this.id == commentObject.id)
+//				|| (this.id == commentObject.id));
 			equals &= ((this.content == commentObject.content)
 				|| (this.content != null && this.content.equals(commentObject.content)));
 			equals &= ((this.dateTime == commentObject.dateTime)

@@ -5,26 +5,23 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "SCORES")
+@Table(name = "\"SCORES\"")
 public class Score implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SCORE_ID")
+	@Column(name = "\"SCORE_ID\"")
 	private long id;
 
-	@Column(name = "VALUE", nullable = false)
+	@Column(name = "\"VALUE\"", nullable = false)
 	private int value;
 
-//	@Column(name = "DATE_TIME", nullable = false)
-//	private LocalDateTime dateTime;
-
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "DISCOVERY_ID")
+	@JoinColumn(name = "\"DISCOVERY_ID\"")
 	private Discovery discovery;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name = "\"USER_ID\"")
 	private Mushroomer mushroomer;
 
 	protected Score() { }

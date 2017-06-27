@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.JoinTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.TripProjectionService;
@@ -67,6 +68,12 @@ public class TripController {
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") long id) {
         final DeleteTripCommand command = new DeleteTripCommand(id);
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/join", method = RequestMethod.POST)
+    public ResponseEntity<Void> joinTrip(@RequestBody JoinTripCommand command) {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

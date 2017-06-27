@@ -6,22 +6,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "MUSHROOMS_SPECIES")
+@Table(name = "\"MUSHROOMS_SPECIES\"")
 public class MushroomSpecies implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "MUSH_SPECIES_ID")
+	@Column(name = "\"MUSH_SPECIES_ID\"")
 	private long id;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "\"NAME\"", nullable = false)
 	private String name;
 
-	@Column(name = "EXAMPLE_PHOTO")
+	@Column(name = "\"EXAMPLE_PHOTO\"")
 	private byte[] examplePhoto;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "MUSH_GENUS_ID")
+	@JoinColumn(name = "\"MUSH_GENUS_ID\"")
 	private MushroomGenus genus;
 
 	@OneToMany(mappedBy = "mushroomsSpecies")
