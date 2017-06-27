@@ -21,7 +21,9 @@ export class DiscoveryDetailsComponent implements OnInit {
         public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
         @Inject(MD_DIALOG_DATA) public discovery: any,
         @Inject(DOCUMENT) private document,
-        public snackBar: MdSnackBar) { }
+        public snackBar: MdSnackBar) {
+        this.comments = new Array<Comment>();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {

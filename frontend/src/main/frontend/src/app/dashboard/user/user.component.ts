@@ -24,7 +24,9 @@ export class UserComponent implements OnInit {
         private router: Router,
         private userService: UserService,
         public snackBar: MdSnackBar,
-        @Inject(DOCUMENT) private document) { }
+        @Inject(DOCUMENT) private document) {
+        this.user = new User();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {
@@ -44,7 +46,6 @@ export class UserComponent implements OnInit {
                 role: 'MUSHROOMER'
             };
         } else {
-            this.user = new User();
             this.userService.get().subscribe(
                 result => this.user = result
             );
@@ -86,6 +87,7 @@ export class UserComponent implements OnInit {
     }
 
     update() {
+        console.log('update');
         let birthDate = new Date(this.user.birthDate);
         // birthDate.setHours(birthDate.getHours() + 2);
         this.user.birthDate = birthDate.toISOString();
@@ -94,7 +96,7 @@ export class UserComponent implements OnInit {
             .subscribe(
                 result => {
                     this.router.navigate(['/users']);
-                    this.snackBar.open('Photo Saved', '×', {
+                    this.snackBar.open('User Updated', '×', {
                         duration: 2000,
                     });
                     this.user = result;

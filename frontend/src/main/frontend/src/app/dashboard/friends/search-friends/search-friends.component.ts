@@ -19,7 +19,9 @@ export class SearchFriendsComponent implements OnInit {
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<SearchFriendsComponent>,
         @Inject(DOCUMENT) private document,
-        private userService: UserService) { }
+        private userService: UserService) {
+        this.users = new Array<User>();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {

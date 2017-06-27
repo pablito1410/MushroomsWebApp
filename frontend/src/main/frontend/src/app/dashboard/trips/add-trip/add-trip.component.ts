@@ -31,7 +31,11 @@ export class AddTripComponent implements OnInit {
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
         @Inject(DOCUMENT) private document,
-        private friendService: FriendService) { }
+        private friendService: FriendService) {
+        this.trip = new Trip();
+        this.friends = new Array<User>();
+        this.searchControl = new FormControl();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {
@@ -71,9 +75,7 @@ export class AddTripComponent implements OnInit {
                 result => this.friends = result
             );
         }
-        this.trip = new Trip();
         this.trip.radius = 1000;
-        this.searchControl = new FormControl();
         this.setCurrentPosition();
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {

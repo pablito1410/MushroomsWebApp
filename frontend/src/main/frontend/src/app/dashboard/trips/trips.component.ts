@@ -21,7 +21,9 @@ export class TripsComponent implements OnInit {
     constructor(
         public dialog: MdDialog,
         private tripService: TripService,
-        @Inject(DOCUMENT) private document) { }
+        @Inject(DOCUMENT) private document) {
+        this.trips = new Array<Trip>();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {
@@ -53,7 +55,6 @@ export class TripsComponent implements OnInit {
                 }
             ];
         } else {
-            this.trips = new Array<Trip>();
             this.tripService.getAll().subscribe(
                 result => this.trips = result
             );
@@ -82,6 +83,10 @@ export class TripsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
         });
+    }
+
+    convertDateToLocaleString(date: string) : string {
+        return new Date(date).toLocaleString();
     }
 
 }

@@ -26,7 +26,9 @@ export class AddDiscoveryComponent implements OnInit {
         private router: Router,
         public snackBar: MdSnackBar,
         @Inject(DOCUMENT) private document,
-        private discoveryService: DiscoveryService) { }
+        private discoveryService: DiscoveryService) {
+        this.discovery = new Discovery();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {

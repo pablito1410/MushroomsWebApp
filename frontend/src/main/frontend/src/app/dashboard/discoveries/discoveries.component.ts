@@ -19,7 +19,9 @@ export class DiscoveriesComponent implements OnInit {
     constructor(
         public dialog: MdDialog,
         @Inject(DOCUMENT) private document,
-        private discoveryService: DiscoveryService) {}
+        private discoveryService: DiscoveryService) {
+        this.discoveries = new Array<Discovery>();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {
@@ -75,5 +77,9 @@ export class DiscoveriesComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
         });
+    }
+
+    convertDateToLocaleString(date: string) : string {
+        return new Date(date).toLocaleString();
     }
 }

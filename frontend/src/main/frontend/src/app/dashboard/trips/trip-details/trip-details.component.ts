@@ -26,7 +26,9 @@ export class TripDetailsComponent implements OnInit {
         @Inject(MD_DIALOG_DATA) public trip: any,
         @Inject(DOCUMENT) private document,
         private tripService: TripService,
-        private friendService: FriendService) { }
+        private friendService: FriendService) {
+        this.friends = new Array<User>();
+    }
 
 
     ngOnInit() {

@@ -42,15 +42,13 @@
                         </div>
                         <div class="top-buffer">
                             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let discovery of discoveries">
-                                <!--<img class="img" src="..\assets\img\mushrooms-icon.png"/>-->
-                                <!--<h5 class="category text-gray">{{discovery.id}}</h5>-->
                                 <div class="card card-stats" (click)="openDiscoveryDetailsDialog(discovery)">
                                     <div class="card-image">
                                         <img class="img" src="..\assets\img\mushrooms-icon.png"/>
                                     </div>
                                     <div class="card-content">
                                         <p class="category text-gray">Mushroom</p>
-                                        <h3 class="title text-gray">{{discovery.dateTime}}</h3>
+                                        <h3 class="title text-gray">{{convertDateToLocaleString(discovery.dateTime)}}</h3>
                                     </div>
                                     <div class="card-footer">
                                     </div>

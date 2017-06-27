@@ -18,7 +18,9 @@ export class FriendsComponent implements OnInit {
     constructor(
         public dialog: MdDialog,
         private friendService: FriendService,
-        @Inject(DOCUMENT) private document) { }
+        @Inject(DOCUMENT) private document) {
+        this.friends = new Array<User>();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {

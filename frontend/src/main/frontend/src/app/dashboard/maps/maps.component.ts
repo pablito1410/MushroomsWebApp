@@ -21,7 +21,10 @@ export class MapsComponent implements OnInit {
     constructor(
         private discoveryService: DiscoveryService,
         private tripService: TripService,
-        @Inject(DOCUMENT) private document) { }
+        @Inject(DOCUMENT) private document) {
+        this.discoveries = Array<Discovery>();
+        this.trips = Array<Trip>();
+    }
 
     ngOnInit() {
         if (+document.location.port == 4200) {
