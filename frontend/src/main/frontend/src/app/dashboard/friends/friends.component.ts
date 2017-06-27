@@ -57,7 +57,7 @@ export class FriendsComponent implements OnInit {
             ];
         } else {
             this.friendService.getAll().subscribe(
-                value => this.friends = value
+                result => this.friends = result
             );
         }
     }

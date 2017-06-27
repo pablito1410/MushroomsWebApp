@@ -3,4 +3,5 @@ import {MushroomSpecies} from "./mushroom-species";
 export class MushroomGenus {
     id: number;
     name: string;
+    family: MushroomFamily;
 }
