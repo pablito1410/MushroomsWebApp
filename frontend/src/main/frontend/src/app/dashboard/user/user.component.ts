@@ -43,6 +43,7 @@ export class UserComponent implements OnInit {
                 photo: null
             };
         } else {
+            this.user = new User();
             this.userService.get().subscribe(
                 result => this.user = result
             );
