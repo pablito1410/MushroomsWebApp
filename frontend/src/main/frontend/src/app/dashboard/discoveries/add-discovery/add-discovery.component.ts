@@ -119,4 +119,7 @@ export class AddDiscoveryComponent implements OnInit {
         }
     }
 
+    getDiscoveryPhotoToDisplay() : string {
+        return 'data:image/png;base64,' + this.discovery.photo;
+    }
 }

@@ -30,45 +30,45 @@ export class MapsComponent implements OnInit {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
             this.discoveries = [
-            //     {
-            //         'id': 1,
-            //         'coordinateX': 43.341166,
-            //         'coordinateY': 38.462563,
-            //         photo: null,
-            //         dateTime: '22.12.2017 18:22:33',
-            //     },
-            //     {
-            //         id: 2,
-            //         'coordinateX': 45.345566,
-            //         'coordinateY': 35.463566,
-            //         photo: null,
-            //         dateTime: '21.12.2017 06:44:23',
-            //     },
-            //     {
-            //         'id': 3,
-            //         'coordinateX': 41.174666,
-            //         'coordinateY': 22.463226,
-            //         photo: null,
-            //         dateTime: '20.12.2017 11:12:23',
-            //     }
-            // ];
-            // this.trips = [
-            //     {
-            //         id: 1,
-            //         dateTime: '22.12.2017 18:22:33',
-            //         place: 'Katowice',
-            //         coordinateX: 43.342845,
-            //         coordinateY: 20.343843,
-            //         radius: 1000.240053
-            //     },
-            //     {
-            //         id: 2,
-            //         dateTime: '12.06.2017 15:12:35',
-            //         place: 'Rybnik',
-            //         coordinateX: 13.342845,
-            //         coordinateY: 60.343843,
-            //         radius: 1342.170053
-            //     }
+                {
+                    id: 1,
+                    coordinateX: 43.341166,
+                    coordinateY: 38.462563,
+                    photo: null,
+                    dateTime: '22.12.2017 18:22:33',
+                },
+                {
+                    id: 2,
+                    coordinateX: 45.345566,
+                    coordinateY: 35.463566,
+                    photo: null,
+                    dateTime: '21.12.2017 06:44:23',
+                },
+                {
+                    id: 3,
+                    coordinateX: 41.174666,
+                    coordinateY: 22.463226,
+                    photo: null,
+                    dateTime: '20.12.2017 11:12:23',
+                }
+            ];
+            this.trips = [
+                {
+                    id: 1,
+                    dateTime: '22.12.2017 18:22:33',
+                    place: 'Katowice',
+                    coordinateX: 43.342845,
+                    coordinateY: 20.343843,
+                    radius: 1000.240053
+                },
+                {
+                    id: 2,
+                    dateTime: '12.06.2017 15:12:35',
+                    place: 'Rybnik',
+                    coordinateX: 13.342845,
+                    coordinateY: 60.343843,
+                    radius: 1342.170053
+                }
             ];
         } else {
             this.discoveryService.getAll().subscribe(

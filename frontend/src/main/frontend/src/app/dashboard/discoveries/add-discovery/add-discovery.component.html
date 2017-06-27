@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-6">
             <div *ngIf="file != null">
-                <img class="img" [attr.src]="file.toString()" />
+                <img class="img" width="80%" height="80%" [attr.src]="getDiscoveryPhotoToDisplay()" />
             </div>
             <div *ngIf="file == null">
                 <label class="btn btn-primary btn-round text-center">

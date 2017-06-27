@@ -2,7 +2,12 @@
 <div md-dialog-content>
     <div class="row">
         <div class="col-md-6">
-            <img class="img" width="80%" height="80%" src="..\assets\img\faces\default-user.png"/>
+            <div *ngIf="user.photo != null">
+                <img class="img" [src]="getUserPhotoToDisplay()" />
+            </div>
+            <div *ngIf="user.photo == null">
+                <img class="img" width="80%" height="80%" src="..\assets\img\faces\default-user.png"/>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="row">

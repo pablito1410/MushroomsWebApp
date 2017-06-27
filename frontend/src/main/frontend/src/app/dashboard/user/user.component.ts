@@ -71,15 +71,14 @@ export class UserComponent implements OnInit {
         console.log(file);
         this.userService.updateImage(file).subscribe(
             data => {
-                // this.router.navigate(['/users']);
+                this.user.photo = file;
                 this.snackBar.open('Photo Saved', '×', {
                     duration: 2000,
                 });
-                this.user.photo = file;
-
             },
             error => {
                 this.loading = false;
+                this.user.photo = null;
                 this.snackBar.open('Error', '×', {
                     duration: 2000,
                 });
@@ -89,13 +88,12 @@ export class UserComponent implements OnInit {
     update() {
         console.log('update');
         let birthDate = new Date(this.user.birthDate);
-        // birthDate.setHours(birthDate.getHours() + 2);
+        birthDate.setHours(birthDate.getHours() + 2);
         this.user.birthDate = birthDate.toISOString();
         this.loading = true;
         this.userService.update(this.user)
             .subscribe(
                 result => {
-                    this.router.navigate(['/users']);
                     this.snackBar.open('User Updated', '×', {
                         duration: 2000,
                     });
@@ -107,5 +105,9 @@ export class UserComponent implements OnInit {
                         duration: 2000,
                     });
                 });
+    }
+
+    getUserPhotoToDisplay() : string {
+        return 'data:image/png;base64,' + this.user.photo;
     }
 }

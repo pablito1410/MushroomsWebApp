@@ -84,4 +84,8 @@ export class FriendsComponent implements OnInit {
             this.selectedOption = result;
         });
     }
+
+    getUserPhotoToDisplay(user: User) : string {
+        return 'data:image/png;base64,' + user.photo;
+    }
 }

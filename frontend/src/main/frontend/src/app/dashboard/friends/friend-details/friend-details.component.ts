@@ -26,4 +26,8 @@ export class FriendDetailsComponent implements OnInit {
     convertDateToLocaleString(date: string) : string {
         return new Date(date).toLocaleDateString();
     }
+
+    getUserPhotoToDisplay() : string {
+        return 'data:image/png;base64,' + this.user.photo;
+    }
 }

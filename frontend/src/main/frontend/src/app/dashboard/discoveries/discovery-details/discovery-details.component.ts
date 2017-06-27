@@ -111,4 +111,9 @@ export class DiscoveryDetailsComponent implements OnInit {
     comment() {
         // TODO
     }
+
+    getDiscoveryPhotoToDisplay() : string {
+        return 'data:image/png;base64,' + this.discovery.photo;
+    }
+
 }
