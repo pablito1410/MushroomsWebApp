@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 command.getLastName(),
                 command.getBirthDate(),
                 command.getGender(),
-                MushroomerLevel.INTERMEDIATE
+                MushroomerLevel.BEGINNER
         );
 
         repo.save(user);

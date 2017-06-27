@@ -40,8 +40,9 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
         final Optional<User> user = Optional.ofNullable(userRepository.findOneByUsername(username));
         if (user.isPresent()) {
             return mapUserToDto(user.get());
+        } else {
+            throw new EntityNotFoundException("User not found");
         }
-        return null;
     }
 
     @Override
@@ -49,8 +50,9 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
         final Optional<User> user = Optional.ofNullable(userRepository.findOne(id));
         if (user.isPresent()) {
             return mapUserToDto(user.get());
+        } else {
+            throw new EntityNotFoundException("User not found");
         }
-        return null;
     }
 
     @Override
