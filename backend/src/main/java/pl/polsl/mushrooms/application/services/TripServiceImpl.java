@@ -108,11 +108,13 @@ public class TripServiceImpl implements TripService {
                 tripRepo.findTrip(command.getTripId()))
                 .orElseThrow(NotFoundException::new);
 
-        final Mushroomer mushroomer = (Mushroomer)Optional.ofNullable(
-                userRepo.findOne(command.getUserId()))
-                .orElseThrow(NotFoundException::new);
+        for (Long userId : command.getUserIds()) {
+            final Mushroomer mushroomer = (Mushroomer)userRepo.findOne(userId);
 
-        trip.addMushroomer(mushroomer);
+            if (mushroomer != null) {
+                trip.addMushroomer(mushroomer);
+            }
+        }
 
         tripRepo.save(trip);
     }
