@@ -7,6 +7,7 @@ import {DiscoveryService} from "../../../services/discovery.service";
 import {Discovery} from "../../../model/discovery";
 import {MushroomSpecies} from "../../../model/mushroom-species";
 import {DOCUMENT} from "@angular/platform-browser";
+import {MushroomSpeciesService} from "app/services/mushroom-species.service";
 
 @Component({
     moduleId: module.id,
@@ -15,7 +16,7 @@ import {DOCUMENT} from "@angular/platform-browser";
 })
 export class AddDiscoveryComponent implements OnInit {
     discovery: Discovery;
-    mushroomSpecies: Array<MushroomSpecies>;
+    mushroomSpecies: MushroomSpecies[];
     zoom: number = 4;
     imageSrc: string;
     file: File;
@@ -26,8 +27,10 @@ export class AddDiscoveryComponent implements OnInit {
         private router: Router,
         public snackBar: MdSnackBar,
         @Inject(DOCUMENT) private document,
-        private discoveryService: DiscoveryService) {
+        private discoveryService: DiscoveryService,
+        private mushroomSpeciesService: MushroomSpeciesService) {
         this.discovery = new Discovery();
+        this.mushroomSpecies = new Array<MushroomSpecies>();
     }
 
     ngOnInit() {
@@ -37,21 +40,26 @@ export class AddDiscoveryComponent implements OnInit {
                 {
                     id: 1,
                     name: "Podgrzybek",
-                    examplePhoto: null
+                    examplePhoto: null,
+                    genus: null
                 },
                 {
                     id: 2,
                     name: "Kurka",
-                    examplePhoto: null
+                    examplePhoto: null,
+                    genus: null
                 },
                 {
                     id: 3,
                     name: "Maslak",
-                    examplePhoto: null
+                    examplePhoto: null,
+                    genus: null
                 }
             ];
         } else {
-            // TODO
+            this.mushroomSpeciesService.getAll().subscribe(
+                result => this.mushroomSpecies = result
+            );
         }
         this.discovery = new Discovery();
         this.setCurrentPosition();

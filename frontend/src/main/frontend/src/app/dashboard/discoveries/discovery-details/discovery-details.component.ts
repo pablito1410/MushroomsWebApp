@@ -4,6 +4,10 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 import {Comment} from "../../../model/comment";
 import {Score} from "../../../model/score";
 import {DOCUMENT} from "@angular/platform-browser";
+import {CommentService} from "../../../services/comment.service";
+import {TagService} from "app/services/tag.service";
+import {Tag} from "app/model/tag";
+import {ScoreService} from "../../../services/score.service";
 
 @Component({
     moduleId: module.id,
@@ -12,6 +16,7 @@ import {DOCUMENT} from "@angular/platform-browser";
 })
 export class DiscoveryDetailsComponent implements OnInit {
     comments: Comment[];
+    tags: Tag[];
     score: Score;
     starsCount: number;
     showRating: boolean;
@@ -21,8 +26,13 @@ export class DiscoveryDetailsComponent implements OnInit {
         public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
         @Inject(MD_DIALOG_DATA) public discovery: any,
         @Inject(DOCUMENT) private document,
-        public snackBar: MdSnackBar) {
+        public snackBar: MdSnackBar,
+        private commentService: CommentService,
+        private tagService: TagService,
+        private scoreService: ScoreService) {
         this.comments = new Array<Comment>();
+        this.tags = new Array<Tag>();
+        this.score = new Score();
     }
 
     ngOnInit() {
@@ -78,7 +88,15 @@ export class DiscoveryDetailsComponent implements OnInit {
                 }
             ];
         } else {
-            // TODO
+            this.commentService.getAll().subscribe(
+                result => this.comments = result
+            );
+            this.tagService.getAll().subscribe(
+                result => this.tags = result
+            );
+            // this.scoreService.getAverage().subscribe(
+            //     result => this.score = result
+            // );
         }
         this.showRating = true;
     }

@@ -51,7 +51,7 @@ export class DiscoveriesComponent implements OnInit {
             ];
         } else {
             this.discoveryService.getAll().subscribe(
-                value => this.discoveries = value
+                result => this.discoveries = result
             );
         }
     }

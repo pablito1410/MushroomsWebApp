@@ -32,7 +32,7 @@ export class FriendsComponent implements OnInit {
                     email: 'romy@mail.com',
                     firstName: 'Roman',
                     lastName: 'Nowak',
-                    birthDate: '21.07.1989',
+                    birthDate: '21-07-1989',
                     gender: 'MALE',
                     level: 'BEGINNER',
                     country: 'Polska',
@@ -46,7 +46,7 @@ export class FriendsComponent implements OnInit {
                     email: 'tomy22@mail.com',
                     firstName: 'Tom',
                     lastName: 'Goreing',
-                    birthDate: '06.11.1991',
+                    birthDate: '16-11-1991',
                     gender: 'MALE',
                     level: 'BEGINNER',
                     country: 'Germany',
@@ -57,7 +57,7 @@ export class FriendsComponent implements OnInit {
             ];
         } else {
             this.friendService.getAll().subscribe(
-                value => this.friends = value
+                result => this.friends = result
             );
         }
     }

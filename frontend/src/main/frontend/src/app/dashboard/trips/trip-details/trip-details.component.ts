@@ -65,9 +65,9 @@ export class TripDetailsComponent implements OnInit {
                 }
             ];
         } else {
-            this.friendService.getAll().subscribe(
-                result => this.friends = result
-            );
+            // this.friendService.getAllInvited().subscribe(
+            //     result => this.friends = result
+            // );
         }
     }
 

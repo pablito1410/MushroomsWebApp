@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-                                        <label class="control-label" [class.active]="user.email && user.email.length > 0">Email</label>
+                                        <label class="control-label">Email</label>
                                         <input type="email" class="form-control" name="email"  [(ngModel)]="user.email"
                                                #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required />
                                         <div *ngIf="f.submitted && !email.valid" class="help-block">

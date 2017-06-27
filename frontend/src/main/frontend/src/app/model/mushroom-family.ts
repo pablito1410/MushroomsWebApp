@@ -3,4 +3,5 @@ import {MushroomOrder} from "./mushroom-order";
 export class MushroomFamily {
     id: number;
     name: string;
+    order: MushroomOrder;
 }
