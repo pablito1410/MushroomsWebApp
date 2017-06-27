@@ -10,15 +10,15 @@ import javax.validation.constraints.NotNull;
 public class InviteToTripCommand implements VoidCommand {
 
     @NotNull
-    private Long userId;
+    private Long[] userIds;
 
     @NotNull
     private Long tripId;
 
     protected InviteToTripCommand() { }
 
-    public Long getUserId() {
-        return userId;
+    public Long[] getUserIds() {
+        return userIds;
     }
 
     public Long getTripId() {
