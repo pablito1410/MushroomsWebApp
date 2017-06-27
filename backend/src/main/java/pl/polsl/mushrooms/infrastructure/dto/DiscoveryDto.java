@@ -1,8 +1,9 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class DiscoveryDto {
     private double coordinateY;
     private byte[] photo;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dateTime;
 
     private long tripId;

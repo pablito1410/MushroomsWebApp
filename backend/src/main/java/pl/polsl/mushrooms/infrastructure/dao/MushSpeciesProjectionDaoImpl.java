@@ -37,7 +37,7 @@ public class MushSpeciesProjectionDaoImpl implements MushSpeciesProjectionDao {
         final MushroomSpecies mushroomSpecies = Optional.ofNullable(
                 mushSpeciesRepository.findOne(id))
                     .orElseThrow(EntityNotFoundException::new);
-        
+
         return modelMapper.map(mushroomSpecies, MushroomSpeciesDto.class);
     }
 }

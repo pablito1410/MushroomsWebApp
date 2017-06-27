@@ -1,9 +1,9 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
-import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeDeserializer;
+import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +16,7 @@ public class TripDto {
 
     private long id;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dateTime;
 
     private String place;

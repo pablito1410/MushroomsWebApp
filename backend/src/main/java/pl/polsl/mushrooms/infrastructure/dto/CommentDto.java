@@ -1,8 +1,9 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class CommentDto {
 
     private String content;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dateTime;
 
     private Long discoveryId;
