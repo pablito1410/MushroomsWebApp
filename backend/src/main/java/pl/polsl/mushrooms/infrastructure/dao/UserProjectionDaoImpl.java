@@ -86,7 +86,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     @Override
     public Set<MushroomerDto> search(String value, Projection projection) {
         final Set<? extends User> users = userRepository.findByUsernameIgnoreCaseContaining(value);
-        return modelMapper.map((Set<Mushroomer>)users, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
+        return modelMapper.map(users, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
     }
 
     private UserDto mapUserToDto(final User user) {

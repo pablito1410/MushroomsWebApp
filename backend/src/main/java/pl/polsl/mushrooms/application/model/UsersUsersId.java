@@ -22,6 +22,11 @@ public class UsersUsersId implements Serializable {
 
     protected UsersUsersId() { }
 
+    public UsersUsersId(Mushroomer user, Mushroomer friend) {
+        this.user = user;
+        this.friend = friend;
+    }
+
     public User getUser() {
         return user;
     }

@@ -43,4 +43,11 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
             throw new IllegalStateException("User is not instance of Mushroomer");
         }
     }
+
+    @Override
+    public Set<DiscoveryDto> search(String value) {
+//        final Set<Discovery> discoveries = discoveryRepository.findByMushroomSpeciesNameIgnoreCaseContaining(value);
+//        return modelMapper.map(discoveries, new TypeToken<HashSet<DiscoveryDto>>() {}.getType());
+        return null;
+    }
 }
