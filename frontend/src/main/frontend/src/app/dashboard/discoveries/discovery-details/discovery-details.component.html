@@ -4,7 +4,7 @@
         <div class="col-md-6">
             <div class="row top-buffer">
                 <div *ngIf="discovery.photo != null">
-                    <img class="img" [src]="getUserPhotoToDisplay()" />
+                    <img class="img" [src]="getDiscoveryPhotoToDisplay()" />
                 </div>
                 <div *ngIf="discovery.photo == null">
                     <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
