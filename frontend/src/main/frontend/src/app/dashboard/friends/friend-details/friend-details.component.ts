@@ -24,6 +24,6 @@ export class FriendDetailsComponent implements OnInit {
     }
 
     convertDateToLocaleString(date: string) : string {
-        return new Date(date).toLocaleString();
+        return new Date(date).toLocaleDateString();
     }
 }
