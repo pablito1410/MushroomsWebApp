@@ -23,6 +23,8 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
     private String lastName;
     private Date birthDate;
     private Gender gender;
+    private String city;
+    private String country;
 
     private UpdateUserCommand() { }
 
@@ -48,5 +50,13 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     public Gender getGender() {
         return gender;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }
