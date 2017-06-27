@@ -17,7 +17,7 @@ public class DiscoveryDto {
     private double coordinateX;
     private double coordinateY;
     private byte[] photo;
-    
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime dateTime;
 

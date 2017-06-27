@@ -14,9 +14,6 @@ import java.util.Date;
 public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     @NotNull
-    private String username;
-
-    @NotNull
     private String email;
 
 
@@ -30,10 +27,6 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
     private String country;
 
     private UpdateUserCommand() { }
-
-    public String getUsername() {
-        return username;
-    }
 
     public String getEmail() {
         return email;

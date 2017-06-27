@@ -87,14 +87,12 @@ public class UserServiceImpl implements UserService {
         {
             case ADMIN:
                 user.setEmail(command.getEmail());
-                user.setUsername(command.getUsername());
                 repo.save(user);
                 return modelMapper.map(user, AdminDto.class);
 
             case MUSHROOMER:
                 final Mushroomer mushroomer = (Mushroomer)user;
                 mushroomer.setEmail(command.getEmail());
-                mushroomer.setUsername(command.getUsername());
                 mushroomer.setFirstName(command.getFirstName());
                 mushroomer.setLastName(command.getLastName());
                 mushroomer.setBirthDate(command.getBirthDate());
