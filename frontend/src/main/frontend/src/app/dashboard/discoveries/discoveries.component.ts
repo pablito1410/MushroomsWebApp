@@ -25,27 +25,27 @@ export class DiscoveriesComponent implements OnInit {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
             this.discoveries = [
-                {
-                    'id': 1,
-                    'coordinateX': 43.341166,
-                    'coordinateY': 38.462563,
-                    photo: null,
-                    dateTime: '22.12.2017 18:22:33',
-                },
-                {
-                    id: 2,
-                    'coordinateX': 45.345566,
-                    'coordinateY': 35.463566,
-                    photo: null,
-                    dateTime: '21.12.2017 06:44:23',
-                },
-                {
-                    'id': 3,
-                    'coordinateX': 41.174666,
-                    'coordinateY': 22.463226,
-                    photo: null,
-                    dateTime: '20.12.2017 11:12:23',
-                }
+                // {
+                //     'id': 1,
+                //     'coordinateX': 43.341166,
+                //     'coordinateY': 38.462563,
+                //     photo: null,
+                //     dateTime: '22.12.2017 18:22:33',
+                // },
+                // {
+                //     id: 2,
+                //     'coordinateX': 45.345566,
+                //     'coordinateY': 35.463566,
+                //     photo: null,
+                //     dateTime: '21.12.2017 06:44:23',
+                // },
+                // {
+                //     'id': 3,
+                //     'coordinateX': 41.174666,
+                //     'coordinateY': 22.463226,
+                //     photo: null,
+                //     dateTime: '20.12.2017 11:12:23',
+                // }
             ];
         } else {
             this.discoveryService.getAll().subscribe(
