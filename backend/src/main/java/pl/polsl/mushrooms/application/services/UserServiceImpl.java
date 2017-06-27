@@ -99,6 +99,8 @@ public class UserServiceImpl implements UserService {
                 mushroomer.setLastName(command.getLastName());
                 mushroomer.setBirthDate(command.getBirthDate());
                 mushroomer.setGender(command.getGender());
+                mushroomer.setCity(command.getCity());
+                mushroomer.setCountry(command.getCountry());
                 repo.save(user);
                 return modelMapper.map(mushroomer, MushroomerDto.class);
 
