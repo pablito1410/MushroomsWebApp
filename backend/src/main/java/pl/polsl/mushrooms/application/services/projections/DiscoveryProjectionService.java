@@ -13,4 +13,6 @@ public interface DiscoveryProjectionService {
     Map<String,Object> findOne(long id, ProjectionDao.Projection projection);
 
     Set<DiscoveryDto> findAll(String userName, ProjectionDao.Projection projection);
+
+    Set<DiscoveryDto> search(String value);
 }

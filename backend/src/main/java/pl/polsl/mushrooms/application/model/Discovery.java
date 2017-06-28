@@ -54,14 +54,14 @@ public class Discovery  {
 	}
 
 	public Discovery(
-			double coordinateX, double coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomsSpecies, Mushroomer mushroomer) {
+			double coordinateX, double coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
 		this();
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.photo = photo;
 		this.dateTime = dateTime;
 		this.trip = trip;
-		this.mushroomsSpecies = mushroomsSpecies;
+		this.mushroomsSpecies = mushroomSpecies;
 		this.mushroomer = mushroomer;
 	}
 
@@ -109,12 +109,12 @@ public class Discovery  {
 		this.trip = trip;
 	}
 
-	public MushroomSpecies getMushroomsSpecies() {
+	public MushroomSpecies getmushroomspecies() {
 		return this.mushroomsSpecies;
 	}
 
-	public void setMushroomsSpecies(MushroomSpecies mushroomsSpecies) {
-		this.mushroomsSpecies = mushroomsSpecies;
+	public void setMushroomSpecies(MushroomSpecies mushroomSpecies) {
+		this.mushroomsSpecies = mushroomSpecies;
 	}
 
 	public Mushroomer getMushroomer() {

@@ -9,7 +9,9 @@ import pl.polsl.mushrooms.application.enums.UserRole;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Mushroomer extends User {
@@ -232,4 +234,13 @@ public class Mushroomer extends User {
 	public boolean removeFriend(Mushroomer friend) {
     	return this.users.remove(friend);
     }
+
+    private Map<Long, Mushroomer> getFriendsMap() {
+        return users.stream()
+				.collect(Collectors.toMap(Mushroomer::getId, c -> c));
+    }
+
+	public boolean hasFriend(Mushroomer user) {
+    	return getFriendsMap().containsKey(user.getId());
+	}
 }

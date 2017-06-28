@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
+import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 
@@ -13,4 +14,6 @@ public interface FriendService {
     Collection<Long> handle(AddFriendCommand command);
 
     Collection<Long> handle(DeleteFriendsCommand command);
+
+    void handle(AcceptInvitationToFriendsCommand command);
 }
