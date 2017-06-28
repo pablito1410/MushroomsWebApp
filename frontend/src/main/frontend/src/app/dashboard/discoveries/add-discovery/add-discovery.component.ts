@@ -65,10 +65,6 @@ export class AddDiscoveryComponent implements OnInit {
         this.setCurrentPosition();
     }
 
-    clickedMarker(label: string) {
-        console.log(`clicked the marker: ${label}`);
-    }
-
     mapClicked($event: any) {
         this.discovery.coordinateX = $event.coords.lat;
         this.discovery.coordinateY = $event.coords.lng;
@@ -91,10 +87,8 @@ export class AddDiscoveryComponent implements OnInit {
             alert('invalid format');
             return;
         }
-        console.log(this.file);
         reader.onload = this.handleReaderLoaded.bind(this);
         reader.readAsDataURL(this.file);
-        console.log(this.file);
         // this.discoveryService.create(file).subscribe(
             // data => {
             //     this.router.navigate(['/users']);
@@ -117,9 +111,5 @@ export class AddDiscoveryComponent implements OnInit {
                 this.zoom = 12;
             });
         }
-    }
-
-    getDiscoveryPhotoToDisplay() : string {
-        return 'data:image/png;base64,' + this.discovery.photo;
     }
 }

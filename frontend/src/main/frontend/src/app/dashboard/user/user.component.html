@@ -53,14 +53,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !country.valid }">
                                         <label class="control-label">Country</label>
-                                        <input type="text" class="form-control" name="first-name" [(ngModel)]="user.country"
+                                        <input type="text" class="form-control" name="country" [(ngModel)]="user.country"
                                                #country="ngModel" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !city.valid }">
                                         <label class="control-label">City</label>
-                                        <input type="text" class="form-control" name="last-name" [(ngModel)]="user.city"
+                                        <input type="text" class="form-control" name="city" [(ngModel)]="user.city"
                                                #city="ngModel"/>
                                     </div>
                                 </div>
@@ -82,21 +82,16 @@
                                 <div class="col-md-6">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" value="MALE">
+                                            <input type="radio" [(ngModel)]="user.gender" name="gender" value="MALE">
                                             Male
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsRadios" value="FEMALE">
+                                            <input type="radio" [(ngModel)]="user.gender" name="gender" value="FEMALE">
                                             Female
                                         </label>
                                     </div>
-                                    <!--<div class="form-group label-floating" [ngClass]="{ 'has-error': f.submitted && !gender.valid }">-->
-                                        <!--<label class="control-label">Gender</label>-->
-                                        <!--<input type="text" class="form-control" name="gender" [(ngModel)]="model.gender"-->
-                                               <!--#gender="ngModel" />-->
-                                    <!--</div>-->
                                 </div>
                             </div>
 

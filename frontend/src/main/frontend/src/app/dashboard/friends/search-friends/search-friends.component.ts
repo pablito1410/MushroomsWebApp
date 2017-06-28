@@ -14,6 +14,7 @@ import {User} from "../../../model/user";
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
     users: User[];
+    // checkedUsersIds: number[];
 
     constructor(
         public dialog: MdDialog,
@@ -21,11 +22,56 @@ export class SearchFriendsComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         private userService: UserService) {
         this.users = new Array<User>();
+        // this.checkedUsersIds = new Array<number>();
     }
 
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
+            this.users = [
+                {
+                    id: 1,
+                    username: 'roman33',
+                    email: 'romy@mail.com',
+                    firstName: 'Roman',
+                    lastName: 'Nowak',
+                    birthDate: '21-07-1989',
+                    gender: 'MALE',
+                    level: 'BEGINNER',
+                    country: 'Polska',
+                    city: 'Gliwice',
+                    photo: null,
+                    role: 'MUSHROOMER'
+                },
+                {
+                    id: 2,
+                    username: 'thomas22',
+                    email: 'tomy22@mail.com',
+                    firstName: 'Tom',
+                    lastName: 'Goreing',
+                    birthDate: '16-11-1991',
+                    gender: 'MALE',
+                    level: 'BEGINNER',
+                    country: 'Germany',
+                    city: 'Berlin',
+                    photo: null,
+                    role: 'MUSHROOMER'
+                },
+                {
+                    id: 3,
+                    username: 'edi213',
+                    email: 'eddyyyy@mail.com',
+                    firstName: 'Andy',
+                    lastName: 'Hills',
+                    birthDate: '12-08-1997',
+                    gender: 'MALE',
+                    level: 'BEGINNER',
+                    country: 'Canada',
+                    city: 'Bridge',
+                    photo: null,
+                    role: 'MUSHROOMER'
+                }
+            ];
         } else {
             // TODO
         }
@@ -50,4 +96,7 @@ export class SearchFriendsComponent implements OnInit {
             });
     }
 
+    updateCheckedOptions(user, event) {
+        // this.optionsMap[option] = event.target.checked;
+    }
 }

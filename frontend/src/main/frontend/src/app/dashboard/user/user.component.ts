@@ -15,10 +15,6 @@ export class UserComponent implements OnInit {
     loading = false;
     imageSrc: string;
     file: File;
-    genders = [
-        {value: 'MALE', viewValue: 'Male'},
-        {value: 'FEMALE', viewValue: 'Female'}
-    ];
 
     constructor(
         private router: Router,
@@ -37,7 +33,7 @@ export class UserComponent implements OnInit {
                 email: 'booby@mail.com',
                 firstName: 'Bob',
                 lastName: 'Smith',
-                birthDate: '2016-06-27',
+                birthDate: '1994-09-22',
                 gender: 'MALE',
                 level: 'BEGINNER',
                 country: 'USA',
@@ -86,7 +82,6 @@ export class UserComponent implements OnInit {
     }
 
     update() {
-        console.log('update');
         let birthDate = new Date(this.user.birthDate);
         birthDate.setHours(birthDate.getHours() + 2);
         this.user.birthDate = birthDate.toISOString();

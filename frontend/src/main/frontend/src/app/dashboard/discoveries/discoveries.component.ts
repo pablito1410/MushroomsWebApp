@@ -32,21 +32,21 @@ export class DiscoveriesComponent implements OnInit {
                     coordinateX: 43.341166,
                     coordinateY: 38.462563,
                     photo: null,
-                    dateTime: '22.12.2017 18:22:33',
+                    dateTime: '2016-06-21T19:09:42.646Z',
                 },
                 {
                     id: 2,
                     coordinateX: 45.345566,
                     coordinateY: 35.463566,
                     photo: null,
-                    dateTime: '21.12.2017 06:44:23',
+                    dateTime: '2016-07-22T19:11:32.646Z',
                 },
                 {
                     id: 3,
                     coordinateX: 41.174666,
                     coordinateY: 22.463226,
                     photo: null,
-                    dateTime: '20.12.2017 11:12:23',
+                    dateTime: '2017-04-28T19:08:11.646Z',
                 }
             ];
         } else {
