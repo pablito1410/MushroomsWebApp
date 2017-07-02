@@ -19,6 +19,7 @@ import pl.polsl.mushrooms.application.commands.notification.UpdateNotificationCo
 import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.JoinTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
@@ -60,6 +61,7 @@ public class MushroomsServerConfig {
             registry.register(tripService::handle, CreateTripCommand.class);
             registry.register(tripService::handle, UpdateTripCommand.class);
             registry.register(tripService::handle, DeleteTripCommand.class);
+            registry.register(tripService::handle, JoinTripCommand.class);
 
             registry.register(discoveryService::handle, CreateDiscoveryCommand.class);
             registry.register(discoveryService::handle, UpdateDiscoveryCommand.class);
@@ -119,6 +121,11 @@ public class MushroomsServerConfig {
     @Bean
     TripProjectionService tripProjectionService(TripProjectionDao tripProjectionDao, UserProjectionService userProjectionService) {
         return new TripProjectionServiceImpl(tripProjectionDao, userProjectionService);
+    }
+
+    @Bean
+    MushSpeciesProjectionService mushSpeciesProjectionService(MushSpeciesProjectionDao mushSpeciesProjectionDao) {
+        return new MushSpeciesProjectionServiceImpl(mushSpeciesProjectionDao);
     }
 
     @Bean

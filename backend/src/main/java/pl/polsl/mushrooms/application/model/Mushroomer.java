@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.model;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
@@ -8,36 +9,39 @@ import pl.polsl.mushrooms.application.enums.UserRole;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "USERS")
 public class Mushroomer extends User {
 
-	@Column(name = "FIRST_NAME")
+	@Column(name = "\"FIRST_NAME\"")
 	private String firstName;
 
-	@Column(name = "LAST_NAME")
+	@Column(name = "\"LAST_NAME\"")
 	private String lastName;
 
-	@Column(name = "BIRTH_DATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "\"BIRTH_DATE\"")
 	private Date birthDate;
 
-	@Column(name = "GENDER")
+	@Column(name = "\"GENDER\"")
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@Column(name = "LEVEL")
+	@Column(name = "\"LEVEL\"")
 	@Enumerated(EnumType.STRING)
 	private MushroomerLevel level;
 
-	@Column(name = "COUNTRY")
+	@Column(name = "\"COUNTRY\"")
 	private String country;
 
-	@Column(name = "CITY")
+	@Column(name = "\"CITY\"")
 	private String city;
 
-	@Column(name = "PHOTO")
+	@Column(name = "\"PHOTO\"")
 	private byte[] photo;
 
 	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
@@ -55,9 +59,9 @@ public class Mushroomer extends User {
 
 	@ManyToMany(targetEntity = Mushroomer.class,
 			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "USERS_USERS",
-			joinColumns = {@JoinColumn(name = "USER_ID")},
-			inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
+	@JoinTable(name = "\"USERS_USERS\"",
+			joinColumns = {@JoinColumn(name = "\"USER_ID\"")},
+			inverseJoinColumns = {@JoinColumn(name = "\"FRIEND_ID\"")})
 	private Set<Mushroomer> users;
 
     @Override
@@ -251,4 +255,13 @@ public class Mushroomer extends User {
 	public boolean removeFriend(Mushroomer friend) {
     	return this.users.remove(friend);
     }
+
+    private Map<Long, Mushroomer> getFriendsMap() {
+        return users.stream()
+				.collect(Collectors.toMap(Mushroomer::getId, c -> c));
+    }
+
+	public boolean hasFriend(Mushroomer user) {
+    	return getFriendsMap().containsKey(user.getId());
+	}
 }

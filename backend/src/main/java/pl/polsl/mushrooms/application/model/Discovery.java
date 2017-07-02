@@ -6,34 +6,39 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "DISCOVERIES")
-public class Discovery extends Commentable {
+@Table(name = "\"DISCOVERIES\"")
+public class Discovery  {
 
-	@Column(name = "COORDINATE_X")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "\"DISCOVERY_ID\"")
+	protected Long id;
+
+	@Column(name = "\"COORDINATE_X\"")
 	private double coordinateX;
 
-	@Column(name = "COORDINATE_Y")
+	@Column(name = "\"COORDINATE_Y\"")
 	private double coordinateY;
 
-	@Column(name = "PHOTO")
+	@Column(name = "\"PHOTO\"")
 	private byte[] photo;
 
-	@Column(name = "DATE_TIME", nullable = false)
+	@Column(name = "\"DATE_TIME\"", nullable = false)
 	private LocalDateTime dateTime;
 
 	@Column(name = "\"IS_PUBLIC\"")
 	private boolean isPublic;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "TRIP_ID")
+	@JoinColumn(name = "\"TRIP_ID\"")
 	private Trip trip;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "MUSH_SPECIES_ID")
+	@JoinColumn(name = "\"MUSH_SPECIES_ID\"")
 	private MushroomSpecies mushroomsSpecies;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name = "\"USER_ID\"")
 	private Mushroomer mushroomer;
 
 	@OneToMany(mappedBy = "discovery")
@@ -52,23 +57,19 @@ public class Discovery extends Commentable {
 	}
 
 	public Discovery(
-			double coordinateX, double coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomsSpecies, Mushroomer mushroomer) {
+			double coordinateX, double coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
 		this();
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.photo = photo;
 		this.dateTime = dateTime;
 		this.trip = trip;
-		this.mushroomsSpecies = mushroomsSpecies;
+		this.mushroomsSpecies = mushroomSpecies;
 		this.mushroomer = mushroomer;
 	}
 
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+	public Long getId() {
+		return id;
 	}
 
 	public double getCoordinateX() {
@@ -111,12 +112,12 @@ public class Discovery extends Commentable {
 		this.trip = trip;
 	}
 
-	public MushroomSpecies getMushroomsSpecies() {
+	public MushroomSpecies getmushroomspecies() {
 		return this.mushroomsSpecies;
 	}
 
-	public void setMushroomsSpecies(MushroomSpecies mushroomsSpecies) {
-		this.mushroomsSpecies = mushroomsSpecies;
+	public void setMushroomSpecies(MushroomSpecies mushroomSpecies) {
+		this.mushroomsSpecies = mushroomSpecies;
 	}
 
 	public Mushroomer getMushroomer() {
@@ -190,8 +191,8 @@ public class Discovery extends Commentable {
 		} else if (object instanceof Discovery) {
 			Discovery discoveryObject = (Discovery) object;
 			boolean equals = true;
-			equals &= ((this.id == discoveryObject.id)
-					|| (this.id == discoveryObject.id));
+//			equals &= ((this.id == discoveryObject.id)
+//					|| (this.id == discoveryObject.id));
 			equals &= (this.coordinateX == discoveryObject.coordinateX);
 			equals &= (this.coordinateY == discoveryObject.coordinateY);
 			equals &= this.photo == discoveryObject.photo;

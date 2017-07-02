@@ -13,15 +13,9 @@ import {NotificationService} from "app/services/notification.service";
 
 export class NotificationsComponent implements OnInit {
     notifications: any[];
-
-<<<<<<< HEAD
     constructor(
         private notificationService: NotificationService,
         @Inject(DOCUMENT) private document) { }
-=======
-    constructor(@Inject(DOCUMENT) private document) { }
->>>>>>> master
-
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
