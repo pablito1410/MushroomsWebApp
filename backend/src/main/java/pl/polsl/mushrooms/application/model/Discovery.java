@@ -21,6 +21,9 @@ public class Discovery extends Commentable {
 	@Column(name = "DATE_TIME", nullable = false)
 	private LocalDateTime dateTime;
 
+	@Column(name = "\"IS_PUBLIC\"")
+	private boolean isPublic;
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "TRIP_ID")
 	private Trip trip;
@@ -147,6 +150,10 @@ public class Discovery extends Commentable {
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
+
+	public boolean isPublic() { return isPublic; }
+
+	public void setPublic(boolean aPublic) { isPublic = aPublic; }
 
 	public int hashCode() {
 		int hashCode = 0;

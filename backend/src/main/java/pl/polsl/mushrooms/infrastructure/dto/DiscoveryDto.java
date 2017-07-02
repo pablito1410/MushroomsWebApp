@@ -1,10 +1,11 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 21.06.2017.
@@ -17,11 +18,12 @@ public class DiscoveryDto {
     private double coordinateX;
     private double coordinateY;
     private byte[] photo;
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dateTime;
+    private boolean isPublic;
+
     private long tripId;
     private MushroomSpeciesDto mushroomSpecies;
     private long mushroomerId;
-    private Set<ScoreDto> scores;
-    private Set<TagDto> tags;
-    private Set<CommentDto> comments;
 }

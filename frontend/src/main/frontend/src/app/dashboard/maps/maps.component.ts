@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {MapsAPILoader} from "angular2-google-maps/core";
+import {Discovery} from "../../model/discovery";
+import {Trip} from "../../model/trip";
+import {DOCUMENT} from "@angular/platform-browser";
+import {DiscoveryService} from "app/services/discovery.service";
+import {TripService} from "../../services/trip.service";
 
 @Component({
     moduleId: module.id,
@@ -7,43 +12,85 @@ import {MapsAPILoader} from "angular2-google-maps/core";
     templateUrl: 'maps.component.html'
 })
 export class MapsComponent implements OnInit {
-
-    zoom: number = 8;
-    lat: number = 50.287977;
-    lng: number = 18.677049;
-    markers: Marker[];
+    discoveries: Discovery[];
+    trips: Trip[];
+    coordinateX: number;
+    coordinateY: number;
+    zoom: number;
 
     constructor(
-        private mapsAPILoader: MapsAPILoader) {}
+        private discoveryService: DiscoveryService,
+        private tripService: TripService,
+        @Inject(DOCUMENT) private document) {
+        this.discoveries = Array<Discovery>();
+        this.trips = Array<Trip>();
+    }
 
     ngOnInit() {
-        this.markers = [
-            {
-                lat: 51.673858,
-                lng: 7.815982,
-                label: 'A',
-                draggable: true
-            },
-            {
-                lat: 51.373858,
-                lng: 7.215982,
-                label: 'B',
-                draggable: false
-            },
-            {
-                lat: 51.723858,
-                lng: 7.895982,
-                label: 'C',
-                draggable: true
-            }
-        ];
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+            this.discoveries = [
+                {
+                    id: 1,
+                    coordinateX: 43.341166,
+                    coordinateY: 38.462563,
+                    photo: null,
+                    dateTime: '22.12.2017 18:22:33',
+                    isPublic: true
+                },
+                {
+                    id: 2,
+                    coordinateX: 45.345566,
+                    coordinateY: 35.463566,
+                    photo: null,
+                    dateTime: '21.12.2017 06:44:23',
+                    isPublic: true
+                },
+                {
+                    id: 3,
+                    coordinateX: 41.174666,
+                    coordinateY: 22.463226,
+                    photo: null,
+                    dateTime: '20.12.2017 11:12:23',
+                    isPublic: true
+                }
+            ];
+            this.trips = [
+                {
+                    id: 1,
+                    dateTime: '22.12.2017 18:22:33',
+                    place: 'Katowice',
+                    coordinateX: 43.342845,
+                    coordinateY: 20.343843,
+                    radius: 1000.240053
+                },
+                {
+                    id: 2,
+                    dateTime: '12.06.2017 15:12:35',
+                    place: 'Rybnik',
+                    coordinateX: 13.342845,
+                    coordinateY: 60.343843,
+                    radius: 1342.170053
+                }
+            ];
+        } else {
+            this.discoveryService.getAll().subscribe(
+                result => this.discoveries = result
+            );
+            this.tripService.getAll().subscribe(
+                result => this.trips = result
+            );
+        }
+        this.setCurrentPosition();
     }
 
-    clickedMarker(label: string, index: number) {
-        console.log(`clicked the marker: ${label || index}`);
-    }
-
-    markerDragEnd(m: Marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.coordinateX = position.coords.latitude;
+                this.coordinateY = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 }

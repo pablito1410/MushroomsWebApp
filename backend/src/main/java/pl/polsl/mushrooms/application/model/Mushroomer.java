@@ -50,6 +50,9 @@ public class Mushroomer extends User {
 	@OneToMany(mappedBy = "mushroomer")
 	private Set<Discovery> discoveries;
 
+	@OneToMany(mappedBy = "mushroomer")
+	protected Set<Notification> notifications;
+
 	@ManyToMany(targetEntity = Mushroomer.class,
 			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "USERS_USERS",
@@ -68,6 +71,7 @@ public class Mushroomer extends User {
         scores = new HashSet<>();
         discoveries = new HashSet<>();
         users = new HashSet<>();
+		notifications = new HashSet<>();
     }
 
 	public Mushroomer(
@@ -83,6 +87,7 @@ public class Mushroomer extends User {
         scores = new HashSet<>();
         discoveries = new HashSet<>();
         users = new HashSet<>();
+		notifications = new HashSet<>();
 	}
 
 	public String getCountry() {
@@ -182,6 +187,22 @@ public class Mushroomer extends User {
     }
 
 	public void addFriend(Mushroomer friend) { this.users.add(friend); }
+
+	public Set<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(Set<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	public Set<Mushroomer> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<Mushroomer> users) {
+		this.users = users;
+	}
 
 	public int hashCode() {
 		int hashCode = 0;

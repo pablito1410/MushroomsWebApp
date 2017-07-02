@@ -22,6 +22,8 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
     private byte[] photo;
     @NotNull
     private LocalDateTime dateTime;
+//    @NotNull
+    private boolean isPublic;
 
     private String[] tags;
 
@@ -49,6 +51,10 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
     }
 
     public String[] getTags() {

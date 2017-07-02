@@ -23,6 +23,8 @@ public class UpdateDiscoveryCommand implements VoidCommand {
     @NotNull
     private LocalDateTime dateTime;
 
+    private boolean isPublic;
+
     private String[] tags;
 
     protected UpdateDiscoveryCommand() { }
