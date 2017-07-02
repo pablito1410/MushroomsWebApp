@@ -62,8 +62,8 @@ public class NotificationController {
     public ResponseEntity<Set<NotificationDto>> getAll(
             @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<NotificationDto> trips = notificationProjectionService.findAll(userName, projection);
-        return new ResponseEntity<>(trips, HttpStatus.OK);
+        final Set<NotificationDto> notifications = notificationProjectionService.findAll(userName, projection);
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
