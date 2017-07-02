@@ -76,4 +76,10 @@ public class DiscoveryController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public ResponseEntity<Set<DiscoveryDto>> search(@RequestParam(value = "value") String value) {
+        final Set<DiscoveryDto> discoveries = discoveryProjectionService.search(value);
+        return new ResponseEntity<>(discoveries, HttpStatus.OK);
+    }
+
 }

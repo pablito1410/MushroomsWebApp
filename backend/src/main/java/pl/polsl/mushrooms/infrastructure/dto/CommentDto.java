@@ -1,7 +1,9 @@
 package pl.polsl.mushrooms.infrastructure.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -11,11 +13,16 @@ import java.util.Set;
  */
 @Getter
 @Setter
-public class CommentDto extends CommentableDto{
+public class CommentDto {
 
     private String content;
+
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dateTime;
-    private long targetId;
+
+    private Long discoveryId;
+    private Long targetId;
+    private Long commentId;
     private UserDto user;
     private Set<CommentDto> answers;
 }

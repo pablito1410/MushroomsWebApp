@@ -1,12 +1,12 @@
 <h1 md-dialog-title>Trip Details</h1>
 <div md-dialog-content>
     <div class="row top-buffer">
-        <sebm-google-map [latitude]="marker.lat" [longitude]="marker.lng" class="sebm-google-map-container-small">
-            <sebm-google-map-circle [latitude]="marker.lat" [longitude]="marker.lng"
-                                    [radius]="radius"
+        <sebm-google-map [latitude]="trip.coordinateX" [longitude]="trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
+            <sebm-google-map-circle [latitude]="trip.coordinateX" [longitude]="trip.coordinateY"
+                                    [radius]="trip.radius"
                                     [fillColor]="'green'"
-                                    [circleDraggable]="true"
-                                    [editable]="true">
+                                    [circleDraggable]="false"
+                                    [editable]="false">
             </sebm-google-map-circle>
         </sebm-google-map>
     </div>
@@ -19,19 +19,19 @@
         </form>
     </div>
     <div class="row top-buffer">
-        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
+        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
             <div class="card card-profile">
                 <div class="checkbox add-friend-checkbox">
                     <label>
                         <input type="checkbox" name="selectToAdd">
                     </label>
                 </div>
-                <div (click)="openUserDetailsDialog(user)">
+                <div (click)="openUserDetailsDialog(friend)">
                     <div class="card-avatar">
                         <img class="img" src="..\assets\img\faces\default-user.png"/>
                     </div>
                     <div class="content">
-                        <h5 class="category text-gray">{{user.username}}</h5>
+                        <h5 class="category text-gray">{{friend.username}}</h5>
                     </div>
                 </div>
             </div>
@@ -39,6 +39,5 @@
     </div>
 </div>
 <div md-dialog-actions align="end">
-    <button class="btn btn-primary" md-button (click)="dialogRef.close('Ok')">Ok</button>
     <button class="btn btn-primary" md-button (click)="dialogRef.close('Close')">Close</button>
 </div>

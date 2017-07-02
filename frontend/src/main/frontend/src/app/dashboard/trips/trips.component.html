@@ -11,17 +11,17 @@
                     </div>
                     <div class="card-content table-responsive">
                         <table class="table table-hover">
-                            <thead class="text-danger">
+                            <thead>
                             <tr>
-                                <th>Place</th>
-                                <th>Time</th>
+                                <th><b>Place</b></th>
+                                <th><b>Date and Time</b></th>
                                 <!--<th>Status</th>-->
                             </tr>
                             </thead>
                             <tbody>
                             <tr *ngFor="let trip of trips" (click)="openTripDetailsDialog(trip)">
                                 <td>{{trip.place}}</td>
-                                <td>{{trip.dateTime}}</td>
+                                <td>{{convertDateToLocaleString(trip.dateTime)}}</td>
                                 <!--<td>{{trip.status()}}</td>-->
                             </tr>
                             </tbody>

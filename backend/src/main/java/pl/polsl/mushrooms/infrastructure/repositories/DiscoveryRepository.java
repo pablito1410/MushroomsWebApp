@@ -10,4 +10,6 @@ import pl.polsl.mushrooms.application.model.Discovery;
 
 @Repository
 public interface DiscoveryRepository extends JpaRepository<Discovery, Long> {
+
+//    Set<Discovery> findByMushroomSpeciesNameIgnoreCaseContaining(String mushroomSpeciesName);
 }

@@ -11,6 +11,7 @@ public class MushroomsApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

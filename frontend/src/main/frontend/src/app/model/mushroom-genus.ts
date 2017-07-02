@@ -4,5 +4,4 @@ export class MushroomGenus {
     id: number;
     name: string;
     family: MushroomFamily;
-    speciesIds: Array<number>;
 }

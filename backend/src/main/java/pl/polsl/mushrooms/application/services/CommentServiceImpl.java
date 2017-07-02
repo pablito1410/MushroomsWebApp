@@ -7,7 +7,6 @@ import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
 import pl.polsl.mushrooms.application.dao.CommentDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.Comment;
-import pl.polsl.mushrooms.application.model.Commentable;
 import pl.polsl.mushrooms.application.model.User;
 
 import javax.ws.rs.NotAuthorizedException;
@@ -32,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
     public long handle(CreateCommentCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         final User user = userDao.findOneByUsername(currentUsername);
-        final Commentable target = commentDao.findOne(command.getTargetId());
+        final Comment target = commentDao.findOne(command.getTargetId());
         final Comment comment = new Comment(command.getContents(), command.getDateTime(), target, user);
 
         commentDao.save(comment);

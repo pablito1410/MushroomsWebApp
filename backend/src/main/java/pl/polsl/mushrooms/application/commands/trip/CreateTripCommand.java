@@ -18,15 +18,30 @@ public class CreateTripCommand implements ReturningCommand<Long> {
 
     @NotNull
     private String place;
+    private Double coordinateX;
+    private Double coordinateY;
+    private Double radius;
 
 
     protected CreateTripCommand() { }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 
     public String getPlace() {
         return place;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public Double getCoordinateX() {
+        return coordinateX;
+    }
+
+    public Double getCoordinateY() {
+        return coordinateY;
+    }
+
+    public Double getRadius() {
+        return radius;
     }
 }

@@ -1,4 +1,4 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, Inject, NgZone, OnInit, ViewChild} from "@angular/core";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {FormControl} from "@angular/forms";
@@ -6,6 +6,9 @@ import {MapsAPILoader} from "angular2-google-maps/core";
 import {Trip} from "../../../model/trip";
 import {FriendDetailsComponent} from "../../friends/friend-details/friend-details.component";
 import {UserService} from "../../../services/user.service";
+import {User} from "../../../model/user";
+import {DOCUMENT} from "@angular/platform-browser";
+import {FriendService} from "../../../services/friend.service";
 
 @Component({
     moduleId: module.id,
@@ -14,13 +17,9 @@ import {UserService} from "../../../services/user.service";
 })
 export class AddTripComponent implements OnInit {
     trip: Trip;
-    users: any[];
-    defaultCoordinateX: number = 52.345566;
-    defaultCoordinateY: number = 24.463566;
+    friends: User[];
     public searchControl: FormControl;
-    public zoom: number = 4;
-    public radius: number = 1000;
-    marker: Marker;
+    public zoom: number;
     selectedOption: string;
 
     @ViewChild("search")
@@ -31,25 +30,53 @@ export class AddTripComponent implements OnInit {
         public dialogRef: MdDialogRef<AddTripComponent>,
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
-        private userService: UserService
-    ) {
-        this.marker = {
-            lat: this.defaultCoordinateX,
-            lng: this.defaultCoordinateY,
-            label: 'Your Trip',
-            draggable: true
-        };
+        @Inject(DOCUMENT) private document,
+        private friendService: FriendService) {
         this.trip = new Trip();
+        this.friends = new Array<User>();
+        this.searchControl = new FormControl();
     }
 
     ngOnInit() {
-
-        //create search FormControl
-        this.searchControl = new FormControl();
-
-        //set current position
+        if (+document.location.port == 4200) {
+            // for only frontend development purposes
+            this.friends = [
+                {
+                    id: 1,
+                    username: 'roman33',
+                    email: 'romy@mail.com',
+                    firstName: 'Roman',
+                    lastName: 'Nowak',
+                    birthDate: '21.07.1989',
+                    gender: 'MALE',
+                    level: 'BEGINNER',
+                    country: 'Polska',
+                    city: 'Gliwice',
+                    photo: null,
+                    role: 'MUSHROOMER'
+                },
+                {
+                    id: 2,
+                    username: 'thomas22',
+                    email: 'tomy22@mail.com',
+                    firstName: 'Tom',
+                    lastName: 'Goreing',
+                    birthDate: '06.11.1991',
+                    gender: 'MALE',
+                    level: 'BEGINNER',
+                    country: 'Germany',
+                    city: 'Berlin',
+                    photo: null,
+                    role: 'MUSHROOMER'
+                }
+            ];
+        } else {
+            this.friendService.getAll().subscribe(
+                result => this.friends = result
+            );
+        }
+        this.trip.radius = 1000;
         this.setCurrentPosition();
-
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -59,15 +86,13 @@ export class AddTripComponent implements OnInit {
                 this.ngZone.run(() => {
                     //get the place result
                     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
                     //verify result
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
-
                     //set latitude, longitude and zoom
-                    this.marker.lat = place.geometry.location.lat();
-                    this.marker.lng = place.geometry.location.lng();
+                    this.trip.coordinateX = place.geometry.location.lat();
+                    this.trip.coordinateY = place.geometry.location.lng();
                     this.zoom = 12;
                 });
             });
@@ -77,8 +102,8 @@ export class AddTripComponent implements OnInit {
     private setCurrentPosition() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
-                this.marker.lat = position.coords.latitude;
-                this.marker.lng = position.coords.longitude;
+                this.trip.coordinateX = position.coords.latitude;
+                this.trip.coordinateY = position.coords.longitude;
                 this.zoom = 12;
             });
         }
@@ -87,14 +112,10 @@ export class AddTripComponent implements OnInit {
     setPlace(place) {
     }
 
-    circleDragEnd(m: Marker, $event: any) {
-        this.marker = {
-            lat: $event.coords.lat,
-            lng: $event.coords.lng,
-            label: 'Your Trip',
-            draggable: false
-        };
-        var latlng = new google.maps.LatLng(this.marker.lat, this.marker.lng);
+    circleDragEnd($event: any) {
+        this.trip.coordinateX = $event.coords.lat;
+        this.trip.coordinateY = $event.coords.lng;
+        var latlng = new google.maps.LatLng(this.trip.coordinateX, this.trip.coordinateY);
         var geocoder = geocoder = new google.maps.Geocoder();
         geocoder.geocode({'latLng': latlng}, (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -120,9 +141,9 @@ export class AddTripComponent implements OnInit {
     }
 
     search(term: string) {
-        this.userService.search(term)
+        this.friendService.search(term)
             .subscribe(results => {
-                this.users = results;
+                this.friends = results;
             });
     }
 }

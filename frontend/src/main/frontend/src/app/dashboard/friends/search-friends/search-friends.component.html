@@ -16,7 +16,7 @@
             <div class="card card-profile">
                 <div class="checkbox add-friend-checkbox">
                     <label>
-                        <input type="checkbox" name="selectToAdd">
+                        <input type="checkbox" name="selectToAdd" (change)="updateCheckedOptions(user, $event)">
                     </label>
                 </div>
                 <div (click)="openUserDetailsDialog(user)">

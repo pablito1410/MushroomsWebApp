@@ -1,6 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/platform-browser";
+<<<<<<< HEAD
 import {NotificationService} from "app/services/notification.service";
+=======
+>>>>>>> master
 
 @Component({
     moduleId: module.id,
@@ -11,9 +14,13 @@ import {NotificationService} from "app/services/notification.service";
 export class NotificationsComponent implements OnInit {
     notifications: any[];
 
+<<<<<<< HEAD
     constructor(
         private notificationService: NotificationService,
         @Inject(DOCUMENT) private document) { }
+=======
+    constructor(@Inject(DOCUMENT) private document) { }
+>>>>>>> master
 
     ngOnInit() {
         if (+document.location.port == 4200) {
@@ -24,9 +31,13 @@ export class NotificationsComponent implements OnInit {
                 {icon: 'directions_walk', message: 'Michael found the mushroom on a trip in Krakow'}
             ]
         } else {
+<<<<<<< HEAD
             this.notificationService.getAll().subscribe(
                 result => this.notifications = result
             );
+=======
+            // TODO
+>>>>>>> master
         }
     }
 

@@ -3,7 +3,12 @@
     <div class="row">
         <div class="col-md-6">
             <div class="row top-buffer">
-                <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
+                <div *ngIf="discovery.photo != null">
+                    <img class="img" [src]="getDiscoveryPhotoToDisplay()" />
+                </div>
+                <div *ngIf="discovery.photo == null">
+                    <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -12,7 +17,7 @@
                     <h5 class="text-gray">Name:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.name}}</h5>
+                    <h5 class="text-gray">Mushrooms</h5>
                 </div>
             </div>
             <div class="row">
@@ -33,15 +38,15 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <h5 class="text-gray">Date:</h5>
+                    <h5 class="text-gray">Date and Time:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.date}}</h5>
+                    <h5 class="text-gray">{{discovery.dateTime}}</h5>
                 </div>
             </div>
             <div class="row">
                 <sebm-google-map [latitude]="discovery.coordinateX" [longitude]="discovery.coordinateY"
-                                 class="sebm-google-map-container-small">
+                                 class="sebm-google-map-container-small" [zoom]="zoom">
                     <sebm-google-map-marker [latitude]="discovery.coordinateX"
                                             [longitude]="discovery.coordinateY"></sebm-google-map-marker>
                 </sebm-google-map>
@@ -55,7 +60,7 @@
         </rating>
     </div>
     <div class="row">
-        <div class="col-xs-3" *ngFor="let tag of discovery.tags">
+        <div class="col-xs-3" *ngFor="let tag of tags">
             #{{tag.name}}
         </div>
     </div>

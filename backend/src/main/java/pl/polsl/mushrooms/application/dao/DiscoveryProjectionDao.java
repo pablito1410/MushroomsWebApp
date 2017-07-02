@@ -10,4 +10,6 @@ import java.util.Set;
 public interface DiscoveryProjectionDao extends ProjectionDao {
 
     Set<DiscoveryDto> findAll(long userId, Projection projection);
+
+    Set<DiscoveryDto> search(String value);
 }

@@ -7,24 +7,33 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "TRIPS")
+@Table(name = "\"TRIPS\"")
 public class Trip implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TRIP_ID")
-	private long id;
+	@Column(name = "\"TRIP_ID\"")
+	private Long id;
 
-	@Column(name = "DATE_TIME", nullable = false)
+	@Column(name = "\"DATE_TIME\"", nullable = false)
 	private LocalDateTime dateTime;
 
-	@Column(name = "PLACE")
+	@Column(name = "\"PLACE\"")
 	private String place;
 
+	@Column(name = "\"COORDINATE_X\"")
+	private Double coordinateX;
+
+	@Column(name = "\"COORDINATE_Y\"")
+	private Double coordinateY;
+
+	@Column(name = "\"RADIUS\"")
+	private Double radius;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "USERS_TRIPS",
-			joinColumns = {@JoinColumn(name = "TRIP_ID")},
-			inverseJoinColumns = {@JoinColumn(name = "USER_ID")})
+	@JoinTable(name = "\"USERS_TRIPS\"",
+			joinColumns = {@JoinColumn(name = "\"TRIP_ID\"")},
+			inverseJoinColumns = {@JoinColumn(name = "\"USER_ID\"")})
 	private Set<Mushroomer> mushroomers;
 
 	@OneToMany(mappedBy = "trip")
@@ -35,17 +44,19 @@ public class Trip implements Serializable{
 		discoveries = new HashSet<>();
 	}
 
-	public Trip(LocalDateTime dateTime, String place) {
-		this();
+	public Trip(LocalDateTime dateTime, String place, Double coordinateX, Double coordinateY, Double radius) {
 		this.dateTime = dateTime;
 		this.place = place;
+		this.coordinateX = coordinateX;
+		this.coordinateY = coordinateY;
+		this.radius = radius;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,6 +96,30 @@ public class Trip implements Serializable{
 
 	public void setDiscoveries(Set<Discovery> discoveries) {
 		this.discoveries = discoveries;
+	}
+
+	public double getCoordinateX() {
+		return coordinateX;
+	}
+
+	public void setCoordinateX(double coordinateX) {
+		this.coordinateX = coordinateX;
+	}
+
+	public double getCoordinateY() {
+		return coordinateY;
+	}
+
+	public void setCoordinateY(double coordinateY) {
+		this.coordinateY = coordinateY;
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
 	}
 
 	public int hashCode() {

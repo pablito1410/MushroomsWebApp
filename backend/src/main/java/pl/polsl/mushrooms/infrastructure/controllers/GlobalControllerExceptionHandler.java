@@ -22,7 +22,7 @@ public class GlobalControllerExceptionHandler {
         //
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 204
     @ExceptionHandler(EntityNotFoundException.class)
     public void entityNotFound() {
         //

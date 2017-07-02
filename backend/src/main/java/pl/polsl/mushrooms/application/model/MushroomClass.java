@@ -6,15 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "MUSHROOMS_CLASSES")
+@Table(name = "\"MUSHROOMS_CLASSES\"")
 public class MushroomClass implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "MUSH_CLASS_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "\"MUSH_CLASS_ID\"")
 	private long id;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "\"NAME\"", nullable = false)
 	private String name;
 
 	@OneToMany(mappedBy = "mushroomClass")

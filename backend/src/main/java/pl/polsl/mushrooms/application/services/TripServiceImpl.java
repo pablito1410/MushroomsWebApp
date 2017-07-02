@@ -1,16 +1,18 @@
 package pl.polsl.mushrooms.application.services;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Trip;
+import pl.polsl.mushrooms.application.model.UsersTrips;
+import pl.polsl.mushrooms.application.model.UsersTripsId;
 
 import javax.ws.rs.NotFoundException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -32,7 +34,13 @@ public class TripServiceImpl implements TripService {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         final Mushroomer user = (Mushroomer)userRepo.findOneByUsername(currentUsername);
 
-        final Trip trip = new Trip(command.getDateTime(), command.getPlace());
+        final Trip trip = new Trip(
+                command.getDateTime(),
+                command.getPlace(),
+                command.getCoordinateX(),
+                command.getCoordinateY(),
+                command.getRadius());
+
         trip.addMushroomer(user);
         tripRepo.save(trip);
 
@@ -66,6 +74,49 @@ public class TripServiceImpl implements TripService {
         }
 
         tripRepo.delete(command.getTripId());
+    }
+
+    @Override
+    public void handle(JoinTripCommand command) {
+        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Mushroomer mushroomer = (Mushroomer)Optional.ofNullable(
+                userRepo.findOneByUsername(currentUsername))
+                .orElseThrow(NotFoundException::new);
+
+        final Trip trip = Optional.ofNullable(
+                tripRepo.findTrip(command.getTripId()))
+                .orElseThrow(NotFoundException::new);
+
+        final UsersTripsId usersTripsId = new UsersTripsId(mushroomer, trip);
+
+        final UsersTrips usersTrips = Optional.ofNullable(
+                tripRepo.findUserTrip(usersTripsId))
+                .orElseThrow(NotFoundException::new);
+
+        if (usersTrips.getDateTime() == null) {
+            usersTrips.setDateTime(LocalDateTime.now());
+            tripRepo.save(usersTrips);
+        } else {
+            throw new EntityAlreadyExistException("User already join to the trip");
+        }
+    }
+
+    @Override
+    public void handle(InviteToTripCommand command) {
+
+        final Trip trip = Optional.ofNullable(
+                tripRepo.findTrip(command.getTripId()))
+                .orElseThrow(NotFoundException::new);
+
+        for (Long userId : command.getUserIds()) {
+            final Mushroomer mushroomer = (Mushroomer)userRepo.findOne(userId);
+
+            if (mushroomer != null) {
+                trip.addMushroomer(mushroomer);
+            }
+        }
+
+        tripRepo.save(trip);
     }
 
 }

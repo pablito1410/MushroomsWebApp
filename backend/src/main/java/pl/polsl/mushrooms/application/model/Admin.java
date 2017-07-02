@@ -10,7 +10,7 @@ import javax.persistence.Enumerated;
 @Entity
 public class Admin extends User {
 
-	protected Admin() { }
+	public Admin() { }
 
 	@Override
 	@Enumerated(EnumType.STRING)

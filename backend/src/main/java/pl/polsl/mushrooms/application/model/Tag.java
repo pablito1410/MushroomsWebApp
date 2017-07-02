@@ -4,19 +4,19 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "TAGS")
+@Table(name = "\"TAGS\"")
 public class Tag implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TAG_ID")
+	@Column(name = "\"TAG_ID\"")
 	private long id;
 
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "\"NAME\"", nullable = false)
 	private String name;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "DISCOVERY_ID")
+	@JoinColumn(name = "\"DISCOVERY_ID\"")
 	private Discovery discovery;
 
 	protected Tag() { }

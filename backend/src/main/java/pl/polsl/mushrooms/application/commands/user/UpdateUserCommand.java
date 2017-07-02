@@ -1,7 +1,9 @@
 package pl.polsl.mushrooms.application.commands.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
+import pl.polsl.mushrooms.infrastructure.controllers.DateDeserializer;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import javax.validation.constraints.NotNull;
@@ -13,22 +15,18 @@ import java.util.Date;
 public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     @NotNull
-    private String username;
-
-    @NotNull
     private String email;
 
 
     private String firstName;
     private String lastName;
+    @JsonDeserialize(using = DateDeserializer.class)
     private Date birthDate;
     private Gender gender;
+    private String city;
+    private String country;
 
     private UpdateUserCommand() { }
-
-    public String getUsername() {
-        return username;
-    }
 
     public String getEmail() {
         return email;
@@ -48,5 +46,13 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     public Gender getGender() {
         return gender;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }

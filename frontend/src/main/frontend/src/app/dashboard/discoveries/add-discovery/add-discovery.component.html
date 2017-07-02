@@ -2,28 +2,31 @@
 <div md-dialog-content>
     <div class="row">
         <div class="col-md-6">
-            <div *ngIf="file != null">
-                <img class="img" [attr.src]="file.toString()" />
+            <div class="row top-buffer">
+                <div *ngIf="imageSrc != null" class="text-center">
+                    <img class="img" width="80%" height="80%" [attr.src]="imageSrc"/>
+                </div>
+                <div *ngIf="imageSrc == null" class="text-center">
+                    <label class="btn btn-primary btn-round">
+                        <input type="file" name="file" accept="image/*"
+                               (change)="handleInputChange($event)" style="display:none">
+                        Add Photo
+                    </label>
+                </div>
             </div>
-            <div *ngIf="file == null">
-                <label class="btn btn-primary btn-round text-center">
-                    <input type="file" name="file" accept="image/*"
-                           (change)="handleInputChange($event)" style="display:none">
-                    Add Photo
-                </label>
+            <div class="row top-buffer">
+                <sebm-google-map [latitude]="discovery.coordinateX" [longitude]="discovery.coordinateY"
+                                 class="sebm-google-map-container-small" [zoom]="zoom">
+                    <sebm-google-map-marker
+                            [latitude]="discovery.coordinateX"
+                            [longitude]="discovery.coordinateY"
+                            [label]="'Your Discovery'"
+                            [markerDraggable]="true"
+                            (dragEnd)="markerDragEnd(discovery, $event)"
+                            (mapClick)="mapClicked($event)">
+                    </sebm-google-map-marker>
+                </sebm-google-map>
             </div>
-            <sebm-google-map [latitude]="defaultCoordinateX" [longitude]="defaultCoordinateY"
-                             class="sebm-google-map-container-small">
-                <sebm-google-map-marker
-                        (markerClick)="clickedMarker(marker.label)"
-                        [latitude]="marker.lat"
-                        [longitude]="marker.lng"
-                        [label]="marker.label"
-                        [markerDraggable]="marker.draggable"
-                        (dragEnd)="markerDragEnd(marker, $event)"
-                        (mapClick)="mapClicked($event)">
-                </sebm-google-map-marker>
-            </sebm-google-map>
         </div>
         <div class="col-md-6">
             <md-select placeholder="Species" [(ngModel)]="speciesId">

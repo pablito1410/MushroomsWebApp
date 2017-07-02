@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 command.getLastName(),
                 command.getBirthDate(),
                 command.getGender(),
-                MushroomerLevel.INTERMEDIATE
+                MushroomerLevel.BEGINNER
         );
 
         repo.save(user);
@@ -87,18 +87,18 @@ public class UserServiceImpl implements UserService {
         {
             case ADMIN:
                 user.setEmail(command.getEmail());
-                user.setUsername(command.getUsername());
                 repo.save(user);
                 return modelMapper.map(user, AdminDto.class);
 
             case MUSHROOMER:
                 final Mushroomer mushroomer = (Mushroomer)user;
                 mushroomer.setEmail(command.getEmail());
-                mushroomer.setUsername(command.getUsername());
                 mushroomer.setFirstName(command.getFirstName());
                 mushroomer.setLastName(command.getLastName());
                 mushroomer.setBirthDate(command.getBirthDate());
                 mushroomer.setGender(command.getGender());
+                mushroomer.setCity(command.getCity());
+                mushroomer.setCountry(command.getCountry());
                 repo.save(user);
                 return modelMapper.map(mushroomer, MushroomerDto.class);
 

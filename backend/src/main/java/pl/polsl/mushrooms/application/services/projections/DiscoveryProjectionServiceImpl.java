@@ -31,4 +31,9 @@ public class DiscoveryProjectionServiceImpl implements DiscoveryProjectionServic
         final long userId = userProjectionService.getId(userName);
         return discoveryProjectionDao.findAll(userId, projection);
     }
+
+    @Override
+    public Set<DiscoveryDto> search(String value) {
+        return discoveryProjectionDao.search(value);
+    }
 }

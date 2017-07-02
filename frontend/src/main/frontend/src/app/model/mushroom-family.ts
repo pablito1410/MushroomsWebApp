@@ -4,5 +4,4 @@ export class MushroomFamily {
     id: number;
     name: string;
     order: MushroomOrder;
-    genusesIds: Array<number>;
 }
