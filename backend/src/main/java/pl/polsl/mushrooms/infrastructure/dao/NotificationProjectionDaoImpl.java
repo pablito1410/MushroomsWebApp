@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import com.sun.nio.sctp.Notification;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.NotificationProjectionDao;
 import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.model.Admin;
@@ -23,6 +24,7 @@ import java.util.Set;
 /**
  * Created by chythe on 2017-07-02.
  */
+@Repository
 public class NotificationProjectionDaoImpl implements NotificationProjectionDao {
 
     private final NotificationRepository notificationRepository;

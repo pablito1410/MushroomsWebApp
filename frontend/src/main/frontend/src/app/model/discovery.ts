@@ -8,6 +8,6 @@ export class Discovery {
     coordinateY: number;
     photo: any;
     dateTime: string;
-    comments: Array<Comment>;
+    // comments: Array<Comment>;
     isPublic: boolean;
 }

@@ -1,9 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/platform-browser";
-<<<<<<< HEAD
 import {NotificationService} from "app/services/notification.service";
-=======
->>>>>>> master
 
 @Component({
     moduleId: module.id,
@@ -25,13 +22,9 @@ export class NotificationsComponent implements OnInit {
                 {icon: 'directions_walk', message: 'Michael found the mushroom on a trip in Krakow'}
             ]
         } else {
-<<<<<<< HEAD
             this.notificationService.getAll().subscribe(
                 result => this.notifications = result
             );
-=======
-            // TODO
->>>>>>> master
         }
     }
 

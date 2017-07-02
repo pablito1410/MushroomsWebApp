@@ -36,10 +36,7 @@ export class MapsComponent implements OnInit {
                     coordinateY: 38.462563,
                     photo: null,
                     dateTime: '22.12.2017 18:22:33',
-<<<<<<< HEAD
                     isPublic: true
-=======
->>>>>>> master
                 },
                 {
                     id: 2,
@@ -47,10 +44,7 @@ export class MapsComponent implements OnInit {
                     coordinateY: 35.463566,
                     photo: null,
                     dateTime: '21.12.2017 06:44:23',
-<<<<<<< HEAD
                     isPublic: true
-=======
->>>>>>> master
                 },
                 {
                     id: 3,
@@ -58,10 +52,7 @@ export class MapsComponent implements OnInit {
                     coordinateY: 22.463226,
                     photo: null,
                     dateTime: '20.12.2017 11:12:23',
-<<<<<<< HEAD
                     isPublic: true
-=======
->>>>>>> master
                 }
             ];
             this.trips = [
