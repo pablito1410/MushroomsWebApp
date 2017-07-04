@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.CommentProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
@@ -45,9 +44,8 @@ public class CommentController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(
-            @PathVariable(name = "id") long id,
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final Map<String, Object> comment = commentProjectionService.findOne(id, projection);
+            @PathVariable(name = "id") long id) {
+        final Map<String, Object> comment = commentProjectionService.findOne(id);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 

@@ -27,6 +27,7 @@ import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 import pl.polsl.mushrooms.application.dao.ScoreProjectionDao;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -96,8 +97,8 @@ public class MushroomsServerConfig {
     }
 
     @Bean
-    UserProjectionService userProjectionService(UserProjectionDao userProjectionDao) {
-        return new UserProjectionServiceImpl(userProjectionDao);
+    UserProjectionService userProjectionService(UserProjectionDao userProjectionDao, UserDao userDao) {
+        return new UserProjectionServiceImpl(userProjectionDao, userDao);
     }
 
     @Bean

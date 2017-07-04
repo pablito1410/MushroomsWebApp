@@ -22,14 +22,14 @@ public class DiscoveryProjectionServiceImpl implements DiscoveryProjectionServic
     }
 
     @Override
-    public Map<String, Object> findOne(long id, ProjectionDao.Projection projection) {
+    public Map<String, Object> findOne(long id) {
         return null;
     }
 
     @Override
-    public Set<DiscoveryDto> findAll(String userName, ProjectionDao.Projection projection) {
-        final long userId = userProjectionService.getId(userName);
-        return discoveryProjectionDao.findAll(userId, projection);
+    public Set<DiscoveryDto> findAll(String username) {
+        final long userId = userProjectionService.getId(username);
+        return discoveryProjectionDao.findAll(userId);
     }
 
     @Override

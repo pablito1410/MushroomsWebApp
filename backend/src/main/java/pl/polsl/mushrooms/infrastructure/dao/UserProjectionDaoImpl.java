@@ -4,7 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.model.Admin;
 import pl.polsl.mushrooms.application.model.Mushroomer;
@@ -15,10 +14,7 @@ import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
@@ -27,7 +23,7 @@ import java.util.Set;
 public class UserProjectionDaoImpl implements UserProjectionDao {
 
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper = new ModelMapper();
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     public UserProjectionDaoImpl(final UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -36,24 +32,25 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
 
     @Transactional(readOnly = true)
     @Override
-    public UserDto findOneByUsername(String username, Projection projection) {
+    public UserDto findOneByUsername(String username) {
         final Optional<User> user = Optional.ofNullable(userRepository.findOneByUsername(username));
         if (user.isPresent()) {
-            return mapUserToDto(user.get());
+            return map(user.get());
         } else {
             throw new EntityNotFoundException("User not found");
         }
     }
 
     @Override
-    public UserDto findOne(long id, Projection projection) {
+    public UserDto findOne(long id) {
         final Optional<User> user = Optional.ofNullable(userRepository.findOne(id));
         if (user.isPresent()) {
-            return mapUserToDto(user.get());
+            return map(user.get());
         } else {
             throw new EntityNotFoundException("User not found");
         }
     }
+
 
     @Override
     public long getId(String username) {
@@ -65,7 +62,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
     @Override
-    public Set<MushroomerDto> findAll(long id, ProjectionDao.Projection projection) {
+    public Set<UserDto> findAll(long id) {
         final User user = Optional.ofNullable(
                 userRepository.findOne(id))
                 .orElseThrow(EntityNotFoundException::new);
@@ -73,7 +70,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
         switch(user.getRole()) {
             case MUSHROOMER:
                 final Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
-                return modelMapper.map(friends, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
+                return mapMushroomers(friends);
 
             case ADMIN:
                 throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
@@ -84,13 +81,26 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
     @Override
-    public Set<MushroomerDto> search(String value, Projection projection) {
-        final Set<? extends User> users = userRepository.findByUsernameIgnoreCaseContaining(value);
+    public Set<UserDto> findAll() {
+        final List<User> users = userRepository.findAll();
+        return mapUsers(users);
+    }
+
+    @Override
+    public Set<UserDto> search(String value) {
+        final Set<User> users = userRepository.findByUsernameIgnoreCaseContaining(value);
+        return mapUsers(users);
+    }
+
+    private static Set<UserDto> mapUsers(Collection<User> users) {
+        return modelMapper.map(users, new TypeToken<HashSet<UserDto>>() {}.getType());
+    }
+
+    private static Set<UserDto> mapMushroomers(Collection<Mushroomer> users) {
         return modelMapper.map(users, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
     }
 
-    private UserDto mapUserToDto(final User user) {
-        Objects.requireNonNull(user);
+    private static UserDto map(final User user) {
 
         if (user instanceof Mushroomer) {
             return modelMapper.map((Mushroomer) user, MushroomerDto.class);

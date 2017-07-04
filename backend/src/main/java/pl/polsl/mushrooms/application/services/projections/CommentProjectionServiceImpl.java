@@ -1,7 +1,5 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
-
 import java.util.Map;
 
 /**
@@ -9,7 +7,7 @@ import java.util.Map;
  */
 public class CommentProjectionServiceImpl implements CommentProjectionService {
     @Override
-    public Map<String, Object> findOne(long id, ProjectionDao.Projection projection) {
+    public Map<String, Object> findOne(long id) {
         return null;
     }
 }

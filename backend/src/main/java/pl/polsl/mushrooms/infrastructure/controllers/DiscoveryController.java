@@ -9,7 +9,6 @@ import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryComm
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.DiscoveryProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
@@ -49,9 +48,8 @@ public class DiscoveryController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") long id,
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final Map<String, Object> discovery = discoveryProjectionService.findOne(id, projection);
+            @PathVariable(name = "id") long id) {
+        final Map<String, Object> discovery = discoveryProjectionService.findOne(id);
         return new ResponseEntity<>(discovery, HttpStatus.OK);
     }
 
@@ -63,10 +61,9 @@ public class DiscoveryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Set<DiscoveryDto>> getAll(
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
+    public ResponseEntity<Set<DiscoveryDto>> getAll() {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<DiscoveryDto> discoveries = discoveryProjectionService.findAll(userName, projection);
+        final Set<DiscoveryDto> discoveries = discoveryProjectionService.findAll(userName);
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
 

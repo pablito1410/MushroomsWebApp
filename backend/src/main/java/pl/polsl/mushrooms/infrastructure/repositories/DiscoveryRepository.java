@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.model.Discovery;
 
+import java.util.Set;
+
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
@@ -11,5 +13,5 @@ import pl.polsl.mushrooms.application.model.Discovery;
 @Repository
 public interface DiscoveryRepository extends JpaRepository<Discovery, Long> {
 
-//    Set<Discovery> findByMushroomSpeciesNameIgnoreCaseContaining(String mushroomSpeciesName);
+    Set<Discovery> findByMushroomsSpeciesNameIgnoreCaseContaining(String mushroomsSpeciesName);
 }

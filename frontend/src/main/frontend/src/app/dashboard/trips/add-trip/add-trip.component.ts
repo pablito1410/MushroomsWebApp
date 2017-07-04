@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, NgZone, OnInit, ViewChild} from "@angular/core";
-import {MdDialog, MdDialogRef} from "@angular/material";
+import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {FormControl} from "@angular/forms";
 import {MapsAPILoader} from "angular2-google-maps/core";
@@ -9,6 +9,7 @@ import {UserService} from "../../../services/user.service";
 import {User} from "../../../model/user";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
+import {TripService} from "../../../services/trip.service";
 
 @Component({
     moduleId: module.id,
@@ -31,7 +32,9 @@ export class AddTripComponent implements OnInit {
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
         @Inject(DOCUMENT) private document,
-        private friendService: FriendService) {
+        private friendService: FriendService,
+        private tripService: TripService,
+        public snackBar: MdSnackBar){
         this.trip = new Trip();
         this.friends = new Array<User>();
         this.searchControl = new FormControl();
@@ -145,5 +148,25 @@ export class AddTripComponent implements OnInit {
             .subscribe(results => {
                 this.friends = results;
             });
+    }
+
+    addTrip() {
+        this.trip.dateTime = '2017-12-05T22:00:00Z';
+        console.log('dupa');
+        this.tripService.create(this.trip).subscribe(
+            data => {
+
+                this.snackBar.open('Trip Added', '×', {
+                    duration: 2000,
+                });
+            },
+            error => {
+                console.log(this.trip);
+                this.snackBar.open('Error', '×', {
+                    duration: 2000,
+                });
+            });
+        console.log('wrror chyba');
+        this.dialogRef.close('Ok');
     }
 }

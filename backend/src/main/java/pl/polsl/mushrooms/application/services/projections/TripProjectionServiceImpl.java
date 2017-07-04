@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
@@ -22,18 +21,18 @@ public class TripProjectionServiceImpl implements TripProjectionService {
         this.userProjectionService = userProjectionService;
     }
     @Override
-    public Map<String, Object> findOne(long id, ProjectionDao.Projection projection) {
+    public Map<String, Object> findOne(long id) {
         return null;
     }
 
     @Override
-    public Set<TripDto> findAll(String userName, ProjectionDao.Projection projection) {
+    public Set<TripDto> findAll(String userName) {
         final long userId = userProjectionService.getId(userName); // TODO wczytać usera od razu
-        return tripProjectionDao.findAll(userId, projection);
+        return tripProjectionDao.findAll(userId);
     }
 
     @Override
-    public Set<TripDto> findAll(long userId, ProjectionDao.Projection projection) {
-        return tripProjectionDao.findAll(userId, projection);
+    public Set<TripDto> findAll(long userId) {
+        return tripProjectionDao.findAll(userId);
     }
 }

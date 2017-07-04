@@ -9,6 +9,7 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomSpeciesDto;
 import pl.polsl.mushrooms.infrastructure.repositories.MushSpeciesRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,16 +21,22 @@ import java.util.Set;
 public class MushSpeciesProjectionDaoImpl implements MushSpeciesProjectionDao {
 
     private final MushSpeciesRepository mushSpeciesRepository;
-    private final ModelMapper modelMapper = new ModelMapper();
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     public MushSpeciesProjectionDaoImpl(MushSpeciesRepository mushSpeciesRepository) {
         this.mushSpeciesRepository = mushSpeciesRepository;
     }
 
     @Override
+    public Set<MushroomSpeciesDto> findAll(long userId) {
+        final Set<MushroomSpecies> mushroomSpecies = mushSpeciesRepository.findAllByDiscoveries_Mushroomer_Id(userId);
+        return map(mushroomSpecies);
+    }
+
+    @Override
     public Set<MushroomSpeciesDto> findAll() {
         final List<MushroomSpecies> mushroomSpecies = mushSpeciesRepository.findAll();
-        return modelMapper.map(mushroomSpecies, new TypeToken<Set<MushroomSpeciesDto>>() {}.getType());
+        return map(mushroomSpecies);
     }
 
     @Override
@@ -38,6 +45,22 @@ public class MushSpeciesProjectionDaoImpl implements MushSpeciesProjectionDao {
                 mushSpeciesRepository.findOne(id))
                     .orElseThrow(EntityNotFoundException::new);
 
+        return map(mushroomSpecies);
+    }
+
+    @Override
+    public Set<MushroomSpeciesDto> search(String value) {
+        final List<MushroomSpecies> mushroomSpecies =
+                mushSpeciesRepository.findByNameIgnoreCaseContaining(value);
+
+        return map(mushroomSpecies);
+    }
+
+    private static Set<MushroomSpeciesDto> map(Collection<MushroomSpecies> mushroomSpecies) {
+        return modelMapper.map(mushroomSpecies, new TypeToken<Set<MushroomSpeciesDto>>() {}.getType());
+    }
+
+    private MushroomSpeciesDto map(MushroomSpecies mushroomSpecies) {
         return modelMapper.map(mushroomSpecies, MushroomSpeciesDto.class);
     }
 }

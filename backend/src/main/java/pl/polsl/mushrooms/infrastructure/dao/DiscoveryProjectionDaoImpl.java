@@ -12,8 +12,7 @@ import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
@@ -23,7 +22,7 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
 
     private final DiscoveryRepository discoveryRepository;
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper = new ModelMapper();
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     public DiscoveryProjectionDaoImpl(DiscoveryRepository discoveryRepository, UserRepository userRepository) {
         this.discoveryRepository = discoveryRepository;
@@ -31,23 +30,44 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
     }
 
     @Override
-    public Set<DiscoveryDto> findAll(long userId, Projection projection) {
+    public Set<DiscoveryDto> findAll(long userId) {
         final User user = Optional.ofNullable(
                 userRepository.findOne(userId))
                     .orElseThrow(EntityNotFoundException::new);
 
         if (user instanceof Mushroomer) {
             final Set<Discovery> discoveries = ((Mushroomer) user).getDiscoveries();
-            return modelMapper.map(discoveries, new TypeToken<Set<DiscoveryDto>>() {}.getType());
+            return map(discoveries);
         } else {
             throw new IllegalStateException("User is not instance of Mushroomer");
         }
     }
 
     @Override
+    public Set<DiscoveryDto> findAll() {
+        final List<Discovery> discoveries = discoveryRepository.findAll();
+        return map(discoveries);
+    }
+
+    @Override
+    public DiscoveryDto findOne(long id) {
+        final Discovery discovery = Optional
+                .ofNullable(discoveryRepository.findOne(id))
+                    .orElseThrow(EntityNotFoundException::new);
+        return map(discovery);
+    }
+
+    @Override
     public Set<DiscoveryDto> search(String value) {
-//        final Set<Discovery> discoveries = discoveryRepository.findByMushroomSpeciesNameIgnoreCaseContaining(value);
-//        return modelMapper.map(discoveries, new TypeToken<HashSet<DiscoveryDto>>() {}.getType());
-        return null;
+        final Set<Discovery> discoveries = discoveryRepository.findByMushroomsSpeciesNameIgnoreCaseContaining(value);
+        return map(discoveries);
+    }
+
+    private static Set<DiscoveryDto> map(Collection<Discovery> discoveries) {
+        return modelMapper.map(discoveries, new TypeToken<Set<DiscoveryDto>>() {}.getType());
+    }
+
+    private static DiscoveryDto map(Discovery discovery) {
+        return modelMapper.map(discovery, DiscoveryDto.class);
     }
 }

@@ -4,6 +4,7 @@ import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -23,7 +24,7 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 //    @NotNull
     private LocalDateTime dateTime;
 
-    private String[] tags;
+    private Collection<String> tags;
 
     protected CreateDiscoveryCommand() { }
 
@@ -51,7 +52,7 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
         return dateTime;
     }
 
-    public String[] getTags() {
+    public Collection<String> getTags() {
         return tags;
     }
 }

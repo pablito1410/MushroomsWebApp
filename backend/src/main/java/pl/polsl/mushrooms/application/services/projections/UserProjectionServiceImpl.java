@@ -1,11 +1,14 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
+import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,43 +18,58 @@ public class UserProjectionServiceImpl implements UserProjectionService {
 
 
     private final UserProjectionDao userProjectionDao;
+    private final UserDao userDao;
 
-    public UserProjectionServiceImpl(UserProjectionDao userProjectionDao) {
+    public UserProjectionServiceImpl(
+            UserProjectionDao userProjectionDao, UserDao userDao) {
 
         this.userProjectionDao = userProjectionDao;
+        this.userDao = userDao;
     }
 
     @Override
-    public UserDto findOne(long id, UserProjectionDao.Projection projection) {
-        return userProjectionDao.findOne(id, projection);
+    public UserDto findOne(long id) {
+        return userProjectionDao.findOne(id);
     }
 
     @Override
-    public UserDto findOneByUsername(String username, UserProjectionDao.Projection projection) {
-        return userProjectionDao.findOneByUsername(username, projection);
+    public UserDto findOneByUsername(String username) {
+        return userProjectionDao.findOneByUsername(username);
     }
 
     @Override
-    public long getId(String userName) {
-        return userProjectionDao.getId(userName);
+    public long getId(String username) {
+        return userProjectionDao.getId(username);
     }
 
     @Override
-    public Set<MushroomerDto> findAll(String userName, ProjectionDao.Projection projection) {
-        return findAll(getId(userName), projection);
+    public Set<MushroomerDto> findFriends(String username) {
+        return findFriends(getId(username));
     }
 
     @Override
-    public Set<MushroomerDto> findAll(long id, ProjectionDao.Projection projection) {
-        return userProjectionDao.findAll(id, projection);
+    public Set<MushroomerDto> findFriends(long id) {
+        final Set<MushroomerDto> friends = new HashSet<>();
+        userProjectionDao.findAll(id).forEach(u -> friends.add((MushroomerDto)u));
+        return friends;
     }
 
     @Override
-    public Set<MushroomerDto> search(String value, ProjectionDao.Projection projection) {
+    public Set<UserDto> search(String value) {
         if (value == null || value.isEmpty()) {
             return Collections.emptySet();
         }
-        return userProjectionDao.search(value, projection);
+        return userProjectionDao.search(value);
+    }
+
+    @Override
+    public Set<UserDto> findAll(String username) {
+        final User user = userDao.findOneByUsername(username);
+        if (user.isAdmin()) {
+            return userProjectionDao.findAll();
+        } else {
+            throw new NoRequiredPermissions("Admin role is required");
+        }
     }
 
 }

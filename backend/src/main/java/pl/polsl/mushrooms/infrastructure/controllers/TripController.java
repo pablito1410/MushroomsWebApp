@@ -9,7 +9,6 @@ import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.JoinTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.TripProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
@@ -33,7 +32,7 @@ public class TripController {
         this.tripProjectionService = tripProjectionService;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateTripCommand command) {
         final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
@@ -47,9 +46,8 @@ public class TripController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") long id,
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final Map<String, Object> trip = tripProjectionService.findOne(id, projection);
+            @PathVariable(name = "id") long id) {
+        final Map<String, Object> trip = tripProjectionService.findOne(id);
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
@@ -58,10 +56,9 @@ public class TripController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Set<TripDto>> getAll(
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
+    public ResponseEntity<Set<TripDto>> getAll() {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<TripDto> trips = tripProjectionService.findAll(userName, projection);
+        final Set<TripDto> trips = tripProjectionService.findAll(userName);
         return new ResponseEntity<>(trips, HttpStatus.OK);
     }
 

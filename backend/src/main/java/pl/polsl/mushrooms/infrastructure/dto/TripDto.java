@@ -20,4 +20,8 @@ public class TripDto {
     private LocalDateTime dateTime;
 
     private String place;
+
+    private Double coordinateX;
+    private Double coordinateY;
+    private Double radius;
 }

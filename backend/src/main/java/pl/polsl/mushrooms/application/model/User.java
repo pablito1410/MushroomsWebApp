@@ -128,4 +128,7 @@ public abstract class User implements Serializable {
 		return false;
 	}
 
+    public boolean isAdmin() {
+		return getRole().equals(UserRole.ADMIN);
+    }
 }

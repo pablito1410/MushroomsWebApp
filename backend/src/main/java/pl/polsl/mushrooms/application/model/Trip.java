@@ -11,7 +11,7 @@ import java.util.Set;
 public class Trip implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "\"TRIP_ID\"")
 	private Long id;
 
@@ -50,6 +50,8 @@ public class Trip implements Serializable{
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.radius = radius;
+		mushroomers = new HashSet<>();
+		discoveries = new HashSet<>();
 	}
 
 	public Long getId() {

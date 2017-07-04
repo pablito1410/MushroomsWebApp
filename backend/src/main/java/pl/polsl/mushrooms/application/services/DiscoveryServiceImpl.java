@@ -11,7 +11,9 @@ import pl.polsl.mushrooms.application.model.*;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -63,6 +65,11 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             mushroomer
         );
 
+        Set<Tag> tags = new HashSet<>();
+        command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
+
+        discovery.setTags(tags);
+
         discoveryDao.save(discovery);
 
         return discovery.getId();
@@ -85,7 +92,12 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         discovery.setCoordinateY(command.getCoordinateY());
         discovery.setPhoto(command.getPhoto());
         discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpieceId()));
-//            discovery.setTags(); TODO
+
+        final Set<Tag> tags = new HashSet<>();
+        command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
+        discovery.setTags(tags);
+
+        discoveryDao.save(discovery);
     }
 
     @Override
