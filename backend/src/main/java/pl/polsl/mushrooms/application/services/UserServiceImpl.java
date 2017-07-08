@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.application.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
@@ -24,6 +25,7 @@ import java.util.Optional;
 /**
  * Created by pawel_zaqkxkn on 26.03.2017.
  */
+@Transactional
 public class UserServiceImpl implements UserService {
 
 
@@ -60,6 +62,7 @@ public class UserServiceImpl implements UserService {
         return user.getId();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserByEmail(String email) {
         return Optional.ofNullable(repo.findUserByEmail(email));
@@ -126,6 +129,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional(readOnly = true)
     private boolean userExist(final String email) {
         return repo.findUserByEmail(email) == null ? false : true;
     }

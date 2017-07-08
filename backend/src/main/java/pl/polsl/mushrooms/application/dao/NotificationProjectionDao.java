@@ -2,7 +2,6 @@ package pl.polsl.mushrooms.application.dao;
 
 import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -10,6 +9,6 @@ import java.util.Set;
  */
 public interface NotificationProjectionDao {
 
-    NotificationDto findOne(long notificationId, ProjectionDao.Projection projection);
-    Set<NotificationDto> findAll(String userName, ProjectionDao.Projection projection);
+    NotificationDto findOne(long notificationId);
+    Set<NotificationDto> findAll(String userName);
 }

@@ -15,6 +15,9 @@ public class InviteToTripCommand implements VoidCommand {
     @NotNull
     private Long tripId;
 
+
+    private String currentUsername;
+
     protected InviteToTripCommand() { }
 
     public Long[] getUserIds() {
@@ -23,5 +26,9 @@ public class InviteToTripCommand implements VoidCommand {
 
     public Long getTripId() {
         return tripId;
+    }
+
+    public String getCurrentUsername() {
+        return currentUsername;
     }
 }

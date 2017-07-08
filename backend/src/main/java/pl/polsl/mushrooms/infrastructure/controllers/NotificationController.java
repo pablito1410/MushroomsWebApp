@@ -7,18 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.notification.CreateNotificationCommand;
 import pl.polsl.mushrooms.application.commands.notification.UpdateNotificationCommand;
-import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.JoinTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.services.projections.NotificationProjectionService;
-import pl.polsl.mushrooms.application.services.projections.TripProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
-import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -52,17 +45,15 @@ public class NotificationController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<NotificationDto> getById(
-            @PathVariable(name = "id") long id,
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final NotificationDto notification = notificationProjectionService.findOne(id, projection);
+            @PathVariable(name = "id") long id) {
+        final NotificationDto notification = notificationProjectionService.findOne(id);
         return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Set<NotificationDto>> getAll(
-            @RequestParam(value = "projection", required = false, defaultValue = "FULL") ProjectionDao.Projection projection) {
-        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<NotificationDto> notifications = notificationProjectionService.findAll(userName, projection);
+    public ResponseEntity<Set<NotificationDto>> getAll() {
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<NotificationDto> notifications = notificationProjectionService.findAll(username);
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 

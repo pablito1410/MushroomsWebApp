@@ -4,6 +4,7 @@ package pl.polsl.mushrooms.application.model;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
+import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.enums.UserRole;
 
 import javax.persistence.*;
@@ -264,4 +265,19 @@ public class Mushroomer extends User {
 	public boolean hasFriend(Mushroomer user) {
     	return getFriendsMap().containsKey(user.getId());
 	}
+
+	/**
+	 *
+	 * @param relatedId
+	 * @param type
+	 * @param userOfContent
+	 */
+	public void addNotification(
+			final Long relatedId, NotificationType type, User userOfContent) {
+
+    	final Notification notification = new Notification(relatedId, type, userOfContent);
+    	notifications.add(notification);
+	}
+
+
 }

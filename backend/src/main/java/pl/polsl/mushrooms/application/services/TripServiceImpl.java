@@ -4,12 +4,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
-import pl.polsl.mushrooms.application.model.Mushroomer;
-import pl.polsl.mushrooms.application.model.Trip;
-import pl.polsl.mushrooms.application.model.UsersTrips;
-import pl.polsl.mushrooms.application.model.UsersTripsId;
+import pl.polsl.mushrooms.application.model.*;
 
 import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
@@ -113,6 +111,9 @@ public class TripServiceImpl implements TripService {
 
             if (mushroomer != null) {
                 trip.addMushroomer(mushroomer);
+
+                final User userOfContent = userRepo.findOneByUsername(command.getCurrentUsername());
+                mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, userOfContent);
             }
         }
 

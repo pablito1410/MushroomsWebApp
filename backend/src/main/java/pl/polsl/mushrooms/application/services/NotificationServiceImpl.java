@@ -4,11 +4,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.notification.CreateNotificationCommand;
 import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCommand;
 import pl.polsl.mushrooms.application.commands.notification.UpdateNotificationCommand;
-import pl.polsl.mushrooms.application.dao.DiscoveryDao;
 import pl.polsl.mushrooms.application.dao.NotificationDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
-import pl.polsl.mushrooms.application.model.*;
+import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.Notification;
 
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
@@ -28,18 +28,18 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public long handle(CreateNotificationCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Mushroomer currentUser = (Mushroomer) Optional.ofNullable(
-                userDao.findOneByUsername(currentUsername))
-                .orElseThrow(NotFoundException::new);
-
-        final Notification notification = new Notification(
-                command.getContent(),
-                command.getType(),
-                currentUser
-        );
-        notificationDao.save(notification);
-        return currentUser.getId();
+//        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+//        final Mushroomer currentUser = (Mushroomer) Optional.ofNullable(
+//                userDao.findOneByUsername(currentUsername))
+//                .orElseThrow(NotFoundException::new);
+//
+//        final Notification notification = new Notification(
+//                command.getType(),
+//                currentUser
+//        );
+//        notificationDao.save(notification);
+//        return currentUser.getId();
+        return -1;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class Discovery  {
 	private LocalDateTime dateTime;
 
 	@Column(name = "\"IS_PUBLIC\"")
-	private boolean isPublic;
+	private Boolean isPublic;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "\"TRIP_ID\"")
@@ -152,7 +152,7 @@ public class Discovery  {
 		this.comments = comments;
 	}
 
-	public boolean isPublic() { return isPublic; }
+	public Boolean isPublic() { return isPublic; }
 
 	public void setPublic(boolean aPublic) { isPublic = aPublic; }
 

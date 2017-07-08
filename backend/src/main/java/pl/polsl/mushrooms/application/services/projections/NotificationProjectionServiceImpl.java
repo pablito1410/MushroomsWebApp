@@ -1,15 +1,9 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.dao.NotificationProjectionDao;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
 
-import javax.ws.rs.NotFoundException;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -27,12 +21,12 @@ public class NotificationProjectionServiceImpl implements NotificationProjection
     }
 
     @Override
-    public NotificationDto findOne(long notificationId, ProjectionDao.Projection projection) {
-        return notificationProjectionDao.findOne(notificationId, projection);
+    public NotificationDto findOne(long notificationId) {
+        return notificationProjectionDao.findOne(notificationId);
     }
 
     @Override
-    public Set<NotificationDto> findAll(String userName, ProjectionDao.Projection projection) {
-        return notificationProjectionDao.findAll(userName, projection);
+    public Set<NotificationDto> findAll(String username) {
+        return notificationProjectionDao.findAll(username);
     }
 }

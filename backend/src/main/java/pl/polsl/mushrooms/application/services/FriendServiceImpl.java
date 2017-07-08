@@ -6,6 +6,7 @@ import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsC
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.UsersUsers;
@@ -20,6 +21,7 @@ import java.util.Optional;
 /**
  * Created by pawel_zaqkxkn on 23.05.2017.
  */
+@Transactional
 public class FriendServiceImpl implements FriendService {
 
     private final UserDao repo;
@@ -28,7 +30,6 @@ public class FriendServiceImpl implements FriendService {
         this.repo = repo;
     }
 
-    @Transactional
     @Override
     public Collection<Long> handle(AddFriendCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -41,13 +42,15 @@ public class FriendServiceImpl implements FriendService {
         for (long friendId : command.getFriendIds()) {
             final Mushroomer friend = (Mushroomer)repo.findOne(friendId);
 
-            // TODO sprawdzic czy user juz ma takiego frienda
             if (user.hasFriend(friend)) {
                 throw new EntityAlreadyExistException();
             } else if (friend.hasFriend(user)) {
                 acceptInvitationToFriends(user, friend);
+                friend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
             } else {
                 user.addFriend(friend);
+                friend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user);
+                repo.save(friend);
                 addedFriends.add(friend.getId());
             }
         }
@@ -81,7 +84,6 @@ public class FriendServiceImpl implements FriendService {
         return removedFriends;
     }
 
-    @Transactional
     @Override
     public void handle(AcceptInvitationToFriendsCommand command) {
         final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -95,9 +97,13 @@ public class FriendServiceImpl implements FriendService {
 
         if (friend.hasFriend(user)) {
             acceptInvitationToFriends(user, friend);
+            friend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
         } else {
             throw new EntityNotFoundException();
         }
+
+        repo.save(user);
+        repo.save(friend);
     }
 
     private void acceptInvitationToFriends(Mushroomer user, Mushroomer friend) {
