@@ -21,6 +21,7 @@ public class DiscoveryDto {
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime dateTime;
+    private boolean isPublic;
 
     private long tripId;
     private MushroomSpeciesDto mushroomSpecies;

@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/platform-browser";
+import {NotificationService} from "app/services/notification.service";
 
 @Component({
     moduleId: module.id,
@@ -9,9 +10,9 @@ import {DOCUMENT} from "@angular/platform-browser";
 
 export class NotificationsComponent implements OnInit {
     notifications: any[];
-
-    constructor(@Inject(DOCUMENT) private document) { }
-
+    constructor(
+        private notificationService: NotificationService,
+        @Inject(DOCUMENT) private document) { }
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
@@ -21,11 +22,14 @@ export class NotificationsComponent implements OnInit {
                 {icon: 'directions_walk', message: 'Michael found the mushroom on a trip in Krakow'}
             ]
         } else {
-            // TODO
+            this.notificationService.getAll().subscribe(
+                result => this.notifications = result
+            );
         }
     }
 
     deleteNotification(index: number) {
+        this.notificationService.delete(index);
         this.notifications.splice(index, 1);
     }
 }

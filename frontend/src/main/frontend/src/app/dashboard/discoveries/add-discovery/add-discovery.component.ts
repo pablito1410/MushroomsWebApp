@@ -70,7 +70,9 @@ export class AddDiscoveryComponent implements OnInit {
         this.discovery.coordinateY = $event.coords.lng;
     }
 
-    markerDragEnd(discovery: Discovery, $event: MouseEvent) {
+    markerDragEnd(discovery: Discovery, $event) {
+        this.discovery.coordinateX = $event.coords.lat;
+        this.discovery.coordinateY = $event.coords.lng;
         console.log('dragEnd', discovery, $event);
     }
 

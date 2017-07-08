@@ -7,7 +7,6 @@ import pl.polsl.mushrooms.application.model.Comment;
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
-
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 }

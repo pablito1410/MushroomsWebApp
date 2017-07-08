@@ -13,6 +13,9 @@ import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
+import pl.polsl.mushrooms.application.commands.notification.CreateNotificationCommand;
+import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCommand;
+import pl.polsl.mushrooms.application.commands.notification.UpdateNotificationCommand;
 import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
 import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
 import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
@@ -44,6 +47,7 @@ public class MushroomsServerConfig {
             DiscoveryService discoveryService,
             CommentService commentService,
             ScoreService scoreService,
+            NotificationService notificationService,
             CommandHandlerRegistry registry) {
         return () -> {
             registry.register(userService::handle, CreateUserCommand.class);
@@ -70,18 +74,22 @@ public class MushroomsServerConfig {
             registry.register(commentService::handle, DeleteCommentCommand.class);
 
             registry.register(scoreService:: handle, AddScoreCommand.class);
+
+            registry.register(notificationService::handle, CreateNotificationCommand.class);
+            registry.register(notificationService::handle, UpdateNotificationCommand.class);
+            registry.register(notificationService::handle, DeleteNotificationCommand.class);
         };
 
     }
 
     @Bean
-    public UserService userService(UserDao repo) {
-        return new UserServiceImpl(repo);
+    public UserService userService(UserDao userDao) {
+        return new UserServiceImpl(userDao);
     }
 
     @Bean
-    public FriendService friendService(UserDao repo) {
-        return new FriendServiceImpl(repo);
+    public FriendService friendService(UserDao userDao) {
+        return new FriendServiceImpl(userDao);
     }
 
     @Bean
@@ -134,5 +142,16 @@ public class MushroomsServerConfig {
     @Bean
     public UserDetailsService userDetailsService(final UserService userService) {
         return new CurrentUserDetailsService(userService);
+    }
+
+    @Bean
+    public NotificationService notificationService(NotificationDao notificationDao, UserDao userDao) {
+        return new NotificationServiceImpl(notificationDao, userDao);
+    }
+
+    @Bean
+    NotificationProjectionService notificationProjectionService(NotificationProjectionDao notificationProjectionDao,
+                                                                UserProjectionDao userProjectionDao) {
+        return new NotificationProjectionServiceImpl(notificationProjectionDao, userProjectionDao);
     }
 }

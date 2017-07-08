@@ -21,6 +21,8 @@ import { AuthenticationModule } from "./authentication/authentication.module";
 import {FriendService} from "./services/friend.service";
 import {MushroomSpeciesService} from "./services/mushroom-species.service";
 import {ScoreService} from "./services/score.service";
+import {NotificationsComponent} from "./dashboard/notifications/notifications.component";
+import {NotificationService} from "./services/notification.service";
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import {ScoreService} from "./services/score.service";
         FriendService,
         ScoreService,
         MushroomSpeciesService,
+        NotificationService,
         { provide: LocationStrategy, useClass: HashLocationStrategy }
     ],
     bootstrap: [ AppComponent ]

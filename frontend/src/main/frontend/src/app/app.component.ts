@@ -27,11 +27,10 @@ export class AppComponent implements OnInit {
 
     public isMaps(path) : boolean {
         var title = this.location.prepareExternalUrl(this.location.path());
-        title = title.slice( 1 );
-        if(path == title){
+        title = title.slice(1);
+        if(path == title) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }

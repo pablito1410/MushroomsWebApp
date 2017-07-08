@@ -26,6 +26,8 @@ public class UpdateDiscoveryCommand implements VoidCommand {
 
     private Collection<String> tags;
 
+    private boolean isPublic;
+
     protected UpdateDiscoveryCommand() { }
 
     public long getId() {
