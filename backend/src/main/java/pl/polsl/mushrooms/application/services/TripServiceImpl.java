@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
@@ -29,7 +28,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public long handle(CreateTripCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer user = (Mushroomer)userRepo.findOneByUsername(currentUsername);
 
         final Trip trip = new Trip(
@@ -58,7 +57,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void handle(DeleteTripCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer currentUser = (Mushroomer)Optional.ofNullable(
                 userRepo.findOneByUsername(currentUsername))
                     .orElseThrow(NotFoundException::new);
@@ -76,7 +75,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void handle(JoinTripCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)Optional.ofNullable(
                 userRepo.findOneByUsername(currentUsername))
                 .orElseThrow(NotFoundException::new);

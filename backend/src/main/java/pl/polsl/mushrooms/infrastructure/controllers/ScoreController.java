@@ -2,6 +2,7 @@ package pl.polsl.mushrooms.infrastructure.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,7 @@ public class ScoreController {
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Void> addScore(@RequestBody AddScoreCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

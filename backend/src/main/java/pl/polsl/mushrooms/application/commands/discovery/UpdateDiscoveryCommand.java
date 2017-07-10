@@ -11,6 +11,8 @@ import java.util.Collection;
  */
 public class UpdateDiscoveryCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long id;
     @NotNull
@@ -56,5 +58,13 @@ public class UpdateDiscoveryCommand implements VoidCommand {
 
     public Collection<String> getTags() {
         return tags;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

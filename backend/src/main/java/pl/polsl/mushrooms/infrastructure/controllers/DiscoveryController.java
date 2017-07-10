@@ -36,12 +36,14 @@ public class DiscoveryController {
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateDiscoveryCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateDiscoveryCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -56,6 +58,7 @@ public class DiscoveryController {
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") long id) {
         final DeleteDiscoveryCommand command = new DeleteDiscoveryCommand(id);
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -69,6 +72,7 @@ public class DiscoveryController {
 
     @RequestMapping(path = "/add-score", method = RequestMethod.POST)
     public ResponseEntity<Void> addScore(@RequestBody AddScoreToDiscoveryCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

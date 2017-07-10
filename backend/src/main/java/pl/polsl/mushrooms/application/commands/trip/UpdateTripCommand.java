@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
  */
 public class UpdateTripCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long tripId;
     private LocalDateTime dateTime;
@@ -27,5 +29,13 @@ public class UpdateTripCommand implements VoidCommand {
 
     public String getPlace() {
         return place;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

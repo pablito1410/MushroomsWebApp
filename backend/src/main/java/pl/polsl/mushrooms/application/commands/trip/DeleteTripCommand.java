@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class DeleteTripCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long id;
 
@@ -20,5 +22,13 @@ public class DeleteTripCommand implements VoidCommand {
 
     public long getTripId() {
         return id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
  */
 public class CreateTripCommand implements ReturningCommand<Long> {
 
+    private String userName;
+
     @NotNull
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateTime;
@@ -43,5 +45,13 @@ public class CreateTripCommand implements ReturningCommand<Long> {
 
     public Double getRadius() {
         return radius;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

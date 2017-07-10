@@ -10,8 +10,11 @@ import java.time.LocalDateTime;
  */
 public class AddScoreCommand implements VoidCommand{
 
+    private String userName;
+
     @NotNull
     private long discoveryId;
+
     private int value;
 
     private LocalDateTime dateTime;
@@ -28,5 +31,13 @@ public class AddScoreCommand implements VoidCommand{
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

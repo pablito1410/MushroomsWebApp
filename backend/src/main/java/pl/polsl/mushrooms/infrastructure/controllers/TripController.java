@@ -34,12 +34,14 @@ public class TripController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateTripCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateTripCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -65,12 +67,14 @@ public class TripController {
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") long id) {
         final DeleteTripCommand command = new DeleteTripCommand(id);
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(path = "/join", method = RequestMethod.POST)
     public ResponseEntity<Void> joinTrip(@RequestBody JoinTripCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

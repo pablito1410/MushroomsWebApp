@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class DeleteUsersCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long[] ids;
 
@@ -23,5 +25,13 @@ public class DeleteUsersCommand implements VoidCommand {
 
     public String getAdminPassword() {
         return adminPassword;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

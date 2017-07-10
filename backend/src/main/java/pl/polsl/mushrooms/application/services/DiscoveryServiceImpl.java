@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
@@ -43,7 +42,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     }
     @Override
     public long handle(CreateDiscoveryCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
 
         final Trip trip = tripDao.findTrip(command.getTripId());
@@ -78,7 +77,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
     @Override
     public void handle(UpdateDiscoveryCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
         final Discovery discovery =  Optional.of(
                 discoveryDao.findDiscovery(command.getId()))
@@ -103,7 +102,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
     @Override
     public void handle(DeleteDiscoveryCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
         final Discovery discovery =  Optional.of(
                 discoveryDao.findDiscovery(command.getId()))
@@ -118,7 +117,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
 
     @Override
     public void handle(AddScoreToDiscoveryCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
 
         final Discovery discovery =  Optional.of(

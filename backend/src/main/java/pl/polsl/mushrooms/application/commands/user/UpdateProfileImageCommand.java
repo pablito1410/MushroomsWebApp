@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class UpdateProfileImageCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private final byte[] photo;
 
@@ -20,4 +22,11 @@ public class UpdateProfileImageCommand implements VoidCommand {
         return photo;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

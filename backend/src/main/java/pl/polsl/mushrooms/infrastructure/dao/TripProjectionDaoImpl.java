@@ -1,33 +1,37 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Trip;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.TripRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
  */
-@Repository
 public class TripProjectionDaoImpl implements TripProjectionDao {
 
 
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final EntityMapper entityMapper;
 
-    public TripProjectionDaoImpl(TripRepository tripRepository, final UserRepository userRepository) {
+    public TripProjectionDaoImpl(
+            final TripRepository tripRepository,
+            final UserRepository userRepository,
+            final EntityMapper entityMapper) {
         this.tripRepository = tripRepository;
         this.userRepository = userRepository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
                     .orElseThrow(EntityNotFoundException::new);
         if (user instanceof Mushroomer) {
             final Set<Trip> trips = ((Mushroomer) user).getTrips();
-            return map(trips);
+            return entityMapper.map(trips);
         } else {
             throw new IllegalStateException("User is not instance of Mushroomer");
         }
@@ -46,13 +50,13 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
     @Override
     public Set<TripDto> findAll() {
         final List<Trip> trips = tripRepository.findAll();
-        return map(trips);
-    }
+        return entityMapper.map(trips);
+}
 
     @Override
     public TripDto findOne(long id) {
         final Trip trip = tripRepository.findOne(id);
-        return map(trip);
+        return entityMapper.map(trip);
     }
 
     @Override
@@ -60,11 +64,4 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
         return new HashSet<>();
     }
 
-    private static Set<TripDto> map(Collection<Trip> trips) {
-        return modelMapper.map(trips, new TypeToken<Set<TripDto>>() {}.getType());
-    }
-
-    private TripDto map(Trip trip) {
-        return modelMapper.map(trip, TripDto.class);
-    }
 }

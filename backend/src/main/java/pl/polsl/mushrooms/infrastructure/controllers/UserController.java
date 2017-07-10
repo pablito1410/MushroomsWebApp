@@ -90,6 +90,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<UserDto> update(@RequestBody UpdateUserCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final UserDto user = commandGateway.dispatch(command);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -101,6 +102,7 @@ public class UserController {
      */
     @RequestMapping(path = "/", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(DeleteUsersCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -109,7 +111,9 @@ public class UserController {
     @RequestMapping(path = "image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> image(@RequestParam("files") MultipartFile image) {
         try {
+
             final UpdateProfileImageCommand command = new UpdateProfileImageCommand(image.getBytes());
+            command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
             commandGateway.dispatch(command);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INSUFFICIENT_STORAGE);

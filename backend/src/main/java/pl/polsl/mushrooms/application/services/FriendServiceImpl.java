@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
@@ -32,7 +31,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public Collection<Long> handle(AddFriendCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer user = Optional.ofNullable(
                 (Mushroomer)repo.findOneByUsername(currentUsername))
                     .orElseThrow(EntityNotFoundException::new);
@@ -62,7 +61,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public Collection<Long> handle(DeleteFriendsCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer user = Optional.ofNullable(
                 (Mushroomer)repo.findOneByUsername(currentUsername))
                     .orElseThrow(EntityNotFoundException::new);
@@ -86,7 +85,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public void handle(AcceptInvitationToFriendsCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final Mushroomer user = Optional.ofNullable(
                 (Mushroomer)repo.findOneByUsername(currentUsername))
                     .orElseThrow(EntityNotFoundException::new);

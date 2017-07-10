@@ -1,7 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
@@ -70,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(UpdateProfileImageCommand command) {
-        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String username = command.getUserName();
         final Mushroomer user = (Mushroomer)Optional.ofNullable(
                 repo.findOneByUsername(username))
                     .orElseThrow(NotFoundException::new);
@@ -81,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto handle(UpdateUserCommand command) {
-        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String username = command.getUserName();
         final User user = Optional.ofNullable(
                 repo.findOneByUsername(username))
                     .orElseThrow(NotFoundException::new);
@@ -112,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void handle(DeleteUsersCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final User currentUser = Optional.ofNullable(
                 repo.findOneByUsername(currentUsername))
                     .orElseThrow(EntityNotFoundException::new);

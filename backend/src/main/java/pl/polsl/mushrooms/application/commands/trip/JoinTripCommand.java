@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class JoinTripCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long tripId;
 
@@ -20,5 +22,13 @@ public class JoinTripCommand implements VoidCommand {
 
     public long getTripId() {
         return tripId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

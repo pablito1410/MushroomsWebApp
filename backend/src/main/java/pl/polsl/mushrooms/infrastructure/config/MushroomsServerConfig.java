@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.infrastructure.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,11 @@ import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 import pl.polsl.mushrooms.application.dao.ScoreProjectionDao;
+import pl.polsl.mushrooms.infrastructure.dao.ScoreDaoImpl;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapperDefault;
+import pl.polsl.mushrooms.infrastructure.repositories.ScoreRepository;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -150,8 +155,19 @@ public class MushroomsServerConfig {
     }
 
     @Bean
-    NotificationProjectionService notificationProjectionService(NotificationProjectionDao notificationProjectionDao,
+    public NotificationProjectionService notificationProjectionService(NotificationProjectionDao notificationProjectionDao,
                                                                 UserProjectionDao userProjectionDao) {
         return new NotificationProjectionServiceImpl(notificationProjectionDao, userProjectionDao);
     }
+
+    @Bean
+    public EntityMapper entityMapper(final ModelMapper modelMapper) {
+        return new EntityMapperDefault(modelMapper);
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
 }

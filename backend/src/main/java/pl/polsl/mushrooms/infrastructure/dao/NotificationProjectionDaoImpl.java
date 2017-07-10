@@ -2,7 +2,6 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.NotificationProjectionDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Notification;
@@ -20,7 +19,6 @@ import java.util.Set;
 /**
  * Created by chythe on 2017-07-02.
  */
-@Repository
 public class NotificationProjectionDaoImpl implements NotificationProjectionDao {
 
     private final NotificationRepository notificationRepository;
@@ -57,6 +55,6 @@ public class NotificationProjectionDaoImpl implements NotificationProjectionDao 
 
     private NotificationDto mapNotificationToDto(final Object notification, Type destinationType) {
         Objects.requireNonNull(notification);
-        return modelMapper.map(notification, NotificationDto.class);
+        return modelMapper.map(notification, destinationType);
     }
 }

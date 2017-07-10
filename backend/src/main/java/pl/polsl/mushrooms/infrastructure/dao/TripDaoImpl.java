@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.model.Trip;
 import pl.polsl.mushrooms.application.model.UsersTrips;
@@ -11,7 +10,6 @@ import pl.polsl.mushrooms.infrastructure.repositories.UsersTripsRepository;
 /**
  * Created by pawel_zaqkxkn on 24.04.2017.
  */
-@Repository
 public class TripDaoImpl implements TripDao {
 
 

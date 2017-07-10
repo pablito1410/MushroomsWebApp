@@ -11,6 +11,8 @@ import java.util.Collection;
  */
 public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
+    private String userName;
+
     @NotNull
     private long tripId;
 //    @NotNull
@@ -60,5 +62,13 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     public Collection<String> getTags() {
         return tags;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

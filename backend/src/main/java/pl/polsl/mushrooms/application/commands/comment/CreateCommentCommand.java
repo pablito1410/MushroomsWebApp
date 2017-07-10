@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
  */
 public class CreateCommentCommand implements ReturningCommand<Long> {
 
+    private String userName;
+
     @NotNull
     private String contents;
     @NotNull
@@ -29,5 +31,13 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

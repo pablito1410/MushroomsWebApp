@@ -10,6 +10,8 @@ import java.util.Collection;
  */
 public class AddFriendCommand implements ReturningCommand<Collection<Long>> {
 
+    private String userName;
+
     @NotNull
     private long[] friendIds;
 
@@ -17,5 +19,13 @@ public class AddFriendCommand implements ReturningCommand<Collection<Long>> {
 
     public long[] getFriendIds() {
         return friendIds;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

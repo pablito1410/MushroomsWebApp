@@ -1,32 +1,30 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
-import pl.polsl.mushrooms.application.model.Admin;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.infrastructure.dto.AdminDto;
-import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 01.05.2017.
  */
-@Repository
 public class UserProjectionDaoImpl implements UserProjectionDao {
 
     private final UserRepository userRepository;
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final EntityMapper entityMapper;
 
-    public UserProjectionDaoImpl(final UserRepository userRepository) {
+    public UserProjectionDaoImpl(
+            final UserRepository userRepository, EntityMapper entityMapper) {
         this.userRepository = userRepository;
+        this.entityMapper = entityMapper;
     }
 
 
@@ -35,7 +33,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     public UserDto findOneByUsername(String username) {
         final Optional<User> user = Optional.ofNullable(userRepository.findOneByUsername(username));
         if (user.isPresent()) {
-            return map(user.get());
+            return entityMapper.map(user.get());
         } else {
             throw new EntityNotFoundException("User not found");
         }
@@ -45,7 +43,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     public UserDto findOne(long id) {
         final Optional<User> user = Optional.ofNullable(userRepository.findOne(id));
         if (user.isPresent()) {
-            return map(user.get());
+            return entityMapper.map(user.get());
         } else {
             throw new EntityNotFoundException("User not found");
         }
@@ -70,7 +68,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
         switch(user.getRole()) {
             case MUSHROOMER:
                 final Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
-                return mapMushroomers(friends);
+                return entityMapper.map(friends);
 
             case ADMIN:
                 throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
@@ -83,31 +81,13 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     @Override
     public Set<UserDto> findAll() {
         final List<User> users = userRepository.findAll();
-        return mapUsers(users);
+        return entityMapper.map((Set<User>) users);
     }
 
     @Override
     public Set<UserDto> search(String value) {
         final Set<User> users = userRepository.findByUsernameIgnoreCaseContaining(value);
-        return mapUsers(users);
+        return entityMapper.map(users);
     }
 
-    private static Set<UserDto> mapUsers(Collection<User> users) {
-        return modelMapper.map(users, new TypeToken<HashSet<UserDto>>() {}.getType());
-    }
-
-    private static Set<UserDto> mapMushroomers(Collection<Mushroomer> users) {
-        return modelMapper.map(users, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
-    }
-
-    private static UserDto map(final User user) {
-
-        if (user instanceof Mushroomer) {
-            return modelMapper.map((Mushroomer) user, MushroomerDto.class);
-        } else if (user instanceof Admin) {
-            return modelMapper.map((Admin) user, AdminDto.class);
-        } else {
-            throw new IllegalStateException("Unknown instanceof User class - " + user.getClass());
-        }
-    }
 }

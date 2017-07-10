@@ -33,12 +33,14 @@ public class NotificationController {
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateNotificationCommand command) {
+//        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateNotificationCommand command) {
+//        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -60,6 +62,7 @@ public class NotificationController {
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") long id) {
         final DeleteTripCommand command = new DeleteTripCommand(id);
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

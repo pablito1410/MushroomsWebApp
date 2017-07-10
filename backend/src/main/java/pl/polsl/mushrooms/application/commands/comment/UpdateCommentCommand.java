@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class UpdateCommentCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long id;
     @NotNull
@@ -22,5 +24,13 @@ public class UpdateCommentCommand implements VoidCommand {
 
     public String getContents() {
         return contents;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

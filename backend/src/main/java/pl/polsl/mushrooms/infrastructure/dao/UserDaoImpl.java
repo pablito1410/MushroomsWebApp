@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.model.UsersUsers;
@@ -11,7 +10,6 @@ import pl.polsl.mushrooms.infrastructure.repositories.UsersUsersRepository;
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
-@Repository
 public class UserDaoImpl implements UserDao {
 
 

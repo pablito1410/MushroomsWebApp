@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.infrastructure.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
@@ -32,12 +33,14 @@ public class CommentController {
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateCommentCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateCommentCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -52,6 +55,7 @@ public class CommentController {
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") long id) {
         final DeleteCommentCommand command = new DeleteCommentCommand(id);
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

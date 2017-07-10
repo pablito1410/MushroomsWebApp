@@ -1,32 +1,35 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
 import pl.polsl.mushrooms.application.model.Discovery;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
  */
-@Repository
 public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
 
     private final DiscoveryRepository discoveryRepository;
     private final UserRepository userRepository;
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final EntityMapper entityMapper;
 
-    public DiscoveryProjectionDaoImpl(DiscoveryRepository discoveryRepository, UserRepository userRepository) {
+    public DiscoveryProjectionDaoImpl(
+            final DiscoveryRepository discoveryRepository,
+            final UserRepository userRepository,
+            final EntityMapper entityMapper) {
         this.discoveryRepository = discoveryRepository;
         this.userRepository = userRepository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
 
         if (user instanceof Mushroomer) {
             final Set<Discovery> discoveries = ((Mushroomer) user).getDiscoveries();
-            return map(discoveries);
+            return entityMapper.map(discoveries);
         } else {
             throw new IllegalStateException("User is not instance of Mushroomer");
         }
@@ -46,7 +49,7 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
     @Override
     public Set<DiscoveryDto> findAll() {
         final List<Discovery> discoveries = discoveryRepository.findAll();
-        return map(discoveries);
+        return entityMapper.map(discoveries);
     }
 
     @Override
@@ -54,20 +57,13 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
         final Discovery discovery = Optional
                 .ofNullable(discoveryRepository.findOne(id))
                     .orElseThrow(EntityNotFoundException::new);
-        return map(discovery);
+        return entityMapper.map(discovery);
     }
 
     @Override
     public Set<DiscoveryDto> search(String value) {
         final Set<Discovery> discoveries = discoveryRepository.findByMushroomsSpeciesNameIgnoreCaseContaining(value);
-        return map(discoveries);
+        return entityMapper.map(discoveries);
     }
 
-    private static Set<DiscoveryDto> map(Collection<Discovery> discoveries) {
-        return modelMapper.map(discoveries, new TypeToken<Set<DiscoveryDto>>() {}.getType());
-    }
-
-    private static DiscoveryDto map(Discovery discovery) {
-        return modelMapper.map(discovery, DiscoveryDto.class);
-    }
 }

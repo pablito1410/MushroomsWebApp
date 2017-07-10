@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class AcceptInvitationToFriendsCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private Long friendId;
 
@@ -16,5 +18,13 @@ public class AcceptInvitationToFriendsCommand implements VoidCommand {
 
     public Long getFriendId() {
         return friendId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

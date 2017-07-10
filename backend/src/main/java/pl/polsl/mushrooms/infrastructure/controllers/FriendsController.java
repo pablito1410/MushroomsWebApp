@@ -37,6 +37,7 @@ public class FriendsController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Collection<Long>> addFriend(@RequestBody AddFriendCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         Collection<Long> addedFriends = commandGateway.dispatch(command);
         return new ResponseEntity<>(addedFriends, HttpStatus.OK);
     }
@@ -50,6 +51,7 @@ public class FriendsController {
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE)
     public ResponseEntity<Collection<Long>> delete(DeleteFriendsCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final Collection<Long> removedFriends = commandGateway.dispatch(command);
         return new ResponseEntity<>(removedFriends, HttpStatus.OK);
     }

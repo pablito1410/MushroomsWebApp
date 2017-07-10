@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
@@ -29,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public long handle(CreateCommentCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final User user = userDao.findOneByUsername(currentUsername);
         final Comment target = commentDao.findOne(command.getTargetId());
         final Comment comment = new Comment(command.getContents(), command.getDateTime(), target, user);
@@ -41,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void handle(UpdateCommentCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final User user = userDao.findOneByUsername(currentUsername);
         final Comment comment = (Comment) Optional.of(
                 commentDao.findOne(command.getId()))
@@ -56,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void handle(DeleteCommentCommand command) {
-        final String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        final String currentUsername = command.getUserName();
         final User user = userDao.findOneByUsername(currentUsername);
         final Comment comment = (Comment) Optional.of(
                 commentDao.findOne(command.getId()))

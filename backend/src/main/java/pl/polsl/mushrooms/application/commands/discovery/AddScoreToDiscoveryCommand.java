@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  */
 public class AddScoreToDiscoveryCommand implements VoidCommand {
 
+    private String userName;
+
     @NotNull
     private long discoveryId;
 
@@ -23,5 +25,13 @@ public class AddScoreToDiscoveryCommand implements VoidCommand {
 
     public int getScore() {
         return score;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

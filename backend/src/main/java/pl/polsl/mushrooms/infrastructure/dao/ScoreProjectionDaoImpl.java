@@ -1,32 +1,36 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.dao.ScoreProjectionDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Score;
 import pl.polsl.mushrooms.infrastructure.dto.ScoreDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.ScoreRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 26.06.2017.
  */
 
-@Repository
 public class ScoreProjectionDaoImpl implements ScoreProjectionDao {
 
     private final ScoreRepository scoreRepository;
     private final UserRepository userRepository;
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final EntityMapper entityMapper;
 
-    public ScoreProjectionDaoImpl(ScoreRepository scoreRepository, UserRepository userRepository) {
+    public ScoreProjectionDaoImpl(
+            final ScoreRepository scoreRepository,
+            final UserRepository userRepository,
+            final EntityMapper entityMapper) {
         this.scoreRepository = scoreRepository;
         this.userRepository = userRepository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
@@ -37,19 +41,19 @@ public class ScoreProjectionDaoImpl implements ScoreProjectionDao {
 
         final Set<Score> scores = mushroomer.getScores();
 
-        return map(scores);
+        return entityMapper.map(scores);
     }
 
     @Override
     public Set<ScoreDto> findAll() {
         final List<Score> scores = scoreRepository.findAll();
-        return map(scores);
+        return entityMapper.map((Set<Score>) scores);
     }
 
     @Override
     public ScoreDto findOne(long id) {
         final Score score = scoreRepository.findOne(id);
-        return map(score);
+        return entityMapper.map(score);
     }
 
     @Override
@@ -57,11 +61,4 @@ public class ScoreProjectionDaoImpl implements ScoreProjectionDao {
         return new HashSet<>();
     }
 
-    private static Set<ScoreDto> map(Collection<Score> scores) {
-        return modelMapper.map(scores, new TypeToken<Set<Score>>() { }.getType());
-    }
-
-    private static ScoreDto map(Score score) {
-        return modelMapper.map(score, ScoreDto.class);
-    }
 }
