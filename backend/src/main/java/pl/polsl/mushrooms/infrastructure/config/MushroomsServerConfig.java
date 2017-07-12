@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.infrastructure.config;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,16 +11,14 @@ import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryComm
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
+import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
-import pl.polsl.mushrooms.application.commands.notification.CreateNotificationCommand;
 import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCommand;
-import pl.polsl.mushrooms.application.commands.notification.UpdateNotificationCommand;
 import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
-import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.JoinTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.commands.score.DeleteScoreCommand;
+import pl.polsl.mushrooms.application.commands.score.UpdateScoreCommand;
+import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
@@ -30,12 +27,6 @@ import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
-import pl.polsl.mushrooms.application.dao.ScoreProjectionDao;
-import pl.polsl.mushrooms.infrastructure.dao.ScoreDaoImpl;
-import pl.polsl.mushrooms.infrastructure.dto.UserDto;
-import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
-import pl.polsl.mushrooms.infrastructure.mapper.EntityMapperDefault;
-import pl.polsl.mushrooms.infrastructure.repositories.ScoreRepository;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
@@ -62,12 +53,14 @@ public class MushroomsServerConfig {
 
             registry.register(friendService::handle, AddFriendCommand.class);
             registry.register(friendService::handle, DeleteFriendsCommand.class);
+            registry.register(friendService::handle, AcceptInvitationToFriendsCommand.class);
 
 
             registry.register(tripService::handle, CreateTripCommand.class);
             registry.register(tripService::handle, UpdateTripCommand.class);
             registry.register(tripService::handle, DeleteTripCommand.class);
             registry.register(tripService::handle, JoinTripCommand.class);
+            registry.register(tripService::handle, InviteToTripCommand.class);
 
             registry.register(discoveryService::handle, CreateDiscoveryCommand.class);
             registry.register(discoveryService::handle, UpdateDiscoveryCommand.class);
@@ -79,9 +72,9 @@ public class MushroomsServerConfig {
             registry.register(commentService::handle, DeleteCommentCommand.class);
 
             registry.register(scoreService:: handle, AddScoreCommand.class);
+            registry.register(scoreService:: handle, UpdateScoreCommand.class);
+            registry.register(scoreService:: handle, DeleteScoreCommand.class);
 
-            registry.register(notificationService::handle, CreateNotificationCommand.class);
-            registry.register(notificationService::handle, UpdateNotificationCommand.class);
             registry.register(notificationService::handle, DeleteNotificationCommand.class);
         };
 
@@ -158,16 +151,6 @@ public class MushroomsServerConfig {
     public NotificationProjectionService notificationProjectionService(NotificationProjectionDao notificationProjectionDao,
                                                                 UserProjectionDao userProjectionDao) {
         return new NotificationProjectionServiceImpl(notificationProjectionDao, userProjectionDao);
-    }
-
-    @Bean
-    public EntityMapper entityMapper(final ModelMapper modelMapper) {
-        return new EntityMapperDefault(modelMapper);
-    }
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
     }
 
 }

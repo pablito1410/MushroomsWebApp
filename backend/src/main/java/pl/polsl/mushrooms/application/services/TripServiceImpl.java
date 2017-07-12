@@ -17,19 +17,19 @@ import java.util.Optional;
  */
 public class TripServiceImpl implements TripService {
 
-    private final UserDao userRepo;
-    private final TripDao tripRepo;
+    private final UserDao userDao;
+    private final TripDao tripDao;
 
     public TripServiceImpl(final UserDao userDao, final TripDao tripDao)
     {
-        this.userRepo = userDao;
-        this.tripRepo = tripDao;
+        this.userDao = userDao;
+        this.tripDao = tripDao;
     }
 
     @Override
     public long handle(CreateTripCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer user = (Mushroomer)userRepo.findOneByUsername(currentUsername);
+        final Mushroomer user = (Mushroomer) userDao.findOneByUsername(currentUsername);
 
         final Trip trip = new Trip(
                 command.getDateTime(),
@@ -39,7 +39,7 @@ public class TripServiceImpl implements TripService {
                 command.getRadius());
 
         trip.addMushroomer(user);
-        tripRepo.save(trip);
+        tripDao.save(trip);
 
         return trip.getId();
     }
@@ -47,52 +47,52 @@ public class TripServiceImpl implements TripService {
     @Override
     public void handle(UpdateTripCommand command) {
         final Trip trip = Optional.of(
-                tripRepo.findTrip(command.getTripId()))
+                tripDao.findTrip(command.getTripId()))
                     .orElseThrow(NotFoundException::new);
 
         trip.setPlace(command.getPlace());
         trip.setDateTime(command.getDateTime());
-        tripRepo.save(trip);
+        tripDao.save(trip);
     }
 
     @Override
     public void handle(DeleteTripCommand command) {
         final String currentUsername = command.getUserName();
         final Mushroomer currentUser = (Mushroomer)Optional.ofNullable(
-                userRepo.findOneByUsername(currentUsername))
+                userDao.findOneByUsername(currentUsername))
                     .orElseThrow(NotFoundException::new);
 
         final Trip trip = Optional.of(
-                tripRepo.findTrip(command.getTripId()))
+                tripDao.findTrip(command.getTripId()))
                     .orElseThrow(NotFoundException::new);
 
-        if (!trip.getMushroomers().contains(currentUser)) {
+        if (trip.getMushroomers().contains(currentUser)) {
+            tripDao.delete(command.getTripId());
+        } else {
             throw new NoRequiredPermissions("User should be a participant of the trip.");
         }
-
-        tripRepo.delete(command.getTripId());
     }
 
     @Override
     public void handle(JoinTripCommand command) {
         final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)Optional.ofNullable(
-                userRepo.findOneByUsername(currentUsername))
+                userDao.findOneByUsername(currentUsername))
                 .orElseThrow(NotFoundException::new);
 
         final Trip trip = Optional.ofNullable(
-                tripRepo.findTrip(command.getTripId()))
+                tripDao.findTrip(command.getTripId()))
                 .orElseThrow(NotFoundException::new);
 
         final UsersTripsId usersTripsId = new UsersTripsId(mushroomer, trip);
 
         final UsersTrips usersTrips = Optional.ofNullable(
-                tripRepo.findUserTrip(usersTripsId))
+                tripDao.findUserTrip(usersTripsId))
                 .orElseThrow(NotFoundException::new);
 
         if (usersTrips.getDateTime() == null) {
             usersTrips.setDateTime(LocalDateTime.now());
-            tripRepo.save(usersTrips);
+            tripDao.save(usersTrips);
         } else {
             throw new EntityAlreadyExistException("User already join to the trip");
         }
@@ -102,21 +102,21 @@ public class TripServiceImpl implements TripService {
     public void handle(InviteToTripCommand command) {
 
         final Trip trip = Optional.ofNullable(
-                tripRepo.findTrip(command.getTripId()))
+                tripDao.findTrip(command.getTripId()))
                 .orElseThrow(NotFoundException::new);
 
         for (Long userId : command.getUserIds()) {
-            final Mushroomer mushroomer = (Mushroomer)userRepo.findOne(userId);
+            final Mushroomer mushroomer = (Mushroomer) userDao.findOne(userId);
 
             if (mushroomer != null) {
                 trip.addMushroomer(mushroomer);
 
-                final User userOfContent = userRepo.findOneByUsername(command.getCurrentUsername());
+                final User userOfContent = userDao.findOneByUsername(command.getUserName());
                 mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, userOfContent);
             }
         }
 
-        tripRepo.save(trip);
+        tripDao.save(trip);
     }
 
 }

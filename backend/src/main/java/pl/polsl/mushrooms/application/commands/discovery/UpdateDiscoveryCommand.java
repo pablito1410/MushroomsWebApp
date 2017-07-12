@@ -28,9 +28,14 @@ public class UpdateDiscoveryCommand implements VoidCommand {
 
     private Collection<String> tags;
 
+    @NotNull
     private boolean isPublic;
 
     protected UpdateDiscoveryCommand() { }
+
+    public String getUserName() {
+        return userName;
+    }
 
     public long getId() {
         return id;
@@ -60,8 +65,8 @@ public class UpdateDiscoveryCommand implements VoidCommand {
         return tags;
     }
 
-    public String getUserName() {
-        return userName;
+    public boolean isPublic() {
+        return isPublic;
     }
 
     public void setUserName(String userName) {

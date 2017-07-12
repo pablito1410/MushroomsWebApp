@@ -20,8 +20,14 @@ public class CreateTripCommand implements ReturningCommand<Long> {
 
     @NotNull
     private String place;
+
+    @NotNull
     private Double coordinateX;
+
+    @NotNull
     private Double coordinateY;
+
+    @NotNull
     private Double radius;
 
 

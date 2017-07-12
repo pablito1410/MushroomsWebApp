@@ -3,11 +3,10 @@ package pl.polsl.mushrooms.infrastructure.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
+import pl.polsl.mushrooms.application.commands.score.DeleteScoreCommand;
+import pl.polsl.mushrooms.application.commands.score.UpdateScoreCommand;
 import pl.polsl.mushrooms.application.services.projections.ScoreProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 
@@ -33,4 +32,21 @@ public class ScoreController {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody UpdateScoreCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
+    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+        final DeleteScoreCommand command = new DeleteScoreCommand();
+        command.setId(id);
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

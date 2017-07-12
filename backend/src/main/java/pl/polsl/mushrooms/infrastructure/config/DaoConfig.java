@@ -54,8 +54,9 @@ public class DaoConfig {
     @Bean
     public NotificationProjectionDao notificationProjectionDao(
             final NotificationRepository notificationRepository,
-            final UserRepository userRepository) {
-        return new NotificationProjectionDaoImpl(notificationRepository, userRepository);
+            final UserRepository userRepository,
+            final EntityMapper entityMapper) {
+        return new NotificationProjectionDaoImpl(notificationRepository, userRepository, entityMapper);
     }
 
     @Bean

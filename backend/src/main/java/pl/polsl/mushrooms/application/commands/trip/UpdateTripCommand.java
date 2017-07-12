@@ -13,14 +13,18 @@ public class UpdateTripCommand implements VoidCommand {
     private String userName;
 
     @NotNull
-    private long tripId;
+    private Long tripId;
+
+    @NotNull
     private LocalDateTime dateTime;
+
+    @NotNull
     private String place;
 
     protected UpdateTripCommand() { }
 
     public long getTripId() {
-        return tripId;
+        return tripId.longValue();
     }
 
     public LocalDateTime getDateTime() {

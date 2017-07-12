@@ -19,4 +19,14 @@ public class ScoreDaoImpl implements ScoreDao {
     public Score save(Score score) {
         return scoreRepository.save(score);
     }
+
+    @Override
+    public Score findOne(Long id) {
+        return scoreRepository.findOne(id);
+    }
+
+    @Override
+    public void delete(Score score) {
+        scoreRepository.delete(score);
+    }
 }

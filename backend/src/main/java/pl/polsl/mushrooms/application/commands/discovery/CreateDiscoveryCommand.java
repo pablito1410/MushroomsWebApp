@@ -15,22 +15,34 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     @NotNull
     private long tripId;
-//    @NotNull
+
+    @NotNull
     private long mushroomSpieceId;
     @NotNull
     private double coordinateX;
     @NotNull
     private double coordinateY;
-//    @NotNull
+
+    @NotNull
     private byte[] photo;
-//    @NotNull
+
+    @NotNull
     private LocalDateTime dateTime;
-//    @NotNull
+
+    @NotNull
     private boolean isPublic;
 
     private Collection<String> tags;
 
     protected CreateDiscoveryCommand() { }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
 
     public long getTripId() {
         return tripId;
@@ -62,13 +74,5 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     public Collection<String> getTags() {
         return tags;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 }

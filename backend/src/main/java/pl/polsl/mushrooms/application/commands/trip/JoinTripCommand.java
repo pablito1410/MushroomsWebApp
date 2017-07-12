@@ -16,10 +16,6 @@ public class JoinTripCommand implements VoidCommand {
 
     protected JoinTripCommand() { }
 
-    public void setTripId(long tripId) {
-        this.tripId = tripId;
-    }
-
     public long getTripId() {
         return tripId;
     }

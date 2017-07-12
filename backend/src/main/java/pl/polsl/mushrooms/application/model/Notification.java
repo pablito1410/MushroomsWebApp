@@ -23,12 +23,14 @@ public class Notification implements Serializable {
     @Enumerated(EnumType.STRING)
     private NotificationType type;
 
-    private Long relatedId; // TODO
+    @Column(name = "\"RELATED_ID\"")
+    private Long relatedId;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "\"USER_ID\"")
     private Mushroomer mushroomer;
 
+    @Column(name = "\"DATE_TIME\"", nullable = false)
     private LocalDateTime dateTime; // TODO
 
     /**

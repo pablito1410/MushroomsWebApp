@@ -26,23 +26,12 @@ public class CreateUserCommand implements ReturningCommand<Long> {
     private String firstName;
     private String lastName;
 
-    @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date birthDate;
+
     private Gender gender;
 
-
     private CreateUserCommand() { }
-
-    public CreateUserCommand(String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.gender = gender;
-    }
 
     public String getUsername() {
         return username;

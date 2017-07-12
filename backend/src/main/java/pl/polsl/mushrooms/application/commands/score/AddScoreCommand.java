@@ -1,36 +1,30 @@
 package pl.polsl.mushrooms.application.commands.score;
 
-import pl.polsl.mushrooms.application.commands.VoidCommand;
+import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 /**
  * Created by pawel_zaqkxkn on 26.06.2017.
  */
-public class AddScoreCommand implements VoidCommand{
+public class AddScoreCommand implements ReturningCommand<Long>{
 
     private String userName;
 
     @NotNull
-    private long discoveryId;
+    private Long discoveryId;
 
-    private int value;
-
-    private LocalDateTime dateTime;
+    @NotNull
+    private Integer value;
 
     protected AddScoreCommand() { }
 
     public long getDiscoveryId() {
-        return discoveryId;
+        return discoveryId.longValue();
     }
 
     public int getValue() {
-        return value;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
+        return value.intValue();
     }
 
     public String getUserName() {

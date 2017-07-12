@@ -13,6 +13,7 @@ public class UpdateCommentCommand implements VoidCommand {
 
     @NotNull
     private long id;
+
     @NotNull
     private String contents;
 

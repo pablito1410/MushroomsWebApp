@@ -22,8 +22,10 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     private String firstName;
     private String lastName;
+
     @JsonDeserialize(using = DateDeserializer.class)
     private Date birthDate;
+
     private Gender gender;
     private String city;
     private String country;

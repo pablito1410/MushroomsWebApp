@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.notification.CreateNotificationCommand;
-import pl.polsl.mushrooms.application.commands.notification.UpdateNotificationCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
+import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCommand;
 import pl.polsl.mushrooms.application.services.projections.NotificationProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
@@ -31,20 +29,6 @@ public class NotificationController {
         this.notificationProjectionService = notificationProjectionService;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
-    public ResponseEntity<Long> create(@RequestBody CreateNotificationCommand command) {
-//        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        final long id = commandGateway.dispatch(command);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(path = "/", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody UpdateNotificationCommand command) {
-//        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        commandGateway.dispatch(command);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<NotificationDto> getById(
             @PathVariable(name = "id") long id) {
@@ -61,7 +45,8 @@ public class NotificationController {
 
     @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
     public ResponseEntity<Void> delete(@RequestParam("id") long id) {
-        final DeleteTripCommand command = new DeleteTripCommand(id);
+        final DeleteNotificationCommand command = new DeleteNotificationCommand();
+        command.setId(id);
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
