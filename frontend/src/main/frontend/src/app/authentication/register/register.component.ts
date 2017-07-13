@@ -19,23 +19,21 @@ export class RegisterComponent {
         private userService: UserService,
         public snackBar: MdSnackBar) { }
 
-    private openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-            duration: 2000,
-        });
-    }
-
     register() {
         this.loading = true;
         this.userService.create(this.model)
             .subscribe(
                 data => {
                     this.router.navigate(['/login']);
-                    this.openSnackBar('Registration Success', '×');
+                    this.snackBar.open('Registration Success', '×', {
+                        duration: 2000,
+                    });
                 },
                 error => {
                     this.loading = false;
-                    this.openSnackBar('Registration Error', '×');
+                    this.snackBar.open('Registration Error', '×', {
+                        duration: 2000,
+                    });
                 });
     }
 }

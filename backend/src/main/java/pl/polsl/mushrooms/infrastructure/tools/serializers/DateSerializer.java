@@ -1,4 +1,4 @@
-package pl.polsl.mushrooms.infrastructure.controllers;
+package pl.polsl.mushrooms.infrastructure.tools.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

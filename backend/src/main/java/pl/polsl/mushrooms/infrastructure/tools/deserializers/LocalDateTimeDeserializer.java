@@ -1,4 +1,4 @@
-package pl.polsl.mushrooms.infrastructure.controllers;
+package pl.polsl.mushrooms.infrastructure.tools.deserializers;
 
 
 import com.fasterxml.jackson.core.JsonParser;

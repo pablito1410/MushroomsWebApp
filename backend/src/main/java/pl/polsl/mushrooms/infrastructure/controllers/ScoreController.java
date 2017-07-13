@@ -40,8 +40,8 @@ public class ScoreController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteScoreCommand command = new DeleteScoreCommand();
         command.setId(id);
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());

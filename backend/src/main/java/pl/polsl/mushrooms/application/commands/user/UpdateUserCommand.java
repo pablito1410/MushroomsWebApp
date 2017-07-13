@@ -3,7 +3,7 @@ package pl.polsl.mushrooms.application.commands.user;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
-import pl.polsl.mushrooms.infrastructure.controllers.DateDeserializer;
+import pl.polsl.mushrooms.infrastructure.tools.deserializers.DateDeserializer;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import javax.validation.constraints.NotNull;

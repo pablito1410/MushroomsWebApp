@@ -46,14 +46,13 @@ public class CommentController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity getById(
-            @PathVariable(name = "id") long id) {
+    public ResponseEntity getById(@PathVariable(name = "id") long id) {
         final Map<String, Object> comment = commentProjectionService.findOne(id);
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteCommentCommand command = new DeleteCommentCommand(id);
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);

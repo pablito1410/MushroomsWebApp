@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/platform-browser";
 import {NotificationService} from "app/services/notification.service";
 import {Notification} from "app/model/notification";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
     moduleId: module.id,
@@ -13,7 +14,8 @@ export class NotificationsComponent implements OnInit {
     notifications: Notification[];
     constructor(
         private notificationService: NotificationService,
-        @Inject(DOCUMENT) private document) { }
+        @Inject(DOCUMENT) private document,
+        public snackBar: MdSnackBar) { }
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
@@ -49,22 +51,37 @@ export class NotificationsComponent implements OnInit {
 
     getIconType(type: String) : String {
         switch (type) {
-            case 'FRIEND INVITATION':
-            case 'FRIEND ACCEPTING':
+            case 'FRIEND_INVITATION':
+            case 'FRIEND_ACCEPTING':
                 return 'person';
-            case 'TRIP ADDING':
-            case 'TRIP ADDING':
+            case 'TRIP_ADDING':
+            case 'TRIP_ADDING':
                 return 'directions_walk';
-            case 'MUSHROOM FINDING':
-            case 'DISCOVERY ADD SCORE':
+            case 'MUSHROOM_FINDING':
+            case 'DISCOVERY_ADD_SCORE':
                 return 'add_alert';
             default:
                 return 'add_alert';
         }
     }
 
-    deleteNotification(index: number) {
-        this.notificationService.delete(index);
-        this.notifications.splice(index, 1);
+    deleteNotification(id: number) {
+        this.notificationService.delete(id).subscribe(
+            response => {
+                this.notifications.forEach((n, i) => {
+                    if (n.id == id) {
+                        this.notifications.splice(i, 1);
+                    }
+                })
+                this.snackBar.open('Delete Success', '×', {
+                    duration: 2000,
+                });
+            },
+            error => {
+                this.snackBar.open('Delete Error', '×', {
+                    duration: 2000,
+                });
+            }
+        );
     }
 }

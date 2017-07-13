@@ -31,8 +31,7 @@ public class MushSpeciesController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<MushroomSpeciesDto> getById(
-            @PathVariable(name = "id") long id) {
+    public ResponseEntity<MushroomSpeciesDto> getById(@PathVariable(name = "id") long id) {
         final MushroomSpeciesDto mushroomSpecies = mushSpeciesProjectionService.findOne(id);
         return new ResponseEntity<>(mushroomSpecies, HttpStatus.OK);
     }

@@ -30,8 +30,7 @@ public class NotificationController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<NotificationDto> getById(
-            @PathVariable(name = "id") long id) {
+    public ResponseEntity<NotificationDto> getById(@PathVariable(name = "id") long id) {
         final NotificationDto notification = notificationProjectionService.findOne(id);
         return new ResponseEntity<>(notification, HttpStatus.OK);
     }
@@ -43,8 +42,8 @@ public class NotificationController {
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteNotificationCommand command = new DeleteNotificationCommand();
         command.setId(id);
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());

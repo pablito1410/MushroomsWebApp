@@ -53,8 +53,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<UserDto> getById(
-            @PathVariable(name = "id") long id) {
+    public ResponseEntity<UserDto> getById(@PathVariable(name = "id") long id) {
         final UserDto user = userProjectionService.findOne(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

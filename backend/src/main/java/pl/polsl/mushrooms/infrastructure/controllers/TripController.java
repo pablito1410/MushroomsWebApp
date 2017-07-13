@@ -47,8 +47,7 @@ public class TripController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") long id) {
+    public ResponseEntity<Map<String, Object>> getById(@PathVariable(name = "id") long id) {
         final Map<String, Object> trip = tripProjectionService.findOne(id);
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
@@ -64,8 +63,8 @@ public class TripController {
         return new ResponseEntity<>(trips, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteTripCommand command = new DeleteTripCommand(id);
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);

@@ -49,14 +49,13 @@ public class DiscoveryController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getById(
-            @PathVariable(name = "id") long id) {
+    public ResponseEntity<Map<String, Object>> getById(@PathVariable(name = "id") long id) {
         final Map<String, Object> discovery = discoveryProjectionService.findOne(id);
         return new ResponseEntity<>(discovery, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE, params = "id")
-    public ResponseEntity<Void> delete(@RequestParam("id") long id) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteDiscoveryCommand command = new DeleteDiscoveryCommand(id);
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);

@@ -2,7 +2,7 @@ package pl.polsl.mushrooms.application.commands.trip;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
-import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeDeserializer;
+import pl.polsl.mushrooms.infrastructure.tools.deserializers.LocalDateTimeDeserializer;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;

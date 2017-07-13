@@ -29,12 +29,6 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    private openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-            duration: 2000,
-        });
-    }
-
     login() {
 
         this.loading = true;
@@ -42,11 +36,15 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
-                    this.openSnackBar('Login Success', '×');
+                    this.snackBar.open('Login Success', '×', {
+                        duration: 2000,
+                    });
                 },
                 error => {
                     this.loading = false;
-                    this.openSnackBar('Login Error', '×');
+                    this.snackBar.open('Login Error', '×', {
+                        duration: 2000,
+                    });
                 });
     }
 }

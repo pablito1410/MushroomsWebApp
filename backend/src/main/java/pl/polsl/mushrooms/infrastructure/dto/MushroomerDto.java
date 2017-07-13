@@ -6,7 +6,7 @@ import lombok.Setter;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
-import pl.polsl.mushrooms.infrastructure.controllers.DateSerializer;
+import pl.polsl.mushrooms.infrastructure.tools.serializers.DateSerializer;
 
 import java.util.Date;
 

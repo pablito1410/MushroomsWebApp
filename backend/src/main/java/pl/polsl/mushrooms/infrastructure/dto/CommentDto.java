@@ -3,7 +3,7 @@ package pl.polsl.mushrooms.infrastructure.dto;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
-import pl.polsl.mushrooms.infrastructure.controllers.LocalDateTimeSerializer;
+import pl.polsl.mushrooms.infrastructure.tools.serializers.LocalDateTimeSerializer;
 
 import java.time.LocalDateTime;
 import java.util.Set;
