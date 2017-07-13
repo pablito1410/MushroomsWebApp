@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
+@DiscriminatorValue("MUSHROOMER")
 public class Mushroomer extends User {
 
 	@Column(name = "\"FIRST_NAME\"")
@@ -59,7 +60,7 @@ public class Mushroomer extends User {
 	protected Set<Notification> notifications;
 
 	@ManyToMany(targetEntity = Mushroomer.class,
-			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+			fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "\"USERS_USERS\"",
 			joinColumns = {@JoinColumn(name = "\"USER_ID\"")},
 			inverseJoinColumns = {@JoinColumn(name = "\"FRIEND_ID\"")})

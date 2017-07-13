@@ -3,11 +3,13 @@ package pl.polsl.mushrooms.application.model;
 
 import pl.polsl.mushrooms.application.enums.UserRole;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Entity
+@DiscriminatorValue("ADMIN")
 public class Admin extends User {
 
 	public Admin() { }

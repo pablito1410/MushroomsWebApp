@@ -81,7 +81,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     @Override
     public Set<UserDto> findAll() {
         final List<User> users = userRepository.findAll();
-        return entityMapper.map((Set<User>) users);
+        return entityMapper.map(users);
     }
 
     @Override
