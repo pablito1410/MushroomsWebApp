@@ -11,11 +11,14 @@ import {MdSnackBar} from "@angular/material";
 })
 
 export class NotificationsComponent implements OnInit {
+
     notifications: Notification[];
+
     constructor(
         private notificationService: NotificationService,
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar) { }
+
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
@@ -65,14 +68,10 @@ export class NotificationsComponent implements OnInit {
         }
     }
 
-    deleteNotification(id: number) {
+    deleteNotification(id: number, index: number) {
         this.notificationService.delete(id).subscribe(
             response => {
-                this.notifications.forEach((n, i) => {
-                    if (n.id == id) {
-                        this.notifications.splice(i, 1);
-                    }
-                })
+                this.notifications.splice(index, 1);
                 this.snackBar.open('Delete Success', '×', {
                     duration: 2000,
                 });
