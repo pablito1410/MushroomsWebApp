@@ -4,8 +4,8 @@
             <div *ngFor="let notification of notifications; let i = index">
                 <div class="alert alert-primary alert-with-icon" data-notify="container">
                     <button type="button" aria-hidden="true" class="close" (click)="deleteNotification(i)">×</button>
-                    <i data-notify="icon" class="material-icons">{{notification.icon}}</i>
-                    <span data-notify="message">{{notification.message}}</span>
+                    <i data-notify="icon" class="material-icons">{{getIconType(notification.type)}}</i>
+                    <span data-notify="message">{{notification.content}}</span>
                 </div>
             </div>
         </div>
