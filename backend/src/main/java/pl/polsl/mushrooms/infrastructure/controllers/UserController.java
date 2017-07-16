@@ -99,7 +99,7 @@ public class UserController {
      * @param command
      * @return
      */
-    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(DeleteUsersCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);

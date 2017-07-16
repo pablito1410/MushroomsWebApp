@@ -1,7 +1,6 @@
 package pl.polsl.mushrooms.infrastructure.tools.deserializers;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -19,9 +18,9 @@ import java.util.Date;
 public class DateDeserializer extends JsonDeserializer<Date> {
 
     @Override
-    public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         final ObjectCodec codec = jsonParser.getCodec();
-        final TextNode node = (TextNode)codec.readTree(jsonParser);
+        final TextNode node = codec.readTree(jsonParser);
         final String dateString = node.textValue();
         final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;

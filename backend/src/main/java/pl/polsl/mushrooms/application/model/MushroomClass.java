@@ -12,7 +12,7 @@ public class MushroomClass implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "\"MUSH_CLASS_ID\"")
-	private long id;
+	private Long id;
 
 	@Column(name = "\"NAME\"", nullable = false)
 	private String name;
@@ -29,12 +29,8 @@ public class MushroomClass implements Serializable {
 		this.name = name;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getName() {

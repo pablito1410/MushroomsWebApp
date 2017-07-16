@@ -273,11 +273,13 @@ public class Mushroomer extends User {
 	 * @param type
 	 * @param userOfContent
 	 */
-	public void addNotification(
+	public Notification addNotification(
 			final Long relatedId, NotificationType type, User userOfContent) {
 
     	final Notification notification = new Notification(relatedId, type, userOfContent);
+    	notification.setMushroomer(this);
     	notifications.add(notification);
+    	return notification;
 	}
 
 

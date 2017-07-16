@@ -28,6 +28,6 @@ public class CurrentUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
-                AuthorityUtils.createAuthorityList(user.getRole().toString()));
+                AuthorityUtils.createAuthorityList(user.getRole().name()));
     }
 }

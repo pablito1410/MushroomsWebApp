@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
@@ -13,9 +12,8 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.infrastructure.dto.AdminDto;
-import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotFoundException;
@@ -27,13 +25,15 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+    private final UserDao userDao;
+    private final EntityMapper entityMapper;
 
-    private final UserDao repo;
-    final ModelMapper modelMapper = new ModelMapper();
+    public UserServiceImpl(
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
 
-    public UserServiceImpl(UserDao userDao) {
-
-        this.repo = userDao;
+        this.userDao = userDao;
+        this.entityMapper = entityMapper;
     }
 
     @Override
@@ -57,40 +57,40 @@ public class UserServiceImpl implements UserService {
                 MushroomerLevel.BEGINNER
         );
 
-        repo.save(user);
+        userDao.save(user);
         return user.getId();
     }
 
     @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserByEmail(String email) {
-        return Optional.ofNullable(repo.findUserByEmail(email));
+        return Optional.ofNullable(userDao.findUserByEmail(email));
     }
 
     @Override
     public void handle(UpdateProfileImageCommand command) {
         final String username = command.getUserName();
         final Mushroomer user = (Mushroomer)Optional.ofNullable(
-                repo.findOneByUsername(username))
+                userDao.findOneByUsername(username))
                     .orElseThrow(NotFoundException::new);
 
         user.setPhoto(command.getPhoto());
-        repo.save(user);
+        userDao.save(user);
     }
 
     @Override
     public UserDto handle(UpdateUserCommand command) {
         final String username = command.getUserName();
         final User user = Optional.ofNullable(
-                repo.findOneByUsername(username))
+                userDao.findOneByUsername(username))
                     .orElseThrow(NotFoundException::new);
 
         switch (user.getRole())
         {
             case ADMIN:
                 user.setEmail(command.getEmail());
-                repo.save(user);
-                return modelMapper.map(user, AdminDto.class);
+                userDao.save(user);
+                return entityMapper.map(user);
 
             case MUSHROOMER:
                 final Mushroomer mushroomer = (Mushroomer)user;
@@ -101,11 +101,11 @@ public class UserServiceImpl implements UserService {
                 mushroomer.setGender(command.getGender());
                 mushroomer.setCity(command.getCity());
                 mushroomer.setCountry(command.getCountry());
-                repo.save(user);
-                return modelMapper.map(mushroomer, MushroomerDto.class);
+                userDao.save(user);
+                return entityMapper.map(mushroomer);
 
             default:
-                return modelMapper.map(user, UserDto.class);
+                return entityMapper.map(user);
         }
     }
 
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
     public void handle(DeleteUsersCommand command) {
         final String currentUsername = command.getUserName();
         final User currentUser = Optional.ofNullable(
-                repo.findOneByUsername(currentUsername))
+                userDao.findOneByUsername(currentUsername))
                     .orElseThrow(EntityNotFoundException::new);
 
         final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -124,12 +124,12 @@ public class UserServiceImpl implements UserService {
         }
 
         for (long id : command.getIds()) {
-            repo.delete(id);
+            userDao.delete(id);
         }
     }
 
     @Transactional(readOnly = true)
     private boolean userExist(final String email) {
-        return repo.findUserByEmail(email) == null ? false : true;
+        return userDao.findUserByEmail(email) == null ? false : true;
     }
 }

@@ -11,9 +11,9 @@ import static com.google.common.base.Verify.verifyNotNull;
  */
 public class EntityMapperRegistry {
 
-    private static Map<Type, Type> objectMapping = new HashMap<Type, Type>();
+    private static Map<Type, Type> objectMapping = new HashMap<>();
 
-    private static Map<Type, Type> collectionMapping = new HashMap<Type, Type>();
+    private static Map<Type, Type> collectionMapping = new HashMap<>();
 
     public <E, D> void registerObject(final Class<E> entityType, final Class<D> objectDtoType) {
         objectMapping.put(entityType, objectDtoType);

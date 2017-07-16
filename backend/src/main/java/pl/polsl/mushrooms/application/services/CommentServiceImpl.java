@@ -18,8 +18,8 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
 
-    private UserDao userDao;
-    private CommentDao commentDao;
+    private final UserDao userDao;
+    private final CommentDao commentDao;
 
     public CommentServiceImpl(UserDao userDao, CommentDao commentDao) {
         this.userDao = userDao;

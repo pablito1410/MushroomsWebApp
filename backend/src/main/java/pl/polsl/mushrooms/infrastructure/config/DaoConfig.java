@@ -34,15 +34,17 @@ public class DaoConfig {
     }
 
     @Bean
-    public MushroomSpeciesDao mushroomSpeciesDao() {
-        return new MushroomSpeciesDaoImpl();
+    public MushroomSpeciesDao mushroomSpeciesDao(
+            final MushroomSpeciesRepository mushroomSpeciesRepository
+    ) {
+        return new MushroomSpeciesDaoImpl(mushroomSpeciesRepository);
     }
 
     @Bean
-    public MushSpeciesProjectionDao mushSpeciesProjectionDao(
-            final MushSpeciesRepository mushSpeciesRepository,
+    public MushroomSpeciesProjectionDao mushSpeciesProjectionDao(
+            final MushroomSpeciesRepository mushroomSpeciesRepository,
             final EntityMapper entityMapper) {
-        return new MushSpeciesProjectionDaoImpl(mushSpeciesRepository, entityMapper);
+        return new MushroomSpeciesProjectionDaoImpl(mushroomSpeciesRepository, entityMapper);
     }
 
     @Bean
@@ -97,6 +99,58 @@ public class DaoConfig {
     public UserProjectionDao userProjectionDao(final UserRepository userRepository,
                                                final EntityMapper entityMapper) {
         return new UserProjectionDaoImpl(userRepository, entityMapper);
+    }
+
+    @Bean
+    public MushroomClassDao mushroomClassDao(
+            final MushroomClassRepository mushroomClassRepository) {
+        return new MushroomClassDaoImpl(mushroomClassRepository);
+    }
+
+    @Bean
+    public MushroomClassProjectionDao mushroomClassProjectionDao(
+            final MushroomClassRepository mushroomClassRepository,
+            final EntityMapper entityMapper) {
+        return new MushroomClassProjectionDaoImpl(mushroomClassRepository, entityMapper);
+    }
+
+    @Bean
+    public MushroomFamilyDao mushroomFamilyDao(
+            final MushroomFamilyRepository mushroomFamilyRepository) {
+        return new MushroomFamilyDaoImpl(mushroomFamilyRepository);
+    }
+
+    @Bean
+    public MushroomFamilyProjectionDao mushroomFamilyProjectionDao(
+            final MushroomFamilyRepository mushroomFamilyRepository,
+            final EntityMapper entityMapper) {
+        return new MushroomFamilyProjectionDaoImpl(mushroomFamilyRepository, entityMapper);
+    }
+
+    @Bean
+    public MushroomOrderDao mushroomOrderDao(
+            final MushroomOrderRepository mushroomOrderRepository) {
+        return new MushroomOrderDaoImpl(mushroomOrderRepository);
+    }
+
+    @Bean
+    public MushroomOrderProjectionDao mushroomOrderProjectionDao(
+            final MushroomOrderRepository mushroomOrderRepository,
+            final EntityMapper entityMapper) {
+        return new MushroomOrderProjectionDaoImpl(mushroomOrderRepository, entityMapper);
+    }
+
+    @Bean
+    public MushroomGenusDao mushroomGenusDao(
+            final MushroomGenusRepository mushroomGenusRepository) {
+        return new MushroomGenusDaoImpl(mushroomGenusRepository);
+    }
+
+    @Bean
+    public MushroomGenusProjectionDao mushroomGenusProjectionDao(
+            final MushroomGenusRepository mushroomGenusRepository,
+            final EntityMapper entityMapper) {
+        return new MushroomGenusProjectionDaoImpl(mushroomGenusRepository, entityMapper);
     }
 
 }

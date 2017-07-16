@@ -31,7 +31,7 @@ public class Notification implements Serializable {
     private Mushroomer mushroomer;
 
     @Column(name = "\"DATE_TIME\"", nullable = false)
-    private LocalDateTime dateTime; // TODO
+    private LocalDateTime dateTime;
 
     /**
      * Is necessary to create content
@@ -58,47 +58,7 @@ public class Notification implements Serializable {
     @PrePersist
     private void setContentAndDateTime() {
         this.dateTime = LocalDateTime.now();
-        this.content = type.getContent(userOfContent.getUsername(), dateTime.toString()); // TODO format daty
-    }
-
-//    public static class NotificationBuilder {
-//
-//        private String content;
-//        private NotificationType type;
-//        private Mushroomer mushroomer;
-//        private LocalDateTime dateTime;
-//
-//        private NotificationBuilder() { }
-//
-//        public static NotificationBuilder type(final NotificationType type) {
-//            verifyNotNull(type);
-//            final NotificationBuilder builder = new NotificationBuilder();
-//            builder.type = type;
-//            return builder;
-//        }
-//
-//        public NotificationBuilder dateTime(final LocalDateTime dateTime) {
-//            this.dateTime = dateTime;
-//            return this;
-//        }
-//
-//
-//        public NotificationBuilder mushroomer(final Mushroomer mushroomer) {
-//            this.mushroomer = mushroomer;
-//            return this;
-//        }
-//
-//        public Notification build() {
-//            return new Notification(type, mushroomer, dateTime);
-//        }
-//    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.content = type.getContent(userOfContent.getUsername()); // TODO format daty
     }
 
     public String getContent() {
@@ -117,6 +77,14 @@ public class Notification implements Serializable {
         this.type = type;
     }
 
+    public Long getRelatedId() {
+        return relatedId;
+    }
+
+    public void setRelatedId(Long relatedId) {
+        this.relatedId = relatedId;
+    }
+
     public Mushroomer getMushroomer() {
         return mushroomer;
     }
@@ -129,7 +97,15 @@ public class Notification implements Serializable {
         return dateTime;
     }
 
-    private void setDateTime(final LocalDateTime localDateTime) {
-        this.dateTime = localDateTime;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public User getUserOfContent() {
+        return userOfContent;
+    }
+
+    public void setUserOfContent(User userOfContent) {
+        this.userOfContent = userOfContent;
     }
 }

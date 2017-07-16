@@ -2,14 +2,32 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.MushroomSpeciesDao;
 import pl.polsl.mushrooms.application.model.MushroomSpecies;
+import pl.polsl.mushrooms.infrastructure.repositories.MushroomSpeciesRepository;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
  */
 public class MushroomSpeciesDaoImpl implements MushroomSpeciesDao {
 
+    private final MushroomSpeciesRepository mushroomSpeciesRepository;
+
+    public MushroomSpeciesDaoImpl(
+            final MushroomSpeciesRepository mushroomSpeciesRepository) {
+        this.mushroomSpeciesRepository = mushroomSpeciesRepository;
+    }
+
     @Override
-    public MushroomSpecies findOne(long mushroomSpieceId) {
-        return null;
+    public MushroomSpecies save(final MushroomSpecies mushroomSpecies) {
+        return mushroomSpeciesRepository.save(mushroomSpecies);
+    }
+
+    @Override
+    public MushroomSpecies findOne(long mushroomSpeciesId) {
+        return mushroomSpeciesRepository.findOne(mushroomSpeciesId);
+    }
+
+    @Override
+    public void delete(long id) {
+        mushroomSpeciesRepository.delete(id);
     }
 }

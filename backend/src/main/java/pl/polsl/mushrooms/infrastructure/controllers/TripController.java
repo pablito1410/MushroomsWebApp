@@ -39,7 +39,7 @@ public class TripController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateTripCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);

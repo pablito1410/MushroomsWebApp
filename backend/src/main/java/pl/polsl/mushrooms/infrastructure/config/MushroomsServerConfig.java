@@ -3,7 +3,6 @@ package pl.polsl.mushrooms.infrastructure.config;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
@@ -14,6 +13,18 @@ import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.clazz.CreateMushroomClassCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.clazz.DeleteMushroomClassCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.clazz.UpdateMushroomClassCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.genus.CreateMushroomGenusCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.genus.DeleteMushroomGenusCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.genus.UpdateMushroomGenusCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.order.CreateMushroomOrderCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.order.DeleteMushroomOrderCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.order.UpdateMushroomOrderCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.species.CreateMushroomSpeciesCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.species.DeleteMushroomSpeciesCommand;
+import pl.polsl.mushrooms.application.commands.mushroom.species.UpdateMushroomSpeciesCommand;
 import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCommand;
 import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
 import pl.polsl.mushrooms.application.commands.score.DeleteScoreCommand;
@@ -23,11 +34,8 @@ import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
-import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.*;
-import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
-import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
 /**
  * Created by pawel_zaqkxkn on 12.03.2017.
@@ -44,6 +52,10 @@ public class MushroomsServerConfig {
             CommentService commentService,
             ScoreService scoreService,
             NotificationService notificationService,
+            MushroomClassService mushroomClassService,
+            MushroomOrderService mushroomOrderService,
+            MushroomGenusService mushroomGenusService,
+            MushroomSpeciesService mushroomSpeciesService,
             CommandHandlerRegistry registry) {
         return () -> {
             registry.register(userService::handle, CreateUserCommand.class);
@@ -71,86 +83,27 @@ public class MushroomsServerConfig {
             registry.register(commentService::handle, UpdateCommentCommand.class);
             registry.register(commentService::handle, DeleteCommentCommand.class);
 
-            registry.register(scoreService:: handle, AddScoreCommand.class);
-            registry.register(scoreService:: handle, UpdateScoreCommand.class);
-            registry.register(scoreService:: handle, DeleteScoreCommand.class);
+            registry.register(scoreService::handle, AddScoreCommand.class);
+            registry.register(scoreService::handle, UpdateScoreCommand.class);
+            registry.register(scoreService::handle, DeleteScoreCommand.class);
 
             registry.register(notificationService::handle, DeleteNotificationCommand.class);
+
+            registry.register(mushroomClassService::handle, CreateMushroomClassCommand.class);
+            registry.register(mushroomClassService::handle, UpdateMushroomClassCommand.class);
+            registry.register(mushroomClassService::handle, DeleteMushroomClassCommand.class);
+            
+            registry.register(mushroomOrderService::handle, CreateMushroomOrderCommand.class);
+            registry.register(mushroomOrderService::handle, UpdateMushroomOrderCommand.class);
+            registry.register(mushroomOrderService::handle, DeleteMushroomOrderCommand.class);
+
+            registry.register(mushroomGenusService::handle, CreateMushroomGenusCommand.class);
+            registry.register(mushroomGenusService::handle, UpdateMushroomGenusCommand.class);
+            registry.register(mushroomGenusService::handle, DeleteMushroomGenusCommand.class);
+
+            registry.register(mushroomSpeciesService::handle, CreateMushroomSpeciesCommand.class);
+            registry.register(mushroomSpeciesService::handle, UpdateMushroomSpeciesCommand.class);
+            registry.register(mushroomSpeciesService::handle, DeleteMushroomSpeciesCommand.class);
         };
-
     }
-
-    @Bean
-    public UserService userService(UserDao userDao) {
-        return new UserServiceImpl(userDao);
-    }
-
-    @Bean
-    public FriendService friendService(UserDao userDao) {
-        return new FriendServiceImpl(userDao);
-    }
-
-    @Bean
-    public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
-
-    @Bean
-    public ScoreService scoreService(ScoreDao scoreDao, UserDao userDao, DiscoveryDao discoveryDao) {
-        return new ScoreServiceImpl(scoreDao, userDao, discoveryDao); }
-
-    @Bean
-    ScoreProjectionService scoreProjectionService(ScoreProjectionDao scoreProjectionDao, UserProjectionService userProjectionService) {
-        return new ScoreProjectionServiceImpl(scoreProjectionDao, userProjectionService);
-    }
-
-    @Bean
-    UserProjectionService userProjectionService(UserProjectionDao userProjectionDao, UserDao userDao) {
-        return new UserProjectionServiceImpl(userProjectionDao, userDao);
-    }
-
-    @Bean
-    CommentProjectionService commentProjectionService() {
-        return new CommentProjectionServiceImpl();
-    }
-
-    @Bean
-    DiscoveryProjectionService discoveryProjectionService(final DiscoveryProjectionDao discoveryProjectionDao, UserProjectionService userProjectionService) {
-        return new DiscoveryProjectionServiceImpl(discoveryProjectionDao, userProjectionService);
-    }
-
-    @Bean
-    TripProjectionService tripProjectionService(TripProjectionDao tripProjectionDao, UserProjectionService userProjectionService) {
-        return new TripProjectionServiceImpl(tripProjectionDao, userProjectionService);
-    }
-
-    @Bean
-    MushSpeciesProjectionService mushSpeciesProjectionService(MushSpeciesProjectionDao mushSpeciesProjectionDao) {
-        return new MushSpeciesProjectionServiceImpl(mushSpeciesProjectionDao);
-    }
-
-    @Bean
-    public DiscoveryService discoveryService(
-            DiscoveryDao discoveryDao, TripDao tripDao, UserDao userDao, MushroomSpeciesDao mushroomSpeciesDao, ScoreDao scoreDao) {
-        return new DiscoveryServiceImpl(discoveryDao, tripDao, userDao, mushroomSpeciesDao, scoreDao); }
-
-    @Bean
-    public CommentService commentService(UserDao userDao, CommentDao commentDao) {
-        return new CommentServiceImpl(userDao, commentDao);
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(final UserService userService) {
-        return new CurrentUserDetailsService(userService);
-    }
-
-    @Bean
-    public NotificationService notificationService(NotificationDao notificationDao, UserDao userDao) {
-        return new NotificationServiceImpl(notificationDao, userDao);
-    }
-
-    @Bean
-    public NotificationProjectionService notificationProjectionService(NotificationProjectionDao notificationProjectionDao,
-                                                                UserProjectionDao userProjectionDao) {
-        return new NotificationProjectionServiceImpl(notificationProjectionDao, userProjectionDao);
-    }
-
 }

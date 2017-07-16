@@ -4,6 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
+import pl.polsl.mushrooms.application.dao.NotificationDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
@@ -24,11 +25,16 @@ import java.util.Optional;
 public class FriendServiceImpl implements FriendService {
 
     private final UserDao repo;
+    private final NotificationDao notificationDao;
 
-    public FriendServiceImpl(UserDao repo) {
+    public FriendServiceImpl(
+            final UserDao repo,
+            final NotificationDao notificationDao) {
         this.repo = repo;
+        this.notificationDao = notificationDao;
     }
 
+    @Transactional
     @Override
     public Collection<Long> handle(AddFriendCommand command) {
         final String currentUsername = command.getUserName();
@@ -48,7 +54,8 @@ public class FriendServiceImpl implements FriendService {
                 friend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
             } else {
                 user.addFriend(friend);
-                friend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user);
+                notificationDao.save(
+                        friend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user));
                 repo.save(friend);
                 addedFriends.add(friend.getId());
             }

@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
+import org.hibernate.cfg.NotYetImplementedException;
 import pl.polsl.mushrooms.application.dao.NotificationProjectionDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Notification;
@@ -32,6 +33,16 @@ public class NotificationProjectionDaoImpl implements NotificationProjectionDao 
     }
 
     @Override
+    public Set<NotificationDto> findAll(long userId) {
+        throw new NotYetImplementedException(); // TODO
+    }
+
+    @Override
+    public Set<NotificationDto> findAll() {
+        throw new NotYetImplementedException(); // TODO
+    }
+
+    @Override
     public NotificationDto findOne(long notificationId) {
         final Optional<Notification> notification = Optional.ofNullable(notificationRepository.findOne(notificationId));
         if (notification.isPresent()) {
@@ -39,6 +50,11 @@ public class NotificationProjectionDaoImpl implements NotificationProjectionDao 
         } else {
             throw new EntityNotFoundException("Notification not found");
         }
+    }
+
+    @Override
+    public Set<NotificationDto> search(String value) {
+        throw new NotYetImplementedException(); // TODO
     }
 
     @Override

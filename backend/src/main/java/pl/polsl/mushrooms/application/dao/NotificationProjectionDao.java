@@ -7,8 +7,7 @@ import java.util.Set;
 /**
  * Created by chythe on 2017-07-02.
  */
-public interface NotificationProjectionDao {
+public interface NotificationProjectionDao extends ProjectionDao<NotificationDto> {
 
-    NotificationDto findOne(long notificationId);
     Set<NotificationDto> findAll(String userName);
 }

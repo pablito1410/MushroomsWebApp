@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @Repository
 @RepositoryRestResource(exported = false)
-public interface MushSpeciesRepository extends JpaRepository<MushroomSpecies, Long> {
+public interface MushroomSpeciesRepository extends JpaRepository<MushroomSpecies, Long> {
 
     Set<MushroomSpecies> findAllByDiscoveries_Mushroomer_Id(long id);
 

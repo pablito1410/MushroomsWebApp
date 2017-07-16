@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.polsl.mushrooms.application.enums.UserRole;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtAuthenticationFilter;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtLoginFilter;
@@ -34,6 +35,28 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers( "/#").permitAll()
             .antMatchers(HttpMethod.POST, "/api/users").permitAll()
             .antMatchers(  "/app/*.{js}", "/*.{js}", "/assets/**").permitAll()
+            .antMatchers(
+                    HttpMethod.DELETE,
+                    "/api/users",
+                    "/api/mushroom-class",
+                    "/api/mushroom-order",
+                    "/api/mushroom-family",
+                    "/api/mushroom-genuse",
+                    "/api/mushroom-specie").hasAuthority(UserRole.ADMIN.name())
+            .antMatchers(
+                    HttpMethod.PUT,
+                    "/api/mushroom-class",
+                    "/api/mushroom-order",
+                    "/api/mushroom-family",
+                    "/api/mushroom-genuse",
+                    "/api/mushroom-specie").hasAuthority(UserRole.ADMIN.name())
+            .antMatchers(
+                    HttpMethod.POST,
+                    "/api/mushroom-class",
+                    "/api/mushroom-order",
+                    "/api/mushroom-family",
+                    "/api/mushroom-genuse",
+                    "/api/mushroom-specie").hasAuthority(UserRole.ADMIN.name())
             .anyRequest().fullyAuthenticated()
             .and()
             .formLogin()
