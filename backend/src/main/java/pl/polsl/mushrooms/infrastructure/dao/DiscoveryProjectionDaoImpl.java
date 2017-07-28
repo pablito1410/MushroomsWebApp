@@ -2,8 +2,6 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
 import pl.polsl.mushrooms.application.model.Discovery;
-import pl.polsl.mushrooms.application.model.Mushroomer;
-import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
@@ -32,19 +30,19 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
         this.entityMapper = entityMapper;
     }
 
-    @Override
-    public Set<DiscoveryDto> findAll(long userId) {
-        final User user = Optional.ofNullable(
-                userRepository.findOne(userId))
-                    .orElseThrow(EntityNotFoundException::new);
-
-        if (user instanceof Mushroomer) {
-            final Set<Discovery> discoveries = ((Mushroomer) user).getDiscoveries();
-            return entityMapper.map(discoveries);
-        } else {
-            throw new IllegalStateException("User is not instance of Mushroomer");
-        }
-    }
+//    @Override
+//    public Set<DiscoveryDto> findAll(long userId) {
+//        final User user = Optional.ofNullable(
+//                userRepository.findOne(userId))
+//                    .orElseThrow(EntityNotFoundException::new);
+//
+//        if (user instanceof Mushroomer) {
+//            final Set<Discovery> discoveries = ((Mushroomer) user).getDiscoveries();
+//            return entityMapper.map(discoveries);
+//        } else {
+//            throw new IllegalStateException("User is not instance of Mushroomer");
+//        }
+//    }
 
     @Override
     public Set<DiscoveryDto> findAll() {

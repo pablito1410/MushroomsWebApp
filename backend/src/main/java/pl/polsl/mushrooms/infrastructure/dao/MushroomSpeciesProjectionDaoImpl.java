@@ -26,11 +26,11 @@ public class MushroomSpeciesProjectionDaoImpl implements MushroomSpeciesProjecti
         this.entityMapper = entityMapper;
     }
 
-    @Override
-    public Set<MushroomSpeciesDto> findAll(long userId) {
-        final Set<MushroomSpecies> mushroomSpecies = mushroomSpeciesRepository.findAllByDiscoveries_Mushroomer_Id(userId);
-        return entityMapper.map(mushroomSpecies);
-    }
+//    @Override
+//    public Set<MushroomSpeciesDto> findAll(long userId) {
+//        final Set<MushroomSpecies> mushroomSpecies = mushroomSpeciesRepository.findAllByDiscoveries_Mushroomer_Id(userId);
+//        return entityMapper.map(mushroomSpecies);
+//    }
 
     @Override
     public Set<MushroomSpeciesDto> findAll() {

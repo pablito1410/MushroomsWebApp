@@ -10,8 +10,9 @@ import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
 import pl.polsl.mushrooms.application.services.projections.CommentProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.CommentDto;
 
-import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
@@ -46,9 +47,16 @@ public class CommentController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity getById(@PathVariable(name = "id") long id) {
-        final Map<String, Object> comment = commentProjectionService.findOne(id);
+    public ResponseEntity<CommentDto> getById(@PathVariable(name = "id") long id) {
+        final CommentDto comment = commentProjectionService.findOne(id);
         return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Set<CommentDto>> getAll() {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<CommentDto> discoveries = commentProjectionService.findAll(userName);
+        return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
@@ -58,4 +66,5 @@ public class CommentController {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

@@ -156,6 +156,10 @@ public class Discovery  {
 
 	public void setPublic(boolean aPublic) { isPublic = aPublic; }
 
+	public double scoresAverage() {
+		return scores.stream().mapToLong(s -> s.getValue()).average().orElse(Double.valueOf(0));
+	}
+
 	public int hashCode() {
 		int hashCode = 0;
 //		if ( this.id != null ) {
@@ -211,4 +215,5 @@ public class Discovery  {
 		}
 		return false;
 	}
+
 }

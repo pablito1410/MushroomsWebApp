@@ -70,8 +70,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void handle(UpdateProfileImageCommand command) {
         final String username = command.getUserName();
-        final Mushroomer user = (Mushroomer)Optional.ofNullable(
-                userDao.findOneByUsername(username))
+        final Mushroomer user = (Mushroomer)userDao.findOneByUsername(username)
                     .orElseThrow(NotFoundException::new);
 
         user.setPhoto(command.getPhoto());
@@ -81,8 +80,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto handle(UpdateUserCommand command) {
         final String username = command.getUserName();
-        final User user = Optional.ofNullable(
-                userDao.findOneByUsername(username))
+        final User user = userDao.findOneByUsername(username)
                     .orElseThrow(NotFoundException::new);
 
         switch (user.getRole())
@@ -112,8 +110,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void handle(DeleteUsersCommand command) {
         final String currentUsername = command.getUserName();
-        final User currentUser = Optional.ofNullable(
-                userDao.findOneByUsername(currentUsername))
+        final User currentUser = userDao.findOneByUsername(currentUsername)
                     .orElseThrow(EntityNotFoundException::new);
 
         final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

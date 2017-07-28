@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.util.Set;
@@ -15,10 +14,6 @@ public interface UserProjectionService {
     UserDto findOneByUsername(String username);
 
     long getId(String email);
-
-    Set<MushroomerDto> findFriends(String userName);
-
-    Set<MushroomerDto> findFriends(long id);
 
     Set<UserDto> search(String value);
 

@@ -1,16 +1,14 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.dao.*;
-import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.model.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -43,7 +41,8 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     @Override
     public long handle(CreateDiscoveryCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
 
         final Trip trip = tripDao.findTrip(command.getTripId());
         if (trip == null) {
@@ -78,7 +77,8 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     @Override
     public void handle(UpdateDiscoveryCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
         final Discovery discovery =  Optional.of(
                 discoveryDao.findDiscovery(command.getId()))
                     .orElseThrow(NotFoundException::new);
@@ -103,7 +103,8 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     @Override
     public void handle(DeleteDiscoveryCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
         final Discovery discovery =  Optional.of(
                 discoveryDao.findDiscovery(command.getId()))
                     .orElseThrow(NotFoundException::new);
@@ -115,25 +116,4 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         discoveryDao.delete(discovery.getId());
     }
 
-    @Override
-    public void handle(AddScoreToDiscoveryCommand command) {
-        final String currentUsername = command.getUserName();
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername);
-
-        final Discovery discovery =  Optional.of(
-                discoveryDao.findDiscovery(command.getDiscoveryId()))
-                    .orElseThrow(NotFoundException::new);
-
-        final Score score = new Score(
-                command.getScore(),
-                LocalDateTime.now(),
-                discovery,
-                mushroomer);
-
-        discovery.getMushroomer().addNotification(
-                discovery.getId(), NotificationType.DISCOVERY_ADD_SCORE, mushroomer);
-
-        scoreDao.save(score);
-        discoveryDao.save(discovery);
-    }
 }

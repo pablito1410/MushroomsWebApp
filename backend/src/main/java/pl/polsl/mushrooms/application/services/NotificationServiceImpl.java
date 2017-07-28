@@ -25,8 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void handle(DeleteNotificationCommand command) {
-        final Mushroomer currentUser = (Mushroomer) Optional.ofNullable(
-                userDao.findOneByUsername(command.getUserName()))
+        final Mushroomer currentUser = (Mushroomer)userDao.findOneByUsername(command.getUserName())
                     .orElseThrow(NotFoundException::new);
 
         final Notification notification = Optional.of(

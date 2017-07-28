@@ -13,7 +13,6 @@ import pl.polsl.mushrooms.application.services.projections.TripProjectionService
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -47,8 +46,8 @@ public class TripController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getById(@PathVariable(name = "id") long id) {
-        final Map<String, Object> trip = tripProjectionService.findOne(id);
+    public ResponseEntity<TripDto> getById(@PathVariable(name = "id") long id) {
+        final TripDto trip = tripProjectionService.findOne(id);
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
@@ -76,6 +75,12 @@ public class TripController {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public ResponseEntity<Set<TripDto>> search(@RequestParam(value = "value") String value) {
+        final Set<TripDto> users = tripProjectionService.search(value);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 

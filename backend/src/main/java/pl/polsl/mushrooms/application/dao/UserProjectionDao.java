@@ -9,11 +9,6 @@ public interface UserProjectionDao extends ProjectionDao<UserDto> {
 
     UserDto findOneByUsername(String username);
 
-//    UserDto findOne(long id);
-
     long getId(String email);
 
-//    Set<MushroomerDto> findAllMushroomers(long id);
-//
-//    Set<MushroomerDto> searchMushroomers(String value);
 }

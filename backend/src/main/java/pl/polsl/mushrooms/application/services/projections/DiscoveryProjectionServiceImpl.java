@@ -1,10 +1,13 @@
 package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
-import pl.polsl.mushrooms.application.dao.ProjectionDao;
+import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
-import java.util.Map;
+import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
 /**
@@ -13,27 +16,36 @@ import java.util.Set;
 public class DiscoveryProjectionServiceImpl implements DiscoveryProjectionService {
 
     private final DiscoveryProjectionDao discoveryProjectionDao;
-    private final UserProjectionService userProjectionService;
+    private final UserDao userDao;
+    private final EntityMapper entityMapper;
 
-    public DiscoveryProjectionServiceImpl(DiscoveryProjectionDao discoveryProjectionDao, final UserProjectionService userProjectionService) {
-
+    public DiscoveryProjectionServiceImpl(
+            final DiscoveryProjectionDao discoveryProjectionDao,
+            final UserDao userDao, EntityMapper entityMapper) {
         this.discoveryProjectionDao = discoveryProjectionDao;
-        this.userProjectionService = userProjectionService;
+        this.userDao = userDao;
+        this.entityMapper = entityMapper;
     }
 
     @Override
-    public Map<String, Object> findOne(long id) {
-        return null;
+    public DiscoveryDto findOne(long id) {
+        return discoveryProjectionDao.findOne(id);
     }
 
     @Override
     public Set<DiscoveryDto> findAll(String username) {
-        final long userId = userProjectionService.getId(username);
-        return discoveryProjectionDao.findAll(userId);
+        final User user = userDao.findOneByUsername(username)
+                .orElseThrow(EntityNotFoundException::new);
+        if (user.isAdmin()) {
+            return discoveryProjectionDao.findAll();
+        } else {
+            return entityMapper.map(((Mushroomer)user).getDiscoveries());
+        }
     }
 
     @Override
     public Set<DiscoveryDto> search(String value) {
         return discoveryProjectionDao.search(value);
     }
+
 }

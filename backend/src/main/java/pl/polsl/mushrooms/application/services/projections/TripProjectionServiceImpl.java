@@ -1,9 +1,13 @@
 package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
+import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
-import java.util.Map;
+import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
 /**
@@ -13,26 +17,37 @@ public class TripProjectionServiceImpl implements TripProjectionService {
 
 
     private final TripProjectionDao tripProjectionDao;
-    private final UserProjectionService userProjectionService;
+    private final UserDao userDao;
+    private final EntityMapper entityMapper;
 
-    public TripProjectionServiceImpl(TripProjectionDao tripProjectionDao, final UserProjectionService userProjectionService) {
+    public TripProjectionServiceImpl(
+            final TripProjectionDao tripProjectionDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
 
         this.tripProjectionDao = tripProjectionDao;
-        this.userProjectionService = userProjectionService;
+        this.userDao = userDao;
+        this.entityMapper = entityMapper;
     }
     @Override
-    public Map<String, Object> findOne(long id) {
-        return null;
+    public TripDto findOne(long id) {
+        return tripProjectionDao.findOne(id);
     }
 
     @Override
     public Set<TripDto> findAll(String userName) {
-        final long userId = userProjectionService.getId(userName); // TODO wczytać usera od razu
-        return tripProjectionDao.findAll(userId);
+        final User user = userDao.findOneByUsername(userName)
+                .orElseThrow(EntityNotFoundException::new);
+        if (user.isAdmin()) {
+            return tripProjectionDao.findAll();
+        } else {
+            return entityMapper.map(((Mushroomer)user).getTrips());
+        }
     }
 
     @Override
-    public Set<TripDto> findAll(long userId) {
-        return tripProjectionDao.findAll(userId);
+    public Set<TripDto> search(String value) {
+        return tripProjectionDao.search(value);
     }
+
 }

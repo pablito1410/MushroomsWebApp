@@ -8,6 +8,7 @@ import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.application.model.User;
 
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
@@ -29,7 +30,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public long handle(CreateCommentCommand command) {
         final String currentUsername = command.getUserName();
-        final User user = userDao.findOneByUsername(currentUsername);
+        final User user = userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);
         final Comment target = commentDao.findOne(command.getTargetId());
         final Comment comment = new Comment(command.getContents(), command.getDateTime(), target, user);
 
@@ -41,7 +43,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void handle(UpdateCommentCommand command) {
         final String currentUsername = command.getUserName();
-        final User user = userDao.findOneByUsername(currentUsername);
+        final User user = userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
         final Comment comment = (Comment) Optional.of(
                 commentDao.findOne(command.getId()))
                     .orElseThrow(NotFoundException::new);
@@ -56,7 +59,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void handle(DeleteCommentCommand command) {
         final String currentUsername = command.getUserName();
-        final User user = userDao.findOneByUsername(currentUsername);
+        final User user = userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
         final Comment comment = (Comment) Optional.of(
                 commentDao.findOne(command.getId()))
                     .orElseThrow(NotFoundException::new);

@@ -38,8 +38,7 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public Collection<Long> handle(AddFriendCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer user = Optional.ofNullable(
-                (Mushroomer)repo.findOneByUsername(currentUsername))
+        final Mushroomer user = (Mushroomer)repo.findOneByUsername(currentUsername)
                     .orElseThrow(EntityNotFoundException::new);
 
         final Collection<Long> addedFriends = new ArrayList<>();
@@ -69,8 +68,7 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public Collection<Long> handle(DeleteFriendsCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer user = Optional.ofNullable(
-                (Mushroomer)repo.findOneByUsername(currentUsername))
+        final Mushroomer user = (Mushroomer)repo.findOneByUsername(currentUsername)
                     .orElseThrow(EntityNotFoundException::new);
 
         final Collection<Long> removedFriends = new ArrayList<>();
@@ -93,8 +91,7 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public void handle(AcceptInvitationToFriendsCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer user = Optional.ofNullable(
-                (Mushroomer)repo.findOneByUsername(currentUsername))
+        final Mushroomer user = (Mushroomer)repo.findOneByUsername(currentUsername)
                     .orElseThrow(EntityNotFoundException::new);
 
         final Mushroomer friend = Optional.ofNullable(

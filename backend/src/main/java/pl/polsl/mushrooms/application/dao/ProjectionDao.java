@@ -7,7 +7,7 @@ import java.util.Set;
  */
 public interface ProjectionDao<T> {
 
-    Set<T> findAll(long userId);
+//    Set<T> findAll(User user);
 
     Set<T> findAll();
 

@@ -8,6 +8,7 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -29,7 +30,8 @@ public class TripServiceImpl implements TripService {
     @Override
     public long handle(CreateTripCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer user = (Mushroomer) userDao.findOneByUsername(currentUsername);
+        final Mushroomer user = (Mushroomer) userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
 
         final Trip trip = new Trip(
                 command.getDateTime(),
@@ -58,8 +60,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public void handle(DeleteTripCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer currentUser = (Mushroomer)Optional.ofNullable(
-                userDao.findOneByUsername(currentUsername))
+        final Mushroomer currentUser = (Mushroomer)userDao.findOneByUsername(currentUsername)
                     .orElseThrow(NotFoundException::new);
 
         final Trip trip = Optional.of(
@@ -76,8 +77,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public void handle(JoinTripCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer mushroomer = (Mushroomer)Optional.ofNullable(
-                userDao.findOneByUsername(currentUsername))
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
                 .orElseThrow(NotFoundException::new);
 
         final Trip trip = Optional.ofNullable(
@@ -111,7 +111,8 @@ public class TripServiceImpl implements TripService {
             if (mushroomer != null) {
                 trip.addMushroomer(mushroomer);
 
-                final User userOfContent = userDao.findOneByUsername(command.getUserName());
+                final User userOfContent = userDao.findOneByUsername(command.getUserName())
+                        .orElseThrow(EntityNotFoundException::new);;
                 mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, userOfContent);
             }
         }

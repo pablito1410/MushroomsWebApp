@@ -1,17 +1,14 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.ScoreProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Score;
 import pl.polsl.mushrooms.infrastructure.dto.ScoreDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.ScoreRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -33,21 +30,21 @@ public class ScoreProjectionDaoImpl implements ScoreProjectionDao {
         this.entityMapper = entityMapper;
     }
 
-    @Override
-    public Set<ScoreDto> findAll(long userId) {
-        final Mushroomer mushroomer = (Mushroomer)Optional
-                .ofNullable(userRepository.findOne(userId))
-                    .orElseThrow(EntityNotFoundException::new);
-
-        final Set<Score> scores = mushroomer.getScores();
-
-        return entityMapper.map(scores);
-    }
+//    @Override
+//    public Set<ScoreDto> findAll(long userId) {
+//        final Mushroomer mushroomer = (Mushroomer)Optional
+//                .ofNullable(userRepository.findOne(userId))
+//                    .orElseThrow(EntityNotFoundException::new);
+//
+//        final Set<Score> scores = mushroomer.getScores();
+//
+//        return entityMapper.map(scores);
+//    }
 
     @Override
     public Set<ScoreDto> findAll() {
         final List<Score> scores = scoreRepository.findAll();
-        return entityMapper.map((Set<Score>) scores);
+        return entityMapper.map( scores);
     }
 
     @Override

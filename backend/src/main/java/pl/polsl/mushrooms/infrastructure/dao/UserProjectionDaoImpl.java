@@ -4,6 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
@@ -59,24 +60,43 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
         return user.getId();
     }
 
-    @Override
-    public Set<UserDto> findAll(long id) {
-        final User user = Optional.ofNullable(
-                userRepository.findOne(id))
-                .orElseThrow(EntityNotFoundException::new);
-
-        switch(user.getRole()) {
-            case MUSHROOMER:
-                final Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
-                return entityMapper.map(friends);
-
-            case ADMIN:
-                throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
-
-            default:
-                throw new RuntimeException(String.format("Unhandled switch exception - %s", user.getRole()));
-        }
-    }
+//    @Override
+//    public Set<MushroomerDto> findFriends(String username) {
+//        final User user = Optional.ofNullable(
+//                userRepository.findOneByUsername(username))
+//                .orElseThrow(EntityNotFoundException::new);
+//
+//        switch(user.getRole()) {
+//            case MUSHROOMER:
+//                final Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
+//                return entityMapper.map(friends);
+//
+//            case ADMIN:
+//                throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
+//
+//            default:
+//                throw new RuntimeException(String.format("Unhandled switch exception - %s", user.getRole()));
+//        }
+//    }
+//
+//    @Override
+//    public Set<UserDto> findAll(long id) {
+//        final User user = Optional.ofNullable(
+//                userRepository.findOne(id))
+//                .orElseThrow(EntityNotFoundException::new);
+//
+//        switch(user.getRole()) {
+//            case MUSHROOMER:
+//                final Set<Mushroomer> friends = ((Mushroomer)user).getFriends();
+//                return entityMapper.map(friends);
+//
+//            case ADMIN:
+//                throw new UnsupportedOperationException(String.format("User type %s has no friends.", user.getRole()));
+//
+//            default:
+//                throw new RuntimeException(String.format("Unhandled switch exception - %s", user.getRole()));
+//        }
+//    }
 
     @Override
     public Set<UserDto> findAll() {
@@ -89,5 +109,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
         final Set<User> users = userRepository.findByUsernameIgnoreCaseContaining(value);
         return entityMapper.map(users);
     }
+
+
 
 }

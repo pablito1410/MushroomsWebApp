@@ -50,8 +50,9 @@ public class MushroomGenusController {
         return new ResponseEntity<>(mushroomGenus, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(DeleteMushroomGenusCommand command) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
+        final DeleteMushroomGenusCommand command = new DeleteMushroomGenusCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

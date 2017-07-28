@@ -1,9 +1,13 @@
 package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.NotificationProjectionDao;
-import pl.polsl.mushrooms.application.dao.UserProjectionDao;
+import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
 /**
@@ -12,12 +16,14 @@ import java.util.Set;
 public class NotificationProjectionServiceImpl implements NotificationProjectionService {
 
     private final NotificationProjectionDao notificationProjectionDao;
-    private final UserProjectionDao userProjectionDao;
+    private final UserDao userDao;
+    private final EntityMapper entityMapper;
 
     public NotificationProjectionServiceImpl(NotificationProjectionDao notificationProjectionDao,
-                                             UserProjectionDao userProjectionDao) {
+                                             UserDao userDao, EntityMapper entityMapper) {
         this.notificationProjectionDao = notificationProjectionDao;
-        this.userProjectionDao = userProjectionDao;
+        this.userDao = userDao;
+        this.entityMapper = entityMapper;
     }
 
     @Override
@@ -27,6 +33,12 @@ public class NotificationProjectionServiceImpl implements NotificationProjection
 
     @Override
     public Set<NotificationDto> findAll(String username) {
-        return notificationProjectionDao.findAll(username);
+        final User user = userDao.findOneByUsername(username)
+                .orElseThrow(EntityNotFoundException::new);
+        if (user.isAdmin()) {
+            return notificationProjectionDao.findAll();
+        } else {
+            return entityMapper.map(((Mushroomer)user).getNotifications());
+        }
     }
 }

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
@@ -13,7 +12,6 @@ import pl.polsl.mushrooms.application.services.projections.DiscoveryProjectionSe
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -49,8 +47,8 @@ public class DiscoveryController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> getById(@PathVariable(name = "id") long id) {
-        final Map<String, Object> discovery = discoveryProjectionService.findOne(id);
+    public ResponseEntity<DiscoveryDto> getById(@PathVariable(name = "id") long id) {
+        final DiscoveryDto discovery = discoveryProjectionService.findOne(id);
         return new ResponseEntity<>(discovery, HttpStatus.OK);
     }
 
@@ -69,17 +67,12 @@ public class DiscoveryController {
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/add-score", method = RequestMethod.POST)
-    public ResponseEntity<Void> addScore(@RequestBody AddScoreToDiscoveryCommand command) {
-        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        commandGateway.dispatch(command);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Set<DiscoveryDto>> search(@RequestParam(value = "value") String value) {
         final Set<DiscoveryDto> discoveries = discoveryProjectionService.search(value);
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
+
+
 
 }

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.infrastructure.dao.*;
+import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.*;
 
@@ -22,6 +23,11 @@ public class DaoConfig {
     @Bean
     public DiscoveryDao discoveryDao(final DiscoveryRepository DiscoveryRepository) {
         return new DiscoveryDaoImpl(DiscoveryRepository);
+    }
+
+    @Bean
+    public TagDao tagDao(final TagRepository tagRepository) {
+        return new TagDaoImpl(tagRepository);
     }
 
     @Bean
@@ -74,6 +80,12 @@ public class DaoConfig {
         return new ScoreProjectionDaoImpl(scoreRepository, userRepository, entityMapper);
     }
 
+    @Bean CommentProjectionDao commentProjectionDao(
+            final CommentRepository commentRepository,
+            final EntityMapper entityMapper) {
+        return new CommentProjectionDaoImpl(commentRepository, entityMapper);
+    }
+
     @Bean
     public TripDao tripDao(
             final TripRepository tripRepository,
@@ -87,6 +99,15 @@ public class DaoConfig {
                                                final UserRepository userRepository,
                                                final EntityMapper entityMapper) {
         return new TripProjectionDaoImpl(tripRepository, userRepository, entityMapper);
+    }
+
+    @Bean
+    public  TagProjectionDao tagProjectionDao(
+            final TagRepository tagRepository,
+            final UserRepository userRepository,
+            final DiscoveryRepository discoveryRepository,
+            final EntityMapper entityMapper) {
+        return new TagProjectionDaoImpl(tagRepository, userRepository, discoveryRepository, entityMapper);
     }
 
     @Bean

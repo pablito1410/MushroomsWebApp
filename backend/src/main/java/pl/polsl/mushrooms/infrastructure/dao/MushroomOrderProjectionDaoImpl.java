@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
-import org.hibernate.cfg.NotYetImplementedException;
 import pl.polsl.mushrooms.application.dao.MushroomOrderProjectionDao;
 import pl.polsl.mushrooms.application.model.MushroomOrder;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomOrderDto;
@@ -25,10 +24,10 @@ public class MushroomOrderProjectionDaoImpl implements MushroomOrderProjectionDa
         this.entityMapper = entityMapper;
     }
 
-    @Override
-    public Set<MushroomOrderDto> findAll(long userId) {
-        throw new NotYetImplementedException();
-    }
+//    @Override
+//    public Set<MushroomOrderDto> findAll(long userId) {
+//        throw new NotYetImplementedException();
+//    }
 
     @Override
     public Set<MushroomOrderDto> findAll() {

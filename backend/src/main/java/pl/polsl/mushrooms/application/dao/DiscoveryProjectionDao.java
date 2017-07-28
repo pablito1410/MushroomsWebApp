@@ -7,4 +7,5 @@ import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
  */
 public interface DiscoveryProjectionDao extends ProjectionDao<DiscoveryDto> {
 
+
 }

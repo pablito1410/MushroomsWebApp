@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.projections.*;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 /**
  * Created by pawel_zaqkxkn on 16.07.2017.
@@ -13,34 +14,59 @@ import pl.polsl.mushrooms.application.services.projections.*;
 public class ProjectionServicesConfig {
 
     @Bean
-    public NotificationProjectionService notificationProjectionService(NotificationProjectionDao notificationProjectionDao,
-                                                                       UserProjectionDao userProjectionDao) {
-        return new NotificationProjectionServiceImpl(notificationProjectionDao, userProjectionDao);
+    public NotificationProjectionService notificationProjectionService(
+            final NotificationProjectionDao notificationProjectionDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
+        return new NotificationProjectionServiceImpl(notificationProjectionDao, userDao, entityMapper);
     }
 
     @Bean
-    public ScoreProjectionService scoreProjectionService(ScoreProjectionDao scoreProjectionDao, UserProjectionService userProjectionService) {
-        return new ScoreProjectionServiceImpl(scoreProjectionDao, userProjectionService);
+    public ScoreProjectionService scoreProjectionService(
+            final ScoreProjectionDao scoreProjectionDao,
+            final DiscoveryDao discoveryDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
+        return new ScoreProjectionServiceImpl(scoreProjectionDao, discoveryDao, userDao, entityMapper);
     }
 
     @Bean
-    public UserProjectionService userProjectionService(UserProjectionDao userProjectionDao, UserDao userDao) {
-        return new UserProjectionServiceImpl(userProjectionDao, userDao);
+    public TagProjectionService tagProjectionService(
+            final TagProjectionDao tagProjectionDao,
+            final UserDao userDao) {
+        return new TagProjecitonServiceImpl(tagProjectionDao, userDao);
     }
 
     @Bean
-    public CommentProjectionService commentProjectionService() {
-        return new CommentProjectionServiceImpl();
+    public UserProjectionService userProjectionService(
+            final UserProjectionDao userProjectionDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
+        return new UserProjectionServiceImpl(userProjectionDao, userDao, entityMapper);
     }
 
     @Bean
-    public DiscoveryProjectionService discoveryProjectionService(final DiscoveryProjectionDao discoveryProjectionDao, UserProjectionService userProjectionService) {
-        return new DiscoveryProjectionServiceImpl(discoveryProjectionDao, userProjectionService);
+    public CommentProjectionService commentProjectionService(
+            final CommentProjectionDao commentDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
+        return new CommentProjectionServiceImpl(commentDao, userDao, entityMapper);
     }
 
     @Bean
-    public TripProjectionService tripProjectionService(TripProjectionDao tripProjectionDao, UserProjectionService userProjectionService) {
-        return new TripProjectionServiceImpl(tripProjectionDao, userProjectionService);
+    public DiscoveryProjectionService discoveryProjectionService(
+            final DiscoveryProjectionDao discoveryProjectionDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
+        return new DiscoveryProjectionServiceImpl(discoveryProjectionDao, userDao, entityMapper);
+    }
+
+    @Bean
+    public TripProjectionService tripProjectionService(
+            final TripProjectionDao tripProjectionDao,
+            final UserDao userDao,
+            final EntityMapper entityMapper) {
+        return new TripProjectionServiceImpl(tripProjectionDao, userDao, entityMapper);
     }
 
     @Bean

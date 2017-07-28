@@ -28,20 +28,28 @@ public class MapperConfig {
             registry.registerObject(Trip.class, TripDto.class);
             registry.registerObject(Score.class, ScoreDto.class);
             registry.registerObject(Notification.class, NotificationDto.class);
-            registry.registerObject(MushroomSpecies.class, MushroomSpeciesDto.class);
             registry.registerObject(Discovery.class, DiscoveryDto.class);
             registry.registerObject(Comment.class, CommentDto.class);
             registry.registerObject(Tag.class, TagDto.class);
+            registry.registerObject(MushroomClass.class, MushroomClassDto.class);
+            registry.registerObject(MushroomOrder.class, MushroomOrderDto.class);
+            registry.registerObject(MushroomFamily.class, MushroomFamilyDto.class);
+            registry.registerObject(MushroomGenus.class, MushroomGenusDto.class);
+            registry.registerObject(MushroomSpecies.class, MushroomSpeciesDto.class);
 
             registry.registerCollection(User.class, new TypeToken<HashSet<UserDto>>() {}.getType());
             registry.registerCollection(Mushroomer.class, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
             registry.registerCollection(Trip.class, new TypeToken<HashSet<TripDto>>() {}.getType());
             registry.registerCollection(Score.class, new TypeToken<HashSet<ScoreDto>>() {}.getType());
             registry.registerCollection(Notification.class, new TypeToken<HashSet<NotificationDto>>() {}.getType());
-            registry.registerCollection(MushroomSpecies.class, new TypeToken<HashSet<MushroomSpeciesDto>>() {}.getType());
             registry.registerCollection(Discovery.class, new TypeToken<HashSet<DiscoveryDto>>() {}.getType());
             registry.registerCollection(Comment.class, new TypeToken<HashSet<CommentDto>>() {}.getType());
             registry.registerCollection(Tag.class, new TypeToken<HashSet<TagDto>>() {}.getType());
+            registry.registerCollection(MushroomClass.class, new TypeToken<HashSet<MushroomClassDto>>() {}.getType());
+            registry.registerCollection(MushroomOrder.class, new TypeToken<HashSet<MushroomOrderDto>>() {}.getType());
+            registry.registerCollection(MushroomFamily.class, new TypeToken<HashSet<MushroomFamilyDto>>() {}.getType());
+            registry.registerCollection(MushroomGenus.class, new TypeToken<HashSet<MushroomGenusDto>>() {}.getType());
+            registry.registerCollection(MushroomSpecies.class, new TypeToken<HashSet<MushroomSpeciesDto>>() {}.getType());
         };
     }
 

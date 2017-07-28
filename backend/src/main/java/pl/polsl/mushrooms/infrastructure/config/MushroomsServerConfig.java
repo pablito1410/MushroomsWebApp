@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import pl.polsl.mushrooms.application.commands.comment.CreateCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.DeleteCommentCommand;
 import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
-import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
@@ -29,6 +28,9 @@ import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCo
 import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
 import pl.polsl.mushrooms.application.commands.score.DeleteScoreCommand;
 import pl.polsl.mushrooms.application.commands.score.UpdateScoreCommand;
+import pl.polsl.mushrooms.application.commands.tag.CreateTagCommand;
+import pl.polsl.mushrooms.application.commands.tag.DeleteTagCommand;
+import pl.polsl.mushrooms.application.commands.tag.UpdateTagCommand;
 import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
@@ -51,6 +53,7 @@ public class MushroomsServerConfig {
             DiscoveryService discoveryService,
             CommentService commentService,
             ScoreService scoreService,
+            TagService tagService,
             NotificationService notificationService,
             MushroomClassService mushroomClassService,
             MushroomOrderService mushroomOrderService,
@@ -77,7 +80,6 @@ public class MushroomsServerConfig {
             registry.register(discoveryService::handle, CreateDiscoveryCommand.class);
             registry.register(discoveryService::handle, UpdateDiscoveryCommand.class);
             registry.register(discoveryService::handle, DeleteDiscoveryCommand.class);
-            registry.register(discoveryService::handle, AddScoreToDiscoveryCommand.class);
 
             registry.register(commentService::handle, CreateCommentCommand.class);
             registry.register(commentService::handle, UpdateCommentCommand.class);
@@ -86,6 +88,10 @@ public class MushroomsServerConfig {
             registry.register(scoreService::handle, AddScoreCommand.class);
             registry.register(scoreService::handle, UpdateScoreCommand.class);
             registry.register(scoreService::handle, DeleteScoreCommand.class);
+
+            registry.register(tagService::handle, CreateTagCommand.class);
+            registry.register(tagService::handle, UpdateTagCommand.class);
+            registry.register(tagService::handle, DeleteTagCommand.class);
 
             registry.register(notificationService::handle, DeleteNotificationCommand.class);
 

@@ -7,6 +7,8 @@ import pl.polsl.mushrooms.application.model.UsersUsersId;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UsersUsersRepository;
 
+import java.util.Optional;
+
 /**
  * Created by pawel_zaqkxkn on 30.03.2017.
  */
@@ -42,8 +44,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findOneByUsername(String username) {
-        return repository.findOneByUsername(username);
+    public Optional<User> findOneByUsername(String username) {
+        return Optional.ofNullable(repository.findOneByUsername(username));
     }
 
     @Override

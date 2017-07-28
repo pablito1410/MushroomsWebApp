@@ -1,13 +1,42 @@
 package pl.polsl.mushrooms.application.services.projections;
 
-import java.util.Map;
+import pl.polsl.mushrooms.application.dao.CommentProjectionDao;
+import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.CommentDto;
+import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
  */
 public class CommentProjectionServiceImpl implements CommentProjectionService {
+
+    private final CommentProjectionDao commentProjectionDao;
+    private final UserDao userDao;
+    private final EntityMapper entityMapper;
+
+    public CommentProjectionServiceImpl(CommentProjectionDao commentProjectionDao, UserDao userDao, EntityMapper entityMapper) {
+        this.commentProjectionDao = commentProjectionDao;
+        this.userDao = userDao;
+        this.entityMapper = entityMapper;
+    }
+
     @Override
-    public Map<String, Object> findOne(long id) {
-        return null;
+    public CommentDto findOne(long id) {
+        return commentProjectionDao.findOne(id);
+    }
+
+    @Override
+    public Set<CommentDto> findAll(String userName) {
+        final User user = userDao.findOneByUsername(userName)
+                .orElseThrow(EntityNotFoundException::new);
+        if (user.isAdmin()) {
+            return commentProjectionDao.findAll();
+        } else {
+            return entityMapper.map(user.getComments());
+        }
     }
 }

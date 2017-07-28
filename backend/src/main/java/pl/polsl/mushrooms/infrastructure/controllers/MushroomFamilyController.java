@@ -48,8 +48,9 @@ public class MushroomFamilyController {
         return new ResponseEntity<>(mushroomFamily, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(DeleteMushroomFamilyCommand command) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
+        final DeleteMushroomFamilyCommand command = new DeleteMushroomFamilyCommand(id);
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }

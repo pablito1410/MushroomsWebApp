@@ -1,6 +1,5 @@
 package pl.polsl.mushrooms.application.services;
 
-import pl.polsl.mushrooms.application.commands.discovery.AddScoreToDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.CreateDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
@@ -16,5 +15,4 @@ public interface DiscoveryService {
 
     void handle(DeleteDiscoveryCommand command);
 
-    void handle(AddScoreToDiscoveryCommand addScoreToDiscoveryCommand);
 }

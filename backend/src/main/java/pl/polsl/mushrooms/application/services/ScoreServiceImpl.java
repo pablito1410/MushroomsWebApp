@@ -6,10 +6,12 @@ import pl.polsl.mushrooms.application.commands.score.UpdateScoreCommand;
 import pl.polsl.mushrooms.application.dao.DiscoveryDao;
 import pl.polsl.mushrooms.application.dao.ScoreDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.model.Discovery;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Score;
 
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,7 +20,6 @@ import java.util.Optional;
  * Created by pawel_zaqkxkn on 26.06.2017.
  */
 public class ScoreServiceImpl implements ScoreService {
-
 
     private final ScoreDao scoreDao;
     private final UserDao userDao;
@@ -32,27 +33,30 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public Long handle(AddScoreCommand command) {
-        final Mushroomer currentUser = (Mushroomer) Optional.ofNullable(
-                userDao.findOneByUsername(command.getUserName()))
-                    .orElseThrow(NotFoundException::new);
+        final String currentUsername = command.getUserName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
+                .orElseThrow(EntityNotFoundException::new);;
 
-        final Discovery discovery = Optional.ofNullable(
+        final Discovery discovery =  Optional.of(
                 discoveryDao.findDiscovery(command.getDiscoveryId()))
-                    .orElseThrow(NotFoundException::new);
+                .orElseThrow(NotFoundException::new);
 
         final Score score = new Score(
                 command.getValue(),
                 LocalDateTime.now(),
                 discovery,
-                currentUser);
+                mushroomer);
 
+        discovery.getMushroomer().addNotification(
+                discovery.getId(), NotificationType.DISCOVERY_ADD_SCORE, mushroomer);
+
+        discoveryDao.save(discovery);
         return scoreDao.save(score).getId();
     }
 
     @Override
     public void handle(UpdateScoreCommand command) {
-        final Mushroomer currentUser = (Mushroomer) Optional.ofNullable(
-                userDao.findOneByUsername(command.getUserName()))
+        final Mushroomer currentUser = (Mushroomer)userDao.findOneByUsername(command.getUserName())
                     .orElseThrow(NotFoundException::new);
 
         final Score score = scoreDao.findOne(command.getId());
@@ -66,8 +70,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public void handle(DeleteScoreCommand command) {
-        final Mushroomer currentUser = (Mushroomer) Optional.ofNullable(
-                userDao.findOneByUsername(command.getUserName()))
+        final Mushroomer currentUser = (Mushroomer)userDao.findOneByUsername(command.getUserName())
                 .orElseThrow(NotFoundException::new);
 
         final Score score = scoreDao.findOne(command.getId());

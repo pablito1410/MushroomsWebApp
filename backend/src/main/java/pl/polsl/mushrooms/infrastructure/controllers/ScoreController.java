@@ -9,6 +9,9 @@ import pl.polsl.mushrooms.application.commands.score.DeleteScoreCommand;
 import pl.polsl.mushrooms.application.commands.score.UpdateScoreCommand;
 import pl.polsl.mushrooms.application.services.projections.ScoreProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.ScoreDto;
+
+import java.util.Set;
 
 /**
  * Created by pawel_zaqkxkn on 26.06.2017.
@@ -47,6 +50,25 @@ public class ScoreController {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Set<ScoreDto>> getAll() {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<ScoreDto> tags = scoreProjectionService.findAll(userName);
+        return new ResponseEntity<>(tags, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ScoreDto> getById(@PathVariable(name = "id") long id) {
+        final ScoreDto trip = scoreProjectionService.findOne(id);
+        return new ResponseEntity<>(trip, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/discovery/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Double> scoresAverge(@PathVariable(name = "id") long id) {
+        final double scoresAverage = scoreProjectionService.discoveryScoresAverage(id);
+        return new ResponseEntity<>(Double.valueOf(scoresAverage), HttpStatus.OK);
     }
 
 }

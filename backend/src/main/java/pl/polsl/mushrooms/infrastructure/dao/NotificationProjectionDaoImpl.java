@@ -2,9 +2,7 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import pl.polsl.mushrooms.application.dao.NotificationProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Notification;
-import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.NotificationRepository;
@@ -32,10 +30,10 @@ public class NotificationProjectionDaoImpl implements NotificationProjectionDao 
         this.entityMapper = entityMapper;
     }
 
-    @Override
-    public Set<NotificationDto> findAll(long userId) {
-        throw new NotYetImplementedException(); // TODO
-    }
+//    @Override
+//    public Set<NotificationDto> findAll(long userId) {
+//        throw new NotYetImplementedException(); // TODO
+//    }
 
     @Override
     public Set<NotificationDto> findAll() {
@@ -55,18 +53,5 @@ public class NotificationProjectionDaoImpl implements NotificationProjectionDao 
     @Override
     public Set<NotificationDto> search(String value) {
         throw new NotYetImplementedException(); // TODO
-    }
-
-    @Override
-    public Set<NotificationDto> findAll(String userName) {
-        final User user = Optional.ofNullable(
-                userRepository.findOneByUsername(userName))
-                    .orElseThrow(EntityNotFoundException::new);
-        if (user instanceof Mushroomer) {
-            final Set<Notification> notifications = ((Mushroomer)user).getNotifications();
-            return entityMapper.map(notifications);
-        } else {
-            throw new IllegalStateException("User must be an instance of Mushroomer");
-        }
     }
 }

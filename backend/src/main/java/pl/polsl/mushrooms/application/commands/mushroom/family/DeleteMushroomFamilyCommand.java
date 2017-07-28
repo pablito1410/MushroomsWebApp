@@ -12,7 +12,11 @@ public class DeleteMushroomFamilyCommand implements VoidCommand {
     @NotNull
     private Long id;
 
-    protected DeleteMushroomFamilyCommand() { }
+    public DeleteMushroomFamilyCommand() { }
+
+    public DeleteMushroomFamilyCommand(long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

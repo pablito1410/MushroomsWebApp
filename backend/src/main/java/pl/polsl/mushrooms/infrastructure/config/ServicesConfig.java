@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.model.MushroomOrder;
 import pl.polsl.mushrooms.application.services.*;
+import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
@@ -34,6 +35,14 @@ public class ServicesConfig {
     @Bean
     public ScoreService scoreService(ScoreDao scoreDao, UserDao userDao, DiscoveryDao discoveryDao) {
         return new ScoreServiceImpl(scoreDao, userDao, discoveryDao); }
+
+    @Bean
+    public TagService tagService(
+            final DiscoveryDao discoveryDao,
+            final TagDao tagDao,
+            final EntityMapper entityMapper) {
+        return new TagServiceImpl(discoveryDao, tagDao, entityMapper);
+    }
 
     @Bean
     public DiscoveryService discoveryService(
