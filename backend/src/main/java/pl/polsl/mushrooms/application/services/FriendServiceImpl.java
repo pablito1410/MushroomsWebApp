@@ -9,6 +9,7 @@ import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.NotificationType;
 import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.model.UsersUsers;
 import pl.polsl.mushrooms.application.model.UsersUsersId;
 
@@ -44,25 +45,34 @@ public class FriendServiceImpl implements FriendService {
         final Collection<Long> addedFriends = new ArrayList<>();
 
         for (long friendId : command.getFriendIds()) {
-            final Mushroomer friend = (Mushroomer)repo.findOne(friendId);
+                final Optional<User> friend = repo.findOne(friendId);
+                if (friend.isPresent() && friend.get().isMushroomer()) {
+                    addFriend(user, (Mushroomer) friend.get());
+                    addedFriends.add(friendId);
+                }
+                else {
+                    // log
+                }
 
-            if (user.hasFriend(friend)) {
-                throw new EntityAlreadyExistException();
-            } else if (friend.hasFriend(user)) {
-                acceptInvitationToFriends(user, friend);
-                friend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
-            } else {
-                user.addFriend(friend);
-                notificationDao.save(
-                        friend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user));
-                repo.save(friend);
-                addedFriends.add(friend.getId());
-            }
         }
 
         repo.save(user);
 
         return addedFriends;
+    }
+
+    private void addFriend(final Mushroomer user, final Mushroomer newFriend) {
+        if (user.hasFriend(newFriend)) {
+            throw new EntityAlreadyExistException();
+        } else if (newFriend.hasFriend(user)) {
+            acceptInvitationToFriends(user, newFriend);
+            newFriend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
+        } else {
+            user.addFriend(newFriend);
+            notificationDao.save(
+                    newFriend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user));
+            repo.save(newFriend);
+        }
     }
 
     @Override
@@ -74,11 +84,12 @@ public class FriendServiceImpl implements FriendService {
         final Collection<Long> removedFriends = new ArrayList<>();
 
         for (long friendId : command.getFriendIds()) {
-            final Mushroomer friend = (Mushroomer)repo.findOne(friendId);
+            final Optional<User> friend = repo.findOne(friendId);
 
-            if (friend != null) {
-                if (user.removeFriend(friend)) {
-                    removedFriends.add(friend.getId());
+            if (friend.isPresent() && friend.get().isMushroomer()) {
+                final Mushroomer mushroomer = (Mushroomer) friend.get();
+                if (user.removeFriend(mushroomer)) {
+                    removedFriends.add(mushroomer.getId());
                 }
             }
         }
@@ -94,13 +105,13 @@ public class FriendServiceImpl implements FriendService {
         final Mushroomer user = (Mushroomer)repo.findOneByUsername(currentUsername)
                     .orElseThrow(EntityNotFoundException::new);
 
-        final Mushroomer friend = Optional.ofNullable(
-                (Mushroomer)repo.findOne(command.getFriendId()))
+        final User friend =
+                repo.findOne(command.getFriendId())
                     .orElseThrow(EntityNotFoundException::new);
 
-        if (friend.hasFriend(user)) {
-            acceptInvitationToFriends(user, friend);
-            friend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
+        if (friend.isMushroomer() && ((Mushroomer)friend).hasFriend(user)) {
+            acceptInvitationToFriends(user, (Mushroomer)friend);
+            ((Mushroomer)friend).addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
         } else {
             throw new EntityNotFoundException();
         }

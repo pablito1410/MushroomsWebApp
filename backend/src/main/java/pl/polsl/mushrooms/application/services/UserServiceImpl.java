@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserByEmail(String email) {
-        return Optional.ofNullable(userDao.findOneByEmail(email));
+        return userDao.findOneByEmail(email);
     }
 
     @Override
@@ -90,14 +90,18 @@ public class UserServiceImpl implements UserService {
     public UserDto handle(UpdateUserCommand command) {
         final String currentUserName = command.getCurrentUserName();
         final User currentUser = userDao.findOneByUsername(currentUserName)
-                    .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> {
+                    return new EntityNotFoundException(String.format("User with username=%s not found", currentUserName));
+                });
 
         switch (currentUser.getRole())
         {
             case ADMIN:
-                final String userName = command.getUserName();
-                final User user = userDao.findOneByUsername(userName)
-                        .orElseThrow(EntityNotFoundException::new);
+                final Long id = command.getId();
+                final User user = userDao.findOne(id.longValue())
+                        .orElseThrow(() -> {
+                            return new EntityNotFoundException(String.format("User with id=%s not found", id));
+                        });
                 return updateUser(user, command);
 
             case MUSHROOMER:
@@ -109,16 +113,24 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDto updateUser(final User user, UpdateUserCommand command) {
-        final Mushroomer mushroomer = (Mushroomer)user;
-        mushroomer.setEmail(command.getEmail());
-        mushroomer.setFirstName(command.getFirstName());
-        mushroomer.setLastName(command.getLastName());
-        mushroomer.setBirthDate(command.getBirthDate());
-        mushroomer.setGender(command.getGender());
-        mushroomer.setCity(command.getCity());
-        mushroomer.setCountry(command.getCountry());
+        user.setUsername(command.getUsername());
+        user.setEmail(command.getEmail());
+
+        if (user.isMushroomer()) {
+            final Mushroomer mushroomer = (Mushroomer)user;
+            mushroomer.setUsername(command.getUsername());
+            mushroomer.setEmail(command.getEmail());
+            mushroomer.setFirstName(command.getFirstName());
+            mushroomer.setLastName(command.getLastName());
+            mushroomer.setBirthDate(command.getBirthDate());
+            mushroomer.setGender(command.getGender());
+            mushroomer.setCity(command.getCity());
+            mushroomer.setCountry(command.getCountry());
+        }
+
         userDao.save(user);
-        return entityMapper.map(mushroomer);
+
+        return entityMapper.map(user);
     }
 
     @Override
@@ -144,7 +156,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     private boolean emailExist(final String email) {
-        return userDao.findOneByEmail(email) == null ? false : true;
+        return userDao.findOneByEmail(email).isPresent();
     }
 
     private boolean userNameExist(String username) {

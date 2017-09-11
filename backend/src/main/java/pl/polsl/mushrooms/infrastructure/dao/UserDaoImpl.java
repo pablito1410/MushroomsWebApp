@@ -29,13 +29,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findOne(long id) {
-        return repository.findOne(id);
+    public Optional<User> findOne(long id) {
+        return Optional.ofNullable(repository.findOne(id));
     }
 
     @Override
-    public User findOneByEmail(final String email) {
-        return repository.findByEmail(email);
+    public Optional<User> findOneByEmail(final String email) {
+        return Optional.ofNullable(repository.findByEmail(email));
     }
 
     @Override

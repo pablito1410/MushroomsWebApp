@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface UserDao {
     User save(User user);
 
-    User findOne(long id);
+    Optional<User> findOne(long id);
 
-    User findOneByEmail(String email);
+    Optional<User> findOneByEmail(String email);
 
     void delete(long id);
 

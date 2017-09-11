@@ -130,4 +130,8 @@ public abstract class User implements Serializable {
     public boolean isAdmin() {
 		return getRole().equals(UserRole.ADMIN);
     }
+
+	public boolean isMushroomer() {
+		return getRole().equals(UserRole.MUSHROOMER);
+	}
 }

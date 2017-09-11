@@ -17,7 +17,9 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     @Transient
     private String currentUserName;
-    
+
+    @NotNull
+    private Long id;
     private String username;
     @NotNull
     private String email;
@@ -43,6 +45,10 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
         this.gender = gender;
         this.city = city;
         this.country = country;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -73,7 +79,7 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
         return country;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 

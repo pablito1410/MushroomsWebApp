@@ -49,11 +49,14 @@ public class TripServiceImpl implements TripService {
     @Override
     public void handle(UpdateTripCommand command) {
         final Trip trip = Optional.of(
-                tripDao.findTrip(command.getTripId()))
+                tripDao.findTrip(command.getId()))
                     .orElseThrow(NotFoundException::new);
 
         trip.setPlace(command.getPlace());
         trip.setDateTime(command.getDateTime());
+        trip.setCoordinateX(command.getCoordinateX());
+        trip.setCoordinateY(command.getCoordinateY());
+        trip.setRadius(command.getRadius());
         tripDao.save(trip);
     }
 
@@ -100,24 +103,33 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void handle(InviteToTripCommand command) {
+        final String currentUsername = command.getUserName();
+        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
+                .orElseThrow(() -> {
+                    return new EntityNotFoundException(String.format("User with username=$s not found.", currentUsername));
+                });
 
         final Trip trip = Optional.ofNullable(
                 tripDao.findTrip(command.getTripId()))
                 .orElseThrow(NotFoundException::new);
 
         for (Long userId : command.getUserIds()) {
-            final Mushroomer mushroomer = (Mushroomer) userDao.findOne(userId);
+            final Optional<User> user = userDao.findOne(userId);
 
-            if (mushroomer != null) {
-                trip.addMushroomer(mushroomer);
-
-                final User userOfContent = userDao.findOneByUsername(command.getUserName())
-                        .orElseThrow(EntityNotFoundException::new);;
-                mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, userOfContent);
-            }
+            user.ifPresent(u -> inviteToTrip(trip, u, mushroomer));
         }
 
         tripDao.save(trip);
+    }
+
+    private void inviteToTrip(final Trip trip, final User user, final User invitingPerson) {
+        if (user.isMushroomer()) {
+            final Mushroomer mushroomer = (Mushroomer)user;
+            trip.addMushroomer(mushroomer);
+            mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, invitingPerson);
+        } else {
+            // log
+        }
     }
 
 }
