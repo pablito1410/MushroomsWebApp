@@ -66,10 +66,13 @@ public class Mushroomer extends User {
 			inverseJoinColumns = {@JoinColumn(name = "\"FRIEND_ID\"")})
 	private Set<Mushroomer> users;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "\"ROLE\"", nullable = false, insertable = false, updatable = false)
+	protected UserRole role;
+
     @Override
-    @Enumerated(EnumType.STRING)
     public UserRole getRole() {
-        return UserRole.MUSHROOMER;
+        return role;
     }
 
 	protected Mushroomer() {

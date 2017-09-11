@@ -2,7 +2,6 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
@@ -41,7 +40,7 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
     }
 
     @Override
-    public UserDto findOne(long id) {
+    public MushroomerDto findOne(long id) {
         final Optional<User> user = Optional.ofNullable(userRepository.findOne(id));
         if (user.isPresent()) {
             return entityMapper.map(user.get());
@@ -99,13 +98,13 @@ public class UserProjectionDaoImpl implements UserProjectionDao {
 //    }
 
     @Override
-    public Set<UserDto> findAll() {
+    public Set<MushroomerDto> findAll() {
         final List<User> users = userRepository.findAll();
         return entityMapper.map(users);
     }
 
     @Override
-    public Set<UserDto> search(String value) {
+    public Set<MushroomerDto> search(String value) {
         final Set<User> users = userRepository.findByUsernameIgnoreCaseContaining(value);
         return entityMapper.map(users);
     }

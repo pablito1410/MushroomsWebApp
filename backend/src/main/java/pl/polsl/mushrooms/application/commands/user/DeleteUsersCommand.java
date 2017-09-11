@@ -17,7 +17,12 @@ public class DeleteUsersCommand implements VoidCommand {
     @NotNull
     private String adminPassword;
 
-    private DeleteUsersCommand() { }
+    protected DeleteUsersCommand() { }
+
+    public DeleteUsersCommand(String adminPassword, long[] ids) {
+        this.adminPassword = adminPassword;
+        this.ids = ids;
+    }
 
     public long[] getIds() {
         return ids;

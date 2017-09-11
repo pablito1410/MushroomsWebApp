@@ -24,6 +24,7 @@ public class MapperConfig {
             EntityMapperRegistry registry) {
         return () -> {
             registry.registerObject(User.class, UserDto.class);
+            registry.registerObject(Admin.class, MushroomerDto.class);
             registry.registerObject(Mushroomer.class, MushroomerDto.class);
             registry.registerObject(Trip.class, TripDto.class);
             registry.registerObject(Score.class, ScoreDto.class);

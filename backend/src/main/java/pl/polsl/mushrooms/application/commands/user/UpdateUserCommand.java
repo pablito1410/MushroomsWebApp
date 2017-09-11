@@ -3,9 +3,10 @@ package pl.polsl.mushrooms.application.commands.user;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
-import pl.polsl.mushrooms.infrastructure.tools.deserializers.DateDeserializer;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
+import pl.polsl.mushrooms.infrastructure.tools.deserializers.DateDeserializer;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -14,8 +15,10 @@ import java.util.Date;
  */
 public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
-    private String userName;
-
+    @Transient
+    private String currentUserName;
+    
+    private String username;
     @NotNull
     private String email;
 
@@ -31,6 +34,16 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
     private String country;
 
     private UpdateUserCommand() { }
+
+    public UpdateUserCommand(String email, String firstName, String lastName, Date birthDate, Gender gender, String city, String country) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.city = city;
+        this.country = country;
+    }
 
     public String getEmail() {
         return email;
@@ -61,10 +74,14 @@ public class UpdateUserCommand implements ReturningCommand<UserDto>{
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setCurrentUserName(final String adminUserName) {
+        this.currentUserName = adminUserName;
+    }
+
+    public String getCurrentUserName() {
+        return currentUserName;
     }
 }

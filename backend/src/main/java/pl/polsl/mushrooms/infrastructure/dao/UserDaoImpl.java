@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public User findOneByEmail(final String email) {
         return repository.findByEmail(email);
     }
 

@@ -12,7 +12,11 @@ import javax.persistence.Enumerated;
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
 
-	public Admin() { }
+	protected Admin() { }
+
+	public Admin(String username, String email, String password) {
+		super(username, email, password);
+	}
 
 	@Override
 	@Enumerated(EnumType.STRING)

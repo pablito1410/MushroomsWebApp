@@ -12,7 +12,7 @@ import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
-import pl.polsl.mushrooms.infrastructure.dto.UserDto;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 
 import java.util.Collection;
 import java.util.Set;
@@ -43,9 +43,9 @@ public class FriendsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Set<UserDto>> getAll() {
+    public ResponseEntity<Set<MushroomerDto>> getAll() {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<UserDto> users = userProjectionService.findAll(username);
+        final Set<MushroomerDto> users = userProjectionService.findAll(username);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

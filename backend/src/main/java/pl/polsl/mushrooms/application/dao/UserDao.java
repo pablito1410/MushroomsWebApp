@@ -14,7 +14,7 @@ public interface UserDao {
 
     User findOne(long id);
 
-    User findUserByEmail(String email);
+    User findOneByEmail(String email);
 
     void delete(long id);
 

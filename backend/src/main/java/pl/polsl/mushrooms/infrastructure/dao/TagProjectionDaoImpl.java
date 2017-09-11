@@ -39,7 +39,8 @@ public class TagProjectionDaoImpl implements TagProjectionDao {
 
     @Override
     public Set<TagDto> findAll(long userId) {
-        return tagRepository.findByDiscoveryMushroomerId(userId);// TODO
+        final Set<Tag> tags = tagRepository.findByDiscoveryMushroomerId(userId);// TODO
+        return entityMapper.map(tags);
     }
 
     @Override

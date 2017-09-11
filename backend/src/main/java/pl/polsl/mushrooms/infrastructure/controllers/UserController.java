@@ -13,6 +13,7 @@ import pl.polsl.mushrooms.application.commands.user.UpdateProfileImageCommand;
 import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.io.IOException;
@@ -70,15 +71,15 @@ public class UserController {
     }
 
     @RequestMapping(path = "/all", method = RequestMethod.GET)
-    public ResponseEntity<Set<UserDto>> getAll() {
+    public ResponseEntity<Set<MushroomerDto>> getAll() {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<UserDto> users = userProjectionService.findAll(username);
+        final Set<MushroomerDto> users = userProjectionService.findAll(username);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public ResponseEntity<Set<UserDto>> search(@RequestParam(value = "value") String value) {
-        final Set<UserDto> users = userProjectionService.search(value);
+    public ResponseEntity<Set<MushroomerDto>> search(@RequestParam(value = "value") String value) {
+        final Set<MushroomerDto> users = userProjectionService.search(value);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -89,7 +90,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<UserDto> update(@RequestBody UpdateUserCommand command) {
-        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        command.setCurrentUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final UserDto user = commandGateway.dispatch(command);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

@@ -4,6 +4,7 @@ import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
@@ -45,7 +46,7 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Set<UserDto> search(String value) {
+    public Set<MushroomerDto> search(String value) {
         if (value == null || value.isEmpty()) {
             return Collections.emptySet();
         }
@@ -53,7 +54,7 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Set<UserDto> findAll(String username) {
+    public Set<MushroomerDto> findAll(String username) {
         final User user = userDao.findOneByUsername(username)
                 .orElseThrow(EntityNotFoundException::new);
         if (user.isAdmin()) {

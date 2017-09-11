@@ -1,6 +1,6 @@
 package pl.polsl.mushrooms.application.services;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
@@ -12,6 +12,7 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.application.tools.PasswordEncoder;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
@@ -27,24 +28,32 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final EntityMapper entityMapper;
+    private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserServiceImpl(
             final UserDao userDao,
-            final EntityMapper entityMapper) {
+            final EntityMapper entityMapper,
+            final PasswordEncoder passwordEncoder) {
 
         this.userDao = userDao;
         this.entityMapper = entityMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public long handle(CreateUserCommand command) {
-        if (userExist(command.getEmail())) {
+        if (emailExist(command.getEmail())) {
             throw new EntityAlreadyExistException(
                     "User with an e-mail = " + command.getEmail() + " already exist.");
         }
 
-        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        final String encodedPassword = encoder.encode(command.getPassword());
+        if (userNameExist(command.getUsername())) {
+            throw new EntityAlreadyExistException(
+                    "User with an userName = " + command.getUsername() + " already exist.");
+        }
+
+        final String encodedPassword = passwordEncoder.encode(command.getPassword());
 
         final Mushroomer user = new Mushroomer(
                 command.getUsername(),
@@ -64,7 +73,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public Optional<User> getUserByEmail(String email) {
-        return Optional.ofNullable(userDao.findUserByEmail(email));
+        return Optional.ofNullable(userDao.findOneByEmail(email));
     }
 
     @Override
@@ -79,32 +88,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto handle(UpdateUserCommand command) {
-        final String username = command.getUserName();
-        final User user = userDao.findOneByUsername(username)
-                    .orElseThrow(NotFoundException::new);
+        final String currentUserName = command.getCurrentUserName();
+        final User currentUser = userDao.findOneByUsername(currentUserName)
+                    .orElseThrow(EntityNotFoundException::new);
 
-        switch (user.getRole())
+        switch (currentUser.getRole())
         {
             case ADMIN:
-                user.setEmail(command.getEmail());
-                userDao.save(user);
-                return entityMapper.map(user);
+                final String userName = command.getUserName();
+                final User user = userDao.findOneByUsername(userName)
+                        .orElseThrow(EntityNotFoundException::new);
+                return updateUser(user, command);
 
             case MUSHROOMER:
-                final Mushroomer mushroomer = (Mushroomer)user;
-                mushroomer.setEmail(command.getEmail());
-                mushroomer.setFirstName(command.getFirstName());
-                mushroomer.setLastName(command.getLastName());
-                mushroomer.setBirthDate(command.getBirthDate());
-                mushroomer.setGender(command.getGender());
-                mushroomer.setCity(command.getCity());
-                mushroomer.setCountry(command.getCountry());
-                userDao.save(user);
-                return entityMapper.map(mushroomer);
+                return updateUser(currentUser, command);
 
             default:
-                return entityMapper.map(user);
+                return entityMapper.map(currentUser);
         }
+    }
+
+    private UserDto updateUser(final User user, UpdateUserCommand command) {
+        final Mushroomer mushroomer = (Mushroomer)user;
+        mushroomer.setEmail(command.getEmail());
+        mushroomer.setFirstName(command.getFirstName());
+        mushroomer.setLastName(command.getLastName());
+        mushroomer.setBirthDate(command.getBirthDate());
+        mushroomer.setGender(command.getGender());
+        mushroomer.setCity(command.getCity());
+        mushroomer.setCountry(command.getCountry());
+        userDao.save(user);
+        return entityMapper.map(mushroomer);
     }
 
     @Override
@@ -113,10 +127,13 @@ public class UserServiceImpl implements UserService {
         final User currentUser = userDao.findOneByUsername(currentUsername)
                     .orElseThrow(EntityNotFoundException::new);
 
-        final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        final String encodedAdminPassword = encoder.encode(command.getAdminPassword());
+        if (!currentUser.isAdmin()) {
+            throw new NoRequiredPermissions("Admin permissions required");
+        }
 
-        if (!encoder.matches(currentUser.getPassword(), encodedAdminPassword)) {
+        final String encodedAdminPassword = passwordEncoder.encode(command.getAdminPassword());
+
+        if (!passwordEncoder.matches(currentUser.getPassword(), encodedAdminPassword)) {
             throw new NoRequiredPermissions("Admin permissions required");
         }
 
@@ -126,7 +143,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    private boolean userExist(final String email) {
-        return userDao.findUserByEmail(email) == null ? false : true;
+    private boolean emailExist(final String email) {
+        return userDao.findOneByEmail(email) == null ? false : true;
+    }
+
+    private boolean userNameExist(String username) {
+        return userDao.findOneByUsername(username).isPresent();
     }
 }

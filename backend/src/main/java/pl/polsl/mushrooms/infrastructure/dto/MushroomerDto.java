@@ -8,6 +8,7 @@ import pl.polsl.mushrooms.application.enums.MushroomerLevel;
 import pl.polsl.mushrooms.application.enums.UserRole;
 import pl.polsl.mushrooms.infrastructure.tools.serializers.DateSerializer;
 
+import javax.persistence.Enumerated;
 import java.util.Date;
 
 /**
@@ -24,10 +25,12 @@ public class MushroomerDto extends UserDto {
     private Date birthDate;
 
     private Gender gender;
+    @Enumerated
     private MushroomerLevel level;
     private String country;
     private String city;
     private byte[] photo;
+    @Enumerated
     private UserRole role;
 
 }

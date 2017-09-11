@@ -12,8 +12,6 @@ import java.util.Date;
  */
 public class CreateUserCommand implements ReturningCommand<Long> {
 
-    private String userName;
-
     @NotNull
     protected String username;
 
@@ -32,6 +30,16 @@ public class CreateUserCommand implements ReturningCommand<Long> {
     private Gender gender;
 
     private CreateUserCommand() { }
+
+    public CreateUserCommand(String username, String email, String password, String firstName, String lastName, Date birthDate, Gender gender) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.gender = gender;
+    }
 
     public String getUsername() {
         return username;
@@ -61,11 +69,4 @@ public class CreateUserCommand implements ReturningCommand<Long> {
         return gender;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

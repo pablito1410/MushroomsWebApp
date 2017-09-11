@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.model.MushroomOrder;
 import pl.polsl.mushrooms.application.services.*;
+import pl.polsl.mushrooms.application.tools.PasswordEncoder;
 import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
@@ -18,8 +19,9 @@ import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 public class ServicesConfig {
 
     @Bean
-    public UserService userService(UserDao userDao, EntityMapper entityMapper) {
-        return new UserServiceImpl(userDao, entityMapper);
+    public UserService userService(
+            final UserDao userDao, final EntityMapper entityMapper, final PasswordEncoder passwordEncoder) {
+        return new UserServiceImpl(userDao, entityMapper, passwordEncoder);
     }
 
     @Bean
