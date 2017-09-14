@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.mushrooms.application.commands.trip.CreateTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.DeleteTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.JoinTripCommand;
-import pl.polsl.mushrooms.application.commands.trip.UpdateTripCommand;
+import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.services.projections.TripProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
@@ -83,5 +80,10 @@ public class TripController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
+    public ResponseEntity<Void> add(@RequestBody InviteToTripCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
