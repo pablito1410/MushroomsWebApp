@@ -9,6 +9,9 @@ import {FriendDetailsComponent} from "../../friends/friend-details/friend-detail
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {User} from "../../../model/user";
+import {DateTool} from "../../../shared/tools/date.tool";
+import {Discovery} from "app/model/discovery";
+import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
 
 @Component({
     moduleId: module.id,
@@ -17,17 +20,19 @@ import {User} from "../../../model/user";
 })
 export class TripDetailsComponent implements OnInit {
     friends: User[];
+    discoveries: Discovery[];
     public zoom: number = 12;
     selectedOption: string;
 
     constructor(
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<TripDetailsComponent>,
-        @Inject(MD_DIALOG_DATA) public trip: any,
+        @Inject(MD_DIALOG_DATA) public trip: Trip,
         @Inject(DOCUMENT) private document,
         private tripService: TripService,
         private friendService: FriendService) {
         this.friends = new Array<User>();
+        this.discoveries = new Array<Discovery>();
     }
 
 
@@ -64,11 +69,45 @@ export class TripDetailsComponent implements OnInit {
                     role: 'MUSHROOMER'
                 }
             ];
+            this.discoveries = [
+                {
+                    id: 1,
+                    coordinateX: 43.341166,
+                    coordinateY: 38.462563,
+                    photo: null,
+                    dateTime: '2016-06-21T19:09:42.646',
+                    isPublic: true
+                },
+                {
+                    id: 2,
+                    coordinateX: 45.345566,
+                    coordinateY: 35.463566,
+                    photo: null,
+                    dateTime: '2016-07-22T19:11:32.646',
+                    isPublic: true
+                },
+                {
+                    id: 3,
+                    coordinateX: 41.174666,
+                    coordinateY: 22.463226,
+                    photo: null,
+                    dateTime: '2017-04-28T19:08:11.646',
+                    isPublic: true
+                }
+            ];
         } else {
             // this.friendService.getAllInvited().subscribe(
             //     result => this.friends = result
             // );
         }
+    }
+
+    getFriendPhotoToDisplay(friend: User) : string {
+        return 'data:image/png;base64,' + friend.photo;
+    }
+
+    getDiscoveryPhotoToDisplay(discovery: Discovery) : string {
+        return 'data:image/png;base64,' + discovery.photo;
     }
 
     openUserDetailsDialog(user) {
@@ -81,6 +120,26 @@ export class TripDetailsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
         });
+    }
+
+    openDiscoveryDetailsDialog(discovery) {
+        let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
+            data: discovery,
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
+    }
+
+    isComing() : boolean {
+        return DateTool.compareDateTime(new Date(), new Date(this.trip.dateTime)) == -1;
+    }
+
+    convertDateToLocaleString(date: string) : string {
+        return new Date(date).toLocaleString();
     }
 
     search(term: string) {

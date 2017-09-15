@@ -27,6 +27,7 @@ export class AddTripComponent implements OnInit {
     selectedOption: string;
     minute: number;
     hour: number;
+    currentDate: Date;
 
 
     @ViewChild("search")
@@ -45,6 +46,7 @@ export class AddTripComponent implements OnInit {
         this.friends = new Array<User>();
         this.searchControl = new FormControl();
         this.selectedFriends = new Collections.Set<User>();
+        this.currentDate = new Date();
     }
 
     ngOnInit() {
@@ -169,8 +171,7 @@ export class AddTripComponent implements OnInit {
         console.log(this.trip);
         this.tripService.create(this.trip).subscribe(
             data => {
-                // this.trip.id = data;
-                console.log(data.toString());
+                this.trip.id = +data.toString();
                 this.snackBar.open('Trip Added', '×', {
                     duration: 2000,
                 });
@@ -182,8 +183,7 @@ export class AddTripComponent implements OnInit {
             });
         console.log('end addTrip');
         if (!this.selectedFriends.isEmpty() && this.trip.id) {
-            // if (this.trip.id == null)
-            //     this.trip.id = 1;
+            console.log(this.trip.id);
             let userIds = new Collections.Set<number>();
             this.selectedFriends.forEach(f => {
                 userIds.add(f.id);

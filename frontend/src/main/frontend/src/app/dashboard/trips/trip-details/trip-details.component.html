@@ -10,29 +10,81 @@
             </sebm-google-map-circle>
         </sebm-google-map>
     </div>
-    <div class="row top-buffer">
-        <form role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
-                <span class="material-input"></span>
-            </div>
-        </form>
+    <div *ngIf="!isComing()">
+        <h2 class="text-gray">Friends on a trip:</h2>
+    </div>
+    <div *ngIf="isComing()">
+        <h2 class="text-gray">Friends who accepted the trip:</h2>
     </div>
     <div class="row top-buffer">
         <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
             <div class="card card-profile">
-                <div class="checkbox add-friend-checkbox">
-                    <label>
-                        <input type="checkbox" name="selectToAdd">
-                    </label>
-                </div>
                 <div (click)="openUserDetailsDialog(friend)">
                     <div class="card-avatar">
-                        <img class="img" src="..\assets\img\faces\default-user.png"/>
+                        <div *ngIf="friend.photo != null">
+                            <img class="img" [src]="getFriendPhotoToDisplay(friend)"/>
+                        </div>
+                        <div *ngIf="friend.photo == null">
+                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                        </div>
                     </div>
                     <div class="content">
                         <h5 class="category text-gray">{{friend.username}}</h5>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isComing()">
+        <h2 class="text-gray">Search friends to invite:</h2>
+        <div class="row top-buffer">
+            <form role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
+                    <span class="material-input"></span>
+                </div>
+            </form>
+            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
+                <div class="card card-profile">
+                    <div class="checkbox add-friend-checkbox">
+                        <label>
+                            <input type="checkbox" name="selectToAdd">
+                        </label>
+                    </div>
+                    <div (click)="openUserDetailsDialog(friend)">
+                        <div class="card-avatar">
+                            <div *ngIf="friend.photo != null">
+                                <img class="img" [src]="getFriendPhotoToDisplay(friend)"/>
+                            </div>
+                            <div *ngIf="friend.photo == null">
+                                <img class="img" src="..\assets\img\faces\default-user.png"/>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h5 class="category text-gray">{{friend.username}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!isComing()" class="row top-buffer">
+        <h2 class="text-gray">Discoveries on a trip:</h2>
+        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let discovery of discoveries">
+            <div class="card card-stats" (click)="openDiscoveryDetailsDialog(discovery)">
+                <div class="card-image">
+                    <div *ngIf="discovery.photo != null">
+                        <img class="img" [src]="getDiscoveryPhotoToDisplay(discovery)" />
+                    </div>
+                    <div *ngIf="discovery.photo == null">
+                        <img class="img" width="30%" height="30%" src="..\assets\img\mushrooms-icon.png"/>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p class="category text-gray">Mushroom</p>
+                    <h3 class="title text-gray">{{convertDateToLocaleString(discovery.dateTime)}}</h3>
+                </div>
+                <div class="card-footer">
                 </div>
             </div>
         </div>

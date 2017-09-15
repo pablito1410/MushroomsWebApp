@@ -26,7 +26,7 @@
                 <span class="input-group-addon">
                     <button type="button" mdSuffix [mdDatepickerToggle]="picker"><i class="material-icons">event</i></button>
                 </span>
-                <input mdInput [mdDatepicker]="picker" class="form-control" name="date-time" [(ngModel)]="trip.dateTime"
+                <input mdInput [mdDatepicker]="picker" [min]="currentDate" class="form-control" name="date-time" [(ngModel)]="trip.dateTime"
                        #dateTime="ngModel" placeholder="Date and Time" />
                 <md-datepicker #picker></md-datepicker>
             </div>

@@ -31,7 +31,7 @@ export class TripsComponent implements OnInit {
             this.trips = [
                 {
                     id: 1,
-                    dateTime: '2016-06-27T19:08:42.646Z',
+                    dateTime: '2016-06-27T19:08:42.646',
                     place: 'Katowice',
                     coordinateX: 43.342845,
                     coordinateY: 20.343843,
@@ -39,7 +39,7 @@ export class TripsComponent implements OnInit {
                 },
                 {
                     id: 2,
-                    dateTime: '2016-06-27T19:08:42.646Z',
+                    dateTime: '2017-09-15T18:08:42.646',
                     place: 'Rybnik',
                     coordinateX: 13.342845,
                     coordinateY: 60.343843,
@@ -47,7 +47,7 @@ export class TripsComponent implements OnInit {
                 },
                 {
                     id: 3,
-                    dateTime: '2016-06-27T19:08:42.646Z',
+                    dateTime: '2017-11-27T19:08:42.646',
                     place: 'Gliwice',
                     coordinateX: 11.342845,
                     coordinateY: 30.343843,
