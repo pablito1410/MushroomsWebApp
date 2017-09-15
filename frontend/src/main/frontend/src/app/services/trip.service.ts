@@ -18,7 +18,7 @@ export class TripService {
     }
 
     create(trip: Trip) {
-        return this.http.post('/api/trips', trip, this.authenticationService.jwt()).map((response: Response) => response);
+        return this.http.post('/api/trips', trip, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
     update(trip: Trip) {

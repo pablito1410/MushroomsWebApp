@@ -81,6 +81,8 @@ export class AddTripComponent implements OnInit {
                 }
             ];
         } else {
+            this.hour = 1;
+            this.minute = 0;
             this.friendService.getAll().subscribe(
                 result => this.friends = result
             );
@@ -160,10 +162,9 @@ export class AddTripComponent implements OnInit {
 
     addTrip() {
         let dateTime = new Date(this.trip.dateTime);
-        dateTime.setHours(dateTime.getHours() + 2);
-        dateTime.setHours(this.hour);
+        dateTime.setHours(this.hour + 2);
         dateTime.setMinutes(this.minute);
-        this.trip.dateTime = dateTime.toISOString();
+        this.trip.dateTime = dateTime.toISOString().slice(0, -1);
         console.log('start addTrip');
         console.log(this.trip);
         this.tripService.create(this.trip).subscribe(

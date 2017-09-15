@@ -84,7 +84,7 @@ export class UserComponent implements OnInit {
     update() {
         let birthDate = new Date(this.user.birthDate);
         birthDate.setHours(birthDate.getHours() + 2);
-        this.user.birthDate = birthDate.toISOString();
+        this.user.birthDate = birthDate.toISOString().slice(0, -1);
         this.loading = true;
         this.userService.update(this.user)
             .subscribe(
