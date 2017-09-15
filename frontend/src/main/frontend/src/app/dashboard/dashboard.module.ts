@@ -12,7 +12,7 @@ import { MapsComponent} from "./maps/maps.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
     MdNativeDateModule, MdDialogModule, MdDatepickerModule, MdSnackBarModule, MdSnackBar,
-    LiveAnnouncer, MdSelect, MdSelectModule
+    LiveAnnouncer, MdSelect, MdSelectModule, MdSlider, MdSliderModule
 } from "@angular/material";
 import { AgmCoreModule } from "angular2-google-maps/core";
 import { SearchFriendsComponent } from "./friends/search-friends/search-friends.component";
@@ -36,6 +36,7 @@ import {CommentComponent} from "./comments/comment/comment.component";
         RouterModule,
         CommonModule,
         FormsModule,
+        MdSliderModule,
         MdDatepickerModule,
         MdNativeDateModule,
         MdDialogModule,

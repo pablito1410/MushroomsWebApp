@@ -15,7 +15,7 @@ import * as Collections from 'typescript-collections';
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
     users: User[];
-    selectedUsersIds: Collections.Set<number>;
+    selectedUsers: Collections.Set<User>;
 
     constructor(
         public dialog: MdDialog,
@@ -23,7 +23,7 @@ export class SearchFriendsComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         private userService: UserService) {
         this.users = new Array<User>();
-        this.selectedUsersIds = new Collections.Set<number>();
+        this.selectedUsers = new Collections.Set<User>();
 }
 
     ngOnInit() {
@@ -97,16 +97,26 @@ export class SearchFriendsComponent implements OnInit {
             });
     }
 
-    checkboxOnClick(index : number, event : Event) {
+    checkCheckboxStatus(user : User) : boolean {
+        this.selectedUsers.forEach(u => {
+            if (user.id == u.id) {
+                return true;
+            }
+        });
+        return false;
+    }
+
+    getUserPhotoToDisplay(user: User) : string {
+        return 'data:image/png;base64,' + user.photo;
+    }
+
+    checkboxOnClick(user : User, event : Event) {
         if ($(event.target).is("input")) {
-            if (this.selectedUsersIds.contains(index)) {
-                this.selectedUsersIds.remove(index);
-                console.log('contain');
+            if (this.selectedUsers.contains(user)) {
+                this.selectedUsers.remove(user);
             } else {
-                this.selectedUsersIds.add(index);
-                console.log('add');
+                this.selectedUsers.add(user);
             }
         }
-        console.log(this.selectedUsersIds.toArray().toString());
     }
 }

@@ -1,26 +1,68 @@
 <h1 md-dialog-title>Add Trip</h1>
 <div md-dialog-content>
     <div class="row top-buffer">
-        <div class="container">
-            <div class="form-group">
-                <input placeholder="Search for location" id="search" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="trip.place"
-                       type="text" class="form-control" #searchControl [formControl]="searchControl">
+        <div class="col-md-6">
+            <div class="row top-buffer">
+                <!--<div class="container">-->
+                    <div class="form-group">
+                        <input placeholder="Search for location" id="search" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="trip.place"
+                               type="text" class="form-control" #search [formControl]="searchControl">
+                    </div>
+                    <sebm-google-map [latitude]="trip.coordinateX" [longitude]="trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
+                        <sebm-google-map-circle [latitude]="trip.coordinateX" [longitude]="trip.coordinateY"
+                            [radius]="trip.radius"
+                            [fillColor]="'green'"
+                            [circleDraggable]="true"
+                            [editable]="true"
+                            (dragEnd)="circleDragEnd($event)">
+                        </sebm-google-map-circle>
+                    </sebm-google-map>
+                <!--</div>-->
             </div>
-            <sebm-google-map [latitude]="trip.coordinateX" [longitude]="trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
-                <sebm-google-map-circle [latitude]="trip.coordinateX" [longitude]="trip.coordinateY"
-                    [radius]="trip.radius"
-                    [fillColor]="'green'"
-                    [circleDraggable]="true"
-                    [editable]="true"
-                    (dragEnd)="circleDragEnd($event)">
-                </sebm-google-map-circle>
-            </sebm-google-map>
+        </div>
+        <div class="col-md-6">
+            <div class="row top-buffer text-center">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <button type="button" mdSuffix [mdDatepickerToggle]="picker"><i class="material-icons">event</i></button>
+                </span>
+                <input mdInput [mdDatepicker]="picker" class="form-control" name="date-time" [(ngModel)]="trip.dateTime"
+                       #dateTime="ngModel" placeholder="Date and Time" />
+                <md-datepicker #picker></md-datepicker>
+            </div>
+            <h5 class="text-gray">Hour: {{hour}}</h5>
+            <md-slider
+                    class="example-margin"
+                    [invert]="invert"
+                    [max]="24"
+                    [min]="1"
+                    [step]="1"
+                    [thumb-label]="true"
+                    [tick-interval]="1"
+                    [value]="value"
+                    [vertical]="vertical"
+                    [(ngModel)]="hour">
+            </md-slider>
+            <h5 class="text-gray">Minute: {{minute}}</h5>
+            <md-slider
+                    class="example-margin"
+                    [invert]="invert"
+                    [max]="59"
+                    [min]="0"
+                    [step]="1"
+                    [thumb-label]="true"
+                    [tick-interval]="1"
+                    [value]="value"
+                    [vertical]="vertical"
+                    [(ngModel)]="minute">
+            </md-slider>
+            </div>
         </div>
     </div>
     <div class="row top-buffer">
         <form role="search">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
+                <input type="text" class="form-control" placeholder="Search" (keyup)="searchFriends($event.target.value)">
                 <span class="material-input"></span>
             </div>
         </form>
@@ -28,14 +70,28 @@
     <div class="row top-buffer">
         <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
             <div class="card card-profile">
-                <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(friend.id, $event)">
-                    <label>
-                        <input type="checkbox" name="selectToAdd">
-                    </label>
+                <div *ngIf="checkCheckboxStatus(friend); else check_status_false">
+                    <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(friend, $event)">
+                        <label>
+                            <input type="checkbox" name="selectToAdd" checked="checked">
+                        </label>
+                    </div>
                 </div>
+                <ng-template #check_status_false>
+                    <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(friend, $event)">
+                        <label>
+                            <input type="checkbox" name="selectToAdd">
+                        </label>
+                    </div>
+                </ng-template>
                 <div (click)="openUserDetailsDialog(friend)">
                     <div class="card-avatar">
-                        <img class="img" src="..\assets\img\faces\default-user.png"/>
+                        <div *ngIf="friend.photo != null">
+                            <img class="img" [src]="getFriendPhotoToDisplay(friend)" />
+                        </div>
+                        <div *ngIf="friend.photo == null">
+                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                        </div>
                     </div>
                     <div class="content">
                         <h5 class="category text-gray">{{friend.username}}</h5>

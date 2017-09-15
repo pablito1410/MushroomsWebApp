@@ -80,8 +80,8 @@ public class TripController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/add", method = RequestMethod.POST)
-    public ResponseEntity<Void> add(@RequestBody InviteToTripCommand command) {
+    @RequestMapping(path = "/invite", method = RequestMethod.POST)
+    public ResponseEntity<Void> invite(@RequestBody InviteToTripCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);

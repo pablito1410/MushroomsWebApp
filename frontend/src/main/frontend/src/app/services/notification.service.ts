@@ -24,6 +24,6 @@ export class NotificationService {
     }
 
     delete(id: number) {
-        return this.http.delete('/api/notifications/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.delete('/api/notifications/' + id, this.authenticationService.jwt()).map((response: Response) => response);
     }
 }

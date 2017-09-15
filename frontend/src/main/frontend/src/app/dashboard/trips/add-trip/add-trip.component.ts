@@ -11,6 +11,7 @@ import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {TripService} from "../../../services/trip.service";
 import * as Collections from 'typescript-collections';
+import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 
 @Component({
     moduleId: module.id,
@@ -20,10 +21,13 @@ import * as Collections from 'typescript-collections';
 export class AddTripComponent implements OnInit {
     trip: Trip;
     friends: User[];
-    selectedFriendsIds: Collections.Set<number>;
+    selectedFriends: Collections.Set<User>;
     public searchControl: FormControl;
     public zoom: number;
     selectedOption: string;
+    minute: number;
+    hour: number;
+
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -40,7 +44,7 @@ export class AddTripComponent implements OnInit {
         this.trip = new Trip();
         this.friends = new Array<User>();
         this.searchControl = new FormControl();
-        this.selectedFriendsIds = new Collections.Set<number>();
+        this.selectedFriends = new Collections.Set<User>();
     }
 
     ngOnInit() {
@@ -115,12 +119,7 @@ export class AddTripComponent implements OnInit {
         }
     }
 
-    setPlace(place) {
-    }
-
-    circleDragEnd($event: any) {
-        this.trip.coordinateX = $event.coords.lat;
-        this.trip.coordinateY = $event.coords.lng;
+    setPlace() {
         var latlng = new google.maps.LatLng(this.trip.coordinateX, this.trip.coordinateY);
         var geocoder = geocoder = new google.maps.Geocoder();
         geocoder.geocode({'latLng': latlng}, (results, status) => {
@@ -132,6 +131,12 @@ export class AddTripComponent implements OnInit {
             }
             // alert("Place: " + this.trip.place);
         });
+    }
+
+    circleDragEnd($event: any) {
+        this.trip.coordinateX = $event.coords.lat;
+        this.trip.coordinateY = $event.coords.lng;
+        this.setPlace();
     }
 
     openUserDetailsDialog(user) {
@@ -146,7 +151,7 @@ export class AddTripComponent implements OnInit {
         });
     }
 
-    search(term: string) {
+    searchFriends(term: string) {
         this.friendService.search(term)
             .subscribe(results => {
                 this.friends = results;
@@ -154,35 +159,72 @@ export class AddTripComponent implements OnInit {
     }
 
     addTrip() {
-        this.trip.dateTime = '2017-12-05T22:00:00Z';
+        let dateTime = new Date(this.trip.dateTime);
+        dateTime.setHours(dateTime.getHours() + 2);
+        dateTime.setHours(this.hour);
+        dateTime.setMinutes(this.minute);
+        this.trip.dateTime = dateTime.toISOString();
         console.log('start addTrip');
+        console.log(this.trip);
         this.tripService.create(this.trip).subscribe(
             data => {
-
+                // this.trip.id = data;
+                console.log(data.toString());
                 this.snackBar.open('Trip Added', '×', {
                     duration: 2000,
                 });
             },
             error => {
-                console.log(this.trip);
                 this.snackBar.open('Error', '×', {
                     duration: 2000,
                 });
             });
         console.log('end addTrip');
+        if (!this.selectedFriends.isEmpty() && this.trip.id) {
+            // if (this.trip.id == null)
+            //     this.trip.id = 1;
+            let userIds = new Collections.Set<number>();
+            this.selectedFriends.forEach(f => {
+                userIds.add(f.id);
+            })
+            console.log('start invite');
+            this.tripService.invite(
+                new InviteToTripCommand(this.trip.id, userIds.toArray())).subscribe(
+                data => {
+                    this.snackBar.open('Trip Added', '×', {
+                        duration: 2000,
+                    });
+                },
+                error => {
+                    this.snackBar.open('Error', '×', {
+                        duration: 2000,
+                    });
+                });
+            console.log('stop invite');
+        }
         this.dialogRef.close('Ok');
     }
 
-    checkboxOnClick(index : number, event : Event) {
+    getFriendPhotoToDisplay(friend: User) : string {
+        return 'data:image/png;base64,' + friend.photo;
+    }
+
+    checkCheckboxStatus(friend: User) : boolean {
+        this.selectedFriends.forEach(f => {
+            if (friend.id == f.id) {
+                return true;
+            }
+        });
+        return false;
+    }
+
+    checkboxOnClick(friend: User, event : Event) {
         if ($(event.target).is("input")) {
-            if (this.selectedFriendsIds.contains(index)) {
-                this.selectedFriendsIds.remove(index);
-                console.log('contain');
+            if (this.selectedFriends.contains(friend)) {
+                this.selectedFriends.remove(friend);
             } else {
-                this.selectedFriendsIds.add(index);
-                console.log('add');
+                this.selectedFriends.add(friend);
             }
         }
-        console.log(this.selectedFriendsIds.toArray().toString());
     }
 }

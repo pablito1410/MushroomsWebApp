@@ -14,14 +14,28 @@
     <div class="row top-buffer">
         <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let user of users">
             <div class="card card-profile">
-                <div class="checkbox add-friend-checkbox">
-                    <label>
-                        <input type="checkbox" name="selectToAdd" (change)="checkboxOnClick(user.id, $event)">
-                    </label>
+                <div *ngIf="checkCheckboxStatus(user); else check_status_false">
+                    <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(user, $event)">
+                        <label>
+                            <input type="checkbox" name="selectToAdd" checked="checked">
+                        </label>
+                    </div>
                 </div>
+                <ng-template #check_status_false>
+                    <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(user, $event)">
+                        <label>
+                            <input type="checkbox" name="selectToAdd">
+                        </label>
+                    </div>
+                </ng-template>
                 <div (click)="openUserDetailsDialog(user)">
                     <div class="card-avatar">
-                        <img class="img" src="..\assets\img\faces\default-user.png"/>
+                        <div *ngIf="user.photo != null">
+                            <img class="img" [src]="getUserPhotoToDisplay(user)" />
+                        </div>
+                        <div *ngIf="user.photo == null">
+                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                        </div>
                     </div>
                     <div class="content">
                         <h5 class="category text-gray">{{user.username}}</h5>

@@ -128,6 +128,14 @@ my-app .main-panel .main-content .card{
     background-color: rgb(121, 61, 0) !important;
 }
 
+.mat-slider-thumb, .mat-accent .mat-slider-thumb-label, .mat-accent .mat-slider-track-fill {
+    background-color: rgb(121, 61, 0) !important;
+}
+
+.mat-accent .mat-slider-thumb-label-text {
+    color: rgba(255,255,255,.87) !important;
+}
+
 .list-group ul {
     list-style-type: none;
 }

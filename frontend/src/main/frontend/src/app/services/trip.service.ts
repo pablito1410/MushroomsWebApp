@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { Trip } from '../model/trip';
 import {AuthenticationService} from "./authentication.service";
+import {InviteToTripCommand} from "../commands/invite-to-trip.command";
 
 @Injectable()
 export class TripService {
@@ -17,7 +18,7 @@ export class TripService {
     }
 
     create(trip: Trip) {
-        return this.http.post('/api/trips', trip, this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/trips', trip, this.authenticationService.jwt()).map((response: Response) => response);
     }
 
     update(trip: Trip) {
@@ -26,5 +27,9 @@ export class TripService {
 
     delete(id: number) {
         return this.http.delete('/api/trips/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    invite(inviteToTripCommand: InviteToTripCommand) {
+        return this.http.post('/api/trips/invite', inviteToTripCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }
