@@ -10,6 +10,7 @@ import {User} from "../../../model/user";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {TripService} from "../../../services/trip.service";
+import * as Collections from 'typescript-collections';
 
 @Component({
     moduleId: module.id,
@@ -19,6 +20,7 @@ import {TripService} from "../../../services/trip.service";
 export class AddTripComponent implements OnInit {
     trip: Trip;
     friends: User[];
+    selectedFriendsIds: Collections.Set<number>;
     public searchControl: FormControl;
     public zoom: number;
     selectedOption: string;
@@ -38,6 +40,7 @@ export class AddTripComponent implements OnInit {
         this.trip = new Trip();
         this.friends = new Array<User>();
         this.searchControl = new FormControl();
+        this.selectedFriendsIds = new Collections.Set<number>();
     }
 
     ngOnInit() {
@@ -152,7 +155,7 @@ export class AddTripComponent implements OnInit {
 
     addTrip() {
         this.trip.dateTime = '2017-12-05T22:00:00Z';
-        console.log('dupa');
+        console.log('start addTrip');
         this.tripService.create(this.trip).subscribe(
             data => {
 
@@ -166,7 +169,20 @@ export class AddTripComponent implements OnInit {
                     duration: 2000,
                 });
             });
-        console.log('wrror chyba');
+        console.log('end addTrip');
         this.dialogRef.close('Ok');
+    }
+
+    checkboxOnClick(index : number, event : Event) {
+        if ($(event.target).is("input")) {
+            if (this.selectedFriendsIds.contains(index)) {
+                this.selectedFriendsIds.remove(index);
+                console.log('contain');
+            } else {
+                this.selectedFriendsIds.add(index);
+                console.log('add');
+            }
+        }
+        console.log(this.selectedFriendsIds.toArray().toString());
     }
 }

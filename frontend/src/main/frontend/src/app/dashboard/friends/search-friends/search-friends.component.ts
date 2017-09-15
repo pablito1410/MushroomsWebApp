@@ -5,6 +5,7 @@ import {Subject} from "rxjs";
 import {UserService} from "../../../services/user.service";
 import {DOCUMENT} from "@angular/platform-browser";
 import {User} from "../../../model/user";
+import * as Collections from 'typescript-collections';
 
 @Component({
     moduleId: module.id,
@@ -14,7 +15,7 @@ import {User} from "../../../model/user";
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
     users: User[];
-    // checkedUsersIds: number[];
+    selectedUsersIds: Collections.Set<number>;
 
     constructor(
         public dialog: MdDialog,
@@ -22,8 +23,8 @@ export class SearchFriendsComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         private userService: UserService) {
         this.users = new Array<User>();
-        // this.checkedUsersIds = new Array<number>();
-    }
+        this.selectedUsersIds = new Collections.Set<number>();
+}
 
     ngOnInit() {
         if (+document.location.port == 4200) {
@@ -96,7 +97,16 @@ export class SearchFriendsComponent implements OnInit {
             });
     }
 
-    updateCheckedOptions(user, event) {
-        // this.optionsMap[option] = event.target.checked;
+    checkboxOnClick(index : number, event : Event) {
+        if ($(event.target).is("input")) {
+            if (this.selectedUsersIds.contains(index)) {
+                this.selectedUsersIds.remove(index);
+                console.log('contain');
+            } else {
+                this.selectedUsersIds.add(index);
+                console.log('add');
+            }
+        }
+        console.log(this.selectedUsersIds.toArray().toString());
     }
 }
