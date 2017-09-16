@@ -27,4 +27,13 @@ export class DiscoveryService {
     delete(id: number) {
         return this.http.delete('/api/discoveries/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
+
+    search(value: string, my: boolean, friends: boolean, isPublic: boolean) {
+        return this.http.get(
+            '/api/discoveries/search?value=' + value
+            + '&my=' + my
+            + '&friends=' + friends
+            + '&public=' + isPublic,
+            this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
 }

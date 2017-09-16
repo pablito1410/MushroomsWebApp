@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {MD_DIALOG_DATA, MdDialog, MdDialogRef} from "@angular/material";
+import {MD_DIALOG_DATA, MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
 import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
 import {FormControl} from "@angular/forms";
 import {Trip} from "../../../model/trip";
@@ -13,6 +13,7 @@ import {DateTool} from "../../../shared/tools/date.tool";
 import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
 import * as Collections from 'typescript-collections';
+import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 
 @Component({
     moduleId: module.id,
@@ -23,7 +24,7 @@ export class TripDetailsComponent implements OnInit {
     friends: User[];
     discoveries: Discovery[];
     selectedFriends: Collections.Set<User>;
-    accepteddFriends: Collections.Set<User>;
+    acceptedFriends: Collections.Set<User>;
     public zoom: number = 12;
     selectedOption: string;
 
@@ -33,11 +34,12 @@ export class TripDetailsComponent implements OnInit {
         @Inject(MD_DIALOG_DATA) public trip: Trip,
         @Inject(DOCUMENT) private document,
         private tripService: TripService,
-        private friendService: FriendService) {
+        private friendService: FriendService,
+        public snackBar: MdSnackBar) {
         this.friends = new Array<User>();
         this.discoveries = new Array<Discovery>();
         this.selectedFriends = new Collections.Set<User>();
-        this.accepteddFriends = new Collections.Set<User>();
+        this.acceptedFriends = new Collections.Set<User>();
     }
 
 
@@ -164,6 +166,30 @@ export class TripDetailsComponent implements OnInit {
 
     convertDateToLocaleString(date: string) : string {
         return new Date(date).toLocaleString();
+    }
+
+    invite() {
+        if (!this.selectedFriends.isEmpty()) {
+            console.log(this.trip.id);
+            let userIds = new Collections.Set<number>();
+            this.selectedFriends.forEach(f => {
+                userIds.add(f.id);
+            })
+            console.log('start invite');
+            this.tripService.invite(
+                new InviteToTripCommand(this.trip.id, userIds.toArray())).subscribe(
+                data => {
+                    this.snackBar.open('Friends Invited', '×', {
+                        duration: 2000,
+                    });
+                },
+                error => {
+                    this.snackBar.open('Error', '×', {
+                        duration: 2000,
+                    });
+                });
+            console.log('stop invite');
+        }
     }
 
     search(term: string) {

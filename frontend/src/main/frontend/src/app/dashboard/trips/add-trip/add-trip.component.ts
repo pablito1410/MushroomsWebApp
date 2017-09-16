@@ -128,7 +128,7 @@ export class AddTripComponent implements OnInit {
         var geocoder = geocoder = new google.maps.Geocoder();
         geocoder.geocode({'latLng': latlng}, (results, status) => {
             if (status == google.maps.GeocoderStatus.OK) {
-                console.log(results)
+                console.log(results);
                 if (results[0]) {
                     this.trip.place = results[0].formatted_address;
                 }

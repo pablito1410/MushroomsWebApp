@@ -15,12 +15,18 @@ import {DOCUMENT} from "@angular/platform-browser";
 export class DiscoveriesComponent implements OnInit {
     discoveries: Discovery[];
     selectedOption: string;
+    my: boolean;
+    friends: boolean;
+    isPublic: boolean;
 
     constructor(
         public dialog: MdDialog,
         @Inject(DOCUMENT) private document,
         private discoveryService: DiscoveryService) {
         this.discoveries = new Array<Discovery>();
+        this.my = true;
+        this.friends = false;
+        this.isPublic = false;
     }
 
     ngOnInit() {
@@ -53,9 +59,7 @@ export class DiscoveriesComponent implements OnInit {
                 }
             ];
         } else {
-            this.discoveryService.getAll().subscribe(
-                result => this.discoveries = result
-            );
+            this.searchDiscoveries('');
         }
     }
 
@@ -71,10 +75,10 @@ export class DiscoveriesComponent implements OnInit {
     }
 
     searchDiscoveries(term: string) {
-        // this.discoveryService.search(term)
-        //     .subscribe(results => {
-        //         this.discoveryService = results;
-        //     });
+        this.discoveryService.search(term, this.my, this.friends, this.isPublic)
+            .subscribe(
+                result => this.discoveries = result
+            );
     }
 
     openDiscoveryDetailsDialog(discovery) {
@@ -95,5 +99,26 @@ export class DiscoveriesComponent implements OnInit {
 
     getDiscoveryPhotoToDisplay(discovery: Discovery) : string {
         return 'data:image/png;base64,' + discovery.photo;
+    }
+
+    myCheckboxOnClick(event : Event) {
+        if ($(event.target).is("input")) {
+            this.my = !this.my;
+            this.searchDiscoveries('');
+        }
+    }
+
+    friendsCheckboxOnClick(event : Event) {
+        if ($(event.target).is("input")) {
+            this.friends = !this.friends;
+            this.searchDiscoveries('');
+        }
+    }
+
+    publicCheckboxOnClick(event : Event) {
+        if ($(event.target).is("input")) {
+            this.isPublic = !this.isPublic;
+            this.searchDiscoveries('');
+        }
     }
 }

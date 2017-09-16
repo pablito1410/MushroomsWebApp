@@ -12,7 +12,7 @@
                     <div class="card-content">
                         <div class="top-buffer">
                             <div class="col-6 col-md-4">
-                                <div class="checkbox">
+                                <div class="checkbox" (click)="myCheckboxOnClick($event)">
                                     <label>
                                         <input type="checkbox" name="optionsCheckboxes" checked>
                                         My
@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-md-4">
-                                <div class="checkbox">
+                                <div class="checkbox" (click)="friendsCheckboxOnClick($event)">
                                     <label>
                                         <input type="checkbox" name="optionsCheckboxes">
                                         My Friends
@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-md-4">
-                                <div class="checkbox">
+                                <div class="checkbox" (click)="publicCheckboxOnClick($event)">
                                     <label>
                                         <input type="checkbox" name="optionsCheckboxes">
                                         Public
@@ -39,7 +39,7 @@
                         <div class="top-buffer">
                             <form role="search">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
+                                    <input type="text" class="form-control" placeholder="Search" (keyup)="searchDiscoveries($event.target.value)">
                                     <span class="material-input"></span>
                                 </div>
                             </form>
