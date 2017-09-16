@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.application.services.projections;
 import pl.polsl.mushrooms.application.dao.TagProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 
 import javax.persistence.EntityNotFoundException;
@@ -45,8 +46,8 @@ public class TagProjecitonServiceImpl implements TagProjectionService {
     }
 
     @Override
-    public Set<TagDto> findByDiscoveryId(long discoveryId) {
-        return tagProjectionDao.findByDiscoveryId(discoveryId);
+    public DiscoveryDto findDiscovery(final long tagId) {
+        return tagProjectionDao.findDiscovery(tagId);
     }
 
 }

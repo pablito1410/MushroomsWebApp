@@ -18,6 +18,8 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
     @NotNull
     private long targetId;
 
+    @NotNull long discoveryId;
+
     @NotNull
     private LocalDateTime dateTime;
 
@@ -41,5 +43,25 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setContents(final String contents) {
+        this.contents = contents;
+    }
+
+    public void setTargetId(final long targetId) {
+        this.targetId = targetId;
+    }
+
+    public long getDiscoveryId() {
+        return discoveryId;
+    }
+
+    public  void setDiscoveryId(final long discoveryId) {
+        this.discoveryId = discoveryId;
+    }
+
+    public void setDateTime(final LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }

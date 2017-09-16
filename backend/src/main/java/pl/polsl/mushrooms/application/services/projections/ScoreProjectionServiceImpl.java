@@ -51,7 +51,8 @@ public class ScoreProjectionServiceImpl implements ScoreProjectionService {
 
     @Override
     public double discoveryScoresAverage(long discoveryId) {
-        final Discovery discovery = discoveryDao.findDiscovery(discoveryId);
+        final Discovery discovery = discoveryDao.findOne(discoveryId)
+                .orElseThrow(EntityNotFoundException::new);
         return discovery.scoresAverage();
     }
 }

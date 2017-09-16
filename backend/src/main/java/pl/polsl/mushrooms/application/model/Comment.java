@@ -40,7 +40,7 @@ public class Comment {
 		answers = new HashSet<>();
 	}
 
-	public Comment(String content, LocalDateTime dateTime, Comment target, User user) {
+	public Comment(String content, LocalDateTime dateTime, Comment target, User user, final Discovery discovery) {
 		this();
 		this.content = content;
 		this.dateTime = dateTime;

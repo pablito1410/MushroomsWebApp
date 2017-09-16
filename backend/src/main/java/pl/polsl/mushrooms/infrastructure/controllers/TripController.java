@@ -9,6 +9,7 @@ import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.services.projections.TripProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
+import pl.polsl.mushrooms.infrastructure.dto.UsersTripsDto;
 
 import java.util.Set;
 
@@ -43,9 +44,24 @@ public class TripController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<TripDto> getById(@PathVariable(name = "id") long id) {
+    public ResponseEntity<TripDto> getById(
+            @PathVariable(name = "id") long id) {
         final TripDto trip = tripProjectionService.findOne(id);
         return new ResponseEntity<>(trip, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/participants/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Set<UsersTripsDto>> getParticipants(
+            @PathVariable(name = "id") long id) {
+        final Set<UsersTripsDto> participants = tripProjectionService.findParticipants(id);
+        return new ResponseEntity<>(participants, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/invited/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Set<UsersTripsDto>> getTripRequests(
+            @PathVariable(name = "id") long id) {
+        final Set<UsersTripsDto> invited = tripProjectionService.findInvited(id);
+        return new ResponseEntity<>(invited, HttpStatus.OK);
     }
 
     /**
@@ -86,4 +102,12 @@ public class TripController {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(path = "/requests", method = RequestMethod.GET)
+    public ResponseEntity<Set<TripDto>> getRequests() {
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<TripDto> invitations = tripProjectionService.findRequests(username);
+        return new ResponseEntity<>(invitations, HttpStatus.OK);
+    }
+
 }

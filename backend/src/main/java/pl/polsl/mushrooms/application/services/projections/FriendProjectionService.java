@@ -1,13 +1,13 @@
-package pl.polsl.mushrooms.application.dao;
+package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 
 import java.util.Set;
 
 /**
- * Created by pawel_zaqkxkn on 04.07.2017.
+ * Created by pawel_zaqkxkn on 16.09.2017.
  */
-public interface FriendProjectionDao extends ProjectionDao<MushroomerDto> {
+public interface FriendProjectionService {
 
     Set<MushroomerDto> findAll(String username);
 

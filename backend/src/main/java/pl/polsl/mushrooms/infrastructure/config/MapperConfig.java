@@ -37,6 +37,7 @@ public class MapperConfig {
             registry.registerObject(MushroomFamily.class, MushroomFamilyDto.class);
             registry.registerObject(MushroomGenus.class, MushroomGenusDto.class);
             registry.registerObject(MushroomSpecies.class, MushroomSpeciesDto.class);
+            registry.registerObject(UsersTrips.class, UsersTripsDto.class);
 
             registry.registerCollection(User.class, new TypeToken<HashSet<UserDto>>() {}.getType());
             registry.registerCollection(Mushroomer.class, new TypeToken<HashSet<MushroomerDto>>() {}.getType());
@@ -51,6 +52,7 @@ public class MapperConfig {
             registry.registerCollection(MushroomFamily.class, new TypeToken<HashSet<MushroomFamilyDto>>() {}.getType());
             registry.registerCollection(MushroomGenus.class, new TypeToken<HashSet<MushroomGenusDto>>() {}.getType());
             registry.registerCollection(MushroomSpecies.class, new TypeToken<HashSet<MushroomSpeciesDto>>() {}.getType());
+            registry.registerCollection(UsersTrips.class, new TypeToken<HashSet<UsersTripsDto>>() {}.getType());
         };
     }
 

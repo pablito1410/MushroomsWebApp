@@ -1,5 +1,6 @@
 package pl.polsl.mushrooms.application.commands.friend;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.Collection;
  */
 public class AddFriendCommand implements ReturningCommand<Collection<Long>> {
 
+    @JsonIgnore
     private String userName;
 
     @NotNull
@@ -27,5 +29,9 @@ public class AddFriendCommand implements ReturningCommand<Collection<Long>> {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    void setFriendIds(final long[] friendIds) {
+        this.friendIds = friendIds;
     }
 }

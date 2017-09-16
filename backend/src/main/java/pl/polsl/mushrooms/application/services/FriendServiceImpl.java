@@ -120,10 +120,10 @@ public class FriendServiceImpl implements FriendService {
         repo.save(friend);
     }
 
-    private void acceptInvitationToFriends(Mushroomer user, Mushroomer friend) {
-        user.addFriend(friend);
-        final UsersUsersId usersUsersId = new UsersUsersId(user, friend);
-        final UsersUsers relationship = repo.findRelationship(usersUsersId);
+    private void  acceptInvitationToFriends(Mushroomer user, Mushroomer friend) {
+        final UsersUsersId usersUsersId = new UsersUsersId(friend, user);
+        final UsersUsers relationship = repo.findRelationship(usersUsersId)
+                .orElseThrow(EntityNotFoundException::new);
         relationship.setDateTime(LocalDateTime.now());
     }
 }

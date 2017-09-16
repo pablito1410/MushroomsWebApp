@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
-import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
+import pl.polsl.mushrooms.application.services.projections.FriendProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 
@@ -25,14 +25,14 @@ import java.util.Set;
 @RequestMapping("/api/friends")
 public class FriendsController {
 
-    private final UserProjectionService userProjectionService;
+    private final FriendProjectionService friendsProjectionService;
     private final CommandGateway commandGateway;
 
 
     @Autowired
     public FriendsController(
-            UserProjectionService userProjectionService, CommandGateway commandGateway) {
-        this.userProjectionService = userProjectionService;
+            FriendProjectionService friendsProjectionService, CommandGateway commandGateway) {
+        this.friendsProjectionService = friendsProjectionService;
         this.commandGateway = commandGateway;
     }
 
@@ -54,11 +54,27 @@ public class FriendsController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> getAll() {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        final Set<MushroomerDto> users = userProjectionService.findAll(username);
+        final Set<MushroomerDto> users = friendsProjectionService.findAll(username);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/requests", method = RequestMethod.GET)
+    public ResponseEntity<Set<MushroomerDto>> getRequests() {
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<MushroomerDto> invitations = friendsProjectionService.findRequests(username);
+        return new ResponseEntity<>(invitations, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/invitations", method = RequestMethod.GET)
+    public ResponseEntity<Set<MushroomerDto>> getInvitations() {
+        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<MushroomerDto> invitations = friendsProjectionService.findInvitations(username);
+        return new ResponseEntity<>(invitations, HttpStatus.OK);
+    }
+
+
+
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Collection<Long>> delete(DeleteFriendsCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final Collection<Long> removedFriends = commandGateway.dispatch(command);

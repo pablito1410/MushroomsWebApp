@@ -8,23 +8,14 @@ import pl.polsl.mushrooms.infrastructure.tools.serializers.LocalDateTimeSerializ
 import java.time.LocalDateTime;
 
 /**
- * Created by pawel_zaqkxkn on 21.06.2017.
+ * Created by pawel_zaqkxkn on 16.09.2017.
  */
 @Getter
 @Setter
-public class TripDto {
+public class UsersTripsDto {
 
-    private long id;
+    protected Long userId;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime dateTime;
-
-    private String place;
-
-    private Double coordinateX;
-    private Double coordinateY;
-    private Double radius;
-
-    private long[] mushroomersIds;
-    private long[] discoveriesIds;
+    protected LocalDateTime dateTime;
 }

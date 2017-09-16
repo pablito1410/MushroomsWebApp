@@ -27,4 +27,8 @@ public class AcceptInvitationToFriendsCommand implements VoidCommand {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    void setFriendId(final Long friendId) {
+        this.friendId = friendId;
+    }
 }

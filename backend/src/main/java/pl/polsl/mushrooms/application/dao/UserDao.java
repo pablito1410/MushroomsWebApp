@@ -20,5 +20,5 @@ public interface UserDao {
 
     Optional<User> findOneByUsername(String username);
 
-    UsersUsers findRelationship(UsersUsersId usersUsersId);
+    Optional<UsersUsers> findRelationship(UsersUsersId usersUsersId);
 }

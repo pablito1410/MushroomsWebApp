@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import pl.polsl.mushrooms.application.model.UsersTrips;
 import pl.polsl.mushrooms.application.model.UsersTripsId;
 
+import java.util.Set;
+
 /**
  * Created by pawel_zaqkxkn on 26.06.2017.
  */
@@ -14,4 +16,8 @@ import pl.polsl.mushrooms.application.model.UsersTripsId;
 public interface UsersTripsRepository extends JpaRepository<UsersTrips, UsersTripsId> {
 
     UsersTrips findOne(UsersTripsId usersTripsId);
+
+    Set<UsersTrips> findByUsersTripsId_trip_idAndDateTimeIsNotNull(long tripId);
+
+    Set<UsersTrips> findByUsersTripsId_trip_idAndDateTimeIsNull(long tripId);
 }

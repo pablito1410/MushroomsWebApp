@@ -10,6 +10,8 @@ import pl.polsl.mushrooms.application.model.Tag;
 import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * Created by pawel_zaqkxkn on 04.07.2017.
  */
@@ -30,7 +32,8 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public long handle(CreateTagCommand command) {
-        final Discovery discovery = discoveryDao.findDiscovery(command.getDiscoveryId());
+        final Discovery discovery = discoveryDao.findOne(command.getDiscoveryId())
+                .orElseThrow(EntityNotFoundException::new);
         final Tag tag = new Tag(
                 command.getName(),
                 discovery

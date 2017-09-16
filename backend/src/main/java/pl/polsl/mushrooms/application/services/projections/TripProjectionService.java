@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
+import pl.polsl.mushrooms.infrastructure.dto.UsersTripsDto;
 
 import java.util.Set;
 
@@ -14,4 +15,10 @@ public interface TripProjectionService {
     Set<TripDto> findAll(String userName);
 
     Set<TripDto> search(String value);
+
+    Set<UsersTripsDto> findParticipants(long id);
+
+    Set<TripDto> findRequests(String username);
+
+    Set<UsersTripsDto> findInvited(long id);
 }

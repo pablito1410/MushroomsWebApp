@@ -10,7 +10,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -64,10 +63,11 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             mushroomer
         );
 
-        Set<Tag> tags = new HashSet<>();
-        command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
-
-        discovery.setTags(tags);
+        if (command.getTags() != null) {
+            Set<Tag> tags = new HashSet<>();
+            command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
+            discovery.setTags(tags);
+        }
 
         discoveryDao.save(discovery);
 
@@ -79,8 +79,8 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
                 .orElseThrow(EntityNotFoundException::new);;
-        final Discovery discovery =  Optional.of(
-                discoveryDao.findDiscovery(command.getId()))
+        final Discovery discovery =
+                discoveryDao.findOne(command.getId())
                     .orElseThrow(NotFoundException::new);
 
         if (!discovery.getMushroomer().equals(mushroomer)) {
@@ -105,8 +105,8 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         final String currentUsername = command.getUserName();
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
                 .orElseThrow(EntityNotFoundException::new);;
-        final Discovery discovery =  Optional.of(
-                discoveryDao.findDiscovery(command.getId()))
+        final Discovery discovery =
+                discoveryDao.findOne(command.getId())
                     .orElseThrow(NotFoundException::new);
 
         if (!discovery.getMushroomer().equals(mushroomer)) {

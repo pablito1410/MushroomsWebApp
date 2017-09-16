@@ -2,7 +2,7 @@ package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
@@ -60,7 +60,8 @@ public class UserProjectionServiceImpl implements UserProjectionService {
         if (user.isAdmin()) {
             return userProjectionDao.findAll();
         } else {
-            return entityMapper.map(((Mushroomer)user).getFriends());
+            throw new NoRequiredPermissions("User must be admin");
+            //return entityMapper.map(((Mushroomer)user).getFriends());
         }
     }
 

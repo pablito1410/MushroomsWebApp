@@ -1,6 +1,8 @@
 package pl.polsl.mushrooms.application.commands.discovery;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.VoidCommand;
+import pl.polsl.mushrooms.infrastructure.tools.deserializers.LocalDateTimeDeserializer;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -23,7 +25,9 @@ public class UpdateDiscoveryCommand implements VoidCommand {
     private double coordinateY;
     @NotNull
     private byte[] photo;
+
     @NotNull
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateTime;
 
     private Collection<String> tags;

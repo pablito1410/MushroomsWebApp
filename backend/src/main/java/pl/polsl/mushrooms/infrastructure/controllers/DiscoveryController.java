@@ -10,7 +10,9 @@ import pl.polsl.mushrooms.application.commands.discovery.DeleteDiscoveryCommand;
 import pl.polsl.mushrooms.application.commands.discovery.UpdateDiscoveryCommand;
 import pl.polsl.mushrooms.application.services.projections.DiscoveryProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.CommentDto;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
+import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 
 import java.util.Set;
 
@@ -27,7 +29,8 @@ public class DiscoveryController {
 
     @Autowired
     public DiscoveryController(
-            final CommandGateway commandGateway, final DiscoveryProjectionService discoveryProjectionService) {
+            final CommandGateway commandGateway,
+            final DiscoveryProjectionService discoveryProjectionService) {
         this.commandGateway = commandGateway;
         this.discoveryProjectionService = discoveryProjectionService;
     }
@@ -78,6 +81,16 @@ public class DiscoveryController {
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/tags/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Set<TagDto>> tags(@PathVariable(name = "id") long id) {
+        final Set<TagDto> tags = discoveryProjectionService.findTags(id);
+        return new ResponseEntity<>(tags, HttpStatus.OK);
+    }
 
+    @RequestMapping(path = "/comments/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Set<CommentDto>> comments(@PathVariable(name = "id") long id) {
+        final Set<CommentDto> comments = discoveryProjectionService.findComments(id);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
 
 }

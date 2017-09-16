@@ -2,9 +2,9 @@ package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
+import pl.polsl.mushrooms.infrastructure.dto.UsersTripsDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
@@ -41,13 +41,31 @@ public class TripProjectionServiceImpl implements TripProjectionService {
         if (user.isAdmin()) {
             return tripProjectionDao.findAll();
         } else {
-            return entityMapper.map(((Mushroomer)user).getTrips());
+            return tripProjectionDao.findAll(user);
         }
     }
 
     @Override
     public Set<TripDto> search(String value) {
         return tripProjectionDao.search(value);
+    }
+
+    @Override
+    public Set<UsersTripsDto> findParticipants(final long id) {
+        return tripProjectionDao.findParticipants(id);
+    }
+
+    @Override
+    public Set<TripDto> findRequests(final String userName) {
+        final User user = userDao.findOneByUsername(userName)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return tripProjectionDao.findRequests(user);
+    }
+
+    @Override
+    public Set<UsersTripsDto> findInvited(final long tripId) {
+        return tripProjectionDao.findInvited(tripId);
     }
 
 }

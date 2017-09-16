@@ -43,6 +43,8 @@ public class TripServiceImpl implements TripService {
         trip.addMushroomer(user);
         tripDao.save(trip);
 
+        joinTrip(user, trip);
+
         return trip.getId();
     }
 
@@ -87,6 +89,10 @@ public class TripServiceImpl implements TripService {
                 tripDao.findTrip(command.getTripId()))
                 .orElseThrow(NotFoundException::new);
 
+       joinTrip(mushroomer, trip);
+    }
+
+    private void joinTrip(final Mushroomer mushroomer, final Trip trip) {
         final UsersTripsId usersTripsId = new UsersTripsId(mushroomer, trip);
 
         final UsersTrips usersTrips = Optional.ofNullable(
@@ -115,7 +121,6 @@ public class TripServiceImpl implements TripService {
 
         for (Long userId : command.getUserIds()) {
             final Optional<User> user = userDao.findOne(userId);
-
             user.ifPresent(u -> inviteToTrip(trip, u, mushroomer));
         }
 

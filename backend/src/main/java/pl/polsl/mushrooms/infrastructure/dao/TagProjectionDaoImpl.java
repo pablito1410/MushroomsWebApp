@@ -1,8 +1,8 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.TagProjectionDao;
-import pl.polsl.mushrooms.application.model.Discovery;
 import pl.polsl.mushrooms.application.model.Tag;
+import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
@@ -44,6 +44,13 @@ public class TagProjectionDaoImpl implements TagProjectionDao {
     }
 
     @Override
+    public DiscoveryDto findDiscovery(final long tagId) {
+        final Tag tag = Optional.ofNullable(tagRepository.findOne(tagId))
+                            .orElseThrow(EntityNotFoundException::new);
+        return entityMapper.map(tag.getDiscovery());
+    }
+
+    @Override
     public Set<TagDto> findAll() {
         final List<Tag> tags = tagRepository.findAll();
         return entityMapper.map(tags);
@@ -61,12 +68,4 @@ public class TagProjectionDaoImpl implements TagProjectionDao {
         return entityMapper.map(tags);
     }
 
-    @Override
-    public Set<TagDto> findByDiscoveryId(long discoveryId) {
-        final Discovery discovery = Optional.ofNullable(
-                discoveryRepository.findOne(discoveryId))
-                    .orElseThrow(EntityNotFoundException::new);
-        final Set<Tag> tags = discovery.getTags();
-        return entityMapper.map(tags);
-    }
 }

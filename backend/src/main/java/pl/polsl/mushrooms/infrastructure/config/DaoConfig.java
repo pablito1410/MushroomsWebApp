@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.infrastructure.dao.*;
-import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.*;
 
@@ -33,10 +32,10 @@ public class DaoConfig {
     @Bean
     public DiscoveryProjectionDao discoveryProjectionDao(
             final DiscoveryRepository discoveryRepository,
-            final UserRepository userRepository,
+            final UserDao userDao,
             final EntityMapper entityMapper) {
         return new DiscoveryProjectionDaoImpl(
-                discoveryRepository, userRepository, entityMapper);
+                discoveryRepository, userDao, entityMapper);
     }
 
     @Bean
@@ -96,9 +95,10 @@ public class DaoConfig {
 
     @Bean
     public TripProjectionDao tripProjectionDao(final TripRepository tripRepository,
+                                               final UsersTripsRepository usersTripsRepository,
                                                final UserRepository userRepository,
                                                final EntityMapper entityMapper) {
-        return new TripProjectionDaoImpl(tripRepository, userRepository, entityMapper);
+        return new TripProjectionDaoImpl(tripRepository, usersTripsRepository, userRepository, entityMapper);
     }
 
     @Bean
@@ -172,6 +172,13 @@ public class DaoConfig {
             final MushroomGenusRepository mushroomGenusRepository,
             final EntityMapper entityMapper) {
         return new MushroomGenusProjectionDaoImpl(mushroomGenusRepository, entityMapper);
+    }
+
+    @Bean
+    public FriendProjectionDao friendProjectionDao(final UserDao userDao,
+                                                   final UsersUsersRepository usersUsersRepository,
+                                                   final EntityMapper entityMapper) {
+        return new FriendProjectionDaoImpl(userDao, usersUsersRepository, entityMapper);
     }
 
 }

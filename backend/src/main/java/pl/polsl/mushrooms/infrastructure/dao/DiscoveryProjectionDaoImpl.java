@@ -1,12 +1,16 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
+import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.model.Comment;
 import pl.polsl.mushrooms.application.model.Discovery;
+import pl.polsl.mushrooms.application.model.Tag;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.CommentDto;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
+import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
-import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -17,22 +21,22 @@ import java.util.*;
 public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
 
     private final DiscoveryRepository discoveryRepository;
-    private final UserRepository userRepository;
+    private final UserDao userDao;
     private final EntityMapper entityMapper;
 
     public DiscoveryProjectionDaoImpl(
             final DiscoveryRepository discoveryRepository,
-            final UserRepository userRepository,
+            final UserDao userDao,
             final EntityMapper entityMapper) {
         this.discoveryRepository = discoveryRepository;
-        this.userRepository = userRepository;
+        this.userDao = userDao;
         this.entityMapper = entityMapper;
     }
 
 //    @Override
 //    public Set<DiscoveryDto> findAll(long userId) {
 //        final User user = Optional.ofNullable(
-//                userRepository.findOne(userId))
+//                userDao.findOne(userId))
 //                    .orElseThrow(EntityNotFoundException::new);
 //
 //        if (user instanceof Mushroomer) {
@@ -69,7 +73,8 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
                                     final boolean my,
                                     final boolean friends,
                                     final boolean isPublic) {
-        final User user = userRepository.findOneByUsername(userName);
+        final User user = userDao.findOneByUsername(userName)
+                .orElseThrow(EntityNotFoundException::new);
 
         final Set<Discovery> results = new HashSet<>();
 
@@ -86,6 +91,24 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
         }
 
         return entityMapper.map(results);
+    }
+
+    @Override
+    public Set<TagDto> findTags(long discoveryId) {
+        final Discovery discovery = Optional.ofNullable(
+                discoveryRepository.findOne(discoveryId))
+                .orElseThrow(EntityNotFoundException::new);
+        final Set<Tag> tags = discovery.getTags();
+        return entityMapper.map(tags);
+    }
+
+    @Override
+    public Set<CommentDto> findComments(final long discoveryId) {
+        final Discovery discovery = Optional.ofNullable(
+                discoveryRepository.findOne(discoveryId))
+                .orElseThrow(EntityNotFoundException::new);
+        final Set<Comment> comments = discovery.getComments();
+        return entityMapper.map(comments);
     }
 
     private Collection<? extends Discovery> searchPublic(final String value) {
