@@ -12,6 +12,7 @@ import {User} from "../../../model/user";
 import {DateTool} from "../../../shared/tools/date.tool";
 import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
+import * as Collections from 'typescript-collections';
 
 @Component({
     moduleId: module.id,
@@ -21,6 +22,8 @@ import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/dis
 export class TripDetailsComponent implements OnInit {
     friends: User[];
     discoveries: Discovery[];
+    selectedFriends: Collections.Set<User>;
+    accepteddFriends: Collections.Set<User>;
     public zoom: number = 12;
     selectedOption: string;
 
@@ -33,6 +36,8 @@ export class TripDetailsComponent implements OnInit {
         private friendService: FriendService) {
         this.friends = new Array<User>();
         this.discoveries = new Array<Discovery>();
+        this.selectedFriends = new Collections.Set<User>();
+        this.accepteddFriends = new Collections.Set<User>();
     }
 
 
@@ -99,6 +104,25 @@ export class TripDetailsComponent implements OnInit {
             // this.friendService.getAllInvited().subscribe(
             //     result => this.friends = result
             // );
+        }
+    }
+
+    checkCheckboxStatus(friend: User) : boolean {
+        this.selectedFriends.forEach(f => {
+            if (friend.id == f.id) {
+                return true;
+            }
+        });
+        return false;
+    }
+
+    checkboxOnClick(friend: User, event : Event) {
+        if ($(event.target).is("input")) {
+            if (this.selectedFriends.contains(friend)) {
+                this.selectedFriends.remove(friend);
+            } else {
+                this.selectedFriends.add(friend);
+            }
         }
     }
 

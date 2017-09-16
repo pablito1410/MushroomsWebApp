@@ -70,6 +70,13 @@ export class DiscoveriesComponent implements OnInit {
         });
     }
 
+    searchDiscoveries(term: string) {
+        // this.discoveryService.search(term)
+        //     .subscribe(results => {
+        //         this.discoveryService = results;
+        //     });
+    }
+
     openDiscoveryDetailsDialog(discovery) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
             data: discovery,

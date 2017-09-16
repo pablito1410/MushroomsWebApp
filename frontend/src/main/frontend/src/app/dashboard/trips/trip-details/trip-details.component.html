@@ -46,15 +46,24 @@
             </form>
             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
                 <div class="card card-profile">
-                    <div class="checkbox add-friend-checkbox">
-                        <label>
-                            <input type="checkbox" name="selectToAdd">
-                        </label>
+                    <div *ngIf="checkCheckboxStatus(friend); else check_status_false">
+                        <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(friend, $event)">
+                            <label>
+                                <input type="checkbox" name="selectToAdd" checked="checked">
+                            </label>
+                        </div>
                     </div>
+                    <ng-template #check_status_false>
+                        <div class="checkbox add-friend-checkbox" (click)="checkboxOnClick(friend, $event)">
+                            <label>
+                                <input type="checkbox" name="selectToAdd">
+                            </label>
+                        </div>
+                    </ng-template>
                     <div (click)="openUserDetailsDialog(friend)">
                         <div class="card-avatar">
                             <div *ngIf="friend.photo != null">
-                                <img class="img" [src]="getFriendPhotoToDisplay(friend)"/>
+                                <img class="img" [src]="getFriendPhotoToDisplay(friend)" />
                             </div>
                             <div *ngIf="friend.photo == null">
                                 <img class="img" src="..\assets\img\faces\default-user.png"/>
