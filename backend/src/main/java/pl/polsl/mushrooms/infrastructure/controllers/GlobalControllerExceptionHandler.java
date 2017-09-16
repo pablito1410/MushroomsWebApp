@@ -39,4 +39,5 @@ public class GlobalControllerExceptionHandler {
     public void notFound() {
         //
     }
+
 }

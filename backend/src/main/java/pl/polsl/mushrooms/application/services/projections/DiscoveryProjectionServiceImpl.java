@@ -44,8 +44,8 @@ public class DiscoveryProjectionServiceImpl implements DiscoveryProjectionServic
     }
 
     @Override
-    public Set<DiscoveryDto> search(String value) {
-        return discoveryProjectionDao.search(value);
+    public Set<DiscoveryDto> search(final String userName, final String value, final boolean my, final boolean friends, final boolean isPublic) {
+        return discoveryProjectionDao.search(userName, value, my, friends, isPublic);
     }
 
 }

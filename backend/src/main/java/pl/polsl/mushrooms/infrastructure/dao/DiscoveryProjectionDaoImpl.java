@@ -2,15 +2,14 @@ package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
 import pl.polsl.mushrooms.application.model.Discovery;
+import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by pawel_zaqkxkn on 15.05.2017.
@@ -64,4 +63,40 @@ public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
         return entityMapper.map(discoveries);
     }
 
+    @Override
+    public Set<DiscoveryDto> search(final String userName,
+                                    final String value,
+                                    final boolean my,
+                                    final boolean friends,
+                                    final boolean isPublic) {
+        final User user = userRepository.findOneByUsername(userName);
+
+        final Set<Discovery> results = new HashSet<>();
+
+        if (my) {
+            results.addAll(searchByUser(user, value));
+        }
+
+        if (friends) {
+            results.addAll(searchByFriends(user, value));
+        }
+
+        if (isPublic) {
+            results.addAll(searchPublic(value));
+        }
+
+        return entityMapper.map(results);
+    }
+
+    private Collection<? extends Discovery> searchPublic(final String value) {
+        return discoveryRepository.findByIsPublicAndMushroomsSpeciesNameIgnoreCaseContaining(true, value);
+    }
+
+    private Collection<? extends Discovery> searchByFriends(final User user, final String value) {
+        return discoveryRepository.findByFriends(user.getId(), value);
+    }
+
+    private Collection<? extends Discovery> searchByUser(final User user, final String value) {
+        return discoveryRepository.findByMushroomerIdAndMushroomsSpeciesNameIgnoreCaseContaining(user.getId(), value);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
@@ -41,6 +42,14 @@ public class FriendsController {
         Collection<Long> addedFriends = commandGateway.dispatch(command);
         return new ResponseEntity<>(addedFriends, HttpStatus.OK);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Void> acceptInvitation(@RequestBody AcceptInvitationToFriendsCommand command) {
+        command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        commandGateway.dispatch(command);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> getAll() {

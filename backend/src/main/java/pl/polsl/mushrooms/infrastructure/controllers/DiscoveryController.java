@@ -68,8 +68,13 @@ public class DiscoveryController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public ResponseEntity<Set<DiscoveryDto>> search(@RequestParam(value = "value") String value) {
-        final Set<DiscoveryDto> discoveries = discoveryProjectionService.search(value);
+    public ResponseEntity<Set<DiscoveryDto>> search(
+            @RequestParam(value = "value") String value,
+            @RequestParam(value = "my", defaultValue = "true") boolean my,
+            @RequestParam(value = "public", defaultValue = "false") boolean isPublic,
+            @RequestParam(value = "friends", defaultValue = "false") boolean friends) {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<DiscoveryDto> discoveries = discoveryProjectionService.search(userName, value, my, friends, isPublic);
         return new ResponseEntity<>(discoveries, HttpStatus.OK);
     }
 

@@ -13,6 +13,6 @@ public interface DiscoveryProjectionService {
 
     Set<DiscoveryDto> findAll(String userName);
 
-    Set<DiscoveryDto> search(String value);
+    Set<DiscoveryDto> search(final String userName, String value, boolean my, boolean friends, boolean isPublic);
 
 }
