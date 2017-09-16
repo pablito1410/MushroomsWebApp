@@ -17,7 +17,7 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
     private long tripId;
 
     @NotNull
-    private long mushroomSpieceId;
+    private long mushroomSpeciesId;
     @NotNull
     private double coordinateX;
     @NotNull
@@ -48,8 +48,8 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
         return tripId;
     }
 
-    public long getMushroomSpieceId() {
-        return mushroomSpieceId;
+    public long getMushroomSpeciesId() {
+        return mushroomSpeciesId;
     }
 
     public double getCoordinateX() {

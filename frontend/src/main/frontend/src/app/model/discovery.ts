@@ -4,7 +4,7 @@ import {Tag} from "./tag";
 export class Discovery {
     id: number;
     tripId: number;
-    mushroomSpieceId: number;
+    mushroomSpeciesId: number;
     coordinateX: number;
     coordinateY: number;
     photo: any;

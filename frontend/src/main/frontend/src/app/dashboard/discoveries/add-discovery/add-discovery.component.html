@@ -30,6 +30,14 @@
         </div>
         <div class="col-md-6">
             <div class="top-buffer text-center">
+                <div class="checkbox" (click)="checkboxOnClick($event)">
+                    <label>
+                        <input type="checkbox" name="optionsCheckboxes">
+                        Public
+                    </label>
+                </div>
+            </div>
+            <div class="top-buffer text-center">
                 <md-select placeholder="Species" [(ngModel)]="speciesId">
                     <md-option *ngFor="let species of mushroomSpecies" [value]="species.id">{{species.name}}</md-option>
                 </md-select>

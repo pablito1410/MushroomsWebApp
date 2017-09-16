@@ -32,7 +32,7 @@ public class DiscoveryController {
         this.discoveryProjectionService = discoveryProjectionService;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateDiscoveryCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final long id = commandGateway.dispatch(command);

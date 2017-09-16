@@ -16,7 +16,7 @@ public class UpdateDiscoveryCommand implements VoidCommand {
     @NotNull
     private long id;
     @NotNull
-    private long mushroomSpieceId;
+    private long mushroomSpeciesId;
     @NotNull
     private double coordinateX;
     @NotNull
@@ -41,8 +41,8 @@ public class UpdateDiscoveryCommand implements VoidCommand {
         return id;
     }
 
-    public long getMushroomSpieceId() {
-        return mushroomSpieceId;
+    public long getMushroomSpeciesId() {
+        return mushroomSpeciesId;
     }
 
     public double getCoordinateX() {

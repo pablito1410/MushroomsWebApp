@@ -25,6 +25,7 @@ export class AddDiscoveryComponent implements OnInit {
     file: File;
     speciesId: number;
     tripId: number;
+    isPublic: boolean;
 
     constructor(
         public dialogRef: MdDialogRef<AddDiscoveryComponent>,
@@ -37,6 +38,7 @@ export class AddDiscoveryComponent implements OnInit {
         this.discovery = new Discovery();
         this.mushroomSpecies = new Array<MushroomSpecies>();
         this.trips = new Array<Trip>();
+        this.isPublic = false;
     }
 
     ngOnInit() {
@@ -102,12 +104,18 @@ export class AddDiscoveryComponent implements OnInit {
         reader.readAsDataURL(this.file);
     }
 
+    checkboxOnClick(event: Event) {
+        if ($(event.target).is("input")) {
+            this.isPublic = !this.isPublic;
+        }
+    }
+
     addDiscovery() {
         let dateTime = new Date();
         dateTime.setHours(dateTime.getHours() + 2);
         this.discovery.photo = this.file;
         this.discovery.tripId = this.tripId;
-        this.discovery.mushroomSpieceId = this.speciesId;
+        this.discovery.mushroomSpeciesId = this.speciesId;
         this.discovery.dateTime = dateTime.toISOString().slice(0, -1);
         this.discoveryService.create(this.discovery).subscribe(
         data => {

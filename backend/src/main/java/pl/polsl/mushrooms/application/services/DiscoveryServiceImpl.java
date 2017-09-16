@@ -49,7 +49,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             throw new NotFoundException("Trip not found");
         }
 
-        final MushroomSpecies mushroomSpecie = mushroomSpeciesDao.findOne(command.getMushroomSpieceId());
+        final MushroomSpecies mushroomSpecie = mushroomSpeciesDao.findOne(command.getMushroomSpeciesId());
         if (mushroomSpecie == null) {
             throw new NotFoundException("MushtoomSpecies nof found");
         }
@@ -91,7 +91,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
         discovery.setCoordinateX(command.getCoordinateX());
         discovery.setCoordinateY(command.getCoordinateY());
         discovery.setPhoto(command.getPhoto());
-        discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpieceId()));
+        discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpeciesId()));
 
         final Set<Tag> tags = new HashSet<>();
         command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
