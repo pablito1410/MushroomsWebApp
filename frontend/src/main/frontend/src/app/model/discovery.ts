@@ -3,7 +3,8 @@ import {Score} from "./score";
 import {Tag} from "./tag";
 export class Discovery {
     id: number;
-    // tripId: number;
+    tripId: number;
+    mushroomSpieceId: number;
     coordinateX: number;
     coordinateY: number;
     photo: any;

@@ -32,6 +32,8 @@ export class MapsComponent implements OnInit {
             this.discoveries = [
                 {
                     id: 1,
+                    tripId: 1,
+                    mushroomSpieceId: 1,
                     coordinateX: 43.341166,
                     coordinateY: 38.462563,
                     photo: null,
@@ -40,6 +42,8 @@ export class MapsComponent implements OnInit {
                 },
                 {
                     id: 2,
+                    tripId: 1,
+                    mushroomSpieceId: 1,
                     coordinateX: 45.345566,
                     coordinateY: 35.463566,
                     photo: null,
@@ -48,6 +52,8 @@ export class MapsComponent implements OnInit {
                 },
                 {
                     id: 3,
+                    tripId: 1,
+                    mushroomSpieceId: 1,
                     coordinateX: 41.174666,
                     coordinateY: 22.463226,
                     photo: null,

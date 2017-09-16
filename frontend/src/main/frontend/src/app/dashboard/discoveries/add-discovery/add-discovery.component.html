@@ -29,13 +29,20 @@
             </div>
         </div>
         <div class="col-md-6">
-            <md-select placeholder="Species" [(ngModel)]="speciesId">
-                <md-option *ngFor="let species of mushroomSpecies" [value]="species.id">{{species.name}}</md-option>
-            </md-select>
+            <div class="top-buffer text-center">
+                <md-select placeholder="Species" [(ngModel)]="speciesId">
+                    <md-option *ngFor="let species of mushroomSpecies" [value]="species.id">{{species.name}}</md-option>
+                </md-select>
+            </div>
+            <div class="top-buffer text-center">
+                <md-select placeholder="Trip" [(ngModel)]="tripId">
+                    <md-option *ngFor="let trip of trips" [value]="trip.id">{{trip.place}} {{trip.dateTime}}</md-option>
+                </md-select>
+            </div>
         </div>
     </div>
 </div>
 <div md-dialog-actions align="end">
-    <button class="btn btn-primary" md-button (click)="dialogRef.close('Ok')">Ok</button>
+    <button class="btn btn-primary" md-button (click)="addDiscovery()">Ok</button>
     <button class="btn btn-primary" md-button (click)="dialogRef.close('Close')">Close</button>
 </div>

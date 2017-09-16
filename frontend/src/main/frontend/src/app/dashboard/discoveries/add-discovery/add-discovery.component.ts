@@ -8,6 +8,8 @@ import {Discovery} from "../../../model/discovery";
 import {MushroomSpecies} from "../../../model/mushroom-species";
 import {DOCUMENT} from "@angular/platform-browser";
 import {MushroomSpeciesService} from "app/services/mushroom-species.service";
+import {Trip} from "../../../model/trip";
+import {TripService} from "../../../services/trip.service";
 
 @Component({
     moduleId: module.id,
@@ -17,10 +19,12 @@ import {MushroomSpeciesService} from "app/services/mushroom-species.service";
 export class AddDiscoveryComponent implements OnInit {
     discovery: Discovery;
     mushroomSpecies: MushroomSpecies[];
+    trips: Trip[];
     zoom: number = 4;
     imageSrc: string;
     file: File;
     speciesId: number;
+    tripId: number;
 
     constructor(
         public dialogRef: MdDialogRef<AddDiscoveryComponent>,
@@ -28,9 +32,11 @@ export class AddDiscoveryComponent implements OnInit {
         public snackBar: MdSnackBar,
         @Inject(DOCUMENT) private document,
         private discoveryService: DiscoveryService,
-        private mushroomSpeciesService: MushroomSpeciesService) {
+        private mushroomSpeciesService: MushroomSpeciesService,
+        private tripService: TripService) {
         this.discovery = new Discovery();
         this.mushroomSpecies = new Array<MushroomSpecies>();
+        this.trips = new Array<Trip>();
     }
 
     ngOnInit() {
@@ -59,6 +65,9 @@ export class AddDiscoveryComponent implements OnInit {
         } else {
             this.mushroomSpeciesService.getAll().subscribe(
                 result => this.mushroomSpecies = result
+            );
+            this.tripService.getAll().subscribe(
+                result => this.trips = result
             );
         }
         this.discovery = new Discovery();
@@ -91,18 +100,27 @@ export class AddDiscoveryComponent implements OnInit {
         }
         reader.onload = this.handleReaderLoaded.bind(this);
         reader.readAsDataURL(this.file);
-        // this.discoveryService.create(file).subscribe(
-            // data => {
-            //     this.router.navigate(['/users']);
-            //     this.snackBar.open('Photo Saved', '×', {
-            //         duration: 2000,
-            //     });
-            // },
-            // error => {
-            //     this.snackBar.open('Error', '×', {
-            //         duration: 2000,
-            //     });
-            // });
+    }
+
+    addDiscovery() {
+        let dateTime = new Date();
+        dateTime.setHours(dateTime.getHours() + 2);
+        this.discovery.photo = this.file;
+        this.discovery.tripId = this.tripId;
+        this.discovery.mushroomSpieceId = this.speciesId;
+        this.discovery.dateTime = dateTime.toISOString().slice(0, -1);
+        this.discoveryService.create(this.discovery).subscribe(
+        data => {
+            this.snackBar.open('Discovery Added', '×', {
+                duration: 2000,
+            });
+        },
+        error => {
+            this.snackBar.open('Error', '×', {
+                duration: 2000,
+            });
+        });
+        this.dialogRef.close('Ok');
     }
 
     private setCurrentPosition() {
