@@ -116,6 +116,7 @@ export class AddDiscoveryComponent implements OnInit {
         this.discovery.photo = this.file;
         this.discovery.tripId = this.tripId;
         this.discovery.mushroomSpeciesId = this.speciesId;
+        this.discovery.isPublic = this.isPublic;
         this.discovery.dateTime = dateTime.toISOString().slice(0, -1);
         this.discoveryService.create(this.discovery).subscribe(
         data => {
