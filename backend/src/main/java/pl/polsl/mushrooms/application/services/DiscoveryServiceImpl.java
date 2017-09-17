@@ -60,7 +60,8 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             command.getDateTime(),
             trip,
             mushroomSpecie,
-            mushroomer
+            mushroomer,
+            command.isPublic()
         );
 
         if (command.getTags() != null) {

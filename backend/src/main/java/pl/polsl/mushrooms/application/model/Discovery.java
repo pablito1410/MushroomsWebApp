@@ -57,7 +57,14 @@ public class Discovery  {
 	}
 
 	public Discovery(
-			double coordinateX, double coordinateY, byte[] photo, LocalDateTime dateTime, Trip trip, MushroomSpecies mushroomSpecies, Mushroomer mushroomer) {
+			double coordinateX,
+			double coordinateY,
+			byte[] photo,
+			LocalDateTime dateTime,
+			Trip trip,
+			MushroomSpecies mushroomSpecies,
+			Mushroomer mushroomer,
+			final boolean isPublic) {
 		this();
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
@@ -66,6 +73,7 @@ public class Discovery  {
 		this.trip = trip;
 		this.mushroomsSpecies = mushroomSpecies;
 		this.mushroomer = mushroomer;
+		this.isPublic = Boolean.valueOf(isPublic);
 	}
 
 	public Long getId() {
