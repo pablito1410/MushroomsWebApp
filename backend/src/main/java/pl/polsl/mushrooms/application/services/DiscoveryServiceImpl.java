@@ -61,7 +61,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             trip,
             mushroomSpecie,
             mushroomer,
-            command.isPublic()
+            command.getIsPublic()
         );
 
         if (command.getTags() != null) {

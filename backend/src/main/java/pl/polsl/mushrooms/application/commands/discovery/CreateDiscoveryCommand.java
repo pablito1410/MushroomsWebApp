@@ -39,43 +39,75 @@ public class CreateDiscoveryCommand implements ReturningCommand<Long> {
 
     protected CreateDiscoveryCommand() { }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(final String userName) {
+        this.userName = userName;
     }
 
     public long getTripId() {
         return tripId;
     }
 
+    void setTripId(final long tripId) {
+        this.tripId = tripId;
+    }
+
     public long getMushroomSpeciesId() {
         return mushroomSpeciesId;
+    }
+
+    void setMushroomSpeciesId(final long mushroomSpeciesId) {
+        this.mushroomSpeciesId = mushroomSpeciesId;
     }
 
     public double getCoordinateX() {
         return coordinateX;
     }
 
+    void setCoordinateX(final double coordinateX) {
+        this.coordinateX = coordinateX;
+    }
+
     public double getCoordinateY() {
         return coordinateY;
+    }
+
+    void setCoordinateY(final double coordinateY) {
+        this.coordinateY = coordinateY;
     }
 
     public byte[] getPhoto() {
         return photo;
     }
 
+    void setPhoto(final byte[] photo) {
+        this.photo = photo;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public boolean isPublic() {
+    void setDateTime(final LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public boolean getIsPublic() {
         return isPublic;
+    }
+
+    void setIsPublic(final boolean aPublic) {
+        isPublic = aPublic;
     }
 
     public Collection<String> getTags() {
         return tags;
+    }
+
+    void setTags(final Collection<String> tags) {
+        this.tags = tags;
     }
 }
