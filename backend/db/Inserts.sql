@@ -103,3 +103,16 @@ INSERT INTO "USERS_USERS" ("USER_ID","FRIEND_ID","DATE_TIME") VALUES(36,75,to_ti
 INSERT INTO "USERS_USERS" ("USER_ID","FRIEND_ID","DATE_TIME") VALUES(17,95,to_timestamp(1518431221)),(12,68,to_timestamp(1454031421)),(30,68,to_timestamp(1524212581)),(15,78,to_timestamp(1510668385)),(38,89,to_timestamp(1451433855)),(15,83,to_timestamp(1419358178)),(18,86,to_timestamp(1495266188)),(15,70,to_timestamp(1485608053)),(15,85,to_timestamp(1459119679)),(48,78,to_timestamp(1483452798));
 INSERT INTO "USERS_USERS" ("USER_ID","FRIEND_ID","DATE_TIME") VALUES(25,69,to_timestamp(1524405163)),(45,80,to_timestamp(1453493687)),(15,51,to_timestamp(1418915176)),(11,62,to_timestamp(1427369443)),(33,97,to_timestamp(1463521904)),(45,99,to_timestamp(1446398422)),(44,66,to_timestamp(1472416479)),(31,51,to_timestamp(1470994429)),(17,67,to_timestamp(1447856118)),(5,89,to_timestamp(1411091141));
 INSERT INTO "USERS_USERS" ("USER_ID","FRIEND_ID","DATE_TIME") VALUES(13,73,to_timestamp(1418806625)),(22,66,to_timestamp(1461801022)),(20,77,to_timestamp(1447945534)),(23,90,to_timestamp(1432338777)),(32,78,to_timestamp(1459870932)),(40,92,to_timestamp(1443876386)),(24,92,to_timestamp(1496353700)),(32,74,to_timestamp(1435945482)),(50,88,to_timestamp(1455302690)),(35,75,to_timestamp(1526814370));
+
+SELECT setval(pg_get_serial_sequence('"USERS"', 'USER_ID'), (SELECT MAX("USER_ID") FROM "USERS"));
+SELECT setval(pg_get_serial_sequence('"COMMENTS"', 'COMMENT_ID'), (SELECT MAX("COMMENT_ID") FROM "COMMENTS"));
+SELECT setval(pg_get_serial_sequence('"DISCOVERIES"', 'DISCOVERY_ID'), (SELECT MAX("DISCOVERY_ID") FROM "COMMENTS"));
+SELECT setval(pg_get_serial_sequence('"MUSHROOMS_CLASSES"', 'MUSH_CLASS_ID'), (SELECT MAX("MUSH_CLASS_ID") FROM "MUSHROOMS_CLASSES"));
+SELECT setval(pg_get_serial_sequence('"MUSHROOMS_FAMILIES"', 'MUSH_FAMILY_ID'), (SELECT MAX("MUSH_FAMILY_ID") FROM "MUSHROOMS_FAMILIES"));
+SELECT setval(pg_get_serial_sequence('"MUSHROOMS_GENUSES"', 'MUSH_GENUS_ID'), (SELECT MAX("MUSH_GENUS_ID") FROM "MUSHROOMS_GENUSES"));
+SELECT setval(pg_get_serial_sequence('"MUSHROOMS_ORDERS"', 'MUSH_ORDER_ID'), (SELECT MAX("MUSH_ORDER_ID") FROM "MUSHROOMS_ORDERS"));
+SELECT setval(pg_get_serial_sequence('"MUSHROOMS_SPECIES"', 'MUSH_SPECIES_ID'), (SELECT MAX("MUSH_SPECIES_ID") FROM "MUSHROOMS_SPECIES"));
+SELECT setval(pg_get_serial_sequence('"NOTIFICATIONS"', 'NOTIFICATION_ID'), (SELECT MAX("NOTIFICATION_ID") FROM "NOTIFICATIONS"));
+SELECT setval(pg_get_serial_sequence('"SCORES"', 'SCORE_ID'), (SELECT MAX("SCORE_ID") FROM "SCORES"));
+SELECT setval(pg_get_serial_sequence('"TAGS"', 'TAG_ID'), (SELECT MAX("TAG_ID") FROM "TAGS"));
+SELECT setval(pg_get_serial_sequence('"TRIPS"', 'TRIP_ID'), (SELECT MAX("TRIP_ID") FROM "TRIPS"));
