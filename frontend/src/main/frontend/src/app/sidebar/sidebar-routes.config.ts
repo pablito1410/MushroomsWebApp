@@ -6,6 +6,6 @@ export const ROUTES: RouteInfo[] = [
     { path: 'trips', title: 'Trips', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: 'discoveries', title: 'Discoveries', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: 'friends', title: 'Friends', menuType: MenuType.LEFT, icon:'material-icons' },
-    { path: 'notifications', title: 'Notifications', menuType: MenuType.LEFT, icon: 'material-icons text-gray' },
+    { path: 'notifications', title: 'Notifications', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: 'maps', title: 'Maps', menuType: MenuType.LEFT, icon: 'material-icons' }
 ];

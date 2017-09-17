@@ -26,21 +26,21 @@ export class NotificationsComponent implements OnInit {
                 {
                     id: 1,
                     content: 'Marian would like to add you to your friends',
-                    type: 'FRIEND INVITATION',
+                    type: 'FRIEND_INVITATION',
                     relatedId: 2,
                     dateTime: '2016-06-21T19:09:42.646Z'
                 },
                 {
                     id: 2,
                     content: 'Kasia invited you on a trip',
-                    type: 'TRIP ADDING',
+                    type: 'TRIP_ADDING',
                     relatedId: 2,
                     dateTime: '2016-06-21T19:09:42.646Z'
                 },
                 {
                     id: 3,
                     content: 'Michael found the mushroom on a trip in Krakow',
-                    type: 'MUSHROOM FINDING',
+                    type: 'MUSHROOM_FINDING',
                     relatedId: 2,
                     dateTime: '2016-06-21T19:09:42.646Z'
                 }
