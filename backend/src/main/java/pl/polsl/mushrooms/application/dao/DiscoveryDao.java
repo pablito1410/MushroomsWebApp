@@ -2,6 +2,8 @@ package pl.polsl.mushrooms.application.dao;
 
 import pl.polsl.mushrooms.application.model.Discovery;
 
+import java.util.Optional;
+
 /**
  * Created by pawel_zaqkxkn on 25.04.2017.
  */
@@ -9,7 +11,8 @@ import pl.polsl.mushrooms.application.model.Discovery;
 public interface DiscoveryDao {
     void save(Discovery discovery);
 
-    Discovery findDiscovery(long discoveryId);
+    Optional<Discovery> findOne(long discoveryId);
 
     void delete(long id);
+
 }

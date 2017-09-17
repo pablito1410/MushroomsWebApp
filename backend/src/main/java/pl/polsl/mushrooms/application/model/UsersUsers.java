@@ -29,6 +29,14 @@ public class UsersUsers implements Serializable {
         this.dateTime = dateTime;
     }
 
+    public Long getUserId() {
+        return usersUsersId.getUser().getId();
+    }
+
+    public Long getFriendId() {
+        return usersUsersId.getFriend().getId();
+    }
+
     public UsersUsersId getUsersUsersId() {
         return usersUsersId;
     }

@@ -28,11 +28,11 @@ public class UsersTrips implements Serializable {
         return dateTime;
     }
 
-    public UsersTripsId getPk() {
+    public UsersTripsId getUsersTripsId() {
         return usersTripsId;
     }
 
-    public void setPk(UsersTripsId pk) {
+    public void setUsersTripsId(UsersTripsId pk) {
         this.usersTripsId = pk;
     }
 
@@ -46,5 +46,13 @@ public class UsersTrips implements Serializable {
 
     public void setUsersTripsIdTripId(final Long tripId) {
         usersTripsId.setTripId(tripId);
+    }
+
+    public Long getUserId() {
+        return usersTripsId.getUserId();
+    }
+
+    public Long getTripId() {
+        return usersTripsId.getTripId();
     }
 }

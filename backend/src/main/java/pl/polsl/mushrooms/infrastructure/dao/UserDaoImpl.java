@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UsersUsers findRelationship(UsersUsersId usersUsersId) {
-        return usersUsersRepository.findOne(usersUsersId);
+    public Optional<UsersUsers> findRelationship(UsersUsersId usersUsersId) {
+        return Optional.ofNullable(usersUsersRepository.findOne(usersUsersId));
     }
 }

@@ -4,10 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import pl.polsl.mushrooms.application.dao.*;
-import pl.polsl.mushrooms.application.model.MushroomOrder;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.application.tools.PasswordEncoder;
-import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
@@ -52,8 +50,8 @@ public class ServicesConfig {
         return new DiscoveryServiceImpl(discoveryDao, tripDao, userDao, mushroomSpeciesDao, scoreDao); }
 
     @Bean
-    public CommentService commentService(UserDao userDao, CommentDao commentDao) {
-        return new CommentServiceImpl(userDao, commentDao);
+    public CommentService commentService(UserDao userDao, CommentDao commentDao, DiscoveryDao discoveryDao) {
+        return new CommentServiceImpl(userDao, commentDao, discoveryDao);
     }
 
     @Bean

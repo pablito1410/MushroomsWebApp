@@ -4,7 +4,9 @@ import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.CommentDto;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
+import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
@@ -46,6 +48,16 @@ public class DiscoveryProjectionServiceImpl implements DiscoveryProjectionServic
     @Override
     public Set<DiscoveryDto> search(final String userName, final String value, final boolean my, final boolean friends, final boolean isPublic) {
         return discoveryProjectionDao.search(userName, value, my, friends, isPublic);
+    }
+
+    @Override
+    public Set<TagDto> findTags(final long id) {
+        return discoveryProjectionDao.findTags(id);
+    }
+
+    @Override
+    public Set<CommentDto> findComments(final long id) {
+        return discoveryProjectionDao.findComments(id);
     }
 
 }

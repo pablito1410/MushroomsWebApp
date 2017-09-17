@@ -14,7 +14,6 @@ import pl.polsl.mushrooms.application.model.Score;
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * Created by pawel_zaqkxkn on 26.06.2017.
@@ -37,9 +36,9 @@ public class ScoreServiceImpl implements ScoreService {
         final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
                 .orElseThrow(EntityNotFoundException::new);;
 
-        final Discovery discovery =  Optional.of(
-                discoveryDao.findDiscovery(command.getDiscoveryId()))
-                .orElseThrow(NotFoundException::new);
+        final Discovery discovery =
+                discoveryDao.findOne(command.getDiscoveryId())
+                    .orElseThrow(NotFoundException::new);
 
         final Score score = new Score(
                 command.getValue(),

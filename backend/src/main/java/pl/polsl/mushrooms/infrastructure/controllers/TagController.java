@@ -9,6 +9,7 @@ import pl.polsl.mushrooms.application.commands.tag.DeleteTagCommand;
 import pl.polsl.mushrooms.application.commands.tag.UpdateTagCommand;
 import pl.polsl.mushrooms.application.services.projections.TagProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
+import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
 import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 
 import java.util.Set;
@@ -23,7 +24,8 @@ public class TagController {
     private final CommandGateway commandGateway;
     private final TagProjectionService tagProjectionService;
 
-    public TagController(CommandGateway commandGateway, TagProjectionService TagProjectionService) {
+    public TagController(final CommandGateway commandGateway,
+                         TagProjectionService TagProjectionService) {
         this.commandGateway = commandGateway;
         this.tagProjectionService = TagProjectionService;
     }
@@ -70,9 +72,9 @@ public class TagController {
     }
 
     @RequestMapping(path = "/discovery/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Set<TagDto>> tags(@PathVariable(name = "id") long id) {
-        final Set<TagDto> tags = tagProjectionService.findByDiscoveryId(id);
-        return new ResponseEntity<>(tags, HttpStatus.OK);
+    public ResponseEntity<DiscoveryDto> discovery(@PathVariable(name = "id") long tagId) {
+        final DiscoveryDto discovery = tagProjectionService.findDiscovery(tagId);
+        return new ResponseEntity<>(discovery, HttpStatus.OK);
     }
 
 }

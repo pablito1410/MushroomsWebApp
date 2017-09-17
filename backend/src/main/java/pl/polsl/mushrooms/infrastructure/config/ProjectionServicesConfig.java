@@ -99,4 +99,11 @@ public class ProjectionServicesConfig {
         return new MushroomSpeciesProjectionServiceImpl(mushroomSpeciesProjectionDao);
     }
 
+    @Bean
+    public FriendProjectionService friendProjectionService(
+            final FriendProjectionDao friendProjectionDao,
+            final EntityMapper entityMapper) {
+        return new FriendProjectionServiceImpl(entityMapper, friendProjectionDao);
+    }
+
 }

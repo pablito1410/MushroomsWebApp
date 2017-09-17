@@ -88,6 +88,12 @@ public class Trip implements Serializable{
 		return ids;
 	}
 
+	public Set<Long> getDiscoveriesIds() {
+		final Set<Long> ids = new HashSet<>();
+		discoveries.forEach(m -> ids.add(m.getId()));
+		return ids;
+	}
+
 	public void setMushroomers(Set<Mushroomer> mushroomers) {
 		this.mushroomers = mushroomers;
 	}
