@@ -87,21 +87,33 @@ export class AddDiscoveryComponent implements OnInit {
         console.log('dragEnd', discovery, $event);
     }
 
-    handleReaderLoaded(e) {
+    handleReadAsDataURL(e) {
+        console.log('handleReadAsDataURL');
         var reader = e.target;
         this.imageSrc = reader.result;
+    }
+
+    handleReadAsArrayBuffer(e) {
+        console.log('handleReadAsArrayBuffer');
+        var reader = e.target;
+        var array = Array.from(new Uint8Array(reader.result));
+        this.discovery.photo = array;
+        console.log(this.discovery.photo);
     }
 
     handleInputChange(event) {
         this.file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
         var pattern = /image-*/;
-        var reader = new FileReader();
         if (!this.file.type.match(pattern)) {
             alert('invalid format');
             return;
         }
-        reader.onload = this.handleReaderLoaded.bind(this);
-        reader.readAsDataURL(this.file);
+        var readerArrayBuffer = new FileReader();
+        var readerDataURL = new FileReader();
+        readerArrayBuffer.onloadend = this.handleReadAsArrayBuffer.bind(this);
+        readerArrayBuffer.readAsArrayBuffer(this.file);
+        readerDataURL.onload = this.handleReadAsDataURL.bind(this);
+        readerDataURL.readAsDataURL(this.file);
     }
 
     checkboxOnClick(event: Event) {
@@ -113,11 +125,10 @@ export class AddDiscoveryComponent implements OnInit {
     addDiscovery() {
         let dateTime = new Date();
         dateTime.setHours(dateTime.getHours() + 2);
-        this.discovery.photo = this.file;
+        this.discovery.dateTime = dateTime.toISOString().slice(0, -1);
         this.discovery.tripId = this.tripId;
         this.discovery.mushroomSpeciesId = this.speciesId;
         this.discovery.isPublic = this.isPublic;
-        this.discovery.dateTime = dateTime.toISOString().slice(0, -1);
         this.discoveryService.create(this.discovery).subscribe(
         data => {
             this.snackBar.open('Discovery Added', '×', {
