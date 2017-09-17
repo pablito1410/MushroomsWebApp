@@ -3,6 +3,8 @@ import { ROUTES } from '../.././sidebar/sidebar-routes.config';
 import { MenuType } from '../.././sidebar/sidebar.metadata';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {AuthenticationService} from "../../services/authentication.service";
+import {NotificationService} from "../../services/notification.service";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
     moduleId: module.id,
@@ -12,16 +14,24 @@ import {AuthenticationService} from "../../services/authentication.service";
 
 export class NavbarComponent implements OnInit {
 
+    notifications: Notification[];
+
     private listTitles: any[];
 
     location: Location;
 
-    constructor(location: Location, private authenticationService: AuthenticationService) {
+    constructor(
+        location: Location,
+        private authenticationService: AuthenticationService,
+        private notificationService: NotificationService) {
         this.location = location;
     }
 
     ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle.menuType !== MenuType.BRAND);
+        this.notificationService.getAll().subscribe(
+            result => this.notifications = result
+        );
     }
 
     logout() {
