@@ -10,7 +10,7 @@ import {User} from "../../../model/user";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {TripService} from "../../../services/trip.service";
-import * as Collections from 'typescript-collections';
+// import {Set} from 'typescript-collections';
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 
 @Component({
@@ -21,7 +21,7 @@ import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 export class AddTripComponent implements OnInit {
     trip: Trip;
     friends: User[];
-    selectedFriends: Collections.Set<User>;
+    selectedFriends: Set<User>;
     public searchControl: FormControl;
     public zoom: number;
     selectedOption: string;
@@ -45,7 +45,7 @@ export class AddTripComponent implements OnInit {
         this.trip = new Trip();
         this.friends = new Array<User>();
         this.searchControl = new FormControl();
-        this.selectedFriends = new Collections.Set<User>();
+        this.selectedFriends = new Set<User>();
         this.currentDate = new Date();
     }
 
@@ -182,15 +182,15 @@ export class AddTripComponent implements OnInit {
                 });
             });
         console.log('end addTrip');
-        if (!this.selectedFriends.isEmpty() && this.trip.id) {
+        if (this.selectedFriends.size > 0 && this.trip.id) {
             console.log(this.trip.id);
-            let userIds = new Collections.Set<number>();
+            let userIds = new Set<number>();
             this.selectedFriends.forEach(f => {
                 userIds.add(f.id);
             })
             console.log('start invite');
             this.tripService.invite(
-                new InviteToTripCommand(this.trip.id, userIds.toArray())).subscribe(
+                new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
                 data => {
                     this.snackBar.open('Trip Added', '×', {
                         duration: 2000,
@@ -221,8 +221,8 @@ export class AddTripComponent implements OnInit {
 
     checkboxOnClick(friend: User, event : Event) {
         if ($(event.target).is("input")) {
-            if (this.selectedFriends.contains(friend)) {
-                this.selectedFriends.remove(friend);
+            if (this.selectedFriends.has(friend)) {
+                this.selectedFriends.delete(friend);
             } else {
                 this.selectedFriends.add(friend);
             }

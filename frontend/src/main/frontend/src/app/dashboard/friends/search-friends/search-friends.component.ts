@@ -5,7 +5,7 @@ import {Subject} from "rxjs";
 import {UserService} from "../../../services/user.service";
 import {DOCUMENT} from "@angular/platform-browser";
 import {User} from "../../../model/user";
-import * as Collections from 'typescript-collections';
+// import {Set} from 'typescript-collections';
 
 @Component({
     moduleId: module.id,
@@ -15,7 +15,7 @@ import * as Collections from 'typescript-collections';
 export class SearchFriendsComponent implements OnInit {
     selectedOption: string;
     users: User[];
-    selectedUsers: Collections.Set<User>;
+    selectedUsers: Set<User>;
 
     constructor(
         public dialog: MdDialog,
@@ -23,7 +23,7 @@ export class SearchFriendsComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         private userService: UserService) {
         this.users = new Array<User>();
-        this.selectedUsers = new Collections.Set<User>();
+        this.selectedUsers = new Set<User>();
 }
 
     ngOnInit() {
@@ -112,8 +112,8 @@ export class SearchFriendsComponent implements OnInit {
 
     checkboxOnClick(user : User, event : Event) {
         if ($(event.target).is("input")) {
-            if (this.selectedUsers.contains(user)) {
-                this.selectedUsers.remove(user);
+            if (this.selectedUsers.has(user)) {
+                this.selectedUsers.delete(user);
             } else {
                 this.selectedUsers.add(user);
             }

@@ -12,7 +12,7 @@ import {User} from "../../../model/user";
 import {DateTool} from "../../../shared/tools/date.tool";
 import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
-import * as Collections from 'typescript-collections';
+// import {Set} from 'typescript-collections';
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 
 @Component({
@@ -23,8 +23,8 @@ import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 export class TripDetailsComponent implements OnInit {
     friends: User[];
     discoveries: Discovery[];
-    selectedFriends: Collections.Set<User>;
-    acceptedFriends: Collections.Set<User>;
+    selectedFriends: Set<User>;
+    acceptedFriends: Set<User>;
     public zoom: number = 12;
     selectedOption: string;
 
@@ -38,8 +38,8 @@ export class TripDetailsComponent implements OnInit {
         public snackBar: MdSnackBar) {
         this.friends = new Array<User>();
         this.discoveries = new Array<Discovery>();
-        this.selectedFriends = new Collections.Set<User>();
-        this.acceptedFriends = new Collections.Set<User>();
+        this.selectedFriends = new Set<User>();
+        this.acceptedFriends = new Set<User>();
     }
 
 
@@ -126,8 +126,8 @@ export class TripDetailsComponent implements OnInit {
 
     checkboxOnClick(friend: User, event : Event) {
         if ($(event.target).is("input")) {
-            if (this.selectedFriends.contains(friend)) {
-                this.selectedFriends.remove(friend);
+            if (this.selectedFriends.has(friend)) {
+                this.selectedFriends.delete(friend);
             } else {
                 this.selectedFriends.add(friend);
             }
@@ -175,15 +175,15 @@ export class TripDetailsComponent implements OnInit {
     }
 
     invite() {
-        if (!this.selectedFriends.isEmpty()) {
+        if (this.selectedFriends.size > 0) {
             console.log(this.trip.id);
-            let userIds = new Collections.Set<number>();
+            let userIds = new Set<number>();
             this.selectedFriends.forEach(f => {
                 userIds.add(f.id);
             })
             console.log('start invite');
             this.tripService.invite(
-                new InviteToTripCommand(this.trip.id, userIds.toArray())).subscribe(
+                new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
                 data => {
                     this.snackBar.open('Friends Invited', '×', {
                         duration: 2000,
