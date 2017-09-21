@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
     loading = false;
     imageSrc: string;
     file: File;
+    inputDate: Date;
 
     constructor(
         private router: Router,
@@ -22,6 +23,7 @@ export class UserComponent implements OnInit {
         public snackBar: MdSnackBar,
         @Inject(DOCUMENT) private document) {
         this.user = new User();
+        this.inputDate = new Date();
     }
 
     ngOnInit() {
@@ -33,7 +35,7 @@ export class UserComponent implements OnInit {
                 email: 'booby@mail.com',
                 firstName: 'Bob',
                 lastName: 'Smith',
-                birthDate: '1994-09-22',
+                birthDate: '1994-09-22',  //'9/22/1994'
                 gender: 'MALE',
                 level: 'BEGINNER',
                 country: 'USA',
@@ -46,6 +48,8 @@ export class UserComponent implements OnInit {
                 result => this.user = result
             );
         }
+        this.inputDate = new Date(this.user.birthDate);
+        console.log(this.user.birthDate);
     }
 
     handleReaderLoaded(e) {
@@ -82,9 +86,8 @@ export class UserComponent implements OnInit {
     }
 
     update() {
-        let birthDate = new Date(this.user.birthDate);
-        birthDate.setHours(birthDate.getHours() + 2);
-        this.user.birthDate = birthDate.toISOString().slice(0, -1);
+        this.inputDate.setHours(this.inputDate.getHours() + 2);
+        this.user.birthDate = this.inputDate.toISOString().slice(0, -1);
         this.loading = true;
         this.userService.update(this.user)
             .subscribe(

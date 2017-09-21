@@ -68,14 +68,13 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !birthDate.valid }">
+                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !inputDate.valid }">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <!--<button type="button" mdSuffix [mdDatepickerToggle]="picker"><i class="material-icons">event</i></button>-->
                                                 <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
                                             </span>
-                                            <input mdInput [mdDatepicker]="picker" class="form-control" name="birth-date" [(ngModel)]="user.birthDate"
-                                                #birthDate="ngModel" placeholder="Birth Date" />
+                                            <input mdInput [mdDatepicker]="picker" class="form-control" name="input-date" [(ngModel)]="inputDate"
+                                                placeholder="Birth Date" />
                                             <md-datepicker #picker></md-datepicker>
                                         </div>
                                     </div>

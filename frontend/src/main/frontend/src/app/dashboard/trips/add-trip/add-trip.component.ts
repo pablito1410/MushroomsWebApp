@@ -28,7 +28,7 @@ export class AddTripComponent implements OnInit {
     minute: number;
     hour: number;
     currentDate: Date;
-
+    inputDate: Date;
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -47,6 +47,7 @@ export class AddTripComponent implements OnInit {
         this.searchControl = new FormControl();
         this.selectedFriends = new Set<User>();
         this.currentDate = new Date();
+        this.inputDate = new Date();
     }
 
     ngOnInit() {
@@ -163,10 +164,9 @@ export class AddTripComponent implements OnInit {
     }
 
     addTrip() {
-        let dateTime = new Date(this.trip.dateTime);
-        dateTime.setHours(this.hour + 2);
-        dateTime.setMinutes(this.minute);
-        this.trip.dateTime = dateTime.toISOString().slice(0, -1);
+        this.inputDate.setHours(this.hour + 2);
+        this.inputDate.setMinutes(this.minute);
+        this.trip.dateTime = this.inputDate.toISOString().slice(0, -1);
         console.log('start addTrip');
         console.log(this.trip);
         this.tripService.create(this.trip).subscribe(
