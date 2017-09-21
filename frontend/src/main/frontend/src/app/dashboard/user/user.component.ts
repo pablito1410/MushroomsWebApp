@@ -45,10 +45,12 @@ export class UserComponent implements OnInit {
             };
         } else {
             this.userService.get().subscribe(
-                result => this.user = result
+                result => {
+                    this.user = result;
+                    this.inputDate = new Date(this.user.birthDate);
+                }
             );
         }
-        this.inputDate = new Date(this.user.birthDate);
         console.log(this.user.birthDate);
     }
 
