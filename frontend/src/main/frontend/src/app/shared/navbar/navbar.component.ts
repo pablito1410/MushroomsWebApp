@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         private authenticationService: AuthenticationService,
         private notificationService: NotificationService) {
+        this.notifications = new Array<Notification>();
         this.location = location;
     }
 
@@ -78,5 +79,9 @@ export class NavbarComponent implements OnInit {
             }
         }
         return 'Dashboard';
+    }
+
+    checkNotifications() : boolean {
+        return this.notifications.length > 0
     }
 }
