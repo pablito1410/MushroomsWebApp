@@ -53,7 +53,7 @@ public class DiscoveryServiceImpl implements DiscoveryService {
             throw new NotFoundException("MushtoomSpecies nof found");
         }
 
-        final Discovery discovery = new Discovery(
+         final Discovery discovery = new Discovery(
             command.getCoordinateX(),
             command.getCoordinateY(),
             command.getPhoto(),

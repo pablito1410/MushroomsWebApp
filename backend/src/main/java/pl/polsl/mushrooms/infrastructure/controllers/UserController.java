@@ -70,6 +70,10 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    /**
+     * READ
+     * @return
+     */
     @RequestMapping(path = "/all", method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> getAll() {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -77,6 +81,11 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    /**
+     * SEARCH
+     * @param value
+     * @return
+     */
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> search(@RequestParam(value = "value") String value) {
         final Set<MushroomerDto> users = userProjectionService.search(value);
@@ -107,7 +116,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    /**
+     * UPDATE PROFILE IMAGE
+     * @param image
+     * @return
+     */
     @RequestMapping(path = "image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> image(@RequestParam("files") MultipartFile image) {
         try {

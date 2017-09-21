@@ -9,9 +9,22 @@ import pl.polsl.mushrooms.application.commands.comment.UpdateCommentCommand;
  */
 public interface CommentService {
 
+    /**
+     * Creates a comment to the discovery
+     * @param command
+     * @return Id of created comment
+     */
     long handle(CreateCommentCommand command);
 
+    /**
+     * Updates the comment
+     * @param command
+     */
     void handle(UpdateCommentCommand command);
 
+    /**
+     * Deletes the comment
+     * @param command
+     */
     void handle(DeleteCommentCommand command);
 }

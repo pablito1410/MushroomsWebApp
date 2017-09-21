@@ -29,6 +29,11 @@ public class ScoreController {
         this.scoreProjectionService = scoreProjectionService;
     }
 
+    /**
+     * CREATE
+     * @param command
+     * @return
+     */
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Void> addScore(@RequestBody AddScoreCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -36,6 +41,11 @@ public class ScoreController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * UPDATE
+     * @param command
+     * @return
+     */
     @RequestMapping(path = "/", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateScoreCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -43,6 +53,11 @@ public class ScoreController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * DELETE
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteScoreCommand command = new DeleteScoreCommand();
@@ -52,6 +67,10 @@ public class ScoreController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * GET ALL
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Set<ScoreDto>> getAll() {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -59,12 +78,22 @@ public class ScoreController {
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
 
+    /**
+     * GET BY ID
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ScoreDto> getById(@PathVariable(name = "id") long id) {
         final ScoreDto trip = scoreProjectionService.findOne(id);
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param id
+     * @return average of the discovery's scores
+     */
     @RequestMapping(path = "/discovery/{id}", method = RequestMethod.GET)
     public ResponseEntity<Double> scoresAverge(@PathVariable(name = "id") long id) {
         final double scoresAverage = scoreProjectionService.discoveryScoresAverage(id);

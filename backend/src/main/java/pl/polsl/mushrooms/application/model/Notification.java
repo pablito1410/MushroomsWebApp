@@ -61,11 +61,11 @@ public class Notification implements Serializable {
         this.content = type.getContent(userOfContent.getUsername()); // TODO format daty
     }
 
-    long getId() {
+    public long getId() {
         return id;
     }
 
-    void setId(final long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 

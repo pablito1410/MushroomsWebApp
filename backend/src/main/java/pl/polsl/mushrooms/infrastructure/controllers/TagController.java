@@ -30,6 +30,11 @@ public class TagController {
         this.tagProjectionService = TagProjectionService;
     }
 
+    /**
+     * CREATE
+     * @param command
+     * @return
+     */
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public ResponseEntity<Void> addTag(@RequestBody CreateTagCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -37,6 +42,11 @@ public class TagController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     * UPDATE
+     * @param command
+     * @return
+     */
     @RequestMapping(path = "/", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateTagCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -44,6 +54,11 @@ public class TagController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * DELETE
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteTagCommand command = new DeleteTagCommand(id);
@@ -52,6 +67,10 @@ public class TagController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * GET ALL
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Set<TagDto>> getAll() {
         final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -59,18 +78,33 @@ public class TagController {
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
 
+    /**
+     * GET BY ID
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<TagDto> getById(@PathVariable(name = "id") long id) {
         final TagDto tag = tagProjectionService.findOne(id);
         return new ResponseEntity<>(tag, HttpStatus.OK);
     }
 
+    /**
+     * SEARCH
+     * @param value
+     * @return
+     */
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Set<TagDto>> search(@RequestParam(value = "value") String value) {
         final Set<TagDto> users = tagProjectionService.search(value);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param tagId - Id of the tag
+     * @return discoveries referenced to the tag
+     */
     @RequestMapping(path = "/discovery/{id}", method = RequestMethod.GET)
     public ResponseEntity<DiscoveryDto> discovery(@PathVariable(name = "id") long tagId) {
         final DiscoveryDto discovery = tagProjectionService.findDiscovery(tagId);

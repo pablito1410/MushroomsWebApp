@@ -29,12 +29,21 @@ public class NotificationController {
         this.notificationProjectionService = notificationProjectionService;
     }
 
+    /**
+     * CREATE
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<NotificationDto> getById(@PathVariable(name = "id") long id) {
         final NotificationDto notification = notificationProjectionService.findOne(id);
         return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 
+    /**
+     * GET ALL
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Set<NotificationDto>> getAll() {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -42,6 +51,11 @@ public class NotificationController {
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
+    /**
+     * DELETE
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteNotificationCommand command = new DeleteNotificationCommand();

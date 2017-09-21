@@ -10,9 +10,23 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomSpeciesDto;
  */
 public interface MushroomSpeciesService {
 
+    /**
+     * Creates new mushroom species
+     * @param command
+     * @return
+     */
     long handle(CreateMushroomSpeciesCommand command);
 
+    /**
+     * Updates the mushroom species
+     * @param command
+     * @return Updated mushroom species
+     */
     MushroomSpeciesDto handle(UpdateMushroomSpeciesCommand command);
 
+    /**
+     * Deletes the mushroom species
+     * @param command
+     */
     void handle(DeleteMushroomSpeciesCommand command);
 }

@@ -7,5 +7,9 @@ import pl.polsl.mushrooms.application.commands.notification.DeleteNotificationCo
  */
 public interface NotificationService {
 
+    /**
+     * Deletes the notification
+     * @param command
+     */
     void handle(DeleteNotificationCommand command);
 }

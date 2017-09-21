@@ -10,9 +10,23 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomGenusDto;
  */
 public interface MushroomGenusService {
 
+    /**
+     * Creates new mushroom genus
+     * @param command
+     * @return Id of the mushroom genus
+     */
     long handle(CreateMushroomGenusCommand command);
 
+    /**
+     * Updates the mushroom genus
+     * @param command
+     * @return Updated mushroom genus
+     */
     MushroomGenusDto handle(UpdateMushroomGenusCommand command);
 
+    /**
+     * Delete the mushroom genus
+     * @param command
+     */
     void handle(DeleteMushroomGenusCommand command);
 }

@@ -10,9 +10,23 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomOrderDto;
  */
 public interface MushroomOrderService {
 
+    /**
+     * Creates new mushroom order
+     * @param command
+     * @return Id of mushroom order
+     */
     long handle(CreateMushroomOrderCommand command);
 
+    /**
+     * Updates the mushroom order
+     * @param command
+     * @return Updated mushroom order
+     */
     MushroomOrderDto handle(UpdateMushroomOrderCommand command);
 
+    /**
+     * Deletes mushroom order
+     * @param command
+     */
     void handle(DeleteMushroomOrderCommand command);
 }

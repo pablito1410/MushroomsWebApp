@@ -29,6 +29,11 @@ public class TripController {
         this.tripProjectionService = tripProjectionService;
     }
 
+    /**
+     *  CREATE
+     * @param command
+     * @return
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateTripCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -36,6 +41,11 @@ public class TripController {
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
+    /**
+     * UPDATE
+     * @param command
+     * @return
+     */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateTripCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -43,6 +53,11 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * GET BY ID
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<TripDto> getById(
             @PathVariable(name = "id") long id) {
@@ -50,6 +65,11 @@ public class TripController {
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param id - id of the trip
+     * @return participants of the trip
+     */
     @RequestMapping(path = "/participants/{id}", method = RequestMethod.GET)
     public ResponseEntity<Set<UsersTripsDto>> getParticipants(
             @PathVariable(name = "id") long id) {
@@ -57,6 +77,11 @@ public class TripController {
         return new ResponseEntity<>(participants, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param id - id o the trip
+     * @return invited users to the trip
+     */
     @RequestMapping(path = "/invited/{id}", method = RequestMethod.GET)
     public ResponseEntity<Set<UsersTripsDto>> getTripRequests(
             @PathVariable(name = "id") long id) {
@@ -75,6 +100,11 @@ public class TripController {
         return new ResponseEntity<>(trips, HttpStatus.OK);
     }
 
+    /**
+     * DELETE
+     * @param id
+     * @return
+     */
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable(name = "id") long id) {
         final DeleteTripCommand command = new DeleteTripCommand(id);
@@ -83,6 +113,11 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Adds user to the trip
+     * @param command
+     * @return
+     */
     @RequestMapping(path = "/join", method = RequestMethod.POST)
     public ResponseEntity<Void> joinTrip(@RequestBody JoinTripCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -90,12 +125,22 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Search trip by place
+     * @param value
+     * @return
+     */
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Set<TripDto>> search(@RequestParam(value = "value") String value) {
         final Set<TripDto> users = tripProjectionService.search(value);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    /**
+     * Invites the user to the trip
+     * @param command
+     * @return
+     */
     @RequestMapping(path = "/invite", method = RequestMethod.POST)
     public ResponseEntity<Void> invite(@RequestBody InviteToTripCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -103,6 +148,10 @@ public class TripController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     *
+     * @return requests to the trips of the user
+     */
     @RequestMapping(path = "/requests", method = RequestMethod.GET)
     public ResponseEntity<Set<TripDto>> getRequests() {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
