@@ -16,13 +16,13 @@ public class UpdateDiscoveryCommand implements VoidCommand {
     private String userName;
 
     @NotNull
-    private long id;
+    private Long id;
     @NotNull
-    private long mushroomSpeciesId;
+    private Long mushroomSpeciesId;
     @NotNull
-    private double coordinateX;
+    private Double coordinateX;
     @NotNull
-    private double coordinateY;
+    private Double coordinateY;
     @NotNull
     private byte[] photo;
 
@@ -33,7 +33,7 @@ public class UpdateDiscoveryCommand implements VoidCommand {
     private Collection<String> tags;
 
     @NotNull
-    private boolean isPublic;
+    private Boolean isPublic;
 
     protected UpdateDiscoveryCommand() { }
 
@@ -41,19 +41,19 @@ public class UpdateDiscoveryCommand implements VoidCommand {
         return userName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getMushroomSpeciesId() {
+    public Long getMushroomSpeciesId() {
         return mushroomSpeciesId;
     }
 
-    public double getCoordinateX() {
+    public Double getCoordinateX() {
         return coordinateX;
     }
 
-    public double getCoordinateY() {
+    public Double getCoordinateY() {
         return coordinateY;
     }
 
@@ -69,7 +69,7 @@ public class UpdateDiscoveryCommand implements VoidCommand {
         return tags;
     }
 
-    public boolean isPublic() {
+    public Boolean isPublic() {
         return isPublic;
     }
 

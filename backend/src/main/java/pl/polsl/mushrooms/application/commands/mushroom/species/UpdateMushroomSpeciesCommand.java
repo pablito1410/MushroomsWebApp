@@ -19,7 +19,7 @@ public class UpdateMushroomSpeciesCommand implements ReturningCommand<MushroomSp
     private String name;
 
     @NotNull
-    private Long mushroomGenusId;
+    private Long genusId;
 
     private byte[] examplePhoto;
 
@@ -33,8 +33,8 @@ public class UpdateMushroomSpeciesCommand implements ReturningCommand<MushroomSp
         return name;
     }
 
-    public Long getMushroomGenusId() {
-        return mushroomGenusId;
+    public Long getGenusId() {
+        return genusId;
     }
 
     public byte[] getExamplePhoto() {

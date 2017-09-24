@@ -106,27 +106,27 @@ public class Trip implements Serializable{
 		this.discoveries = discoveries;
 	}
 
-	public double getCoordinateX() {
+	public Double getCoordinateX() {
 		return coordinateX;
 	}
 
-	public void setCoordinateX(double coordinateX) {
+	public void setCoordinateX(Double coordinateX) {
 		this.coordinateX = coordinateX;
 	}
 
-	public double getCoordinateY() {
+	public Double getCoordinateY() {
 		return coordinateY;
 	}
 
-	public void setCoordinateY(double coordinateY) {
+	public void setCoordinateY(Double coordinateY) {
 		this.coordinateY = coordinateY;
 	}
 
-	public double getRadius() {
+	public Double getRadius() {
 		return radius;
 	}
 
-	public void setRadius(double radius) {
+	public void setRadius(Double radius) {
 		this.radius = radius;
 	}
 

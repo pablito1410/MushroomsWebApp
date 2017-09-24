@@ -25,5 +25,6 @@ public class DiscoveryDto {
 
     private long tripId;
     private MushroomSpeciesDto mushroomSpecies;
+    private long mushroomSpeciesId;
     private long mushroomerId;
 }
