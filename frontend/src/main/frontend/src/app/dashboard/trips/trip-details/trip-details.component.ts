@@ -12,7 +12,6 @@ import {User} from "../../../model/user";
 import {DateTool} from "../../../shared/tools/date.tool";
 import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
-// import {Set} from 'typescript-collections';
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 
 @Component({
@@ -203,5 +202,9 @@ export class TripDetailsComponent implements OnInit {
             .subscribe(
                 result => this.friends = result
             );
+    }
+
+    close() {
+        this.dialogRef.close('Close');
     }
 }

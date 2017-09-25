@@ -36,7 +36,7 @@ export class UserService {
     updateImage(image: File) {
         let formData: FormData = new FormData();
         formData.append('files', image, image.name);
-        return this.http.post('/api/users/image', formData, this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/users/image', formData, this.authenticationService.jwt()).map((response: Response) => response);
     }
 
     search(term) {

@@ -1,6 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import { UserService } from "../../services/user.service";
-import { Router } from "@angular/router";
 import { MdSnackBar } from "@angular/material";
 import {DOCUMENT} from "@angular/platform-browser";
 import {User} from "../../model/user";
@@ -18,7 +17,6 @@ export class UserComponent implements OnInit {
     inputDate: Date;
 
     constructor(
-        private router: Router,
         private userService: UserService,
         public snackBar: MdSnackBar,
         @Inject(DOCUMENT) private document) {
@@ -74,6 +72,7 @@ export class UserComponent implements OnInit {
         this.userService.updateImage(file).subscribe(
             data => {
                 this.user.photo = file;
+                this.ngOnInit();
                 this.snackBar.open('Photo Saved', '×', {
                     duration: 2000,
                 });
@@ -94,6 +93,7 @@ export class UserComponent implements OnInit {
         this.userService.update(this.user)
             .subscribe(
                 result => {
+                    this.ngOnInit();
                     this.snackBar.open('User Updated', '×', {
                         duration: 2000,
                     });

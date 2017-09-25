@@ -10,7 +10,6 @@ import {User} from "../../../model/user";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {TripService} from "../../../services/trip.service";
-// import {Set} from 'typescript-collections';
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 
 @Component({
@@ -41,7 +40,7 @@ export class AddTripComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         private friendService: FriendService,
         private tripService: TripService,
-        public snackBar: MdSnackBar){
+        public snackBar: MdSnackBar) {
         this.trip = new Trip();
         this.friends = new Array<User>();
         this.searchControl = new FormControl();
@@ -94,33 +93,55 @@ export class AddTripComponent implements OnInit {
         this.setCurrentPosition();
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
+            console.log('maps 8');
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ["address"]
             });
+            console.log('maps 9');
             autocomplete.addListener("place_changed", () => {
+                console.log('maps 10');
                 this.ngZone.run(() => {
+                    console.log('maps 11');
                     //get the place result
                     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    console.log('maps 12');
                     //verify result
                     if (place.geometry === undefined || place.geometry === null) {
+                        console.log('maps 13');
                         return;
                     }
+                    console.log('maps 14');
                     //set latitude, longitude and zoom
                     this.trip.coordinateX = place.geometry.location.lat();
+                    console.log('maps 15');
                     this.trip.coordinateY = place.geometry.location.lng();
+                    console.log('maps 16');
                     this.zoom = 12;
+                    console.log('maps 17');
                 });
+                console.log('maps 19');
             });
+            console.log('maps 20');
         });
+        console.log('maps 21');
     }
 
     private setCurrentPosition() {
+        console.log('maps 1');
+        this.trip.coordinateX = 50.28940619999999;
+        this.trip.coordinateY = 18.67378259999998;
         if ("geolocation" in navigator) {
+            console.log('maps 2');
             navigator.geolocation.getCurrentPosition((position) => {
+                console.log('maps 3');
                 this.trip.coordinateX = position.coords.latitude;
+                console.log('maps 4');
                 this.trip.coordinateY = position.coords.longitude;
+                console.log('maps 5');
                 this.zoom = 12;
+                console.log('maps 6');
             });
+            console.log('maps 7');
         }
     }
 
@@ -172,37 +193,40 @@ export class AddTripComponent implements OnInit {
         this.tripService.create(this.trip).subscribe(
             data => {
                 this.trip.id = +data.toString();
-                this.snackBar.open('Trip Added', '×', {
-                    duration: 2000,
-                });
+                console.log('end addTrip');
+                if (this.selectedFriends.size > 0 && this.trip.id) {
+                    console.log(this.trip.id);
+                    let userIds = new Set<number>();
+                    this.selectedFriends.forEach(f => {
+                        userIds.add(f.id);
+                    })
+                    console.log('start invite');
+                    this.tripService.invite(
+                        new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
+                        data => {
+                            this.ngOnInit();
+                            this.snackBar.open('Trip Added', '×', {
+                                duration: 2000,
+                            });
+                        },
+                        error => {
+                            this.snackBar.open('Error', '×', {
+                                duration: 2000,
+                            });
+                        });
+                    console.log('stop invite');
+                } else {
+                    this.ngOnInit();
+                    this.snackBar.open('Trip Added', '×', {
+                        duration: 2000,
+                    });
+                }
             },
             error => {
                 this.snackBar.open('Error', '×', {
                     duration: 2000,
                 });
             });
-        console.log('end addTrip');
-        if (this.selectedFriends.size > 0 && this.trip.id) {
-            console.log(this.trip.id);
-            let userIds = new Set<number>();
-            this.selectedFriends.forEach(f => {
-                userIds.add(f.id);
-            })
-            console.log('start invite');
-            this.tripService.invite(
-                new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
-                data => {
-                    this.snackBar.open('Trip Added', '×', {
-                        duration: 2000,
-                    });
-                },
-                error => {
-                    this.snackBar.open('Error', '×', {
-                        duration: 2000,
-                    });
-                });
-            console.log('stop invite');
-        }
         this.dialogRef.close('Ok');
     }
 
@@ -227,5 +251,9 @@ export class AddTripComponent implements OnInit {
                 this.selectedFriends.add(friend);
             }
         }
+    }
+
+    close() {
+        this.dialogRef.close('Close');
     }
 }

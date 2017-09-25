@@ -82,6 +82,7 @@ export class TripsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
+            this.ngOnInit();
         });
     }
 
