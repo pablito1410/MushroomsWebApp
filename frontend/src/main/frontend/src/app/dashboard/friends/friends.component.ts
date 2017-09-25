@@ -96,11 +96,11 @@ export class FriendsComponent implements OnInit {
         });
     }
 
-    openFriendDetailsDialog(user) {
+    openFriendDetailsDialog(user, status) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
             data: { 
                 user: user,
-                status: 'details'
+                status: status
             },
             hasBackdrop: true,
             height: '80%',

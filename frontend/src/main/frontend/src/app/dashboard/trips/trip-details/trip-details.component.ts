@@ -9,7 +9,6 @@ import {FriendDetailsComponent} from "../../friends/friend-details/friend-detail
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {User} from "../../../model/user";
-import {DateTool} from "../../../shared/tools/date.tool";
 import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
@@ -197,7 +196,12 @@ export class TripDetailsComponent implements OnInit {
     }
 
     isComing() : boolean {
-        return DateTool.compareDateTime(new Date(), new Date(this.trip.dateTime)) == -1;
+        let today = new Date();
+        let getting = new Date(this.trip.dateTime)
+        let res = today < getting;
+        // console.log(today.toLocaleString() + '   ?   ' + getting.toLocaleString());
+        // console.log(res);
+        return res;
     }
 
     areDiscoveries() : boolean {

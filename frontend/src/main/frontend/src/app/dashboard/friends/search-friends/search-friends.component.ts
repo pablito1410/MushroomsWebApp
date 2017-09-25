@@ -82,9 +82,12 @@ export class SearchFriendsComponent implements OnInit {
         }
     }
 
-    openUserDetailsDialog(user) {
+    openUserDetailsDialog(user, status) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
-            data: user,
+            data: {
+                user: user,
+                status: status
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',

@@ -13,7 +13,7 @@
                         <div class="row top-buffer" *ngIf="areInvitedFriends()">
                             <h2 class="text-gray">Invited friends:</h2>
                             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let invitedFriend of invitedFriends">
-                                <div class="card card-profile" (click)="openFriendDetailsDialog(invitedFriend)">
+                                <div class="card card-profile" (click)="openFriendDetailsDialog(invitedFriend, 'details')">
                                     <div class="card-avatar">
                                         <div *ngIf="invitedFriend.photo != null">
                                             <img class="img" [src]="getUserPhotoToDisplay(invitedFriend)" />
@@ -31,7 +31,7 @@
                         <div class="row top-buffer" *ngIf="areRequestedFriends()">
                             <h2 class="text-gray">Requested Friends:</h2>
                             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let requestedFriend of requestedFriends">
-                                <div class="card card-profile" (click)="openFriendDetailsDialog(requestedFriend)">
+                                <div class="card card-profile" (click)="openFriendDetailsDialog(requestedFriend, 'requests')">
                                     <div class="card-avatar">
                                         <div *ngIf="requestedFriend.photo != null">
                                             <img class="img" [src]="getUserPhotoToDisplay(requestedFriend)" />
@@ -49,7 +49,7 @@
                         <div class="row top-buffer" *ngIf="areFriends()">
                             <h2 class="text-gray">Friends:</h2>
                             <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
-                                <div class="card card-profile" (click)="openFriendDetailsDialog(friend)">
+                                <div class="card card-profile" (click)="openFriendDetailsDialog(friend, 'details')">
                                     <div class="card-avatar">
                                         <div *ngIf="friend.photo != null">
                                             <img class="img" [src]="getUserPhotoToDisplay(friend)" />
