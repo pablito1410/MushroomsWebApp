@@ -1,13 +1,20 @@
 <div class="row">
     <div class="col-md-2 text-right">
-        <div class="comment-img-mask">
-            <img class="comment-img" src="..\assets\img\faces\default-user.png" />
+        <div *ngIf="comment.user.photo != null">
+            <div class="comment-img-mask">
+                <img class="comment-img" [src]="getUserPhotoToDisplay()" />
+            </div>
         </div>
+        <div *ngIf="comment.user.photo == null">
+            <div class="comment-img-mask">
+                <img class="comment-img" src="..\assets\img\faces\default-user.png" />
+            </div>
+        </div>        
     </div>
     <div class="col-md-10">
         <div class="row">
-            <span class="list-group-item"><h4>{{comment.content}}</h4></span>
-            damdbnjkahadsjdmima djwqK DMKASJ DM AWJ DMQWK M
+            <span class="list-group-item"><h4>{{comment.user.username}}</h4></span>
+            {{comment.content}}
         </div>
         <div class="row">
             <button *ngIf="!textBox" class="text-button" (click)="write()">reply</button>

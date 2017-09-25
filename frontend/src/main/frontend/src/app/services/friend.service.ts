@@ -14,7 +14,7 @@ export class FriendService {
     }
 
     add(addFriendCommand: AddFriendCommand) {
-        return this.http.post('/api/friends', addFriendCommand, this.authenticationService.jwt()).map((response : Response) => response.json());
+        return this.http.post('/api/friends', addFriendCommand, this.authenticationService.jwt()).map((response : Response) => response);
     }
 
     accept(acceptInvitationToFriendsCommand: AcceptInvitationToFriendsCommand) {

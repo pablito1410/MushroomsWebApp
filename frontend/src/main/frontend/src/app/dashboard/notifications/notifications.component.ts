@@ -83,4 +83,46 @@ export class NotificationsComponent implements OnInit {
             }
         );
     }
+
+    openFriendDetailsDialog(user, status) {
+        // let dialogRef = this.dialog.open(FriendDetailsComponent, {
+        //     data: { 
+        //         user: user,
+        //         status: status
+        //     },
+        //     hasBackdrop: true,
+        //     height: '80%',
+        //     width: '80%',
+        // });
+        // dialogRef.afterClosed().subscribe(result => {
+        //     this.selectedOption = result;
+        // });
+    }
+
+    openDiscoveryDetailsDialog(discovery) {
+        // let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
+        //     data: { 
+        //         discovery: discovery,
+        //         status: 'details'
+        //     },
+        //     hasBackdrop: true,
+        //     height: '80%',
+        //     width: '80%',
+        // });
+        // dialogRef.afterClosed().subscribe(result => {
+        //     this.selectedOption = result;
+        // });
+    }
+
+    openTripDetailsDialog(trip) {
+        // let dialogRef = this.dialog.open(TripDetailsComponent, {
+        //     data: trip,
+        //     hasBackdrop: true,
+        //     height: '80%',
+        //     width: '80%',
+        // });
+        // dialogRef.afterClosed().subscribe(result => {
+        //     this.selectedOption = result;
+        // });
+    }
 }

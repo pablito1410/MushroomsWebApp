@@ -43,4 +43,7 @@ export class CommentComponent implements OnInit {
         this.textBox = false;
     }
 
+    getUserPhotoToDisplay() : string {
+        return 'data:image/png;base64,' + this.comment.user.photo;
+    }
 }

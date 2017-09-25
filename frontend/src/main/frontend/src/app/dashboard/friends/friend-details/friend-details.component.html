@@ -85,7 +85,5 @@
     <div *ngIf="data.status == 'requests'">
         <button class="btn btn-primary dialog-btn" md-button (click)="accept()">Accept</button>
     </div>
-    <div *ngIf="data.status == 'details'">
-        <button class="btn btn-primary dialog-btn" md-button (click)="close()">Close</button>
-    </div>
+    <button class="btn btn-primary dialog-btn" md-button (click)="close()">Close</button>
 </div>

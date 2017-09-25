@@ -3,7 +3,8 @@ export class Comment {
     id: number;
     content: string;
     dateTime: string;
-    answers: Comment[]; // TODO
+    user: User;
+    answers: Comment[];
 
     constructor(content, answers) {
         this.content = content;

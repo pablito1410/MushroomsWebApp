@@ -31,7 +31,7 @@ export class TripService {
     }
 
     invite(inviteToTripCommand: InviteToTripCommand) {
-        return this.http.post('/api/trips/invite', inviteToTripCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/trips/invite', inviteToTripCommand, this.authenticationService.jwt()).map((response: Response) => response);
     }
 
     getParticipants(id: number) {
