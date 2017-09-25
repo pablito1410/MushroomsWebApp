@@ -9,7 +9,7 @@ import pl.polsl.mushrooms.application.commands.trip.*;
 import pl.polsl.mushrooms.application.services.projections.TripProjectionService;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
-import pl.polsl.mushrooms.infrastructure.dto.UsersTripsDto;
+import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.util.Set;
 
@@ -71,9 +71,9 @@ public class TripController {
      * @return participants of the trip
      */
     @RequestMapping(path = "/participants/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Set<UsersTripsDto>> getParticipants(
+    public ResponseEntity<Set<UserDto>> getParticipants(
             @PathVariable(name = "id") long id) {
-        final Set<UsersTripsDto> participants = tripProjectionService.findParticipants(id);
+        final Set<UserDto> participants = tripProjectionService.findParticipants(id);
         return new ResponseEntity<>(participants, HttpStatus.OK);
     }
 
@@ -83,9 +83,9 @@ public class TripController {
      * @return invited users to the trip
      */
     @RequestMapping(path = "/invited/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Set<UsersTripsDto>> getTripRequests(
+    public ResponseEntity<Set<UserDto>> getTripRequests(
             @PathVariable(name = "id") long id) {
-        final Set<UsersTripsDto> invited = tripProjectionService.findInvited(id);
+        final Set<UserDto> invited = tripProjectionService.findInvited(id);
         return new ResponseEntity<>(invited, HttpStatus.OK);
     }
 
