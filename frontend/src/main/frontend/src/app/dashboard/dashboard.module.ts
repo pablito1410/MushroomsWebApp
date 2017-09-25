@@ -12,7 +12,7 @@ import { MapsComponent} from "./maps/maps.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
     MdNativeDateModule, MdDialogModule, MdDatepickerModule, MdSnackBarModule, MdSnackBar,
-    LiveAnnouncer, MdSelect, MdSelectModule, MdSlider, MdSliderModule
+    MdSelect, MdSelectModule, MdSlider, MdSliderModule
 } from "@angular/material";
 import { AgmCoreModule } from "angular2-google-maps/core";
 import { SearchFriendsComponent } from "./friends/search-friends/search-friends.component";
@@ -85,9 +85,6 @@ import {CommentComponent} from "./comments/comment/comment.component";
         NotificationsComponent,
         DiscoveriesComponent,
         MapsComponent
-    ],
-    providers: [
-        LiveAnnouncer
     ]
 })
 export class DashboardModule{}
