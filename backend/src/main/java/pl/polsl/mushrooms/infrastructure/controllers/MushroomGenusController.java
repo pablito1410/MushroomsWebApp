@@ -57,7 +57,7 @@ public class MushroomGenusController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomGenusDto>> getAll() {
         final Set<MushroomGenusDto> mushroomGenuses = mushroomGenusProjectionService.findAll();
         return new ResponseEntity<>(mushroomGenuses, HttpStatus.OK);

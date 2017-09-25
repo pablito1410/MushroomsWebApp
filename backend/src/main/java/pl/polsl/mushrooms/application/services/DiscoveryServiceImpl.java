@@ -78,25 +78,34 @@ public class DiscoveryServiceImpl implements DiscoveryService {
     @Override
     public void handle(UpdateDiscoveryCommand command) {
         final String currentUsername = command.getUserName();
-        final Mushroomer mushroomer = (Mushroomer)userDao.findOneByUsername(currentUsername)
+        final User user = userDao.findOneByUsername(currentUsername)
                 .orElseThrow(EntityNotFoundException::new);;
         final Discovery discovery =
                 discoveryDao.findOne(command.getId())
                     .orElseThrow(NotFoundException::new);
 
-        if (!discovery.getMushroomer().equals(mushroomer)) {
-            throw new NotAuthorizedException("This discovery was not created by user with id=" + mushroomer.getId());
+        if (user.isAdmin()) {
+            updateDiscovery(discovery, command);
         }
+        else if (discovery.getMushroomer().equals(user)) {
+            updateDiscovery(discovery, command);
+        } else {
+            throw new NotAuthorizedException("This discovery was not created by user with id=" + user.getId());
+        }
+    }
 
+    private void updateDiscovery(final Discovery discovery, final UpdateDiscoveryCommand command) {
         discovery.setDateTime(command.getDateTime());
         discovery.setCoordinateX(command.getCoordinateX());
         discovery.setCoordinateY(command.getCoordinateY());
-        discovery.setPhoto(command.getPhoto());
+//        discovery.setPhoto(command.getPhoto());
         discovery.setMushroomSpecies(mushroomSpeciesDao.findOne(command.getMushroomSpeciesId()));
 
-        final Set<Tag> tags = new HashSet<>();
-        command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
-        discovery.setTags(tags);
+        if (command.getTags() != null) {
+            final Set<Tag> tags = new HashSet<>();
+            command.getTags().forEach(t -> tags.add(new Tag(t, discovery)));
+            discovery.setTags(tags);
+        }
 
         discoveryDao.save(discovery);
     }

@@ -14,5 +14,6 @@ public class MushroomSpeciesDto {
     private String name;
     private byte[] examplePhoto;
     private MushroomGenusDto genus;
+    private long genusId;
 
 }

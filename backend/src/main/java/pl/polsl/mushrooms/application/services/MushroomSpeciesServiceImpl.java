@@ -40,7 +40,7 @@ public class MushroomSpeciesServiceImpl implements MushroomSpeciesService {
 
     @Override
     public MushroomSpeciesDto handle(UpdateMushroomSpeciesCommand command) {
-        final MushroomGenus mushroomGenus = mushroomGenusDao.findOne(command.getMushroomGenusId());
+        final MushroomGenus mushroomGenus = mushroomGenusDao.findOne(command.getGenusId());
         final MushroomSpecies mushroomSpecies = mushroomSpeciesDao.findOne(command.getId());
         mushroomSpecies.setName(command.getName());
         mushroomSpecies.setExamplePhoto(command.getExamplePhoto());
