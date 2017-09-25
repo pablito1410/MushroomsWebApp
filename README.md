@@ -57,14 +57,9 @@ Zainstalować Node.js:
 Zainstalować Mavena w wersji co najmniej 3.1:
 * [Maven](https://maven.apache.org/download.cgi)
 
-Zainstalować TypeScript:
-```bash
-npm install -g typescript@^2.3.2
-```
-
 Zainstalować Angular Command Line Interpreter:
 ```bash
-npm install -g @angular/cli@^1.0.4
+npm install -g @angular/cli
 ```
 
 Projekt kompilujemy i uruchamiamy:
