@@ -4,11 +4,13 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
 import {DiscoveryService} from "../../../services/discovery.service";
+import {TagService} from "../../../services/tag.service";
 import {Discovery} from "../../../model/discovery";
 import {MushroomSpecies} from "../../../model/mushroom-species";
 import {DOCUMENT} from "@angular/platform-browser";
 import {MushroomSpeciesService} from "app/services/mushroom-species.service";
 import {Trip} from "../../../model/trip";
+import {Tag} from "../../../model/tag";
 import {TripService} from "../../../services/trip.service";
 
 @Component({
@@ -26,6 +28,7 @@ export class AddDiscoveryComponent implements OnInit {
     speciesId: number;
     tripId: number;
     isPublic: boolean;
+    tagsString: string;
 
     constructor(
         public dialogRef: MdDialogRef<AddDiscoveryComponent>,
@@ -33,6 +36,7 @@ export class AddDiscoveryComponent implements OnInit {
         public snackBar: MdSnackBar,
         @Inject(DOCUMENT) private document,
         private discoveryService: DiscoveryService,
+        private tagService: TagService,
         private mushroomSpeciesService: MushroomSpeciesService,
         private tripService: TripService) {
         this.discovery = new Discovery();
@@ -130,18 +134,30 @@ export class AddDiscoveryComponent implements OnInit {
         this.discovery.mushroomSpeciesId = this.speciesId;
         this.discovery.isPublic = this.isPublic;
         this.discoveryService.create(this.discovery).subscribe(
-        data => {
-            this.dialogRef.close('Ok');
-            this.snackBar.open('Discovery Added', '×', {
-                duration: 2000,
+            data => {
+                this.discovery.id = +data.toString();
+                if (this.tagsString != '') {
+                    var tags = this.tagsString.split(' ');
+                    let tagInstance = new Tag();
+                    tagInstance.discoveryId = this.discovery.id;
+                    for (let tag of tags) {
+                        tagInstance.name = tag;
+                        this.tagService.create(tagInstance).subscribe(
+
+                        );
+                    }
+                }
+                this.dialogRef.close('Ok');
+                this.snackBar.open('Discovery Added', '×', {
+                    duration: 2000,
+                });
+            },
+            error => {
+                this.dialogRef.close('Ok');
+                this.snackBar.open('Error', '×', {
+                    duration: 2000,
+                });
             });
-        },
-        error => {
-            this.dialogRef.close('Ok');
-            this.snackBar.open('Error', '×', {
-                duration: 2000,
-            });
-        });
     }
 
     private setCurrentPosition() {

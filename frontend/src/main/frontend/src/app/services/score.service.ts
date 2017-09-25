@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
+import {AddScoreCommand} from "../commands/add-score.command";
 import { Score } from '../model/score';
 import {AuthenticationService} from "./authentication.service";
 
@@ -16,8 +16,8 @@ export class ScoreService {
         return this.http.get('/api/scores/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    create(score: Score) {
-        return this.http.post('/api/scores', score, this.authenticationService.jwt()).map((response: Response) => response.json());
+    add(addScoreCommand: AddScoreCommand) {
+        return this.http.post('/api/scores', addScoreCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
     update(score: Score) {

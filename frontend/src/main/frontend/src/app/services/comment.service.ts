@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { Comment } from '../model/comment';
+import { CreateCommentCommand } from '../commands/create-comment.command';
 import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
@@ -16,7 +16,7 @@ export class CommentService {
         return this.http.get('/api/comments/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    create(comment: Comment) {
-        return this.http.post('/api/comments', comment, this.authenticationService.jwt()).map((response: Response) => response.json());
+    create(createComentCommand: CreateCommentCommand) {
+        return this.http.post('/api/comments', createComentCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }

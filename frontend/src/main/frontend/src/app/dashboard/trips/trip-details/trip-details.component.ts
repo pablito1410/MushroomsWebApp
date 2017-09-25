@@ -77,6 +77,8 @@ export class TripDetailsComponent implements OnInit {
                     role: 'MUSHROOMER'
                 }
             ];
+            this.invitedFriends = this.friends;
+            this.acceptedFriends = this.friends;
             this.discoveries = [
                 {
                     id: 1,
@@ -86,7 +88,12 @@ export class TripDetailsComponent implements OnInit {
                     coordinateY: 38.462563,
                     photo: null,
                     dateTime: '2016-06-21T19:09:42.646',
-                    mushroomSpecies: null,
+                    mushroomSpecies: {
+                        id: 1,
+                        name: "Podgrzybek",
+                        examplePhoto: null,
+                        genus: null
+                    },
                     isPublic: true
                 },
                 {
@@ -97,7 +104,12 @@ export class TripDetailsComponent implements OnInit {
                     coordinateY: 35.463566,
                     photo: null,
                     dateTime: '2016-07-22T19:11:32.646',
-                    mushroomSpecies: null,
+                    mushroomSpecies: {
+                        id: 1,
+                        name: "Podgrzybek",
+                        examplePhoto: null,
+                        genus: null
+                    },
                     isPublic: true
                 },
                 {
@@ -108,14 +120,22 @@ export class TripDetailsComponent implements OnInit {
                     coordinateY: 22.463226,
                     photo: null,
                     dateTime: '2017-04-28T19:08:11.646',
-                    mushroomSpecies: null,
+                    mushroomSpecies: {
+                        id: 1,
+                        name: "Podgrzybek",
+                        examplePhoto: null,
+                        genus: null
+                    },
                     isPublic: true
                 }
             ];
         } else {
-            // this.friendService.getAllInvited().subscribe(
-            //     result => this.friends = result
-            // );
+            this.tripService.getParticipants(this.trip.id).subscribe(
+                result => this.invitedFriends = result
+            );
+            this.tripService.getTripRequests(this.trip.id).subscribe(
+                result => this.invitedFriends = result
+            );
         }
     }
 

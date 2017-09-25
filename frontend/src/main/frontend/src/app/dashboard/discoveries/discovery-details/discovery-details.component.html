@@ -3,21 +3,71 @@
     <div class="row">
         <div class="col-md-6">
             <div class="row top-buffer">
-                <div *ngIf="discovery.photo != null">
-                    <img class="img" [src]="getDiscoveryPhotoToDisplay()" />
-                </div>
-                <div *ngIf="discovery.photo == null">
-                    <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
+                <div class="card">
+                    <div class="card-image">
+                        <div *ngIf="discovery.photo != null">
+                            <img class="img" [src]="getPhotoToDisplay(discovery.photo)" />
+                        </div>
+                        <div *ngIf="discovery.photo == null">
+                            <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-4">
-                    <h5 class="text-gray">Name:</h5>
+                    <h5 class="text-gray">Species:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">Mushrooms</h5>
+                    <h5 class="text-gray">{{discovery.mushroomSpecies.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Genus:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Family:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.family.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Order:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.family.order.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="text-gray">Class:</h5>
+                </div>
+                <div class="col-md-8">
+                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.family.order.mushroomClass.name}}</h5>
+                </div>
+            </div>
+            <div *ngIf="discovery.mushroomSpecies.examplePhoto != null">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="text-gray">Class Example Photo:</h5>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-image">
+                                <img class="img" [src]="getPhotoToDisplay(discovery.mushroomSpecies.examplePhoto)" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -59,8 +109,8 @@
                 (click)="rate()" >
         </rating>
     </div>
-    <div class="row">
-        <div class="col-xs-3" *ngFor="let tag of tags">
+    <div class="row top-buffer">
+        <div class="col-md-3" *ngFor="let tag of tags">
             #{{tag.name}}
         </div>
     </div>

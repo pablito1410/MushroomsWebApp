@@ -34,7 +34,7 @@ public class ScoreController {
      * @param command
      * @return
      */
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> addScore(@RequestBody AddScoreCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
@@ -46,7 +46,7 @@ public class ScoreController {
      * @param command
      * @return
      */
-    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateScoreCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);

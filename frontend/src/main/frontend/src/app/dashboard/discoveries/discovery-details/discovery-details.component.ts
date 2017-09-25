@@ -4,9 +4,10 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 import {Comment} from "../../../model/comment";
 import {Score} from "../../../model/score";
 import {DOCUMENT} from "@angular/platform-browser";
-import {CommentService} from "../../../services/comment.service";
-import {TagService} from "app/services/tag.service";
+import {DiscoveryService} from "../../../services/discovery.service";
 import {Tag} from "app/model/tag";
+import {Discovery} from "app/model/discovery";
+import {AddScoreCommand} from "app/commands/add-score.command";
 import {ScoreService} from "../../../services/score.service";
 
 @Component({
@@ -24,11 +25,10 @@ export class DiscoveryDetailsComponent implements OnInit {
 
     constructor(
         public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
-        @Inject(MD_DIALOG_DATA) public discovery: any,
+        @Inject(MD_DIALOG_DATA) public discovery: Discovery,
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar,
-        private commentService: CommentService,
-        private tagService: TagService,
+        private discoveryService: DiscoveryService,
         private scoreService: ScoreService) {
         this.comments = new Array<Comment>();
         this.tags = new Array<Tag>();
@@ -65,7 +65,7 @@ export class DiscoveryDetailsComponent implements OnInit {
             let comment23 = new Comment("Item 2.3", [comment231, comment232, comment233]);
             let comment2 = new Comment("Item 2", [comment21, comment22, comment23]);
             this.comments = [comment1, comment2];
-            this.discovery.tags = [
+            this.tags = [
                 {
                     id: 1,
                     name: 'grzyb',
@@ -88,12 +88,13 @@ export class DiscoveryDetailsComponent implements OnInit {
                 }
             ];
         } else {
-            this.commentService.getAll().subscribe(
+            this.discoveryService.comments(this.discovery.id).subscribe(
                 result => this.comments = result
             );
-            this.tagService.getAll().subscribe(
+            this.discoveryService.tags(this.discovery.id).subscribe(
                 result => this.tags = result
             );
+            
             // this.scoreService.getAverage().subscribe(
             //     result => this.score = result
             // );
@@ -102,18 +103,28 @@ export class DiscoveryDetailsComponent implements OnInit {
     }
 
     rate() {
-        this.showRating = false;
-        this.snackBar.open('Discovery Has Rated ', '×', {
-            duration: 2000,
-        });
+        console.log(this.starsCount);
+        this.scoreService.add(new AddScoreCommand(this.discovery.id, this.starsCount)).subscribe(
+            data => {
+                this.ngOnInit();
+                this.showRating = false;
+                this.snackBar.open('Discovery Added', '×', {
+                    duration: 2000,
+                });
+            },
+            error => {
+                this.snackBar.open('Error', '×', {
+                    duration: 2000,
+                });
+            });
     }
 
     comment() {
-        // TODO
+        
     }
 
-    getDiscoveryPhotoToDisplay() : string {
-        return 'data:image/png;base64,' + this.discovery.photo;
+    getPhotoToDisplay(photo: any) : string {
+        return 'data:image/png;base64,' + photo;
     }
 
 }

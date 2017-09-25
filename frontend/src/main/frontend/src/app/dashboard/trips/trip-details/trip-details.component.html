@@ -35,6 +35,28 @@
             </div>
         </div>
     </div>
+    <div *ngIf="isComing() && areInvitedFriends()">
+        <h2 class="text-gray">Invited friends:</h2>
+        <div class="row top-buffer">
+            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let invitedFriend of invitedFriends">
+                <div class="card card-profile">invitedFriend
+                    <div (click)="openUserDetailsDialog(invitedFriend)">
+                        <div class="card-avatar">
+                            <div *ngIf="invitedFriend.photo != null">
+                                <img class="img" [src]="getFriendPhotoToDisplay(invitedFriend)"/>
+                            </div>
+                            <div *ngIf="invitedFriend.photo == null">
+                                <img class="img" src="..\assets\img\faces\default-user.png"/>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h5 class="category text-gray">{{friend.username}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div *ngIf="isComing()">
         <h2 class="text-gray">Search friends to invite:</h2>
         <div class="row top-buffer">

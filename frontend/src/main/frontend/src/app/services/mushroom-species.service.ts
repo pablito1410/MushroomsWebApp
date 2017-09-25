@@ -9,7 +9,7 @@ export class MushroomSpeciesService {
     constructor(private http: Http, private authenticationService: AuthenticationService) { }
 
     getAll() {
-        return this.http.get('/api/mushroom-species/all', this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.get('/api/mushroom-species', this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {

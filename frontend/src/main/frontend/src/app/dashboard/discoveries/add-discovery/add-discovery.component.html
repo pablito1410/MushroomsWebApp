@@ -4,7 +4,11 @@
         <div class="col-md-6">
             <div class="row top-buffer">
                 <div *ngIf="imageSrc != null" class="text-center">
-                    <img class="img" width="80%" height="80%" [attr.src]="imageSrc"/>
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="img" width="80%" height="80%" [attr.src]="imageSrc"/>
+                        </div>
+                    </div>
                 </div>
                 <div *ngIf="imageSrc == null" class="text-center">
                     <label class="btn btn-primary btn-round">
@@ -35,6 +39,12 @@
                         <input type="checkbox" name="optionsCheckboxes">
                         Public
                     </label>
+                </div>
+            </div>
+            <div class="top-buffer">
+                <div class="form-group label-floating">
+                    <label class="control-label">Tags</label>
+                    <input type="text" class="form-control" name="tagsString" [(ngModel)]="tagsString"/>
                 </div>
             </div>
             <div class="top-buffer text-center">
