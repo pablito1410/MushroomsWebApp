@@ -107,6 +107,7 @@ export class FriendsComponent implements OnInit {
             width: '80%',
         });
         dialogRef.afterClosed().subscribe(result => {
+            this.ngOnInit();
             this.selectedOption = result;
         });
     }
