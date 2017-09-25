@@ -5,10 +5,10 @@
             <div class="row top-buffer">
                 <div class="card">
                     <div class="card-image">
-                        <div *ngIf="discovery.photo != null">
-                            <img class="img" [src]="getPhotoToDisplay(discovery.photo)" />
+                        <div *ngIf="data.discovery.photo != null">
+                            <img class="img" [src]="getPhotoToDisplay(data.discovery.photo)" />
                         </div>
-                        <div *ngIf="discovery.photo == null">
+                        <div *ngIf="data.discovery.photo == null">
                             <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                     <h5 class="text-gray">Species:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.mushroomSpecies.name}}</h5>
+                    <h5 class="text-gray">{{data.discovery.mushroomSpecies.name}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -29,7 +29,7 @@
                     <h5 class="text-gray">Genus:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.name}}</h5>
+                    <h5 class="text-gray">{{data.discovery.mushroomSpecies.genus.name}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -37,7 +37,7 @@
                     <h5 class="text-gray">Family:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.family.name}}</h5>
+                    <h5 class="text-gray">{{data.discovery.mushroomSpecies.genus.family.name}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +45,7 @@
                     <h5 class="text-gray">Order:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.family.order.name}}</h5>
+                    <h5 class="text-gray">{{data.discovery.mushroomSpecies.genus.family.order.name}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -53,10 +53,10 @@
                     <h5 class="text-gray">Class:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.mushroomSpecies.genus.family.order.mushroomClass.name}}</h5>
+                    <h5 class="text-gray">{{data.discovery.mushroomSpecies.genus.family.order.mushroomClass.name}}</h5>
                 </div>
             </div>
-            <div *ngIf="discovery.mushroomSpecies.examplePhoto != null">
+            <div *ngIf="data.discovery.mushroomSpecies.examplePhoto != null">
                 <div class="row">
                     <div class="col-md-4">
                         <h5 class="text-gray">Class Example Photo:</h5>
@@ -64,7 +64,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-image">
-                                <img class="img" [src]="getPhotoToDisplay(discovery.mushroomSpecies.examplePhoto)" />
+                                <img class="img" [src]="getPhotoToDisplay(data.discovery.mushroomSpecies.examplePhoto)" />
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                     <h5 class="text-gray">Coordinate X:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.coordinateX}}</h5>
+                    <h5 class="text-gray">{{data.discovery.coordinateX}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -83,7 +83,7 @@
                     <h5 class="text-gray">Coordinate Y:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.coordinateY}}</h5>
+                    <h5 class="text-gray">{{data.discovery.coordinateY}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -91,14 +91,14 @@
                     <h5 class="text-gray">Date and Time:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{discovery.dateTime}}</h5>
+                    <h5 class="text-gray">{{data.discovery.dateTime}}</h5>
                 </div>
             </div>
             <div class="row">
-                <sebm-google-map [latitude]="discovery.coordinateX" [longitude]="discovery.coordinateY"
+                <sebm-google-map [latitude]="data.discovery.coordinateX" [longitude]="data.discovery.coordinateY"
                                  class="sebm-google-map-container-small" [zoom]="zoom">
-                    <sebm-google-map-marker [latitude]="discovery.coordinateX"
-                                            [longitude]="discovery.coordinateY"></sebm-google-map-marker>
+                    <sebm-google-map-marker [latitude]="data.discovery.coordinateX"
+                                            [longitude]="data.discovery.coordinateY"></sebm-google-map-marker>
                 </sebm-google-map>
             </div>
         </div>

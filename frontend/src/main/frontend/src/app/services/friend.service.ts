@@ -32,4 +32,8 @@ export class FriendService {
     getAllInvited() {
         return this.http.get('/api/friends/invitations', this.authenticationService.jwt()).map((response: Response) => <User[]>response.json());
     }
+
+    getAllRequested() {
+        return this.http.get('/api/friends/requests', this.authenticationService.jwt()).map((response: Response) => <User[]>response.json());
+    }
 }

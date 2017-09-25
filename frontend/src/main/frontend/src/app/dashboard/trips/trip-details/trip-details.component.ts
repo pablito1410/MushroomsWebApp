@@ -131,7 +131,7 @@ export class TripDetailsComponent implements OnInit {
             ];
         } else {
             this.tripService.getParticipants(this.trip.id).subscribe(
-                result => this.invitedFriends = result
+                result => this.acceptedFriends = result
             );
             this.tripService.getTripRequests(this.trip.id).subscribe(
                 result => this.invitedFriends = result
@@ -168,7 +168,10 @@ export class TripDetailsComponent implements OnInit {
 
     openUserDetailsDialog(user) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
-            data: user,
+            data: {
+                user: user,
+                status: 'details'
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',
@@ -180,7 +183,10 @@ export class TripDetailsComponent implements OnInit {
 
     openDiscoveryDetailsDialog(discovery) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
-            data: discovery,
+            data: {
+                discovery: discovery,
+                status: 'details'
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',
@@ -201,8 +207,8 @@ export class TripDetailsComponent implements OnInit {
     areAcceptedFriends() : boolean {
         return this.acceptedFriends.length > 0;
     }
-
-    areInviedFriends() : boolean {
+    
+    areInvitedFriends() : boolean {
         return this.invitedFriends.length > 0;
     }
 

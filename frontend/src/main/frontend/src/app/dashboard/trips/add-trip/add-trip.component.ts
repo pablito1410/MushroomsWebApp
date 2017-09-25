@@ -147,7 +147,10 @@ export class AddTripComponent implements OnInit {
 
     openUserDetailsDialog(user) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
-            data: user,
+            data: {
+                user: user,
+                status: 'details'
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',
@@ -164,6 +167,37 @@ export class AddTripComponent implements OnInit {
             });
     }
 
+    inviteFriends() {
+        if (this.selectedFriends.size > 0 && this.trip.id) {
+            console.log(this.trip.id);
+            let userIds = new Set<number>();
+            this.selectedFriends.forEach(f => {
+                userIds.add(f.id);
+            })
+            console.log('start invite');
+            this.tripService.invite(
+                new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
+                data => {
+                    this.dialogRef.close('Ok');
+                    this.snackBar.open('Trip Added', '×', {
+                        duration: 2000,
+                    });
+                },
+                error => {
+                    this.dialogRef.close('Ok');
+                    this.snackBar.open('Error', '×', {
+                        duration: 2000,
+                    });
+                });
+            console.log('stop invite');
+        } else {
+            this.dialogRef.close('Ok');
+            this.snackBar.open('Trip Added', '×', {
+                duration: 2000,
+            });
+        }
+    }
+
     addTrip() {
         this.inputDate.setHours(this.hour + 2);
         this.inputDate.setMinutes(this.minute);
@@ -174,34 +208,7 @@ export class AddTripComponent implements OnInit {
             data => {
                 this.trip.id = +data.toString();
                 console.log('end addTrip');
-                if (this.selectedFriends.size > 0 && this.trip.id) {
-                    console.log(this.trip.id);
-                    let userIds = new Set<number>();
-                    this.selectedFriends.forEach(f => {
-                        userIds.add(f.id);
-                    })
-                    console.log('start invite');
-                    this.tripService.invite(
-                        new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
-                        data => {
-                            this.dialogRef.close('Ok');
-                            this.snackBar.open('Trip Added', '×', {
-                                duration: 2000,
-                            });
-                        },
-                        error => {
-                            this.dialogRef.close('Ok');
-                            this.snackBar.open('Error', '×', {
-                                duration: 2000,
-                            });
-                        });
-                    console.log('stop invite');
-                } else {
-                    this.dialogRef.close('Ok');
-                    this.snackBar.open('Trip Added', '×', {
-                        duration: 2000,
-                    });
-                }
+                this.inviteFriends();
             },
             error => {
                 this.dialogRef.close('Ok');

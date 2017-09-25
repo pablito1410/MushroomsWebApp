@@ -108,7 +108,10 @@ export class DiscoveriesComponent implements OnInit {
 
     openDiscoveryDetailsDialog(discovery) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
-            data: discovery,
+            data: { 
+                discovery: discovery,
+                status: 'details'
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',

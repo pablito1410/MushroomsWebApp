@@ -25,7 +25,7 @@ export class DiscoveryDetailsComponent implements OnInit {
 
     constructor(
         public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
-        @Inject(MD_DIALOG_DATA) public discovery: Discovery,
+        @Inject(MD_DIALOG_DATA) public data: any,
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar,
         private discoveryService: DiscoveryService,
@@ -88,10 +88,10 @@ export class DiscoveryDetailsComponent implements OnInit {
                 }
             ];
         } else {
-            this.discoveryService.comments(this.discovery.id).subscribe(
+            this.discoveryService.comments(this.data.discovery.id).subscribe(
                 result => this.comments = result
             );
-            this.discoveryService.tags(this.discovery.id).subscribe(
+            this.discoveryService.tags(this.data.discovery.id).subscribe(
                 result => this.tags = result
             );
             
@@ -104,7 +104,7 @@ export class DiscoveryDetailsComponent implements OnInit {
 
     rate() {
         console.log(this.starsCount);
-        this.scoreService.add(new AddScoreCommand(this.discovery.id, this.starsCount)).subscribe(
+        this.scoreService.add(new AddScoreCommand(this.data.discovery.id, this.starsCount)).subscribe(
             data => {
                 this.ngOnInit();
                 this.showRating = false;

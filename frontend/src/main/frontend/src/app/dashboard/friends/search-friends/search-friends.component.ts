@@ -1,8 +1,10 @@
 import {Component, OnInit, Inject} from "@angular/core";
-import {MdDialogRef, MD_DIALOG_DATA, MdDialog} from "@angular/material";
+import {MdDialogRef, MD_DIALOG_DATA, MdDialog, MdSnackBar} from "@angular/material";
 import {FriendDetailsComponent} from "../friend-details/friend-details.component";
 import {Subject} from "rxjs";
 import {UserService} from "../../../services/user.service";
+import {FriendService} from "../../../services/friend.service";
+import {AddFriendCommand} from "../../../commands/add-friend.command";
 import {DOCUMENT} from "@angular/platform-browser";
 import {User} from "../../../model/user";
 // import {Set} from 'typescript-collections';
@@ -21,7 +23,9 @@ export class SearchFriendsComponent implements OnInit {
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<SearchFriendsComponent>,
         @Inject(DOCUMENT) private document,
-        private userService: UserService) {
+        public snackBar: MdSnackBar,
+        private userService: UserService,
+        private friendService: FriendService) {
         this.users = new Array<User>();
         this.selectedUsers = new Set<User>();
 }
@@ -118,5 +122,35 @@ export class SearchFriendsComponent implements OnInit {
                 this.selectedUsers.add(user);
             }
         }
+    }
+
+    
+    invite() {
+        if (this.selectedUsers.size > 0) {
+            let userIds = new Set<number>();
+            this.selectedUsers.forEach(f => {
+                userIds.add(f.id);
+            })
+            console.log('start invite');
+            this.friendService.add(
+                new AddFriendCommand(Array.from(userIds))).subscribe(
+                data => {
+                    this.dialogRef.close('Ok');
+                    this.snackBar.open('Friends Invited', '×', {
+                        duration: 2000,
+                    });
+                },
+                error => {
+                    this.dialogRef.close('Ok');
+                    this.snackBar.open('Error', '×', {
+                        duration: 2000,
+                    });
+                });
+            console.log('stop invite');
+        }
+    }
+
+    close() {
+        this.dialogRef.close('Close');
     }
 }

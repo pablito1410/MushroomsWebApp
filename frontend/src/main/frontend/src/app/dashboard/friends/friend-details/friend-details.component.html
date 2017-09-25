@@ -2,10 +2,10 @@
 <div md-dialog-content>
     <div class="row">
         <div class="col-md-6">
-            <div *ngIf="user.photo != null">
+            <div *ngIf="data.user.photo != null">
                 <img class="img" [src]="getUserPhotoToDisplay()" />
             </div>
-            <div *ngIf="user.photo == null">
+            <div *ngIf="data.user.photo == null">
                 <img class="img" width="80%" height="80%" src="..\assets\img\faces\default-user.png"/>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <h5 class="text-gray">Username:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.username}}</h5>
+                    <h5 class="text-gray">{{data.user.username}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -23,7 +23,7 @@
                     <h5 class="text-gray">First Name:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.firstName}}</h5>
+                    <h5 class="text-gray">{{data.user.firstName}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -31,7 +31,7 @@
                     <h5 class="text-gray">Last Name:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.lastName}}</h5>
+                    <h5 class="text-gray">{{data.user.lastName}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -39,7 +39,7 @@
                     <h5 class="text-gray">Email:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.email}}</h5>
+                    <h5 class="text-gray">{{data.user.email}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -47,7 +47,7 @@
                     <h5 class="text-gray">Birth Date:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{convertDateToLocaleString(user.birthDate)}}</h5>
+                    <h5 class="text-gray">{{convertDateToLocaleString(data.user.birthDate)}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -55,7 +55,7 @@
                     <h5 class="text-gray">Gender:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.gender}}</h5>
+                    <h5 class="text-gray">{{data.user.gender}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -63,7 +63,7 @@
                     <h5 class="text-gray">Role:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.role}}</h5>
+                    <h5 class="text-gray">{{data.user.role}}</h5>
                 </div>
             </div>
             <div class="row">
@@ -71,12 +71,17 @@
                     <h5 class="text-gray">Level:</h5>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="text-gray">{{user.level}}</h5>
+                    <h5 class="text-gray">{{data.user.level}}</h5>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div md-dialog-actions align="end">
-    <button class="btn btn-primary dialog-btn" md-button (click)="dialogRef.close('Close')">Close</button>
+    <div *ngIf="data.status == 'accept'">
+        <button class="btn btn-primary dialog-btn" md-button (click)="accept()">Accept</button>
+    </div>
+    <div *ngIf="data.status == 'details'">
+        <button class="btn btn-primary dialog-btn" md-button (click)="close()">Close</button>
+    </div>
 </div>

@@ -10,18 +10,57 @@
                         <h4 class="title">Yours Friends</h4>
                     </div>
                     <div class="card-content">
-                        <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
-                            <div class="card card-profile" (click)="openFriendDetailsDialog(friend)">
-                                <div class="card-avatar">
-                                    <div *ngIf="friend.photo != null">
-                                        <img class="img" [src]="getUserPhotoToDisplay(friend)" />
+                        <div class="row top-buffer" *ngIf="areInvitedFriends()">
+                            <h2 class="text-gray">Invited friends:</h2>
+                            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let invitedFriend of invitedFriends">
+                                <div class="card card-profile" (click)="openFriendDetailsDialog(invitedFriend)">
+                                    <div class="card-avatar">
+                                        <div *ngIf="invitedFriend.photo != null">
+                                            <img class="img" [src]="getUserPhotoToDisplay(invitedFriend)" />
+                                        </div>
+                                        <div *ngIf="invitedFriend.photo == null">
+                                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                                        </div>
                                     </div>
-                                    <div *ngIf="friend.photo == null">
-                                        <img class="img" src="..\assets\img\faces\default-user.png"/>
+                                    <div class="content">
+                                        <h5 class="category text-gray">{{invitedFriend.username}}</h5>
                                     </div>
                                 </div>
-                                <div class="content">
-                                    <h5 class="category text-gray">{{friend.username}}</h5>
+                            </div>
+                        </div>
+                        <div class="row top-buffer" *ngIf="areRequestedFriends()">
+                            <h2 class="text-gray">Requested Friends:</h2>
+                            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let requestedFriend of requestedFriends">
+                                <div class="card card-profile" (click)="openFriendDetailsDialog(requestedFriend)">
+                                    <div class="card-avatar">
+                                        <div *ngIf="requestedFriend.photo != null">
+                                            <img class="img" [src]="getUserPhotoToDisplay(requestedFriend)" />
+                                        </div>
+                                        <div *ngIf="requestedFriend.photo == null">
+                                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="category text-gray">{{requestedFriend.username}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row top-buffer" *ngIf="areFriends()">
+                            <h2 class="text-gray">Friends:</h2>
+                            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let friend of friends">
+                                <div class="card card-profile" (click)="openFriendDetailsDialog(friend)">
+                                    <div class="card-avatar">
+                                        <div *ngIf="friend.photo != null">
+                                            <img class="img" [src]="getUserPhotoToDisplay(friend)" />
+                                        </div>
+                                        <div *ngIf="friend.photo == null">
+                                            <img class="img" src="..\assets\img\faces\default-user.png"/>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="category text-gray">{{friend.username}}</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>

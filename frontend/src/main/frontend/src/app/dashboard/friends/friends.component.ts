@@ -13,6 +13,8 @@ import {DOCUMENT} from "@angular/platform-browser";
 })
 export class FriendsComponent implements OnInit {
     friends: User[];
+    invitedFriends: User[];
+    requestedFriends: User[];
     selectedOption: string;
 
     constructor(
@@ -20,6 +22,8 @@ export class FriendsComponent implements OnInit {
         private friendService: FriendService,
         @Inject(DOCUMENT) private document) {
         this.friends = new Array<User>();
+        this.invitedFriends = new Array<User>();
+        this.requestedFriends = new Array<User>();
     }
 
     ngOnInit() {
@@ -59,7 +63,25 @@ export class FriendsComponent implements OnInit {
             this.friendService.getAll().subscribe(
                 result => this.friends = result
             );
+            this.friendService.getAllInvited().subscribe(
+                result => this.invitedFriends = result
+            );
+            this.friendService.getAllRequested().subscribe(
+                result => this.requestedFriends = result
+            );
         }
+    }
+
+    areInvitedFriends() : boolean {
+        return this.invitedFriends.length > 0;
+    }
+
+    areFriends() : boolean {
+        return this.friends.length > 0;
+    }
+
+    areRequestedFriends() : boolean {
+        return this.requestedFriends.length > 0;
     }
 
     openSearchFriendsDialog() {
@@ -69,13 +91,17 @@ export class FriendsComponent implements OnInit {
             width: '80%',
         });
         dialogRef.afterClosed().subscribe(result => {
+            this.ngOnInit();
             this.selectedOption = result;
         });
     }
 
     openFriendDetailsDialog(user) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
-            data: user,
+            data: { 
+                user: user,
+                status: 'details'
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',
