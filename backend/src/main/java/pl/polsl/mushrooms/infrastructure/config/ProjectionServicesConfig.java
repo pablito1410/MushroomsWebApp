@@ -65,6 +65,7 @@ public class ProjectionServicesConfig {
     public TripProjectionService tripProjectionService(
             final TripProjectionDao tripProjectionDao,
             final UserDao userDao,
+            final TripDao tripDao,
             final EntityMapper entityMapper) {
         return new TripProjectionServiceImpl(tripProjectionDao, userDao, tripDao, entityMapper);
     }
