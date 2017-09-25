@@ -83,7 +83,11 @@ public class TripProjectionServiceImpl implements TripProjectionService {
                 .orElseThrow(EntityNotFoundException::new);
         final UsersTrips usersTrips = Optional.ofNullable(tripProjectionDao.findUserTrip(user, trip))
                 .orElseThrow(EntityNotFoundException::new);
-        return usersTrips.getDateTime();
+        if (usersTrips.getDateTime() == null) {
+            throw new EntityNotFoundException();
+        } else {
+            return usersTrips.getDateTime();
+        }
     }
 
 }
