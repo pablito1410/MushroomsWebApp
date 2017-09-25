@@ -33,7 +33,7 @@ public class Comment {
 	@JoinColumn(name = "\"USER_ID\"")
 	private User user;
 
-	@OneToMany(mappedBy = "answers")
+	@OneToMany(mappedBy = "target")
 	private Set<Comment> answers;
 
 	protected Comment() {
@@ -47,6 +47,7 @@ public class Comment {
 		this.dateTime = dateTime;
 		this.target = target;
 		this.user = user;
+		this.discovery = discovery;
 	}
 
 	public Long getId() {
@@ -57,9 +58,10 @@ public class Comment {
 		return discovery;
 	}
 
-	public Comment getTargetComment() {
+	public Comment getTarget() {
 		return target;
 	}
+
 
 	public String getContent() {
 		return this.content;

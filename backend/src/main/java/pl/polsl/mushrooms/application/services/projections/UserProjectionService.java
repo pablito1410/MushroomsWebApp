@@ -16,7 +16,8 @@ public interface UserProjectionService {
 
     long getId(String email);
 
-    Set<MushroomerDto> search(String value);
+    Set<MushroomerDto> search(String userName, String value);
 
     Set<MushroomerDto> findAll(String username);
+
 }

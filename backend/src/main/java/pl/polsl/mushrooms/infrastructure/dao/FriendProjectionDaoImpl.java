@@ -68,4 +68,10 @@ public class FriendProjectionDaoImpl implements FriendProjectionDao {
         Set<Mushroomer> invitations = usersUsersRepository.findInvitations(user.getId());
         return entityMapper.map(invitations);
     }
+
+    @Override
+    public Set<MushroomerDto> search(final Long userId, final String value) {
+        Set<Mushroomer> friends = usersUsersRepository.searchByFriendUserName(userId, value);
+        return entityMapper.map(friends);
+    }
 }

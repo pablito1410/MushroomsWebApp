@@ -66,11 +66,15 @@ public class FriendServiceImpl implements FriendService {
             throw new EntityAlreadyExistException();
         } else if (newFriend.hasFriend(user)) {
             acceptInvitationToFriends(user, newFriend);
-            newFriend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
+            acceptInvitationToFriends(newFriend, user);
+            notificationDao.save(
+                    newFriend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user));
         } else {
             user.addFriend(newFriend);
+            newFriend.addFriend(user);
             notificationDao.save(
                     newFriend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user));
+            repo.save(user);
             repo.save(newFriend);
         }
     }
@@ -111,6 +115,7 @@ public class FriendServiceImpl implements FriendService {
 
         if (friend.isMushroomer() && ((Mushroomer)friend).hasFriend(user)) {
             acceptInvitationToFriends(user, (Mushroomer)friend);
+            acceptInvitationToFriends(((Mushroomer)friend), user);
             ((Mushroomer)friend).addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
         } else {
             throw new EntityNotFoundException();

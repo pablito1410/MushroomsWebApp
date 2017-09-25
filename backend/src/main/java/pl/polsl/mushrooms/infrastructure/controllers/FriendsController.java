@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.polsl.mushrooms.application.commands.friend.AcceptInvitationToFriendsCommand;
 import pl.polsl.mushrooms.application.commands.friend.AddFriendCommand;
 import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
@@ -79,6 +76,13 @@ public class FriendsController {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final Collection<Long> removedFriends = commandGateway.dispatch(command);
         return new ResponseEntity<>(removedFriends, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public ResponseEntity<Set<MushroomerDto>> search(@RequestParam(value = "value") String value) {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<MushroomerDto> users = friendsProjectionService.search(userName, value);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 }

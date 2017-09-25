@@ -14,4 +14,6 @@ public interface FriendProjectionService {
     Set<MushroomerDto> findRequests(String username);
 
     Set<MushroomerDto> findInvitations(String username);
+
+    Set<MushroomerDto> search(String userName, String value);
 }

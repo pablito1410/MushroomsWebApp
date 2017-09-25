@@ -14,4 +14,6 @@ public interface FriendProjectionDao extends ProjectionDao<MushroomerDto> {
     Set<MushroomerDto> findRequests(String username);
 
     Set<MushroomerDto> findInvitations(String username);
+
+    Set<MushroomerDto> search(Long userId, String value);
 }

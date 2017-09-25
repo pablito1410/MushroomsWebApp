@@ -3,12 +3,14 @@ package pl.polsl.mushrooms.application.services.projections;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.dao.UserProjectionDao;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
+import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
@@ -46,11 +48,25 @@ public class UserProjectionServiceImpl implements UserProjectionService {
     }
 
     @Override
-    public Set<MushroomerDto> search(String value) {
+    public Set<MushroomerDto> search(final String userName, final String value) {
+        final User user = userDao.findOneByUsername(userName)
+                .orElseThrow(EntityNotFoundException::new);
+
         if (value == null || value.isEmpty()) {
             return Collections.emptySet();
         }
-        return userProjectionDao.search(value);
+
+        final Set<MushroomerDto> users = userProjectionDao.search(value);
+        users.removeIf(u -> u.getId() == user.getId());
+
+        if (user.isMushroomer()) {
+            final Collection<Mushroomer> friends = ((Mushroomer)user).getFriends();
+            users.removeIf(u -> friends
+                    .stream()
+                    .mapToLong(Mushroomer::getId)
+                    .anyMatch(f -> f == u.getId()));
+        }
+        return users;
     }
 
     @Override

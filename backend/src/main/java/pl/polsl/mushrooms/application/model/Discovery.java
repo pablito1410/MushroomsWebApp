@@ -47,7 +47,7 @@ public class Discovery  {
 	@ManyToMany(mappedBy = "discovery")
 	private Set<Tag> tags;
 
-	@OneToMany(mappedBy = "target")
+	@OneToMany(mappedBy = "discovery")
 	private Set<Comment> comments;
 
 	protected Discovery() {

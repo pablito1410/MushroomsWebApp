@@ -18,6 +18,7 @@ import java.util.Date;
 @Setter
 public class MushroomerDto extends UserDto {
 
+    private Long userId;
     private String firstName;
     private String lastName;
 

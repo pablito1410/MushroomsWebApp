@@ -102,8 +102,9 @@ public class ProjectionServicesConfig {
     @Bean
     public FriendProjectionService friendProjectionService(
             final FriendProjectionDao friendProjectionDao,
+            final UserDao userDao,
             final EntityMapper entityMapper) {
-        return new FriendProjectionServiceImpl(entityMapper, friendProjectionDao);
+        return new FriendProjectionServiceImpl(entityMapper, userDao, friendProjectionDao);
     }
 
 }

@@ -88,7 +88,8 @@ public class UserController {
      */
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> search(@RequestParam(value = "value") String value) {
-        final Set<MushroomerDto> users = userProjectionService.search(value);
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Set<MushroomerDto> users = userProjectionService.search(userName, value);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 

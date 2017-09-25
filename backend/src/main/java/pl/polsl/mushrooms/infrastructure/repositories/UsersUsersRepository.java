@@ -38,4 +38,12 @@ public interface UsersUsersRepository extends JpaRepository<UsersUsers, UsersUse
             " AND uu.dateTime IS NULL " +
             " AND m.id = :userId")
     Set<Mushroomer> findInvitations(@Param("userId") Long userId);
+
+    @Query("SELECT f FROM UsersUsers uu, Mushroomer m, Mushroomer f " +
+            "WHERE ((uu.usersUsersId.user.id = m.id AND uu.usersUsersId.friend.id = f.id)" +
+            " OR (uu.usersUsersId.friend.id = m.id AND uu.usersUsersId.user.id = f.id))" +
+            " AND uu.dateTime IS NOT NULL " +
+            " AND m.id = :userId" +
+            " AND UPPER(f.username) LIKE UPPER(CONCAT('%', :friendName, '%'))")
+    Set<Mushroomer> searchByFriendUserName(@Param("userId") Long userId, @Param("friendName") String value);
 }
