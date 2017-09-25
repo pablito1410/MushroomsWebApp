@@ -4,6 +4,7 @@ import pl.polsl.mushrooms.application.commands.score.AddScoreCommand;
 import pl.polsl.mushrooms.application.commands.score.DeleteScoreCommand;
 import pl.polsl.mushrooms.application.commands.score.UpdateScoreCommand;
 import pl.polsl.mushrooms.application.dao.DiscoveryDao;
+import pl.polsl.mushrooms.application.dao.NotificationDao;
 import pl.polsl.mushrooms.application.dao.ScoreDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.NotificationType;
@@ -23,11 +24,13 @@ public class ScoreServiceImpl implements ScoreService {
     private final ScoreDao scoreDao;
     private final UserDao userDao;
     private final DiscoveryDao discoveryDao;
+    private NotificationDao notificationDao;
 
-    public ScoreServiceImpl(ScoreDao scoreDao, UserDao userDao, DiscoveryDao discoveryDao) {
+    public ScoreServiceImpl(ScoreDao scoreDao, UserDao userDao, DiscoveryDao discoveryDao, final NotificationDao notificationDao) {
         this.scoreDao = scoreDao;
         this.userDao = userDao;
         this.discoveryDao = discoveryDao;
+        this.notificationDao = notificationDao;
     }
 
     @Override
@@ -46,8 +49,8 @@ public class ScoreServiceImpl implements ScoreService {
                 discovery,
                 mushroomer);
 
-        discovery.getMushroomer().addNotification(
-                discovery.getId(), NotificationType.DISCOVERY_ADD_SCORE, mushroomer);
+        notificationDao.save(discovery.getMushroomer().addNotification(
+                discovery.getId(), NotificationType.DISCOVERY_ADD_SCORE, mushroomer));
 
         discoveryDao.save(discovery);
         return scoreDao.save(score).getId();
