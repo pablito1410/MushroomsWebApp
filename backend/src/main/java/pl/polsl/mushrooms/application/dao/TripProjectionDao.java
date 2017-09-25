@@ -1,6 +1,8 @@
 package pl.polsl.mushrooms.application.dao;
 
+import pl.polsl.mushrooms.application.model.Trip;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.application.model.UsersTrips;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
@@ -18,4 +20,6 @@ public interface TripProjectionDao extends ProjectionDao<TripDto> {
     Set<TripDto> findRequests(User user);
 
     Set<MushroomerDto> findInvited(long tripId);
+
+    UsersTrips findUserTrip(User user, Trip trip);
 }

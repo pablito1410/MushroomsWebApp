@@ -2,7 +2,9 @@ package pl.polsl.mushrooms.application.services.projections;
 
 import pl.polsl.mushrooms.application.dao.DiscoveryProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
+import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 import pl.polsl.mushrooms.application.model.Mushroomer;
+import pl.polsl.mushrooms.application.model.Score;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.infrastructure.dto.CommentDto;
 import pl.polsl.mushrooms.infrastructure.dto.DiscoveryDto;
@@ -58,6 +60,22 @@ public class DiscoveryProjectionServiceImpl implements DiscoveryProjectionServic
     @Override
     public Set<CommentDto> findComments(final long id) {
         return discoveryProjectionDao.findComments(id);
+    }
+
+    @Override
+    public Integer score(final String userName, final long discoveryId) {
+        final User user = userDao.findOneByUsername(userName)
+                .orElseThrow(EntityNotFoundException::new);
+        if (user.isMushroomer()) {
+            final Score score = ((Mushroomer)user)
+                    .getScores()
+                    .stream()
+                    .filter(s -> s.getDiscovery().getId() == discoveryId)
+                    .findFirst().orElseThrow(EntityNotFoundException::new);
+            return score.getValue();
+        } else {
+            throw new NoRequiredPermissions("Only mushroomer has scores.");
+        }
     }
 
 }

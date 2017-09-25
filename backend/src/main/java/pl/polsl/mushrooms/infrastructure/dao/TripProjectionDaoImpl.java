@@ -1,10 +1,7 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
-import pl.polsl.mushrooms.application.model.Mushroomer;
-import pl.polsl.mushrooms.application.model.Trip;
-import pl.polsl.mushrooms.application.model.User;
-import pl.polsl.mushrooms.application.model.UsersTrips;
+import pl.polsl.mushrooms.application.model.*;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
@@ -87,5 +84,10 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
                 .map(p -> (Mushroomer)userRepository.findOne(p.getUserId()))
                 .collect(Collectors.toList());
         return entityMapper.map(users);
+    }
+
+    @Override
+    public UsersTrips findUserTrip(final User user, final Trip trip) {
+        return usersTripsRepository.findOne(new UsersTripsId(user, trip));
     }
 }

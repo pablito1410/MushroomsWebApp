@@ -3,6 +3,7 @@ package pl.polsl.mushrooms.application.services.projections;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -21,4 +22,6 @@ public interface TripProjectionService {
     Set<TripDto> findRequests(String username);
 
     Set<MushroomerDto> findInvited(long id);
+
+    LocalDateTime acceptDateTime(String username, final long tripId);
 }

@@ -66,7 +66,7 @@ public class ProjectionServicesConfig {
             final TripProjectionDao tripProjectionDao,
             final UserDao userDao,
             final EntityMapper entityMapper) {
-        return new TripProjectionServiceImpl(tripProjectionDao, userDao, entityMapper);
+        return new TripProjectionServiceImpl(tripProjectionDao, userDao, tripDao, entityMapper);
     }
 
     @Bean

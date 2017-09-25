@@ -11,6 +11,7 @@ import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -157,6 +158,13 @@ public class TripController {
         final String username = SecurityContextHolder.getContext().getAuthentication().getName();
         final Set<TripDto> invitations = tripProjectionService.findRequests(username);
         return new ResponseEntity<>(invitations, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/accept-date-time/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<LocalDateTime> acceptDateTime(@PathVariable(name = "id") long tripId) {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final LocalDateTime dateTime = tripProjectionService.acceptDateTime(userName, tripId);
+        return new ResponseEntity<>(dateTime, HttpStatus.OK);
     }
 
 }

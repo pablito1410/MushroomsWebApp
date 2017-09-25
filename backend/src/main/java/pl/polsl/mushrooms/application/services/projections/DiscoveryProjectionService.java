@@ -20,4 +20,6 @@ public interface DiscoveryProjectionService {
     Set<TagDto> findTags(long id);
 
     Set<CommentDto> findComments(long id);
+
+    Integer score(final String userName, long discoveryId);
 }

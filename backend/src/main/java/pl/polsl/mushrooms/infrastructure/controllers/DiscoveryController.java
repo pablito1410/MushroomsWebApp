@@ -93,4 +93,11 @@ public class DiscoveryController {
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/score/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> scored(@PathVariable(name = "id") long discoveryId) {
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Integer value = discoveryProjectionService.score(userName, discoveryId);
+        return new ResponseEntity<>(value, HttpStatus.OK);
+    }
+
 }
