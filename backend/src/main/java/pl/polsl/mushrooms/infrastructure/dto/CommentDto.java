@@ -23,6 +23,6 @@ public class CommentDto {
     private Long discoveryId;
     private Long targetId;
     private Long commentId;
-    private UserDto user;
+    private MushroomerDto user;
     private Set<CommentDto> answers;
 }
