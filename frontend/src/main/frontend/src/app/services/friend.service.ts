@@ -18,7 +18,7 @@ export class FriendService {
     }
 
     accept(acceptInvitationToFriendsCommand: AcceptInvitationToFriendsCommand) {
-        return this.http.put('/api/friends', acceptInvitationToFriendsCommand, this.authenticationService.jwt()).map((response : Response) => response.json());
+        return this.http.put('/api/friends', acceptInvitationToFriendsCommand, this.authenticationService.jwt()).map((response : Response) => response);
     }
 
     delete(id: number) {

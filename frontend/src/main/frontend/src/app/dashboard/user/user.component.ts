@@ -45,7 +45,20 @@ export class UserComponent implements OnInit {
             this.userService.get().subscribe(
                 result => {
                     this.user = result;
-                    this.inputDate = new Date(this.user.birthDate);
+                    if (this.user.birthDate != null && this.user.birthDate != '')
+                        this.inputDate = new Date(this.user.birthDate);
+                    document.getElementById('email').nodeValue += ' ';
+                    document.getElementById('email').nodeValue.slice(0, -1);
+                    document.getElementById('username').nodeValue += ' ';
+                    document.getElementById('username').nodeValue.slice(0, -1);
+                    document.getElementById('firstName').nodeValue += ' ';
+                    document.getElementById('firstName').nodeValue.slice(0, -1);
+                    document.getElementById('lastName').nodeValue += ' ';
+                    document.getElementById('lastName').nodeValue.slice(0, -1);
+                    document.getElementById('country').nodeValue += ' ';
+                    document.getElementById('country').nodeValue.slice(0, -1);
+                    document.getElementById('city').nodeValue += ' ';
+                    document.getElementById('city').nodeValue.slice(0, -1);
                 }
             );
         }
