@@ -3,8 +3,8 @@ package pl.polsl.mushrooms.application.services.projections;
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
-import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
@@ -51,7 +51,7 @@ public class TripProjectionServiceImpl implements TripProjectionService {
     }
 
     @Override
-    public Set<UserDto> findParticipants(final long id) {
+    public Set<MushroomerDto> findParticipants(final long id) {
         return tripProjectionDao.findParticipants(id);
     }
 
@@ -64,7 +64,7 @@ public class TripProjectionServiceImpl implements TripProjectionService {
     }
 
     @Override
-    public Set<UserDto> findInvited(final long tripId) {
+    public Set<MushroomerDto> findInvited(final long tripId) {
         return tripProjectionDao.findInvited(tripId);
     }
 

@@ -1,11 +1,12 @@
 package pl.polsl.mushrooms.infrastructure.dao;
 
 import pl.polsl.mushrooms.application.dao.TripProjectionDao;
+import pl.polsl.mushrooms.application.model.Mushroomer;
 import pl.polsl.mushrooms.application.model.Trip;
 import pl.polsl.mushrooms.application.model.User;
 import pl.polsl.mushrooms.application.model.UsersTrips;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
-import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.TripRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
@@ -57,11 +58,11 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
     }
 
     @Override
-    public Set<UserDto> findParticipants(final long id) {
+    public Set<MushroomerDto> findParticipants(final long id) {
         final Set<UsersTrips> ids = usersTripsRepository.findByUsersTripsId_trip_idAndDateTimeIsNotNull(id);
-        final Collection<User> users = ids
+        final Collection<Mushroomer> users = ids
             .stream()
-            .map(p -> userRepository.findOne(p.getUserId()))
+            .map(p -> (Mushroomer)userRepository.findOne(p.getUserId()))
             .collect(Collectors.toList());
         return entityMapper.map(users);
     }
@@ -79,11 +80,11 @@ public class TripProjectionDaoImpl implements TripProjectionDao {
     }
 
     @Override
-    public Set<UserDto> findInvited(final long tripId) {
+    public Set<MushroomerDto> findInvited(final long tripId) {
         final Set<UsersTrips> ids = usersTripsRepository.findByUsersTripsId_trip_idAndDateTimeIsNull(tripId);
-        final Collection<User> users = ids
+        final Collection<Mushroomer> users = ids
                 .stream()
-                .map(p -> userRepository.findOne(p.getUserId()))
+                .map(p -> (Mushroomer)userRepository.findOne(p.getUserId()))
                 .collect(Collectors.toList());
         return entityMapper.map(users);
     }

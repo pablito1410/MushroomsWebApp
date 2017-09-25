@@ -1,8 +1,8 @@
 package pl.polsl.mushrooms.application.dao;
 
 import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import pl.polsl.mushrooms.infrastructure.dto.TripDto;
-import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.util.Set;
 
@@ -11,11 +11,11 @@ import java.util.Set;
  */
 public interface TripProjectionDao extends ProjectionDao<TripDto> {
 
-    Set<UserDto> findParticipants(long id);
+    Set<MushroomerDto> findParticipants(long id);
 
     Set<TripDto> findAll(User user);
 
     Set<TripDto> findRequests(User user);
 
-    Set<UserDto> findInvited(long tripId);
+    Set<MushroomerDto> findInvited(long tripId);
 }
