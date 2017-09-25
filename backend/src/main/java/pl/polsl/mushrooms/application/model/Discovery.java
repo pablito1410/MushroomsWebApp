@@ -124,6 +124,10 @@ public class Discovery  {
 		return this.mushroomsSpecies;
 	}
 
+	public Long getMushroomSpeciesId() {
+		return mushroomsSpecies == null ? null : mushroomsSpecies.getId();
+	}
+
 	public void setMushroomSpecies(MushroomSpecies mushroomSpecies) {
 		this.mushroomsSpecies = mushroomSpecies;
 	}
