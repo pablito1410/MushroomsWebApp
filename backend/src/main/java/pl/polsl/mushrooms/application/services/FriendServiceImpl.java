@@ -65,18 +65,24 @@ public class FriendServiceImpl implements FriendService {
         if (user.hasFriend(newFriend)) {
             throw new EntityAlreadyExistException();
         } else if (newFriend.hasFriend(user)) {
+            addFriendInternal(user, newFriend);
             acceptInvitationToFriends(user, newFriend);
             acceptInvitationToFriends(newFriend, user);
             notificationDao.save(
                     newFriend.addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user));
         } else {
             user.addFriend(newFriend);
-            newFriend.addFriend(user);
             notificationDao.save(
                     newFriend.addNotification(user.getId(), NotificationType.FRIEND_INVITATION, user));
             repo.save(user);
-            repo.save(newFriend);
         }
+    }
+
+    @Transactional
+    private void addFriendInternal(final Mushroomer user, final Mushroomer friend) {
+        user.addFriend(friend);
+        repo.save(user);
+
     }
 
     @Override
@@ -114,9 +120,10 @@ public class FriendServiceImpl implements FriendService {
                     .orElseThrow(EntityNotFoundException::new);
 
         if (friend.isMushroomer() && ((Mushroomer)friend).hasFriend(user)) {
+            addFriendInternal(user, (Mushroomer)friend);
             acceptInvitationToFriends(user, (Mushroomer)friend);
             acceptInvitationToFriends(((Mushroomer)friend), user);
-            ((Mushroomer)friend).addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user);
+            notificationDao.save(((Mushroomer)friend).addNotification(user.getId(), NotificationType.FRIEND_ACCEPTING, user));
         } else {
             throw new EntityNotFoundException();
         }
@@ -125,6 +132,7 @@ public class FriendServiceImpl implements FriendService {
         repo.save(friend);
     }
 
+    @Transactional
     private void  acceptInvitationToFriends(Mushroomer user, Mushroomer friend) {
         final UsersUsersId usersUsersId = new UsersUsersId(friend, user);
         final UsersUsers relationship = repo.findRelationship(usersUsersId)
