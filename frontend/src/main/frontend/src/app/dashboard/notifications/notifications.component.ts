@@ -79,10 +79,10 @@ export class NotificationsComponent implements OnInit {
         }
     }
 
-    deleteNotification(id: number, index: number) {
+    deleteNotification(id: number) {
         this.notificationService.delete(id).subscribe(
             response => {
-                this.notifications.splice(index, 1);
+                this.ngOnInit();
                 this.snackBar.open('Delete Success', '×', {
                     duration: 2000,
                 });
@@ -95,38 +95,41 @@ export class NotificationsComponent implements OnInit {
         );
     }
 
-    openDialog(relatedId, type) {
+    openDialog(relatedId, type, id) {
+        if ($(event.target).is("button")) {
+            return;
+        }
         switch (type) {
             case 'FRIEND_INVITATION':
                 this.userService.getById(relatedId).subscribe(
-                    result => this.openFriendDetailsDialog(result, 'requests')
+                    result => this.openFriendDetailsDialog(result, 'requests', id)
                 );
                 break;
             case 'FRIEND_ACCEPTING':
                 this.userService.getById(relatedId).subscribe(
-                    result => this.openFriendDetailsDialog(result, 'details')
+                    result => this.openFriendDetailsDialog(result, 'details', id)
                 );
                 break;
             case 'TRIP_ADDING':
                 this.tripService.getById(relatedId).subscribe(
-                    result => this.openTripDetailsDialog(result, 'requests')
+                    result => this.openTripDetailsDialog(result, 'requests', id)
                 );
                 break;
             case 'TRIP_ACCEPTING':
                 this.tripService.getById(relatedId).subscribe(
-                    result => this.openTripDetailsDialog(result, 'details')
+                    result => this.openTripDetailsDialog(result, 'details', id)
                 );
                 break;
             case 'MUSHROOM_FINDING':
             case 'DISCOVERY_ADD_SCORE':
                 this.discoveryService.getById(relatedId).subscribe(
-                    result => this.openDiscoveryDetailsDialog(result, 'details')
+                    result => this.openDiscoveryDetailsDialog(result, 'details', id)
                 );
                 break;
         }
     }
 
-    openFriendDetailsDialog(user, type) {
+    openFriendDetailsDialog(user, type, id) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
             data: { 
                 user: user,
@@ -138,10 +141,12 @@ export class NotificationsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
+            if (this.selectedOption == 'Accepted')
+                this.deleteNotification(id);
         });
     }
 
-    openDiscoveryDetailsDialog(discovery, type) {
+    openDiscoveryDetailsDialog(discovery, type, id) {
         let status = type;
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
             data: { 
@@ -154,10 +159,12 @@ export class NotificationsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
+            if (this.selectedOption == 'Accepted')
+                this.deleteNotification(id);
         });
     }
 
-    openTripDetailsDialog(trip, type) {
+    openTripDetailsDialog(trip, type, id) {
         let status = type;
         let dialogRef = this.dialog.open(TripDetailsComponent, {
             data: { 
@@ -170,6 +177,8 @@ export class NotificationsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
+            if (this.selectedOption == 'Accepted')
+                this.deleteNotification(id);
         });
     }
 }

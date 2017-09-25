@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="isComing()">
+    <div *ngIf="isComing() && data.status != 'requests'">
         <h2 class="text-gray">Search friends to invite:</h2>
         <div class="row top-buffer">
             <form role="search">

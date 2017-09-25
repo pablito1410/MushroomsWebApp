@@ -109,6 +109,14 @@
                 (click)="rate()" >
         </rating>
     </div>
+    <div *ngIf="!showRating" class="row top-buffer text-center">
+            <h5>Score: {{starsCount}}</h5>
+            <rating [ngModel]="starsCount"
+                    [readonly]="true"
+                    [float]="true"
+                    [titles]="['one', 'two', 'three', 'four', 'five']" >
+            </rating>
+        </div>
     <div class="row top-buffer">
         <div class="col-md-3" *ngFor="let tag of tags">
             #{{tag.name}}
@@ -116,7 +124,7 @@
     </div>
     <div class="row top-buffer">
         <comments-tree-cmp [comments]="comments"></comments-tree-cmp>
-        <textarea class="form-control comment-textarea" placeholder="Comment" rows="5"></textarea>
+        <textarea class="form-control comment-textarea" placeholder="Comment" rows="5" [(ngModel)]="commentContent"></textarea>
         <div class="text-center">
             <button class="text-button" (click)="comment()"><b>Submit</b></button>
         </div>

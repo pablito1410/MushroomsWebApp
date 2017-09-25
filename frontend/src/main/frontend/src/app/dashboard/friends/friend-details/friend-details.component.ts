@@ -40,13 +40,13 @@ export class FriendDetailsComponent implements OnInit {
             new AcceptInvitationToFriendsCommand(this.data.user.id)
         ).subscribe(
             data => {
-                this.dialogRef.close('Ok');
+                this.dialogRef.close('Accepted');
                 this.snackBar.open('Invitation Accepted', '×', {
                     duration: 2000,
                 });
             },
             error => {
-                this.dialogRef.close('Ok');
+                this.dialogRef.close('Error');
                 this.snackBar.open('Error', '×', {
                     duration: 2000,
                 });

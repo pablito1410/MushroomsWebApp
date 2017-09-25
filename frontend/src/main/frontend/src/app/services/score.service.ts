@@ -27,4 +27,8 @@ export class ScoreService {
     delete(id: number) {
         return this.http.delete('/api/scores/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
+
+    scoresAverge(id: number) {
+        return this.http.get('/api/scores/discovery/' + id, this.authenticationService.jwt()).map((response: Response) => response);
+    }
 }

@@ -259,13 +259,13 @@ export class TripDetailsComponent implements OnInit {
     accept() {
         this.tripService.joinTrip(new JoinTripCommand(this.data.trip.id)).subscribe(
             data => {
-                this.dialogRef.close('Ok');
+                this.dialogRef.close('Accepted');
                 this.snackBar.open('Joined to the Trip', '×', {
                     duration: 2000,
                 });
             },
             error => {
-                this.dialogRef.close('Ok');
+                this.dialogRef.close('Error');
                 this.snackBar.open('Error', '×', {
                     duration: 2000,
                 });

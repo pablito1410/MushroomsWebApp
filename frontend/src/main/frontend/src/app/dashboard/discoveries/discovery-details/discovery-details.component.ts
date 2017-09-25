@@ -9,6 +9,8 @@ import {Tag} from "app/model/tag";
 import {Discovery} from "app/model/discovery";
 import {AddScoreCommand} from "app/commands/add-score.command";
 import {ScoreService} from "../../../services/score.service";
+import {CommentService} from "../../../services/comment.service";
+import {CreateCommentCommand} from "../../../commands/create-comment.command";
 
 @Component({
     moduleId: module.id,
@@ -22,6 +24,7 @@ export class DiscoveryDetailsComponent implements OnInit {
     starsCount: number;
     showRating: boolean;
     zoom: number = 4;
+    commentContent: string;
 
     constructor(
         public dialogRef: MdDialogRef<DiscoveryDetailsComponent>,
@@ -29,6 +32,7 @@ export class DiscoveryDetailsComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar,
         private discoveryService: DiscoveryService,
+        private commentService: CommentService,
         private scoreService: ScoreService) {
         this.comments = new Array<Comment>();
         this.tags = new Array<Tag>();
@@ -95,11 +99,18 @@ export class DiscoveryDetailsComponent implements OnInit {
                 result => this.tags = result
             );
             
-            // this.scoreService.getAverage().subscribe(
-            //     result => this.score = result
-            // );
+            this.discoveryService.score(this.data.discovery.id).subscribe(
+                result => {
+                    this.showRating = false;
+                    this.scoreService.scoresAverge(this.data.discovery.id).subscribe(
+                        result => this.starsCount = +result.toString()
+                    );
+                },
+                error => {
+                    this.showRating = true;
+                }
+            );
         }
-        this.showRating = true;
     }
 
     rate() {
@@ -108,7 +119,7 @@ export class DiscoveryDetailsComponent implements OnInit {
             data => {
                 this.ngOnInit();
                 this.showRating = false;
-                this.snackBar.open('Discovery Added', '×', {
+                this.snackBar.open('Score Added', '×', {
                     duration: 2000,
                 });
             },
@@ -120,7 +131,23 @@ export class DiscoveryDetailsComponent implements OnInit {
     }
 
     comment() {
-        
+        if (this.commentContent.length > 0) {
+            this.commentService.create(
+                new CreateCommentCommand(
+                    null, this.data.discovery.id,this.commentContent, new Date().toISOString().slice(0, -1))
+            ).subscribe(
+                data => {
+                    this.ngOnInit();
+                    this.snackBar.open('Comment Added', '×', {
+                        duration: 2000,
+                    });
+                },
+                error => {
+                    this.snackBar.open('Error', '×', {
+                        duration: 2000,
+                    });
+                });
+        }
     }
 
     getPhotoToDisplay(photo: any) : string {

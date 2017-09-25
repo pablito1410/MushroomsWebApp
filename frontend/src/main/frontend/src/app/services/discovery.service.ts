@@ -36,4 +36,8 @@ export class DiscoveryService {
     comments(id: number) {
         return this.http.get('/api/discoveries/comments/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
+
+    score(id: number) {
+        return this.http.get('/api/discoveries/score/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
 }
