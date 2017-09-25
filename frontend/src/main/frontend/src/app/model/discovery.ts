@@ -9,6 +9,7 @@ export class Discovery {
     coordinateY: number;
     photo: any;
     dateTime: string;
+    mushroomSpecies: MushroomSpecies;
     // comments: Array<Comment>;
     isPublic: boolean;
 }

@@ -20,14 +20,6 @@ export class DiscoveryService {
         return this.http.post('/api/discoveries', discovery, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    update(discovery: Discovery) {
-        return this.http.put('/api/discoveries/' + discovery.id, discovery, this.authenticationService.jwt()).map((response: Response) => response.json());
-    }
-
-    delete(id: number) {
-        return this.http.delete('/api/discoveries/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
-    }
-
     search(value: string, my: boolean, friends: boolean, isPublic: boolean) {
         return this.http.get(
             '/api/discoveries/search?value=' + value
@@ -35,5 +27,13 @@ export class DiscoveryService {
             + '&friends=' + friends
             + '&public=' + isPublic,
             this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    tags(id: number) {
+        return this.http.get('/api/discoveries/tags/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    comments(id: number) {
+        return this.http.get('/api/discoveries/comments/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }

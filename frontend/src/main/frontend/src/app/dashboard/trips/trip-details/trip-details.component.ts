@@ -23,7 +23,8 @@ export class TripDetailsComponent implements OnInit {
     friends: User[];
     discoveries: Discovery[];
     selectedFriends: Set<User>;
-    acceptedFriends: Set<User>;
+    acceptedFriends: User[];
+    invitedFriends: User[];
     public zoom: number = 12;
     selectedOption: string;
 
@@ -38,7 +39,8 @@ export class TripDetailsComponent implements OnInit {
         this.friends = new Array<User>();
         this.discoveries = new Array<Discovery>();
         this.selectedFriends = new Set<User>();
-        this.acceptedFriends = new Set<User>();
+        this.acceptedFriends = new Array<User>();
+        this.invitedFriends = new Array<User>();
     }
 
 
@@ -84,6 +86,7 @@ export class TripDetailsComponent implements OnInit {
                     coordinateY: 38.462563,
                     photo: null,
                     dateTime: '2016-06-21T19:09:42.646',
+                    mushroomSpecies: null,
                     isPublic: true
                 },
                 {
@@ -94,6 +97,7 @@ export class TripDetailsComponent implements OnInit {
                     coordinateY: 35.463566,
                     photo: null,
                     dateTime: '2016-07-22T19:11:32.646',
+                    mushroomSpecies: null,
                     isPublic: true
                 },
                 {
@@ -104,6 +108,7 @@ export class TripDetailsComponent implements OnInit {
                     coordinateY: 22.463226,
                     photo: null,
                     dateTime: '2017-04-28T19:08:11.646',
+                    mushroomSpecies: null,
                     isPublic: true
                 }
             ];
@@ -167,6 +172,18 @@ export class TripDetailsComponent implements OnInit {
 
     isComing() : boolean {
         return DateTool.compareDateTime(new Date(), new Date(this.trip.dateTime)) == -1;
+    }
+
+    areDiscoveries() : boolean {
+        return this.discoveries.length > 0;
+    }
+
+    areAcceptedFriends() : boolean {
+        return this.acceptedFriends.length > 0;
+    }
+
+    areInviedFriends() : boolean {
+        return this.invitedFriends.length > 0;
     }
 
     convertDateToLocaleString(date: string) : string {

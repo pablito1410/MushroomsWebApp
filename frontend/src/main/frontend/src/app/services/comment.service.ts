@@ -19,12 +19,4 @@ export class CommentService {
     create(comment: Comment) {
         return this.http.post('/api/comments', comment, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
-
-    update(comment: Comment) {
-        return this.http.put('/api/comments/' + comment.id, comment, this.authenticationService.jwt()).map((response: Response) => response.json());
-    }
-
-    delete(id: number) {
-        return this.http.delete('/api/comments/' + id).map((response: Response) => response.json());
-    }
 }

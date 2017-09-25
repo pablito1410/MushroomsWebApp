@@ -32,14 +32,14 @@ public class CommentController {
         this.commentProjectionService = commentProjectionService;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateCommentCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         final long id = commandGateway.dispatch(command);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody UpdateCommentCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
@@ -66,5 +66,4 @@ public class CommentController {
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

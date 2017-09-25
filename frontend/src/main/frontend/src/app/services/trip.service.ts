@@ -4,6 +4,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Trip } from '../model/trip';
 import {AuthenticationService} from "./authentication.service";
 import {InviteToTripCommand} from "../commands/invite-to-trip.command";
+import {JoinTripCommand} from "../commands/join-trip.command";
 
 @Injectable()
 export class TripService {
@@ -31,5 +32,17 @@ export class TripService {
 
     invite(inviteToTripCommand: InviteToTripCommand) {
         return this.http.post('/api/trips/invite', inviteToTripCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    getParticipants(id: number) {
+        return this.http.get('/api/trips/participants/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    getTripRequests(id: number) {
+        return this.http.get('/api/trips/invited/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
+    }
+
+    joinTrip(joinTripCommand: JoinTripCommand) {
+        return this.http.post('/api/trips/join', joinTripCommand, this.authenticationService.jwt()).map((response: Response) => response);
     }
 }

@@ -38,6 +38,7 @@ export class MapsComponent implements OnInit {
                     coordinateY: 38.462563,
                     photo: null,
                     dateTime: '22.12.2017 18:22:33',
+                    mushroomSpecies: null,
                     isPublic: true
                 },
                 {
@@ -48,6 +49,7 @@ export class MapsComponent implements OnInit {
                     coordinateY: 35.463566,
                     photo: null,
                     dateTime: '21.12.2017 06:44:23',
+                    mushroomSpecies: null,
                     isPublic: true
                 },
                 {
@@ -58,6 +60,7 @@ export class MapsComponent implements OnInit {
                     coordinateY: 22.463226,
                     photo: null,
                     dateTime: '20.12.2017 11:12:23',
+                    mushroomSpecies: null,
                     isPublic: true
                 }
             ];

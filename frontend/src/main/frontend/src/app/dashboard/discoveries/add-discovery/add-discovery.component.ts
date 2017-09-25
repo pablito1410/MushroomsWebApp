@@ -131,16 +131,17 @@ export class AddDiscoveryComponent implements OnInit {
         this.discovery.isPublic = this.isPublic;
         this.discoveryService.create(this.discovery).subscribe(
         data => {
+            this.dialogRef.close('Ok');
             this.snackBar.open('Discovery Added', '×', {
                 duration: 2000,
             });
         },
         error => {
+            this.dialogRef.close('Ok');
             this.snackBar.open('Error', '×', {
                 duration: 2000,
             });
         });
-        this.dialogRef.close('Ok');
     }
 
     private setCurrentPosition() {
