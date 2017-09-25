@@ -30,11 +30,18 @@ public class ServicesConfig {
     }
 
     @Bean
-    public TripService tripService(TripDao tripDao, UserDao userDao) { return new TripServiceImpl(userDao, tripDao); }
+    public TripService tripService(TripDao tripDao,
+                                   UserDao userDao,
+                                   final NotificationDao notificationsDao) {
+        return new TripServiceImpl(userDao, tripDao, notificationsDao);
+    }
 
     @Bean
-    public ScoreService scoreService(ScoreDao scoreDao, UserDao userDao, DiscoveryDao discoveryDao) {
-        return new ScoreServiceImpl(scoreDao, userDao, discoveryDao); }
+    public ScoreService scoreService(ScoreDao scoreDao,
+                                     UserDao userDao,
+                                     DiscoveryDao discoveryDao,
+                                     final NotificationDao notificationDao) {
+        return new ScoreServiceImpl(scoreDao, userDao, discoveryDao, notificationDao); }
 
     @Bean
     public TagService tagService(

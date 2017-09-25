@@ -1,6 +1,7 @@
 package pl.polsl.mushrooms.application.services;
 
 import pl.polsl.mushrooms.application.commands.trip.*;
+import pl.polsl.mushrooms.application.dao.NotificationDao;
 import pl.polsl.mushrooms.application.dao.TripDao;
 import pl.polsl.mushrooms.application.dao.UserDao;
 import pl.polsl.mushrooms.application.enums.NotificationType;
@@ -20,11 +21,13 @@ public class TripServiceImpl implements TripService {
 
     private final UserDao userDao;
     private final TripDao tripDao;
+    private NotificationDao notificationsDao;
 
-    public TripServiceImpl(final UserDao userDao, final TripDao tripDao)
+    public TripServiceImpl(final UserDao userDao, final TripDao tripDao, final NotificationDao notificationsDao)
     {
         this.userDao = userDao;
         this.tripDao = tripDao;
+        this.notificationsDao = notificationsDao;
     }
 
     @Override
@@ -131,7 +134,7 @@ public class TripServiceImpl implements TripService {
         if (user.isMushroomer()) {
             final Mushroomer mushroomer = (Mushroomer)user;
             trip.addMushroomer(mushroomer);
-            mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, invitingPerson);
+            notificationsDao.save(mushroomer.addNotification(trip.getId(), NotificationType.TRIP_ADDING, invitingPerson));
         } else {
             // log
         }
