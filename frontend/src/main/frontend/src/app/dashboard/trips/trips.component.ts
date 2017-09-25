@@ -64,7 +64,10 @@ export class TripsComponent implements OnInit {
 
     openTripDetailsDialog(trip) {
         let dialogRef = this.dialog.open(TripDetailsComponent, {
-            data: trip,
+            data: { 
+                trip: trip,
+                status: 'details'
+            },
             hasBackdrop: true,
             height: '80%',
             width: '80%',

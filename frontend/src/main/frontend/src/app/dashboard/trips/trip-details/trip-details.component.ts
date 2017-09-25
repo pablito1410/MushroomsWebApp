@@ -12,6 +12,7 @@ import {User} from "../../../model/user";
 import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
+import {JoinTripCommand} from "../../../commands/join-trip.command";
 
 @Component({
     moduleId: module.id,
@@ -30,7 +31,7 @@ export class TripDetailsComponent implements OnInit {
     constructor(
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<TripDetailsComponent>,
-        @Inject(MD_DIALOG_DATA) public trip: Trip,
+        @Inject(MD_DIALOG_DATA) public data: any,
         @Inject(DOCUMENT) private document,
         private tripService: TripService,
         private friendService: FriendService,
@@ -129,10 +130,10 @@ export class TripDetailsComponent implements OnInit {
                 }
             ];
         } else {
-            this.tripService.getParticipants(this.trip.id).subscribe(
+            this.tripService.getParticipants(this.data.trip.id).subscribe(
                 result => this.acceptedFriends = result
             );
-            this.tripService.getTripRequests(this.trip.id).subscribe(
+            this.tripService.getTripRequests(this.data.trip.id).subscribe(
                 result => this.invitedFriends = result
             );
         }
@@ -197,7 +198,7 @@ export class TripDetailsComponent implements OnInit {
 
     isComing() : boolean {
         let today = new Date();
-        let getting = new Date(this.trip.dateTime)
+        let getting = new Date(this.data.trip.dateTime)
         let res = today < getting;
         // console.log(today.toLocaleString() + '   ?   ' + getting.toLocaleString());
         // console.log(res);
@@ -222,14 +223,14 @@ export class TripDetailsComponent implements OnInit {
 
     invite() {
         if (this.selectedFriends.size > 0) {
-            console.log(this.trip.id);
+            console.log(this.data.trip.id);
             let userIds = new Set<number>();
             this.selectedFriends.forEach(f => {
                 userIds.add(f.id);
             })
             console.log('start invite');
             this.tripService.invite(
-                new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
+                new InviteToTripCommand(this.data.trip.id, Array.from(userIds))).subscribe(
                 data => {
                     this.snackBar.open('Friends Invited', '×', {
                         duration: 2000,
@@ -253,5 +254,21 @@ export class TripDetailsComponent implements OnInit {
 
     close() {
         this.dialogRef.close('Close');
+    }
+
+    accept() {
+        this.tripService.joinTrip(new JoinTripCommand(this.data.trip.id)).subscribe(
+            data => {
+                this.dialogRef.close('Ok');
+                this.snackBar.open('Joined to the Trip', '×', {
+                    duration: 2000,
+                });
+            },
+            error => {
+                this.dialogRef.close('Ok');
+                this.snackBar.open('Error', '×', {
+                    duration: 2000,
+                });
+            });
     }
 }

@@ -1,9 +1,9 @@
 <h1 md-dialog-title>Trip Details</h1>
 <div md-dialog-content>
     <div class="row top-buffer">
-        <sebm-google-map [latitude]="trip.coordinateX" [longitude]="trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
-            <sebm-google-map-circle [latitude]="trip.coordinateX" [longitude]="trip.coordinateY"
-                                    [radius]="trip.radius"
+        <sebm-google-map [latitude]="data.trip.coordinateX" [longitude]="data.trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
+            <sebm-google-map-circle [latitude]="data.trip.coordinateX" [longitude]="data.trip.coordinateY"
+                                    [radius]="data.trip.radius"
                                     [fillColor]="'green'"
                                     [circleDraggable]="false"
                                     [editable]="false">
@@ -127,5 +127,8 @@
     </div>
 </div>
 <div md-dialog-actions align="end">
+    <div *ngIf="data.status == 'requests'">
+        <button class="btn btn-primary dialog-btn" md-button (click)="accept()">Accept</button>
+    </div>
     <button class="btn btn-primary" md-button (click)="close()">Close</button>
 </div>

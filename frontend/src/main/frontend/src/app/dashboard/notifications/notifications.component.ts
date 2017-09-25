@@ -1,8 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/platform-browser";
 import {NotificationService} from "app/services/notification.service";
+import {TripService} from "app/services/trip.service";
+import {UserService} from "app/services/user.service";
+import {DiscoveryService} from "app/services/discovery.service";
 import {Notification} from "app/model/notification";
-import {MdSnackBar} from "@angular/material";
+import {MdSnackBar, MdDialog} from "@angular/material";
+import {FriendDetailsComponent} from "app/dashboard/friends/friend-details/friend-details.component";
+import {DiscoveryDetailsComponent} from "app/dashboard/discoveries/discovery-details/discovery-details.component";
+import {TripDetailsComponent} from "app/dashboard/trips/trip-details/trip-details.component";
 
 @Component({
     moduleId: module.id,
@@ -13,9 +19,14 @@ import {MdSnackBar} from "@angular/material";
 export class NotificationsComponent implements OnInit {
 
     notifications: Notification[];
+    selectedOption: string;
 
     constructor(
+        public dialog: MdDialog,
         private notificationService: NotificationService,
+        private tripService: TripService,
+        private userService: UserService,
+        private discoveryService: DiscoveryService,
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar) { }
 
@@ -58,7 +69,7 @@ export class NotificationsComponent implements OnInit {
             case 'FRIEND_ACCEPTING':
                 return 'person';
             case 'TRIP_ADDING':
-            case 'TRIP_ADDING':
+            case 'TRIP_ACCEPTING':
                 return 'directions_walk';
             case 'MUSHROOM_FINDING':
             case 'DISCOVERY_ADD_SCORE':
@@ -84,45 +95,81 @@ export class NotificationsComponent implements OnInit {
         );
     }
 
-    openFriendDetailsDialog(user, status) {
-        // let dialogRef = this.dialog.open(FriendDetailsComponent, {
-        //     data: { 
-        //         user: user,
-        //         status: status
-        //     },
-        //     hasBackdrop: true,
-        //     height: '80%',
-        //     width: '80%',
-        // });
-        // dialogRef.afterClosed().subscribe(result => {
-        //     this.selectedOption = result;
-        // });
+    openDialog(relatedId, type) {
+        switch (type) {
+            case 'FRIEND_INVITATION':
+                this.userService.getById(relatedId).subscribe(
+                    result => this.openFriendDetailsDialog(result, 'requests')
+                );
+                break;
+            case 'FRIEND_ACCEPTING':
+                this.userService.getById(relatedId).subscribe(
+                    result => this.openFriendDetailsDialog(result, 'details')
+                );
+                break;
+            case 'TRIP_ADDING':
+                this.tripService.getById(relatedId).subscribe(
+                    result => this.openTripDetailsDialog(result, 'requests')
+                );
+                break;
+            case 'TRIP_ACCEPTING':
+                this.tripService.getById(relatedId).subscribe(
+                    result => this.openTripDetailsDialog(result, 'details')
+                );
+                break;
+            case 'MUSHROOM_FINDING':
+            case 'DISCOVERY_ADD_SCORE':
+                this.discoveryService.getById(relatedId).subscribe(
+                    result => this.openDiscoveryDetailsDialog(result, 'details')
+                );
+                break;
+        }
     }
 
-    openDiscoveryDetailsDialog(discovery) {
-        // let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
-        //     data: { 
-        //         discovery: discovery,
-        //         status: 'details'
-        //     },
-        //     hasBackdrop: true,
-        //     height: '80%',
-        //     width: '80%',
-        // });
-        // dialogRef.afterClosed().subscribe(result => {
-        //     this.selectedOption = result;
-        // });
+    openFriendDetailsDialog(user, type) {
+        let dialogRef = this.dialog.open(FriendDetailsComponent, {
+            data: { 
+                user: user,
+                status: status
+            },
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
     }
 
-    openTripDetailsDialog(trip) {
-        // let dialogRef = this.dialog.open(TripDetailsComponent, {
-        //     data: trip,
-        //     hasBackdrop: true,
-        //     height: '80%',
-        //     width: '80%',
-        // });
-        // dialogRef.afterClosed().subscribe(result => {
-        //     this.selectedOption = result;
-        // });
+    openDiscoveryDetailsDialog(discovery, type) {
+        let status = type;
+        let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
+            data: { 
+                discovery: discovery,
+                status: status
+            },
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
+    }
+
+    openTripDetailsDialog(trip, type) {
+        let status = type;
+        let dialogRef = this.dialog.open(TripDetailsComponent, {
+            data: { 
+                trip: trip,
+                status: status
+            },
+            hasBackdrop: true,
+            height: '80%',
+            width: '80%',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.selectedOption = result;
+        });
     }
 }
