@@ -17,7 +17,7 @@ export class ScoreService {
     }
 
     add(addScoreCommand: AddScoreCommand) {
-        return this.http.post('/api/scores', addScoreCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
+        return this.http.post('/api/scores', addScoreCommand, this.authenticationService.jwt()).map((response: Response) => response);
     }
 
     update(score: Score) {
