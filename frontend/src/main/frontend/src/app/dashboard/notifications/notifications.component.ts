@@ -96,9 +96,6 @@ export class NotificationsComponent implements OnInit {
     }
 
     openDialog(relatedId, type, id) {
-        if ($(event.target).is("button")) {
-            return;
-        }
         switch (type) {
             case 'FRIEND_INVITATION':
                 this.userService.getById(relatedId).subscribe(

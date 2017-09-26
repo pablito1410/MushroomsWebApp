@@ -103,7 +103,7 @@ export class DiscoveryDetailsComponent implements OnInit {
                 result => {
                     this.showRating = false;
                     this.scoreService.scoresAverge(this.data.discovery.id).subscribe(
-                        result => this.starsCount = +result.toString()
+                        result => this.starsCount = +result.text
                     );
                 },
                 error => {
