@@ -129,7 +129,7 @@ export class NotificationsComponent implements OnInit {
         }
     }
 
-    openFriendDetailsDialog(user, type, id) {
+    openFriendDetailsDialog(user, status, id) {
         let dialogRef = this.dialog.open(FriendDetailsComponent, {
             data: { 
                 user: user,
@@ -146,8 +146,7 @@ export class NotificationsComponent implements OnInit {
         });
     }
 
-    openDiscoveryDetailsDialog(discovery, type, id) {
-        let status = type;
+    openDiscoveryDetailsDialog(discovery, status, id) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
             data: { 
                 discovery: discovery,
@@ -164,8 +163,7 @@ export class NotificationsComponent implements OnInit {
         });
     }
 
-    openTripDetailsDialog(trip, type, id) {
-        let status = type;
+    openTripDetailsDialog(trip, status, id) {
         let dialogRef = this.dialog.open(TripDetailsComponent, {
             data: { 
                 trip: trip,
