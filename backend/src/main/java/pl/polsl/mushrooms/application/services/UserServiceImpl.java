@@ -143,11 +143,11 @@ public class UserServiceImpl implements UserService {
             throw new NoRequiredPermissions("Admin permissions required");
         }
 
-        final String encodedAdminPassword = passwordEncoder.encode(command.getAdminPassword());
-
-        if (!passwordEncoder.matches(currentUser.getPassword(), encodedAdminPassword)) {
-            throw new NoRequiredPermissions("Admin permissions required");
-        }
+//        final String encodedAdminPassword = passwordEncoder.encode(command.getAdminPassword());
+//
+//        if (!passwordEncoder.matches(currentUser.getPassword(), encodedAdminPassword)) {
+//            throw new NoRequiredPermissions("Admin permissions required");
+//        }
 
         for (long id : command.getIds()) {
             userDao.delete(id);
