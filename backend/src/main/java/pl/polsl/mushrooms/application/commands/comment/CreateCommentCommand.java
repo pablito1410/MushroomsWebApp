@@ -1,6 +1,8 @@
 package pl.polsl.mushrooms.application.commands.comment;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
+import pl.polsl.mushrooms.infrastructure.tools.deserializers.LocalDateTimeDeserializer;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
     @NotNull long discoveryId;
 
     @NotNull
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateTime;
 
     protected CreateCommentCommand() { }
