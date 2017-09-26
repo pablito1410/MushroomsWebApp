@@ -2,21 +2,23 @@ package pl.polsl.mushrooms.infrastructure.services;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security
-        .authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import pl.polsl.mushrooms.application.model.User;
+import pl.polsl.mushrooms.application.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Date;
-
-import static java.util.Collections.emptyList;
 
 public class TokenAuthenticationService {
     static final long EXPIRATIONTIME = 864_000_000; // 10 days
     static final String SECRET = "ThisIsASecret";
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
+
 
     public static void addAuthentication(HttpServletResponse res, String username) {
         String jwt = Jwts.builder()
@@ -28,18 +30,19 @@ public class TokenAuthenticationService {
 
     }
 
-    public static Authentication getAuthentication(HttpServletRequest request) {
+    public static Authentication getAuthentication(HttpServletRequest request, UserService userService) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = Jwts.parser()
+            String userName = Jwts.parser()
                     .setSigningKey(SECRET)
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
 
+            final User user = userService.getUserByName(userName);
             return user != null ?
-                    new UsernamePasswordAuthenticationToken(user, null, emptyList()) :
+                    new UsernamePasswordAuthenticationToken(userName, null, Arrays.asList(new SimpleGrantedAuthority(user.getRole().toString()))) :
                     null;
         }
         return null;

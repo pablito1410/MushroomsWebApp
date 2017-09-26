@@ -17,6 +17,7 @@ import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
@@ -87,6 +88,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByName(final String userName) {
+        return userDao.findOneByUsername(userName)
+                .orElseThrow(NoRequiredPermissions::new);
+    }
+
+    @Override
     public UserDto handle(UpdateUserCommand command) {
         final String currentUserName = command.getCurrentUserName();
         final User currentUser = userDao.findOneByUsername(currentUserName)
@@ -141,6 +148,10 @@ public class UserServiceImpl implements UserService {
 
         if (!currentUser.isAdmin()) {
             throw new NoRequiredPermissions("Admin permissions required");
+        }
+
+        if (command.getIds() == null) {
+            throw new BadRequestException("ids is null");
         }
 
 //        final String encodedAdminPassword = passwordEncoder.encode(command.getAdminPassword());

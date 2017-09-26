@@ -46,4 +46,6 @@ public interface UserService {
      * @param updateProfileImageCommand
      */
     void handle(UpdateProfileImageCommand updateProfileImageCommand);
+
+    User getUserByName(String userName);
 }

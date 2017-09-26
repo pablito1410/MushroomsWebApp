@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pl.polsl.mushrooms.application.enums.UserRole;
+import pl.polsl.mushrooms.application.services.UserService;
 import pl.polsl.mushrooms.application.services.projections.UserProjectionService;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtAuthenticationFilter;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtLoginFilter;
@@ -21,6 +22,9 @@ import pl.polsl.mushrooms.infrastructure.authentication.JwtLoginFilter;
 @Configuration
 @EnableWebSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -78,7 +82,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/login", authenticationManager(), userProjectionService),
                     UsernamePasswordAuthenticationFilter.class)
             // And filter other requests to check the presence of JWT in header
-            .addFilterBefore(new JwtAuthenticationFilter(),
+            .addFilterBefore(new JwtAuthenticationFilter(userService),
                     UsernamePasswordAuthenticationFilter.class);
     }
 
