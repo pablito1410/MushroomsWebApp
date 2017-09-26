@@ -148,7 +148,7 @@ export class NotificationsComponent implements OnInit {
 
     openDiscoveryDetailsDialog(discovery, status, id) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
-            data: { 
+            data: {
                 discovery: discovery,
                 status: status
             },

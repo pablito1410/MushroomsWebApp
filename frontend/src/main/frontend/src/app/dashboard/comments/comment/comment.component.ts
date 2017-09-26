@@ -5,6 +5,9 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 import {DiscoveryService} from "../../../services/discovery.service";
 import {Comment} from "../../../model/comment";
 import LinkedList from "ng2-bootstrap/utils/linked-list.class";
+import {CommentService} from "../../../services/comment.service";
+import {CreateCommentCommand} from "../../../commands/create-comment.command";
+import {MdSnackBar} from "@angular/material";
 
 @Component({
     moduleId: module.id,
@@ -15,8 +18,11 @@ export class CommentComponent implements OnInit {
     @Input() comment: Comment;
     expanded: boolean;
     textBox: boolean;
+    commentContent: string;
 
-    constructor() {
+    constructor(
+        public snackBar: MdSnackBar,
+        private commentService: CommentService) {
         this.expanded = false;
         this.textBox = false;
     }
@@ -40,7 +46,22 @@ export class CommentComponent implements OnInit {
     }
 
     submit() {
-        this.textBox = false;
+        this.commentService.create(
+            new CreateCommentCommand(
+                this.comment.id, null, this.commentContent, new Date().toISOString().slice(0, -1)))
+                .subscribe(
+                    data => {
+                        this.textBox = false;
+                        this.snackBar.open('Comment Added', '×', {
+                            duration: 2000,
+                        });
+                    },
+                    error => {
+                        this.snackBar.open('Error', '×', {
+                            duration: 2000,
+                        });
+                    }
+                );
     }
 
     getUserPhotoToDisplay() : string {
