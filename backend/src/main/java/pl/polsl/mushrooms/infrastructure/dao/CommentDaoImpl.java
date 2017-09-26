@@ -23,6 +23,7 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public void save(Comment comment) {
         commentRepository.save(comment);
+        commentRepository.flush();
     }
 
     @Override

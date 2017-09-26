@@ -164,6 +164,9 @@ public class Discovery  {
 		this.comments = comments;
 	}
 
+	public void addComment(final Comment comment) {
+		comments.add(comment);
+	}
 	public Boolean isPublic() { return isPublic; }
 
 	public void setPublic(boolean aPublic) { isPublic = aPublic; }

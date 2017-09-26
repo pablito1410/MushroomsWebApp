@@ -8,6 +8,7 @@ import pl.polsl.mushrooms.application.exceptions.EntityAlreadyExistException;
 import pl.polsl.mushrooms.application.exceptions.NoRequiredPermissions;
 
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 /**
@@ -37,6 +38,12 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND) // 404
     @ExceptionHandler(NotFoundException.class)
     public void notFound() {
+        //
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // 400
+    @ExceptionHandler(BadRequestException.class)
+    public void badCommand() {
         //
     }
 

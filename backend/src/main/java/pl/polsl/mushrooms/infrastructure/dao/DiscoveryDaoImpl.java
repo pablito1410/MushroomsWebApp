@@ -21,6 +21,7 @@ public class DiscoveryDaoImpl implements DiscoveryDao {
     @Override
     public void save(Discovery discovery) {
         discoveryRepository.save(discovery);
+        discoveryRepository.flush();
     }
 
     @Override

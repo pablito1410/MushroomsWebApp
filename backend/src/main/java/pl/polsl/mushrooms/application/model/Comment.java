@@ -25,7 +25,7 @@ public class Comment {
 	@Column(name = "\"DATE_TIME\"", nullable = false)
 	private LocalDateTime dateTime;
 
-	@OneToOne(optional = false)
+	@OneToOne
 	@JoinColumn(name = "\"TARGET_COMMENT_ID\"", referencedColumnName = "\"COMMENT_ID\"")
 	private Comment target;
 
@@ -47,8 +47,8 @@ public class Comment {
 		this.dateTime = dateTime;
 		this.target = target;
 		this.user = user;
-		this.discovery = discovery;
-	}
+        this.discovery = discovery;
+    }
 
 	public Long getId() {
 		return id;

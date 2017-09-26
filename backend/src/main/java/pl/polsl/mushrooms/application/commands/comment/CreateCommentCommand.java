@@ -16,11 +16,8 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
 
     @NotNull
     private String contents;
-
-    @NotNull
-    private long targetId;
-
-    @NotNull long discoveryId;
+    private Long targetId;
+    private Long discoveryId;
 
     @NotNull
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -32,7 +29,7 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
         return contents;
     }
 
-    public long getTargetId() {
+    public Long getTargetId() {
         return targetId;
     }
 
@@ -52,19 +49,27 @@ public class CreateCommentCommand implements ReturningCommand<Long> {
         this.contents = contents;
     }
 
-    public void setTargetId(final long targetId) {
+    public void setTargetId(final Long targetId) {
         this.targetId = targetId;
     }
 
-    public long getDiscoveryId() {
+    public Long getDiscoveryId() {
         return discoveryId;
     }
 
-    public  void setDiscoveryId(final long discoveryId) {
+    public  void setDiscoveryId(final Long discoveryId) {
         this.discoveryId = discoveryId;
     }
 
     public void setDateTime(final LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public boolean forDiscovery() {
+        return discoveryId != null;
+    }
+
+    public boolean forTarget() {
+        return targetId != null;
     }
 }
