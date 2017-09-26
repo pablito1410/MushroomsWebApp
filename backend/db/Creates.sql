@@ -45,7 +45,7 @@ CREATE TABLE "SCORES" (
   PRIMARY KEY ("SCORE_ID"));
 CREATE TABLE "COMMENTS" (
   "COMMENT_ID"        BIGSERIAL NOT NULL, 
-  "DISCOVERY_ID"      int8 NOT NULL, 
+  "DISCOVERY_ID"      int8, 
   "USER_ID"           int8 NOT NULL, 
   "TARGET_COMMENT_ID" int8, 
   "CONTENT"           varchar(255) NOT NULL, 

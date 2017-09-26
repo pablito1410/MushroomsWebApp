@@ -15,7 +15,7 @@ public class Comment {
 	@Column(name = "\"COMMENT_ID\"")
 	protected Long id;
 
-	@ManyToOne(optional = false)
+	@ManyToOne
 	@JoinColumn(name = "\"DISCOVERY_ID\"")
 	private Discovery discovery;
 
@@ -60,6 +60,12 @@ public class Comment {
 
 	public Comment getTarget() {
 		return target;
+	}
+
+	public Long getTargetId() { return target == null ? null : target.getId(); }
+
+	public void setTarget(final Comment target) {
+		this.target = target;
 	}
 
 

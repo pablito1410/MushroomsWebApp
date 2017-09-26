@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 public class CommentDto {
 
+    private Long id;
     private String content;
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -22,7 +23,6 @@ public class CommentDto {
 
     private Long discoveryId;
     private Long targetId;
-    private Long commentId;
     private MushroomerDto user;
     private Set<CommentDto> answers;
 }
