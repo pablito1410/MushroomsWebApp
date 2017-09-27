@@ -1,3 +1,7 @@
+Sprawdź aplikację tutaj: https://mushrooms-picking.herokuapp.com
+
+
+
 ## Instalacja bazy danych
 
 Pobieramy postgresa:
