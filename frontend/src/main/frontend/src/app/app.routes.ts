@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { AuthenticationGuard } from './authentication/authentication.guard';
@@ -11,6 +10,9 @@ import { NotificationsComponent } from "./dashboard/notifications/notifications.
 import { DiscoveriesComponent } from "./dashboard/discoveries/discoveries.component";
 import { MapsComponent } from "./dashboard/maps/maps.component";
 
+/**
+ * App routes mapping
+ */
 export const APP_ROUTES: Route[] = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
@@ -22,7 +24,6 @@ export const APP_ROUTES: Route[] = [
     { path: 'notifications', component: NotificationsComponent, canActivate: [AuthenticationGuard] },
     { path: 'maps', component: MapsComponent, canActivate: [AuthenticationGuard] },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ]

@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 
+/**
+ * Navbar module
+ * @preferred
+ */
 @NgModule({
     imports: [
         RouterModule,
@@ -11,4 +15,4 @@ import { NavbarComponent } from './navbar.component';
     declarations: [ NavbarComponent ],
     exports: [ NavbarComponent ]
 })
-export class NavbarModule {}
+export class NavbarModule { }

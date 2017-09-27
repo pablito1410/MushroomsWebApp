@@ -3,21 +3,19 @@
     <div class="row top-buffer">
         <div class="col-md-6">
             <div class="row top-buffer">
-                <!--<div class="container">-->
-                    <div class="form-group">
-                        <input placeholder="Search for location" id="search" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="trip.place"
-                               type="text" class="form-control" #search [formControl]="searchControl">
-                    </div>
-                    <sebm-google-map [latitude]="trip.coordinateX" [longitude]="trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
-                        <sebm-google-map-circle [latitude]="trip.coordinateX" [longitude]="trip.coordinateY"
-                            [radius]="trip.radius"
-                            [fillColor]="'green'"
-                            [circleDraggable]="true"
-                            [editable]="true"
-                            (dragEnd)="circleDragEnd($event)">
-                        </sebm-google-map-circle>
-                    </sebm-google-map>
-                <!--</div>-->
+                <div class="form-group">
+                    <input placeholder="Search for location" id="search" autocorrect="off" autocapitalize="off" spellcheck="off" [(ngModel)]="trip.place"
+                            type="text" class="form-control" #search [formControl]="searchControl">
+                </div>
+                <sebm-google-map [latitude]="trip.coordinateX" [longitude]="trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
+                    <sebm-google-map-circle [latitude]="trip.coordinateX" [longitude]="trip.coordinateY"
+                        [radius]="trip.radius"
+                        [fillColor]="'green'"
+                        [circleDraggable]="true"
+                        [editable]="true"
+                        (dragEnd)="circleDragEnd($event)">
+                    </sebm-google-map-circle>
+                </sebm-google-map>
             </div>
         </div>
         <div class="col-md-6">

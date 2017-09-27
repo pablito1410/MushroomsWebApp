@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer.component';
 
+/**
+ * Footer module
+ * @preferred
+ */
 @NgModule({
     imports: [ RouterModule, CommonModule ],
     declarations: [ FooterComponent ],

@@ -3,7 +3,7 @@ import { User } from '../model/user';
 import { UserService } from '../services/user.service';
 
 /**
- * Main component invokes router outlet
+ * Authentication component invokes router outlet for unlogged user
  */
 @Component({
     moduleId: module.id,

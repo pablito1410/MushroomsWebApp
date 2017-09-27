@@ -18,17 +18,20 @@ import { AgmCoreModule } from "angular2-google-maps/core";
 import { SearchFriendsComponent } from "./friends/search-friends/search-friends.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
-import {AddDiscoveryComponent} from "./discoveries/add-discovery/add-discovery.component";
-import {DiscoveryDetailsComponent} from "./discoveries/discovery-details/discovery-details.component";
-import {UserDetailsComponent} from "./user/user-details/user-details.component";
-import {TripDetailsComponent} from "./trips/trip-details/trip-details.component";
-import {AddTripComponent} from "./trips/add-trip/add-trip.component";
-import {TreeModule} from "angular-tree-component";
-import {CommentsTreeComponent} from "./comments/comments-tree/comments-tree.component";
-import {RatingModule} from "ngx-rating";
-import {CommentComponent} from "./comments/comment/comment.component";
+import { AddDiscoveryComponent } from "./discoveries/add-discovery/add-discovery.component";
+import { DiscoveryDetailsComponent } from "./discoveries/discovery-details/discovery-details.component";
+import { UserDetailsComponent } from "./user/user-details/user-details.component";
+import { TripDetailsComponent } from "./trips/trip-details/trip-details.component";
+import { AddTripComponent } from "./trips/add-trip/add-trip.component";
+import { TreeModule } from "angular-tree-component";
+import { CommentsTreeComponent } from "./comments/comments-tree/comments-tree.component";
+import { RatingModule } from "ngx-rating";
+import { CommentComponent } from "./comments/comment/comment.component";
 
-
+/**
+ * Dashboard module
+ * @preferred
+ */
 @NgModule({
     imports: [
         BrowserModule,
@@ -87,4 +90,4 @@ import {CommentComponent} from "./comments/comment/comment.component";
         MapsComponent
     ]
 })
-export class DashboardModule{}
+export class DashboardModule { }

@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, Response, URLSearchParams, RequestOptions} from '@angular/http';
+import { Http, Headers, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
+/**
+ * Authentication service
+ */
 @Injectable()
 export class AuthenticationService {
+
+    /**
+     * Constructor of class
+     * @param http      Http client
+     */
     constructor(private http: Http) { }
 
+    /**
+     * Login request
+     * @param email         Email
+     * @param password      Password
+     */
     login(email: string, password: string) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -31,12 +44,19 @@ export class AuthenticationService {
             });
     }
 
+    /**
+     * Logout request
+     */
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
         localStorage.removeItem('currentUser');
     }
 
+    /**
+     * Adds JSON web token to request header
+     * @returns Request options with filled header
+     */
     jwt() {
         // create authorization header with jwt token
         let token = localStorage.getItem('token');

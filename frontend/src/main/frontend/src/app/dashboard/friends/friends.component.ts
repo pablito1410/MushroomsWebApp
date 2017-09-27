@@ -5,7 +5,7 @@ import { SearchFriendsComponent } from "./search-friends/search-friends.componen
 import { UserDetailsComponent } from "../user/user-details/user-details.component";
 import { FriendService } from "../../services/friend.service";
 import { DOCUMENT } from "@angular/platform-browser";
-import { PhotoTool } from "../../tools/photo-tool";
+import { Tools } from "../../tools/tools";
 
 /**
  * Friends page component
@@ -26,8 +26,8 @@ export class FriendsComponent implements OnInit {
     /** Option selected in dialog */
     selectedOption: string;
     
-    /** Static method assignment */
-    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+    /** Static method get photo string to display assignment */
+    getPhotoStringToDisplay = Tools.getPhotoStringToDisplay;
 
     /**
      * Constructor of class
@@ -50,7 +50,7 @@ export class FriendsComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
             this.friendService.getAll().subscribe(
                 result => this.friends = result
@@ -67,7 +67,7 @@ export class FriendsComponent implements OnInit {
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         this.friends = [
             {
                 id: 1,

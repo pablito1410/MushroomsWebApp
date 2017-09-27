@@ -1,48 +1,100 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
 import { Trip } from '../model/trip';
-import {AuthenticationService} from "./authentication.service";
-import {InviteToTripCommand} from "../commands/invite-to-trip.command";
-import {JoinTripCommand} from "../commands/join-trip.command";
+import { AuthenticationService } from "./authentication.service";
+import { InviteToTripCommand } from "../commands/invite-to-trip.command";
+import { JoinTripCommand } from "../commands/join-trip.command";
 
+/**
+ * Trip service
+ */
 @Injectable()
 export class TripService {
+
+    /**
+     * Constructor of class
+     * @param http                      Http client
+     * @param authenticationService     Authentication service
+     */
     constructor(private http: Http, private authenticationService: AuthenticationService) { }
 
-    getAll() {
+    /**
+     * Get all trips request
+     * @returns     Response JSON with trips array
+     */
+    getAll(): any {
         return this.http.get('/api/trips', this.authenticationService.jwt()).map((response: Response) => <Trip[]>response.json());
     }
 
-    getById(id: number) {
+    /**
+     * Get trip by id request
+     * @param id    Trip id
+     * @returns     Response JSON
+     */
+    getById(id: number): any {
         return this.http.get('/api/trips/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    create(trip: Trip) {
+    /**
+     * Create trip request
+     * @param trip      Trip
+     * @returns         Response JSON
+     */
+    create(trip: Trip): any {
         return this.http.post('/api/trips', trip, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    update(trip: Trip) {
+    /**
+     * Update trip request
+     * @param trip      Trip
+     * @returns         Response JSON
+     */
+    update(trip: Trip): any {
         return this.http.put('/api/trips/' + trip.id, trip, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    delete(id: number) {
+    /**
+     * Delete trip request
+     * @param id    Trip id
+     * @returns     Response JSON
+     */
+    delete(id: number): any {
         return this.http.delete('/api/trips/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    invite(inviteToTripCommand: InviteToTripCommand) {
+    /**
+     * Invite to trip request
+     * @param inviteToTripCommand       Invite to trip command
+     * @returns                         Response
+     */
+    invite(inviteToTripCommand: InviteToTripCommand): any {
         return this.http.post('/api/trips/invite', inviteToTripCommand, this.authenticationService.jwt()).map((response: Response) => response);
     }
 
-    getParticipants(id: number) {
+    /**
+     * Get all trip participants request
+     * @param id    Trip id
+     * @returns     Response JSON
+     */
+    getParticipants(id: number): any {
         return this.http.get('/api/trips/participants/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    getTripRequests(id: number) {
+    /**
+     * Get all trip requests request
+     * @param id    Trip id
+     * @returns     Response JSON
+     */
+    getTripRequests(id: number): any {
         return this.http.get('/api/trips/invited/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
-    joinTrip(joinTripCommand: JoinTripCommand) {
+    /**
+     * Join to trip request
+     * @param joinTripCommand       Join trip command
+     * @returns                     Response
+     */
+    joinTrip(joinTripCommand: JoinTripCommand): any {
         return this.http.post('/api/trips/join', joinTripCommand, this.authenticationService.jwt()).map((response: Response) => response);
     }
 }

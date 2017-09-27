@@ -50,7 +50,7 @@ export class NotificationsComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
             this.notificationService.getAll().subscribe(
                 result => this.notifications = result
@@ -61,7 +61,7 @@ export class NotificationsComponent implements OnInit {
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         this.notifications = [
             {
                 id: 1,

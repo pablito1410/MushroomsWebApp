@@ -14,9 +14,9 @@ import { MdSnackBar } from "@angular/material";
 export class RegisterComponent {
     
     /** User login data in form */
-    model: any = {};
+    model: any;
     /** Flag indicating whether to display the loading animated icon */
-    loading = false;
+    loading: boolean;
 
     /**
      * Constructor of class
@@ -27,7 +27,10 @@ export class RegisterComponent {
     constructor(
         private router: Router,
         private userService: UserService,
-        public snackBar: MdSnackBar) { }
+        public snackBar: MdSnackBar) {
+        this.model = {};
+        this.loading = false;
+    }
 
     /**
      * Register button handle

@@ -1,41 +1,65 @@
-import {Component, ElementRef, Inject, NgZone, OnInit, ViewChild} from "@angular/core";
-import {MdDialog, MdDialogRef, MdSnackBar} from "@angular/material";
-import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
-import {FormControl} from "@angular/forms";
-import {MapsAPILoader} from "angular2-google-maps/core";
-import {Trip} from "../../../model/trip";
-import {UserDetailsComponent} from "../../user/user-details/user-details.component";
-import {UserService} from "../../../services/user.service";
-import {User} from "../../../model/user";
-import {DOCUMENT} from "@angular/platform-browser";
-import {FriendService} from "../../../services/friend.service";
-import {TripService} from "../../../services/trip.service";
-import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
-import { PhotoTool } from "../../../tools/photo-tool";
+import { Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from "@angular/core";
+import { MdDialog, MdDialogRef, MdSnackBar } from "@angular/material";
+import { SearchFriendsComponent } from "../../friends/search-friends/search-friends.component";
+import { FormControl } from "@angular/forms";
+import { MapsAPILoader } from "angular2-google-maps/core";
+import { Trip } from "../../../model/trip";
+import { UserDetailsComponent } from "../../user/user-details/user-details.component";
+import { UserService } from "../../../services/user.service";
+import { User } from "../../../model/user";
+import { DOCUMENT } from "@angular/platform-browser";
+import { FriendService } from "../../../services/friend.service";
+import { TripService } from "../../../services/trip.service";
+import { InviteToTripCommand } from "../../../commands/invite-to-trip.command";
+import { Tools } from "../../../tools/tools";
 
+/**
+ * Add trip dialog component
+ */
 @Component({
     moduleId: module.id,
     selector: 'add-trip-cmp',
     templateUrl: 'add-trip.component.html'
 })
 export class AddTripComponent implements OnInit {
+    /** Trip model object */
     trip: Trip;
+    /** Array with friends */
     friends: User[];
+    /** Set with selected friends */
     selectedFriends: Set<User>;
-    public searchControl: FormControl;
-    public zoom: number;
+    /** Serach form control */
+    searchControl: FormControl;
+    /** Zoom on map */
+    zoom: number;
+    /** Option selected in dialog */
     selectedOption: string;
+    /** Trip minute */
     minute: number;
+    /** Trip hour */
     hour: number;
+    /** Current date */
     currentDate: Date;
+    /** Input date */
     inputDate: Date;
 
-    @ViewChild("search")
-    public searchElementRef: ElementRef;
+    /** Search element reference */
+    @ViewChild("search") public searchElementRef: ElementRef;
 
-    /** Static method assignment */
-    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+    /** Static method get photo string to display assignment */
+    getPhotoStringToDisplay = Tools.getPhotoStringToDisplay;
 
+    /**
+     * Constructor of class
+     * @param dialog            Material dialog
+     * @param dialogRef         Material dialog reference to this component
+     * @param mapsAPILoader     Google maps API loader
+     * @param ngZone            Angular zone
+     * @param document          Current document
+     * @param friendService     Friend service
+     * @param tripService       Trip service
+     * @param snackBar          Material snack bar
+     */
     constructor(
         public dialog: MdDialog,
         public dialogRef: MdDialogRef<AddTripComponent>,
@@ -53,39 +77,13 @@ export class AddTripComponent implements OnInit {
         this.inputDate = new Date();
     }
 
+    /**
+     * Initialization method
+     */
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.friends = [
-                {
-                    id: 1,
-                    username: 'roman33',
-                    email: 'romy@mail.com',
-                    firstName: 'Roman',
-                    lastName: 'Nowak',
-                    birthDate: '21.07.1989',
-                    gender: 'MALE',
-                    level: 'BEGINNER',
-                    country: 'Polska',
-                    city: 'Gliwice',
-                    photo: null,
-                    role: 'MUSHROOMER'
-                },
-                {
-                    id: 2,
-                    username: 'thomas22',
-                    email: 'tomy22@mail.com',
-                    firstName: 'Tom',
-                    lastName: 'Goreing',
-                    birthDate: '06.11.1991',
-                    gender: 'MALE',
-                    level: 'BEGINNER',
-                    country: 'Germany',
-                    city: 'Berlin',
-                    photo: null,
-                    role: 'MUSHROOMER'
-                }
-            ];
+            this.initFakeData();
         } else {
             this.hour = 1;
             this.minute = 0;
@@ -95,20 +93,20 @@ export class AddTripComponent implements OnInit {
         }
         this.trip.radius = 1000;
         this.setCurrentPosition();
-        //load Places Autocomplete
+        // load places autocomplete
         this.mapsAPILoader.load().then(() => {
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ["address"]
             });
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
-                    //get the place result
+                    // get the place result
                     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                    //verify result
+                    // verify result
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
-                    //set latitude, longitude and zoom
+                    // set latitude, longitude and zoom
                     this.trip.coordinateX = place.geometry.location.lat();
                     this.trip.coordinateY = place.geometry.location.lng();
                     this.zoom = 12;
@@ -117,6 +115,45 @@ export class AddTripComponent implements OnInit {
         });
     }
 
+    /**
+     * Initialize the component with fake data
+     */
+    private initFakeData() {
+        this.friends = [
+            {
+                id: 1,
+                username: 'roman33',
+                email: 'romy@mail.com',
+                firstName: 'Roman',
+                lastName: 'Nowak',
+                birthDate: '21.07.1989',
+                gender: 'MALE',
+                level: 'BEGINNER',
+                country: 'Polska',
+                city: 'Gliwice',
+                photo: null,
+                role: 'MUSHROOMER'
+            },
+            {
+                id: 2,
+                username: 'thomas22',
+                email: 'tomy22@mail.com',
+                firstName: 'Tom',
+                lastName: 'Goreing',
+                birthDate: '06.11.1991',
+                gender: 'MALE',
+                level: 'BEGINNER',
+                country: 'Germany',
+                city: 'Berlin',
+                photo: null,
+                role: 'MUSHROOMER'
+            }
+        ];
+    }
+
+    /**
+     * Sets current position using geolocation
+     */
     private setCurrentPosition() {
         this.trip.coordinateX = 50.28940619999999;
         this.trip.coordinateY = 18.67378259999998;
@@ -129,6 +166,9 @@ export class AddTripComponent implements OnInit {
         }
     }
 
+    /**
+     * Sets place on map
+     */
     setPlace() {
         var latlng = new google.maps.LatLng(this.trip.coordinateX, this.trip.coordinateY);
         var geocoder = geocoder = new google.maps.Geocoder();
@@ -139,17 +179,24 @@ export class AddTripComponent implements OnInit {
                     this.trip.place = results[0].formatted_address;
                 }
             }
-            // alert("Place: " + this.trip.place);
         });
     }
 
+    /**
+     * Circle drag end handle
+     * @param $event    Event
+     */
     circleDragEnd($event: any) {
         this.trip.coordinateX = $event.coords.lat;
         this.trip.coordinateY = $event.coords.lng;
         this.setPlace();
     }
 
-    openUserDetailsDialog(user) {
+    /**
+     * Opens user details dialog
+     * @param user      User
+     */
+    openUserDetailsDialog(user: User) {
         let dialogRef = this.dialog.open(UserDetailsComponent, {
             data: {
                 user: user,
@@ -164,6 +211,10 @@ export class AddTripComponent implements OnInit {
         });
     }
 
+    /**
+     * Search friends handle
+     * @param term      Term to search
+     */
     searchFriends(term: string) {
         this.friendService.search(term)
             .subscribe(results => {
@@ -171,14 +222,15 @@ export class AddTripComponent implements OnInit {
             });
     }
 
+    /**
+     * Invites friends to trip
+     */
     inviteFriends() {
         if (this.selectedFriends.size > 0 && this.trip.id) {
-            console.log(this.trip.id);
             let userIds = new Set<number>();
             this.selectedFriends.forEach(f => {
                 userIds.add(f.id);
             })
-            console.log('start invite');
             this.tripService.invite(
                 new InviteToTripCommand(this.trip.id, Array.from(userIds))).subscribe(
                 data => {
@@ -193,7 +245,6 @@ export class AddTripComponent implements OnInit {
                         duration: 2000,
                     });
                 });
-            console.log('stop invite');
         } else {
             this.dialogRef.close('Ok');
             this.snackBar.open('Trip Added', '×', {
@@ -202,16 +253,16 @@ export class AddTripComponent implements OnInit {
         }
     }
 
+    /**
+     * Add trip button handle
+     */
     addTrip() {
         this.inputDate.setHours(this.hour + 2);
         this.inputDate.setMinutes(this.minute);
         this.trip.dateTime = this.inputDate.toISOString().slice(0, -1);
-        console.log('start addTrip');
-        console.log(this.trip);
         this.tripService.create(this.trip).subscribe(
             data => {
                 this.trip.id = +data.toString();
-                console.log('end addTrip');
                 this.inviteFriends();
             },
             error => {
@@ -222,7 +273,12 @@ export class AddTripComponent implements OnInit {
             });
     }
 
-    checkCheckboxStatus(friend: User) : boolean {
+    /**
+     * Checks checkbox status
+     * @param friend    Friend
+     * @returns         Value true if checkbox is selected
+     */
+    checkCheckboxStatus(friend: User): boolean {
         this.selectedFriends.forEach(f => {
             if (friend.id == f.id) {
                 return true;
@@ -231,7 +287,12 @@ export class AddTripComponent implements OnInit {
         return false;
     }
 
-    checkboxOnClick(friend: User, event : Event) {
+    /**
+     * Checkbox on click handle
+     * @param friend    Friend
+     * @param event     Event
+     */
+    checkboxOnClick(friend: User, event: Event) {
         if ($(event.target).is("input")) {
             if (this.selectedFriends.has(friend)) {
                 this.selectedFriends.delete(friend);
@@ -241,6 +302,9 @@ export class AddTripComponent implements OnInit {
         }
     }
 
+    /**
+     * Close button handle
+     */
     close() {
         this.dialogRef.close('Close');
     }

@@ -11,7 +11,7 @@ import { AddScoreCommand } from "app/commands/add-score.command";
 import { ScoreService } from "../../../services/score.service";
 import { CommentService } from "../../../services/comment.service";
 import { CreateCommentCommand } from "../../../commands/create-comment.command";
-import { PhotoTool } from "../../../tools/photo-tool";
+import { Tools } from "../../../tools/tools";
 
 /**
  * Discovery details dialog component
@@ -38,8 +38,8 @@ export class DiscoveryDetailsComponent implements OnInit {
     /** Content of comment */
     commentContent: string;
 
-    /** Static method assignment */
-    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+    /** Static method get photo string to display assignment */
+    getPhotoStringToDisplay = Tools.getPhotoStringToDisplay;
 
     /**
      * Constructor of class
@@ -70,7 +70,7 @@ export class DiscoveryDetailsComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
             this.discoveryService.comments(this.data.discovery.id).subscribe(
                 result => this.comments = result
@@ -96,7 +96,7 @@ export class DiscoveryDetailsComponent implements OnInit {
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         let comment111 = new Comment("Item 1.1.1", []);
         let comment112 = new Comment("Item 1.1.2", []);
         let comment113 = new Comment("Item 1.1.3", []);

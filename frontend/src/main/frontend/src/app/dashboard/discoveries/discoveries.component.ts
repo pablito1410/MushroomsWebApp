@@ -6,7 +6,7 @@ import { AddDiscoveryComponent } from "./add-discovery/add-discovery.component";
 import { DiscoveryDetailsComponent } from "./discovery-details/discovery-details.component";
 import { DiscoveryService } from "../../services/discovery.service";
 import { DOCUMENT } from "@angular/platform-browser";
-import { PhotoTool } from "../../tools/photo-tool";
+import { Tools } from "../../tools/tools";
 
 /**
  * Discoveries page component
@@ -29,8 +29,10 @@ export class DiscoveriesComponent implements OnInit {
     /** Flag indicating public checkbox */
     isPublic: boolean;
 
-    /** Static method assignment */
-    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+    /** Static method get photo string to display assignment */
+    getPhotoStringToDisplay = Tools.getPhotoStringToDisplay;
+    /** Static method convert date tolocale string assignment */
+    convertDateToLocaleString = Tools.convertDateToLocaleString;
 
     /**
      * Constructor of class
@@ -54,7 +56,7 @@ export class DiscoveriesComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
             this.searchDiscoveries('');
         }
@@ -63,7 +65,7 @@ export class DiscoveriesComponent implements OnInit {
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         this.discoveries = [
             {
                 id: 1,
@@ -159,14 +161,6 @@ export class DiscoveriesComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
         });
-    }
-
-    /**
-     * Opens search discovery dialog
-     * @param date      Date string
-     */
-    convertDateToLocaleString(date: string) : string {
-        return new Date(date).toLocaleString();
     }
 
     /**

@@ -31,4 +31,4 @@ import { MdSnackBarModule} from "@angular/material";
         LoginComponent
     ]
 })
-export class AuthenticationModule{}
+export class AuthenticationModule { }

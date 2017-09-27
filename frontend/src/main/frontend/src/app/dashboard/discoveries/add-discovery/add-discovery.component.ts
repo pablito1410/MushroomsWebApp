@@ -77,7 +77,7 @@ export class AddDiscoveryComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
             this.mushroomSpeciesService.getAll().subscribe(
                 result => this.mushroomSpecies = result
@@ -93,7 +93,7 @@ export class AddDiscoveryComponent implements OnInit {
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         this.mushroomSpecies = [
             {
                 id: 1,

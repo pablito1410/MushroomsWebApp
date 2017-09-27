@@ -6,7 +6,7 @@ import { FriendService } from "../../../services/friend.service";
 import { AddFriendCommand } from "../../../commands/add-friend.command";
 import { DOCUMENT } from "@angular/platform-browser";
 import { User } from "../../../model/user";
-import { PhotoTool } from "../../../tools/photo-tool";
+import { Tools } from "../../../tools/tools";
 
 /**
  * Search friends dialog component
@@ -25,8 +25,8 @@ export class SearchFriendsComponent implements OnInit {
     /** Selected users to invite */
     selectedUsers: Set<User>;
 
-    /** Static method assignment */
-    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+    /** Static method get photo string to display assignment */
+    getPhotoStringToDisplay = Tools.getPhotoStringToDisplay;
 
     /**
      * Constructor of class
@@ -54,16 +54,16 @@ export class SearchFriendsComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
-            // For future use
+            // for future use
         }
     }
 
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         this.users = [
             {
                 id: 1,

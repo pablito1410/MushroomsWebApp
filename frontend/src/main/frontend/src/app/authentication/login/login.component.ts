@@ -15,9 +15,9 @@ import { MdSnackBar } from "@angular/material";
 export class LoginComponent implements OnInit {
 
     /** User login data in form */
-    model: any = {};
+    model: any;
     /** Flag indicating whether to display the loading animated icon */
-    loading = false;
+    loading: boolean;
     /** Returned url from route parameters or default */
     returnUrl: string;
 
@@ -32,7 +32,10 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        public snackBar: MdSnackBar) { }
+        public snackBar: MdSnackBar) {
+        this.model = {};
+        this.loading = false;
+    }
 
     /**
      * Initialize method

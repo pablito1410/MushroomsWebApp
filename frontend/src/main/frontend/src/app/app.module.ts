@@ -18,13 +18,15 @@ import { TagService } from "./services/tag.service";
 import { DiscoveryService } from "./services/discovery.service";
 import { CommentService } from "./services/comment.service";
 import { AuthenticationModule } from "./authentication/authentication.module";
-import {FriendService} from "./services/friend.service";
-import {MushroomSpeciesService} from "./services/mushroom-species.service";
-import {ScoreService} from "./services/score.service";
-import {NotificationsComponent} from "./dashboard/notifications/notifications.component";
-import {NotificationService} from "./services/notification.service";
+import { FriendService } from "./services/friend.service";
+import { MushroomSpeciesService } from "./services/mushroom-species.service";
+import { ScoreService } from "./services/score.service";
+import { NotificationsComponent } from "./dashboard/notifications/notifications.component";
+import { NotificationService } from "./services/notification.service";
 
-
+/**
+ * App module
+ */
 @NgModule({
     imports: [
         FormsModule,

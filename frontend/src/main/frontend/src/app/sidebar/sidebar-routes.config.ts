@@ -1,5 +1,8 @@
 import { MenuType, RouteInfo } from './sidebar.metadata';
 
+/**
+ * Sidebar routes configuration
+ */
 export const ROUTES: RouteInfo[] = [
     { path: 'dashboard', title: 'Dashboard', menuType: MenuType.LEFT, icon: 'material-icons' },
     { path: 'user', title: 'User profile', menuType: MenuType.LEFT, icon: 'material-icons' },

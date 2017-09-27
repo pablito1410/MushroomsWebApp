@@ -47,7 +47,7 @@ export class MapsComponent implements OnInit {
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.initFakeData();
+            this. initFakeData();
         } else {
             this.discoveryService.getAll().subscribe(
                 result => this.discoveries = result
@@ -62,7 +62,7 @@ export class MapsComponent implements OnInit {
     /**
      * Initialize the component with fake data
      */
-    initFakeData() {
+     private initFakeData() {
         this.discoveries = [
             {
                 id: 1,

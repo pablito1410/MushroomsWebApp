@@ -7,7 +7,7 @@ import { Comment } from "../../../model/comment";
 import { CommentService } from "../../../services/comment.service";
 import { CreateCommentCommand } from "../../../commands/create-comment.command";
 import { MdSnackBar } from "@angular/material";
-import { PhotoTool } from "../../../tools/photo-tool";
+import { Tools } from "../../../tools/tools";
 
 /**
  * Single comment component
@@ -28,8 +28,8 @@ export class CommentComponent implements OnInit {
     /** Content of comment from text box */
     commentContent: string;
 
-    /** Static method assignment */
-    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+    /** Static method get photo string to display assignment */
+    getPhotoStringToDisplay = Tools.getPhotoStringToDisplay;
 
     /**
      * Constructor of class
