@@ -20,7 +20,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
 import {AddDiscoveryComponent} from "./discoveries/add-discovery/add-discovery.component";
 import {DiscoveryDetailsComponent} from "./discoveries/discovery-details/discovery-details.component";
-import {FriendDetailsComponent} from "./friends/friend-details/friend-details.component";
+import {UserDetailsComponent} from "./user/user-details/user-details.component";
 import {TripDetailsComponent} from "./trips/trip-details/trip-details.component";
 import {AddTripComponent} from "./trips/add-trip/add-trip.component";
 import {TreeModule} from "angular-tree-component";
@@ -62,7 +62,7 @@ import {CommentComponent} from "./comments/comment/comment.component";
         SearchFriendsComponent,
         AddDiscoveryComponent,
         DiscoveryDetailsComponent,
-        FriendDetailsComponent,
+        UserDetailsComponent,
         TripDetailsComponent,
         AddTripComponent,
         CommentsTreeComponent,
@@ -72,7 +72,7 @@ import {CommentComponent} from "./comments/comment/comment.component";
         SearchFriendsComponent,
         AddDiscoveryComponent,
         DiscoveryDetailsComponent,
-        FriendDetailsComponent,
+        UserDetailsComponent,
         TripDetailsComponent,
         AddTripComponent
     ],

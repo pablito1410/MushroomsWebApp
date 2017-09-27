@@ -5,7 +5,7 @@ import {FormControl} from "@angular/forms";
 import {Trip} from "../../../model/trip";
 import {TripService} from "app/services/trip.service";
 import {UserService} from "../../../services/user.service";
-import {FriendDetailsComponent} from "../../friends/friend-details/friend-details.component";
+import {UserDetailsComponent} from "../../user/user-details/user-details.component";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {User} from "../../../model/user";
@@ -13,6 +13,7 @@ import {Discovery} from "app/model/discovery";
 import {DiscoveryDetailsComponent} from "../../discoveries/discovery-details/discovery-details.component";
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
 import {JoinTripCommand} from "../../../commands/join-trip.command";
+import { PhotoTool } from "../../../tools/photo-tool";
 
 @Component({
     moduleId: module.id,
@@ -27,6 +28,9 @@ export class TripDetailsComponent implements OnInit {
     invitedFriends: User[];
     public zoom: number = 12;
     selectedOption: string;
+
+    /** Static method assignment */
+    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
 
     constructor(
         public dialog: MdDialog,
@@ -158,16 +162,8 @@ export class TripDetailsComponent implements OnInit {
         }
     }
 
-    getFriendPhotoToDisplay(friend: User) : string {
-        return 'data:image/png;base64,' + friend.photo;
-    }
-
-    getDiscoveryPhotoToDisplay(discovery: Discovery) : string {
-        return 'data:image/png;base64,' + discovery.photo;
-    }
-
     openUserDetailsDialog(user) {
-        let dialogRef = this.dialog.open(FriendDetailsComponent, {
+        let dialogRef = this.dialog.open(UserDetailsComponent, {
             data: {
                 user: user,
                 status: 'details'

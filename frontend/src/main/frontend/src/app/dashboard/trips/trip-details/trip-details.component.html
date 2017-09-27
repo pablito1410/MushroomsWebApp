@@ -22,7 +22,7 @@
                 <div (click)="openUserDetailsDialog(acceptedFriend)">
                     <div class="card-avatar">
                         <div *ngIf="acceptedFriend.photo != null">
-                            <img class="img" [src]="getFriendPhotoToDisplay(acceptedFriend)"/>
+                            <img class="img" [src]="getPhotoStringToDisplay(acceptedFriend.photo)"/>
                         </div>
                         <div *ngIf="acceptedFriend.photo == null">
                             <img class="img" src="..\assets\img\faces\default-user.png"/>
@@ -43,7 +43,7 @@
                     <div (click)="openUserDetailsDialog(invitedFriend)">
                         <div class="card-avatar">
                             <div *ngIf="invitedFriend.photo != null">
-                                <img class="img" [src]="getFriendPhotoToDisplay(invitedFriend)"/>
+                                <img class="img" [src]="getPhotoStringToDisplay(invitedFriend.photo)"/>
                             </div>
                             <div *ngIf="invitedFriend.photo == null">
                                 <img class="img" src="..\assets\img\faces\default-user.png"/>
@@ -86,7 +86,7 @@
                         <div (click)="openUserDetailsDialog(friend)">
                             <div class="card-avatar">
                                 <div *ngIf="friend.photo != null">
-                                    <img class="img" [src]="getFriendPhotoToDisplay(friend)" />
+                                    <img class="img" [src]="getPhotoStringToDisplay(friend.photo)" />
                                 </div>
                                 <div *ngIf="friend.photo == null">
                                     <img class="img" src="..\assets\img\faces\default-user.png"/>
@@ -110,7 +110,7 @@
             <div class="card card-stats" (click)="openDiscoveryDetailsDialog(discovery)">
                 <div class="card-image">
                     <div *ngIf="discovery.photo != null">
-                        <img class="img" [src]="getDiscoveryPhotoToDisplay(discovery)" />
+                        <img class="img" [src]="getPhotoStringToDisplay(discovery.photo)" />
                     </div>
                     <div *ngIf="discovery.photo == null">
                         <img class="img" width="30%" height="30%" src="..\assets\img\mushrooms-icon.png"/>

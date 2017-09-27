@@ -49,7 +49,7 @@
                                 <div class="card card-stats" (click)="openDiscoveryDetailsDialog(discovery)">
                                     <div class="card-image">
                                         <div *ngIf="discovery.photo != null">
-                                            <img class="img" [src]="getDiscoveryPhotoToDisplay(discovery)" />
+                                            <img class="img" [src]="getPhotoStringToDisplay(discovery.photo)" />
                                         </div>
                                         <div *ngIf="discovery.photo == null">
                                             <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>

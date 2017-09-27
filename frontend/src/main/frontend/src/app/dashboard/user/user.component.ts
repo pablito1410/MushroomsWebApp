@@ -1,8 +1,9 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { MdSnackBar } from "@angular/material";
-import {DOCUMENT} from "@angular/platform-browser";
-import {User} from "../../model/user";
+import { DOCUMENT } from "@angular/platform-browser";
+import { User } from "../../model/user";
+import { PhotoTool } from "../../tools/photo-tool";
 
 @Component({
     moduleId: module.id,
@@ -15,6 +16,9 @@ export class UserComponent implements OnInit {
     imageSrc: string;
     file: File;
     inputDate: Date;
+
+    /** Static method assignment */
+    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
 
     constructor(
         private userService: UserService,
@@ -118,9 +122,5 @@ export class UserComponent implements OnInit {
                         duration: 2000,
                     });
                 });
-    }
-
-    getUserPhotoToDisplay() : string {
-        return 'data:image/png;base64,' + this.user.photo;
     }
 }

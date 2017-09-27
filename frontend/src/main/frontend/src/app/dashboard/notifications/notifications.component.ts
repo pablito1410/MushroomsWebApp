@@ -1,26 +1,40 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {DOCUMENT} from "@angular/platform-browser";
-import {NotificationService} from "app/services/notification.service";
-import {TripService} from "app/services/trip.service";
-import {UserService} from "app/services/user.service";
-import {DiscoveryService} from "app/services/discovery.service";
-import {Notification} from "app/model/notification";
-import {MdSnackBar, MdDialog} from "@angular/material";
-import {FriendDetailsComponent} from "app/dashboard/friends/friend-details/friend-details.component";
-import {DiscoveryDetailsComponent} from "app/dashboard/discoveries/discovery-details/discovery-details.component";
-import {TripDetailsComponent} from "app/dashboard/trips/trip-details/trip-details.component";
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from "@angular/platform-browser";
+import { NotificationService } from "app/services/notification.service";
+import { TripService } from "app/services/trip.service";
+import { UserService } from "app/services/user.service";
+import { DiscoveryService } from "app/services/discovery.service";
+import { Notification } from "app/model/notification";
+import { MdSnackBar, MdDialog } from "@angular/material";
+import { UserDetailsComponent } from "app/dashboard/user/user-details/user-details.component";
+import { DiscoveryDetailsComponent } from "app/dashboard/discoveries/discovery-details/discovery-details.component";
+import { TripDetailsComponent } from "app/dashboard/trips/trip-details/trip-details.component";
 
+/**
+ * Notifications page component
+ */
 @Component({
     moduleId: module.id,
     selector: 'notifications-cmp',
     templateUrl: 'notifications.component.html'
 })
-
 export class NotificationsComponent implements OnInit {
 
+    /** Array with model notification objects */
     notifications: Notification[];
+    /** Option selected in dialog */
     selectedOption: string;
 
+    /**
+     * Constructor of class
+     * @param dialog                    Material dialog
+     * @param notificationService       Notification service
+     * @param tripService               Trip service
+     * @param userService               User service
+     * @param discoveryService          Discovery service
+     * @param document                  Current document
+     * @param snackBar                  Material snack bar
+     */
     constructor(
         public dialog: MdDialog,
         private notificationService: NotificationService,
@@ -30,32 +44,13 @@ export class NotificationsComponent implements OnInit {
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar) { }
 
+    /**
+     * Initialization method
+     */
     ngOnInit() {
         if (+document.location.port == 4200) {
             // for only frontend development purposes
-            this.notifications = [
-                {
-                    id: 1,
-                    content: 'Marian would like to add you to your friends',
-                    type: 'FRIEND_INVITATION',
-                    relatedId: 2,
-                    dateTime: '2016-06-21T19:09:42.646Z'
-                },
-                {
-                    id: 2,
-                    content: 'Kasia invited you on a trip',
-                    type: 'TRIP_ADDING',
-                    relatedId: 2,
-                    dateTime: '2016-06-21T19:09:42.646Z'
-                },
-                {
-                    id: 3,
-                    content: 'Michael found the mushroom on a trip in Krakow',
-                    type: 'MUSHROOM_FINDING',
-                    relatedId: 2,
-                    dateTime: '2016-06-21T19:09:42.646Z'
-                }
-            ]
+            this.initFakeData();
         } else {
             this.notificationService.getAll().subscribe(
                 result => this.notifications = result
@@ -63,7 +58,41 @@ export class NotificationsComponent implements OnInit {
         }
     }
 
-    getIconType(type: String) : String {
+    /**
+     * Initialize the component with fake data
+     */
+    initFakeData() {
+        this.notifications = [
+            {
+                id: 1,
+                content: 'Marian would like to add you to your friends',
+                type: 'FRIEND_INVITATION',
+                relatedId: 2,
+                dateTime: '2016-06-21T19:09:42.646Z'
+            },
+            {
+                id: 2,
+                content: 'Kasia invited you on a trip',
+                type: 'TRIP_ADDING',
+                relatedId: 2,
+                dateTime: '2016-06-21T19:09:42.646Z'
+            },
+            {
+                id: 3,
+                content: 'Michael found the mushroom on a trip in Krakow',
+                type: 'MUSHROOM_FINDING',
+                relatedId: 2,
+                dateTime: '2016-06-21T19:09:42.646Z'
+            }
+        ];
+    }
+
+    /**
+     * Gets type of icon to display based on type of notification
+     * @param type      Type of notification
+     * @returns         Type of icon
+     */
+    getIconType(type: string): string {
         switch (type) {
             case 'FRIEND_INVITATION':
             case 'FRIEND_ACCEPTING':
@@ -79,6 +108,10 @@ export class NotificationsComponent implements OnInit {
         }
     }
 
+    /**
+     * Delete notification button handle
+     * @param id    Notification identification number
+     */
     deleteNotification(id: number) {
         this.notificationService.delete(id).subscribe(
             response => {
@@ -95,7 +128,13 @@ export class NotificationsComponent implements OnInit {
         );
     }
 
-    openDialog(relatedId, type, id) {
+    /**
+     * Opens appropriate dialog window
+     * @param relatedId     Identification number of related model object
+     * @param type          Type of notification
+     * @param id            Identification number of notification
+     */
+    openDialog(relatedId: number, type: string, id: number) {
         switch (type) {
             case 'FRIEND_INVITATION':
                 this.userService.getById(relatedId).subscribe(
@@ -126,8 +165,14 @@ export class NotificationsComponent implements OnInit {
         }
     }
 
-    openFriendDetailsDialog(user, status, id) {
-        let dialogRef = this.dialog.open(FriendDetailsComponent, {
+    /**
+     * Open friend details dialog
+     * @param user      User
+     * @param status    Status
+     * @param id        Identification number of notification
+     */
+    openFriendDetailsDialog(user: any, status: string, id: number) {
+        let dialogRef = this.dialog.open(UserDetailsComponent, {
             data: { 
                 user: user,
                 status: status
@@ -143,7 +188,13 @@ export class NotificationsComponent implements OnInit {
         });
     }
 
-    openDiscoveryDetailsDialog(discovery, status, id) {
+    /**
+     * Open discovery details dialog
+     * @param discovery     Discovery
+     * @param status        Status
+     * @param id            Identification number of notification
+     */
+    openDiscoveryDetailsDialog(discovery: any, status: string, id: number) {
         let dialogRef = this.dialog.open(DiscoveryDetailsComponent, {
             data: {
                 discovery: discovery,
@@ -160,7 +211,13 @@ export class NotificationsComponent implements OnInit {
         });
     }
 
-    openTripDetailsDialog(trip, status, id) {
+    /**
+     * Open trip details dialog
+     * @param trip      Trip
+     * @param status    Status
+     * @param id        Identification number of notification
+     */
+    openTripDetailsDialog(trip: any, status: string, id: number) {
         let dialogRef = this.dialog.open(TripDetailsComponent, {
             data: { 
                 trip: trip,

@@ -106,7 +106,7 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <div *ngIf="user.photo != null">
-                            <img class="img" [src]="getUserPhotoToDisplay()" />
+                            <img class="img" [src]="getPhotoStringToDisplay(user.photo)" />
                         </div>
                         <div *ngIf="user.photo == null">
                             <img class="img" src="..\assets\img\faces\default-user.png"/>

@@ -4,16 +4,20 @@ import {User} from "../../../model/user";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {AcceptInvitationToFriendsCommand} from "../../../commands/accept-invitation-to-friends.command";
+import { PhotoTool } from "../../../tools/photo-tool";
 
 @Component({
     moduleId: module.id,
-    selector: 'friend-details-cmp',
-    templateUrl: 'friend-details.component.html'
+    selector: 'user-details-cmp',
+    templateUrl: 'user-details.component.html'
 })
-export class FriendDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit {
+
+    /** Static method assignment */
+    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
 
     constructor(
-        public dialogRef: MdDialogRef<FriendDetailsComponent>,
+        public dialogRef: MdDialogRef<UserDetailsComponent>,
         @Inject(MD_DIALOG_DATA) public data: any,
         @Inject(DOCUMENT) private document,
         public snackBar: MdSnackBar,
@@ -29,10 +33,6 @@ export class FriendDetailsComponent implements OnInit {
 
     convertDateToLocaleString(date: string) : string {
         return new Date(date).toLocaleDateString();
-    }
-
-    getUserPhotoToDisplay() : string {
-        return 'data:image/png;base64,' + this.data.user.photo;
     }
 
     accept() {

@@ -1,25 +1,41 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {Discovery} from "../../../model/discovery";
+import { Component, OnInit, Input } from '@angular/core';
+import { Discovery } from "../../../model/discovery";
 import { MdDialog} from "@angular/material";
-import {SearchFriendsComponent} from "../../friends/search-friends/search-friends.component";
-import {DiscoveryService} from "../../../services/discovery.service";
-import {Comment} from "../../../model/comment";
-import LinkedList from "ng2-bootstrap/utils/linked-list.class";
-import {CommentService} from "../../../services/comment.service";
-import {CreateCommentCommand} from "../../../commands/create-comment.command";
-import {MdSnackBar} from "@angular/material";
+import { SearchFriendsComponent } from "../../friends/search-friends/search-friends.component";
+import { DiscoveryService } from "../../../services/discovery.service";
+import { Comment } from "../../../model/comment";
+import { CommentService } from "../../../services/comment.service";
+import { CreateCommentCommand } from "../../../commands/create-comment.command";
+import { MdSnackBar } from "@angular/material";
+import { PhotoTool } from "../../../tools/photo-tool";
 
+/**
+ * Single comment component
+ */
 @Component({
     moduleId: module.id,
     selector: 'comment-cmp',
     templateUrl: 'comment.component.html'
 })
 export class CommentComponent implements OnInit {
+
+    /** Input model comment object */
     @Input() comment: Comment;
+    /** Flag indicating whether the comment is expanded */
     expanded: boolean;
+    /** Flag indicating whether the text box is displayed */
     textBox: boolean;
+    /** Content of comment from text box */
     commentContent: string;
 
+    /** Static method assignment */
+    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
+
+    /**
+     * Constructor of class
+     * @param snackBar          Material snack bar
+     * @param commentService    Comment service
+     */
     constructor(
         public snackBar: MdSnackBar,
         private commentService: CommentService) {
@@ -27,24 +43,39 @@ export class CommentComponent implements OnInit {
         this.textBox = false;
     }
 
+    /**
+     * Initialization method
+     */
     ngOnInit() {
-
+        // for future use
     }
 
+    /**
+     * Hide / show answers button handle
+     */
     toggle() {
         this.expanded = !this.expanded;
         this.textBox = false;
     }
 
+    /**
+     * Reply button handle
+     */
     write() {
         this.textBox = true;
         this.expanded = true;
     }
 
+    /**
+     * Cancel button handle
+     */
     cancel() {
         this.textBox = false;
     }
 
+    /**
+     * Submit button handle
+     */
     submit() {
         this.commentService.create(
             new CreateCommentCommand(
@@ -62,9 +93,5 @@ export class CommentComponent implements OnInit {
                         });
                     }
                 );
-    }
-
-    getUserPhotoToDisplay() : string {
-        return 'data:image/png;base64,' + this.comment.user.photo;
     }
 }

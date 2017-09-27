@@ -4,13 +4,14 @@ import {SearchFriendsComponent} from "../../friends/search-friends/search-friend
 import {FormControl} from "@angular/forms";
 import {MapsAPILoader} from "angular2-google-maps/core";
 import {Trip} from "../../../model/trip";
-import {FriendDetailsComponent} from "../../friends/friend-details/friend-details.component";
+import {UserDetailsComponent} from "../../user/user-details/user-details.component";
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../model/user";
 import {DOCUMENT} from "@angular/platform-browser";
 import {FriendService} from "../../../services/friend.service";
 import {TripService} from "../../../services/trip.service";
 import {InviteToTripCommand} from "../../../commands/invite-to-trip.command";
+import { PhotoTool } from "../../../tools/photo-tool";
 
 @Component({
     moduleId: module.id,
@@ -31,6 +32,9 @@ export class AddTripComponent implements OnInit {
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
+
+    /** Static method assignment */
+    getPhotoStringToDisplay = PhotoTool.getPhotoStringToDisplay;
 
     constructor(
         public dialog: MdDialog,
@@ -146,7 +150,7 @@ export class AddTripComponent implements OnInit {
     }
 
     openUserDetailsDialog(user) {
-        let dialogRef = this.dialog.open(FriendDetailsComponent, {
+        let dialogRef = this.dialog.open(UserDetailsComponent, {
             data: {
                 user: user,
                 status: 'details'
@@ -216,10 +220,6 @@ export class AddTripComponent implements OnInit {
                     duration: 2000,
                 });
             });
-    }
-
-    getFriendPhotoToDisplay(friend: User) : string {
-        return 'data:image/png;base64,' + friend.photo;
     }
 
     checkCheckboxStatus(friend: User) : boolean {

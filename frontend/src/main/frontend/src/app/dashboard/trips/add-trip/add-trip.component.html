@@ -87,7 +87,7 @@
                 <div (click)="openUserDetailsDialog(friend)">
                     <div class="card-avatar">
                         <div *ngIf="friend.photo != null">
-                            <img class="img" [src]="getFriendPhotoToDisplay(friend)" />
+                            <img class="img" [src]="getPhotoStringToDisplay(friend.photo)" />
                         </div>
                         <div *ngIf="friend.photo == null">
                             <img class="img" src="..\assets\img\faces\default-user.png"/>

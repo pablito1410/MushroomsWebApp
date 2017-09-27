@@ -2,7 +2,7 @@
     <div class="col-md-2 text-right">
         <div *ngIf="comment.user.photo != null">
             <div class="comment-img-mask">
-                <img class="comment-img" [src]="getUserPhotoToDisplay()" />
+                <img class="comment-img" [src]="getPhotoStringToDisplay(comment.user.photo)" />
             </div>
         </div>
         <div *ngIf="comment.user.photo == null">

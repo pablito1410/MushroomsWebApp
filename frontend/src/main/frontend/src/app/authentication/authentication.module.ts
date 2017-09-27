@@ -8,6 +8,10 @@ import { FormsModule } from "@angular/forms";
 import { EqualValidator } from "./equal-validator.directive";
 import { MdSnackBarModule} from "@angular/material";
 
+/**
+ * Authentication module
+ * @preferred
+ */
 @NgModule({
     imports: [
         FormsModule,

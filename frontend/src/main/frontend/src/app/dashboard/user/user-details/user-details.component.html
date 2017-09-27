@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-image">
                     <div *ngIf="data.user.photo != null">
-                        <img class="img" [src]="getUserPhotoToDisplay()" />
+                        <img class="img" [src]="getPhotoStringToDisplay(data.user.photo)" />
                     </div>
                     <div *ngIf="data.user.photo == null">
                         <img class="img" width="80%" height="80%" src="..\assets\img\faces\default-user.png"/>

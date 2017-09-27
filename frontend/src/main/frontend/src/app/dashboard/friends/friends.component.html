@@ -16,7 +16,7 @@
                                 <div class="card card-profile" (click)="openFriendDetailsDialog(invitedFriend, 'details')">
                                     <div class="card-avatar">
                                         <div *ngIf="invitedFriend.photo != null">
-                                            <img class="img" [src]="getUserPhotoToDisplay(invitedFriend)" />
+                                            <img class="img" [src]="getPhotoStringToDisplay(invitedFriend.photo)" />
                                         </div>
                                         <div *ngIf="invitedFriend.photo == null">
                                             <img class="img" src="..\assets\img\faces\default-user.png"/>
@@ -34,7 +34,7 @@
                                 <div class="card card-profile" (click)="openFriendDetailsDialog(requestedFriend, 'requests')">
                                     <div class="card-avatar">
                                         <div *ngIf="requestedFriend.photo != null">
-                                            <img class="img" [src]="getUserPhotoToDisplay(requestedFriend)" />
+                                            <img class="img" [src]="getPhotoStringToDisplay(requestedFriend.photo)" />
                                         </div>
                                         <div *ngIf="requestedFriend.photo == null">
                                             <img class="img" src="..\assets\img\faces\default-user.png"/>
@@ -52,7 +52,7 @@
                                 <div class="card card-profile" (click)="openFriendDetailsDialog(friend, 'details')">
                                     <div class="card-avatar">
                                         <div *ngIf="friend.photo != null">
-                                            <img class="img" [src]="getUserPhotoToDisplay(friend)" />
+                                            <img class="img" [src]="getPhotoStringToDisplay(friend.photo)" />
                                         </div>
                                         <div *ngIf="friend.photo == null">
                                             <img class="img" src="..\assets\img\faces\default-user.png"/>

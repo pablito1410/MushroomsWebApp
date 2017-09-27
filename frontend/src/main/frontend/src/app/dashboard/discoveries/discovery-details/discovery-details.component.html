@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-image">
                         <div *ngIf="data.discovery.photo != null">
-                            <img class="img" [src]="getPhotoToDisplay(data.discovery.photo)" />
+                            <img class="img" [src]="getPhotoStringToDisplay(data.discovery.photo)" />
                         </div>
                         <div *ngIf="data.discovery.photo == null">
                             <img class="img" width="80%" height="80%" src="..\assets\img\mushrooms-icon.png"/>
@@ -64,7 +64,7 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-image">
-                                <img class="img" [src]="getPhotoToDisplay(data.discovery.mushroomSpecies.examplePhoto)" />
+                                <img class="img" [src]="getPhotoStringToDisplay(data.discovery.mushroomSpecies.examplePhoto)" />
                             </div>
                         </div>
                     </div>

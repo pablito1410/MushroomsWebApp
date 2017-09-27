@@ -4,7 +4,6 @@
         [zoom]="zoom"
         [disableDefaultUI]="false"
         [zoomControl]="false">
-
     <sebm-google-map-marker
             *ngFor="let discovery of discoveries"
             [latitude]="discovery.coordinateX"
@@ -16,9 +15,7 @@
         <sebm-google-map-info-window>
             <strong>InfoWindow content</strong>
         </sebm-google-map-info-window>
-
     </sebm-google-map-marker>
-
     <sebm-google-map-circle
             *ngFor="let trip of trips"
             [latitude]="trip.coordinateX"
@@ -28,5 +25,4 @@
             [circleDraggable]="false"
             [editable]="false">
     </sebm-google-map-circle>
-
 </sebm-google-map>

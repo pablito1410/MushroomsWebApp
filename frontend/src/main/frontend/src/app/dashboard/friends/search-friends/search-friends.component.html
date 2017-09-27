@@ -6,9 +6,6 @@
                 <input type="text" class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
                 <span class="material-input"></span>
             </div>
-            <!--<button type="submit" class="btn btn-white btn-round btn-just-icon">-->
-                <!--<i class="material-icons">search</i><div class="ripple-container"></div>-->
-            <!--</button>-->
         </form>
     </div>
     <div class="row top-buffer">
@@ -31,7 +28,7 @@
                 <div (click)="openUserDetailsDialog(user)">
                     <div class="card-avatar">
                         <div *ngIf="user.photo != null">
-                            <img class="img" [src]="getUserPhotoToDisplay(user)" />
+                            <img class="img" [src]="getPhotoStringToDisplay(user.photo)" />
                         </div>
                         <div *ngIf="user.photo == null">
                             <img class="img" src="..\assets\img\faces\default-user.png"/>

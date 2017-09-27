@@ -1,34 +1,50 @@
-﻿import {Component, OnInit, Input} from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { AuthenticationService } from '../../services/authentication.service';
-import {AppComponent} from "../../app.component";
-import {MdSnackBar} from "@angular/material";
+import { AppComponent } from "../../app.component";
+import { MdSnackBar } from "@angular/material";
 
+/**
+ * Login page component
+ */
 @Component({
     moduleId: module.id,
     selector: 'login-cmp',
     templateUrl: 'login.component.html'
 })
 export class LoginComponent implements OnInit {
+
+    /** User login data in form */
     model: any = {};
+    /** Flag indicating whether to display the loading animated icon */
     loading = false;
+    /** Returned url from route parameters or default */
     returnUrl: string;
 
+    /**
+     * Constructor of class
+     * @param route                     Activated route
+     * @param router                    Router
+     * @param authenticationService     Authentication service
+     * @param snackBar                  Material snack bar
+     */
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
         public snackBar: MdSnackBar) { }
 
+    /**
+     * Initialize method
+     */
     ngOnInit() {
-        // reset login status
         this.authenticationService.logout();
-
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
+    /**
+     * Login button handle
+     */
     login() {
         this.loading = true;
         this.authenticationService.login(this.model.email, this.model.password)
