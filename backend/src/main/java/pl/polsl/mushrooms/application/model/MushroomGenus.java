@@ -21,7 +21,7 @@ public class MushroomGenus implements Serializable {
 	@JoinColumn(name = "\"MUSH_FAMILY_ID\"")
 	private MushroomFamily family;
 
-	@OneToMany(mappedBy = "genus")
+	@OneToMany(mappedBy = "genus", cascade = CascadeType.ALL)
 	private Set<MushroomSpecies> species;
 
 	protected MushroomGenus() {

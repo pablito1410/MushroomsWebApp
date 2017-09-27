@@ -38,9 +38,9 @@ public class UserController {
     }
 
     /**
-     * CREATE
-     * @param command
-     * @return
+     * Rest method to create an user
+     * @param command to create an user
+     * @return Id of the new user
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Long> create(@RequestBody CreateUserCommand command) {
@@ -49,9 +49,9 @@ public class UserController {
     }
 
     /**
-     * READ
-     * @param id
-     * @return
+     * Get user by id
+     * @param id of the user
+     * @return details of the user
      */
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserDto> getById(@PathVariable(name = "id") long id) {
@@ -60,8 +60,8 @@ public class UserController {
     }
 
     /**
-     * READ
-     * @return
+     * Get current user details
+     * @return details of current logged user
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<UserDto> get() {
@@ -71,8 +71,8 @@ public class UserController {
     }
 
     /**
-     * READ
-     * @return
+     * Get all users. Admin role is required
+     * @return array of the all users
      */
     @RequestMapping(path = "/all", method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> getAll() {
@@ -82,9 +82,9 @@ public class UserController {
     }
 
     /**
-     * SEARCH
-     * @param value
-     * @return
+     * Search an user by name
+     * @param value part of the user's name
+     * @return array of the found users
      */
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public ResponseEntity<Set<MushroomerDto>> search(@RequestParam(value = "value") String value) {
