@@ -4,6 +4,7 @@ import { User } from "./user";
  * Model comment class
  */
 export class Comment {
+    
     /** Comment id */
     id: number;
     /** Content */

@@ -20,7 +20,7 @@ export class AuthenticationService {
      * @param email         Email
      * @param password      Password
      */
-    login(email: string, password: string) {
+    login(email: string, password: string): any {
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         let urlSearchParams = new URLSearchParams();

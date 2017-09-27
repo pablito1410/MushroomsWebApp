@@ -20,7 +20,7 @@ export class CommentService {
      * Get all comments request
      * @returns     Response JSON
      */
-    getAll() {
+    getAll(): any {
         return this.http.get('/api/comments', this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
@@ -29,7 +29,7 @@ export class CommentService {
      * @param id    Comment id
      * @returns     Response JSON
      */
-    getById(id: number) {
+    getById(id: number): any {
         return this.http.get('/api/comments/' + id, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 
@@ -38,7 +38,7 @@ export class CommentService {
      * @param createComentCommand       Create coment command
      * @returns                         Response JSON
      */
-    create(createComentCommand: CreateCommentCommand) {
+    create(createComentCommand: CreateCommentCommand): any {
         return this.http.post('/api/comments', createComentCommand, this.authenticationService.jwt()).map((response: Response) => response.json());
     }
 }
