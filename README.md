@@ -80,6 +80,17 @@ cd frontend/src/main/frontend
 ng serve
 ```
 
+## Deploy aplikacji na heroku
+
+* Mając założone konto heroku oraz postawioną tam bazę danych w głównym folderze projektu wpisujemy następujące komendy:
+```bash
+heroku login
+heroku git:remote -a mushrooms-picking
+mvn heroku:deploy
+heroku ps:scale web=1
+```
+Gdzie należy najpierw podać dane logowania, a 'mushrooms-picking' to nazwa aplikacji na heroku.
+
 ## Kontakt
 
 W razie problemów prosimy kontaktować się niezwłocznie:
