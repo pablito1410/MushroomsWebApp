@@ -23,6 +23,7 @@ public class DeleteUsersCommand implements VoidCommand {
         return ids;
     }
 
+    public void setIds(final long[] ids) { this.ids = ids; }
 //    public String getAdminPassword() {
 //        return adminPassword;
 //    }

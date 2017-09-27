@@ -27,7 +27,7 @@ public abstract class User implements Serializable {
 	@Column(name = "\"PASSWORD\"", nullable = false)
 	protected String password;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	protected Set<Comment> comments;
 
 	protected User() {

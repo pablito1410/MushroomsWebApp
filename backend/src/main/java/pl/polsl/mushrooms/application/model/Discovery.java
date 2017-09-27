@@ -41,13 +41,13 @@ public class Discovery  {
 	@JoinColumn(name = "\"USER_ID\"")
 	private Mushroomer mushroomer;
 
-	@OneToMany(mappedBy = "discovery")
+	@OneToMany(mappedBy = "discovery", cascade = CascadeType.ALL)
 	private Set<Score> scores;
 
-	@ManyToMany(mappedBy = "discovery")
+	@ManyToMany(mappedBy = "discovery", cascade = CascadeType.ALL)
 	private Set<Tag> tags;
 
-	@OneToMany(mappedBy = "discovery")
+	@OneToMany(mappedBy = "discovery", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
 
 	protected Discovery() {

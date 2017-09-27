@@ -30,10 +30,11 @@ public class Trip implements Serializable{
 	@Column(name = "\"RADIUS\"")
 	private Double radius;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name = "\"USERS_TRIPS\"",
 			joinColumns = {@JoinColumn(name = "\"TRIP_ID\"")},
-			inverseJoinColumns = {@JoinColumn(name = "\"USER_ID\"")})
+			inverseJoinColumns = {@JoinColumn(name = "\"USER_ID\"")}
+	)
 	private Set<Mushroomer> mushroomers;
 
 	@OneToMany(mappedBy = "trip")

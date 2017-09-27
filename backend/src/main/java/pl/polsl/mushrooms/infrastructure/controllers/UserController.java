@@ -111,7 +111,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(DeleteUsersCommand command) {
+    public ResponseEntity<Void> delete(@RequestBody DeleteUsersCommand command) {
         command.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
         commandGateway.dispatch(command);
         return new ResponseEntity<>(HttpStatus.OK);

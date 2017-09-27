@@ -47,20 +47,20 @@ public class Mushroomer extends User {
 	private byte[] photo;
 
 	@ManyToMany(targetEntity = Trip.class, mappedBy = "mushroomers",
-			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+			fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Set<Trip> trips;
 
-	@OneToMany(mappedBy = "mushroomer")
+	@OneToMany(mappedBy = "mushroomer", cascade = CascadeType.ALL)
 	private Set<Score> scores;
 
-	@OneToMany(mappedBy = "mushroomer")
+	@OneToMany(mappedBy = "mushroomer", cascade = CascadeType.ALL)
 	private Set<Discovery> discoveries;
 
 	@OneToMany(mappedBy = "mushroomer")
 	protected Set<Notification> notifications;
 
 	@ManyToMany(targetEntity = Mushroomer.class,
-			fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+			fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name = "\"USERS_USERS\"",
 			joinColumns = {@JoinColumn(name = "\"USER_ID\"")},
 			inverseJoinColumns = {@JoinColumn(name = "\"FRIEND_ID\"")})

@@ -33,7 +33,7 @@ public class Comment {
 	@JoinColumn(name = "\"USER_ID\"")
 	private User user;
 
-	@OneToMany(mappedBy = "target")
+	@OneToMany(mappedBy = "target", cascade = CascadeType.ALL)
 	private Set<Comment> answers;
 
 	protected Comment() {
