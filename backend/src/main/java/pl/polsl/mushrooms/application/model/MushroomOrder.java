@@ -21,7 +21,7 @@ public class MushroomOrder implements Serializable {
 	@JoinColumn(name = "\"MUSH_CLASS_ID\"")
 	private MushroomClass mushroomClass;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private Set<MushroomFamily> families;
 
 	protected MushroomOrder() {
