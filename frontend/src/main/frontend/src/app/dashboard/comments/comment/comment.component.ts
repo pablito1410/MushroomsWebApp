@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Discovery } from "../../../model/discovery";
 import { MdDialog} from "@angular/material";
 import { SearchFriendsComponent } from "../../friends/search-friends/search-friends.component";
-import { DiscoveryService } from "../../../services/discovery.service";
+import { UserService } from "../../../services/user.service";
 import { Comment } from "../../../model/comment";
 import { CommentService } from "../../../services/comment.service";
 import { CreateCommentCommand } from "../../../commands/create-comment.command";
@@ -35,10 +34,12 @@ export class CommentComponent implements OnInit {
      * Constructor of class
      * @param snackBar          Material snack bar
      * @param commentService    Comment service
+     * @param userService       User service
      */
     constructor(
         public snackBar: MdSnackBar,
-        private commentService: CommentService) {
+        private commentService: CommentService,
+        private userService: UserService) {
         this.expanded = false;
         this.textBox = false;
     }
@@ -83,8 +84,13 @@ export class CommentComponent implements OnInit {
                 .subscribe(
                     data => {
                         this.textBox = false;
-                        this.snackBar.open('Comment Added', '×', {
-                            duration: 2000,
+                        let newComment = new Comment(this.commentContent, new Array<Comment>());
+                        this.userService.get().subscribe(result => {
+                            newComment.user = result;
+                            this.comment.answers.push(newComment);
+                            this.snackBar.open('Comment Added', '×', {
+                                duration: 2000,
+                            });
                         });
                     },
                     error => {

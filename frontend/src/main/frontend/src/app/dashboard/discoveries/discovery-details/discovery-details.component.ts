@@ -82,9 +82,10 @@ export class DiscoveryDetailsComponent implements OnInit {
             this.discoveryService.score(this.data.discovery.id).subscribe(
                 result => {
                     this.showRating = false;
-                    this.scoreService.scoresAverge(this.data.discovery.id).subscribe(
-                        result => this.starsCount = +result.text
-                    );
+                    this.scoreService.scoresAverge(this.data.discovery.id).subscribe(response => {
+                        console.log(response);
+                        result => this.starsCount = response;
+                    });
                 },
                 error => {
                     this.showRating = true;
@@ -152,7 +153,6 @@ export class DiscoveryDetailsComponent implements OnInit {
      * Rating handle
      */
     rate() {
-        console.log(this.starsCount);
         this.scoreService.add(new AddScoreCommand(this.data.discovery.id, this.starsCount)).subscribe(
             data => {
                 this.ngOnInit();
