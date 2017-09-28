@@ -1,6 +1,12 @@
 <h1 md-dialog-title>Trip Details</h1>
 <div md-dialog-content>
     <div class="row top-buffer">
+        <h2 class="text-gray">
+            {{data.trip.place}}
+            {{convertDateToLocaleString(data.trip.dateTime)}}
+        </h2>
+    </div>
+    <div class="row top-buffer">
         <sebm-google-map [latitude]="data.trip.coordinateX" [longitude]="data.trip.coordinateY" class="sebm-google-map-container-small" [zoom]="zoom">
             <sebm-google-map-circle [latitude]="data.trip.coordinateX" [longitude]="data.trip.coordinateY"
                                     [radius]="data.trip.radius"

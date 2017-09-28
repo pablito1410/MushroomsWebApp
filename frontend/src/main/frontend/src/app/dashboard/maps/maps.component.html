@@ -8,7 +8,7 @@
             *ngFor="let discovery of discoveries"
             [latitude]="discovery.coordinateX"
             [longitude]="discovery.coordinateY"
-            [label]="'Mushroom'"
+            [label]="discovery.mushroomSpecies.name"
             [markerDraggable]="false"
             (dragEnd)="markerDragEnd(m, $event)">
 
