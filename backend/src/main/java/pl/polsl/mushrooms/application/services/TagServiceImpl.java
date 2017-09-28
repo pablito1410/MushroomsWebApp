@@ -12,9 +12,7 @@ import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
 import javax.persistence.EntityNotFoundException;
 
-/**
- * Created by pawel_zaqkxkn on 04.07.2017.
- */
+
 public class TagServiceImpl implements TagService {
 
     private final DiscoveryDao discoveryDao;

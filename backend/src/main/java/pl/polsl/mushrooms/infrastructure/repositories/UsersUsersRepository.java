@@ -11,9 +11,7 @@ import pl.polsl.mushrooms.application.model.UsersUsersId;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 28.06.2017.
- */
+
 @Repository
 @RepositoryRestResource(exported = false)
 public interface UsersUsersRepository extends JpaRepository<UsersUsers, UsersUsersId> {

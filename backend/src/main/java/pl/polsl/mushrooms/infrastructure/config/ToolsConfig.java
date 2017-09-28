@@ -6,9 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.tools.PasswordEncoder;
 import pl.polsl.mushrooms.infrastructure.tools.PasswordEncoderDefault;
 
-/**
- * Created by pawel_zaqkxkn on 30.07.2017.
- */
+
 
 @Configuration
 public class ToolsConfig {

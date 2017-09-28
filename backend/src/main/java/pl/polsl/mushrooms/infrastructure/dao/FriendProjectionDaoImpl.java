@@ -12,9 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 16.09.2017.
- */
+
 
 public class FriendProjectionDaoImpl implements FriendProjectionDao {
 

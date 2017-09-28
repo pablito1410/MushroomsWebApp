@@ -12,9 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by pawel_zaqkxkn on 27.06.2017.
- */
+
 public class DateDeserializer extends JsonDeserializer<Date> {
 
     @Override

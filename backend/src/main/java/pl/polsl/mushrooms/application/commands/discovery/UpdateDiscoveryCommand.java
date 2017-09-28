@@ -3,14 +3,10 @@ package pl.polsl.mushrooms.application.commands.discovery;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.VoidCommand;
 import pl.polsl.mushrooms.infrastructure.tools.deserializers.LocalDateTimeDeserializer;
-
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
 public class UpdateDiscoveryCommand implements VoidCommand {
 
     private String userName;

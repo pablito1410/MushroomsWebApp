@@ -4,9 +4,7 @@ import pl.polsl.mushrooms.application.dao.MushroomSpeciesDao;
 import pl.polsl.mushrooms.application.model.MushroomSpecies;
 import pl.polsl.mushrooms.infrastructure.repositories.MushroomSpeciesRepository;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public class MushroomSpeciesDaoImpl implements MushroomSpeciesDao {
 
     private final MushroomSpeciesRepository mushroomSpeciesRepository;

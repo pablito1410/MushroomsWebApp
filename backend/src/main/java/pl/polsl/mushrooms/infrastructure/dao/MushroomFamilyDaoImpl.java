@@ -4,9 +4,7 @@ import pl.polsl.mushrooms.application.dao.MushroomFamilyDao;
 import pl.polsl.mushrooms.application.model.MushroomFamily;
 import pl.polsl.mushrooms.infrastructure.repositories.MushroomFamilyRepository;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public class MushroomFamilyDaoImpl implements MushroomFamilyDao {
 
     private final MushroomFamilyRepository mushroomFamilyRepository;

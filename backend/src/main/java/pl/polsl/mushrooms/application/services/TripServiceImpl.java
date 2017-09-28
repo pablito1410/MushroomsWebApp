@@ -14,9 +14,7 @@ import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 24.04.2017.
- */
+
 public class TripServiceImpl implements TripService {
 
     private final UserDao userDao;

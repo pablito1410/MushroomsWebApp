@@ -8,9 +8,7 @@ import java.util.Map;
 
 import static com.google.common.base.Verify.verifyNotNull;
 
-/**
- * Created by pawel_zaqkxkn on 26.03.2017.
- */
+
 public class CommandHandlerRegistry {
 
     private final Map<Class<?>, ReturningCommandHandler> returningHandlers = new HashMap<>();

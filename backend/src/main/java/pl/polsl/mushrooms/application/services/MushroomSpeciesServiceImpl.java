@@ -10,9 +10,7 @@ import pl.polsl.mushrooms.application.model.MushroomSpecies;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomSpeciesDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
-/**
- * Created by pawel_zaqkxkn on 17.07.2017.
- */
+
 public class MushroomSpeciesServiceImpl implements MushroomSpeciesService {
     
     private final MushroomGenusDao mushroomGenusDao;

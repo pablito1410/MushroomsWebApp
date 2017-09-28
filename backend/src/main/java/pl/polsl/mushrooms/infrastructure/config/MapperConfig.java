@@ -13,9 +13,7 @@ import pl.polsl.mushrooms.infrastructure.mapper.EntityMapperRegistry;
 
 import java.util.HashSet;
 
-/**
- * Created by pawel_zaqkxkn on 12.07.2017.
- */
+
 @Configuration
 public class MapperConfig {
 

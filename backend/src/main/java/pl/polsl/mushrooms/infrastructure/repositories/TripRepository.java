@@ -10,9 +10,7 @@ import pl.polsl.mushrooms.application.model.Trip;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 24.04.2017.
- */
+
 @Repository
 @RepositoryRestResource(exported = false)
 public interface TripRepository extends JpaRepository<Trip, Long> {

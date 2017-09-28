@@ -5,9 +5,7 @@ import pl.polsl.mushrooms.application.commands.mushroom.family.DeleteMushroomFam
 import pl.polsl.mushrooms.application.commands.mushroom.family.UpdateMushroomFamilyCommand;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomFamilyDto;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public interface MushroomFamilyService {
 
     /**

@@ -12,9 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 public class NotificationProjectionDaoImpl implements NotificationProjectionDao {
 
     private final NotificationRepository notificationRepository;

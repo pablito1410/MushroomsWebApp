@@ -11,9 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
+
 @RestControllerAdvice
 public class GlobalControllerExceptionHandler {
 

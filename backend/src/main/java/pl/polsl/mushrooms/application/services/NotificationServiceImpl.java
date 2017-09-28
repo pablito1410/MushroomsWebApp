@@ -10,9 +10,7 @@ import pl.polsl.mushrooms.application.model.Notification;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 public class NotificationServiceImpl implements NotificationService {
 
     private final NotificationDao notificationDao;

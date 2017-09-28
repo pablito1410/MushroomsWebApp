@@ -21,9 +21,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 26.03.2017.
- */
+
 @Transactional
 public class UserServiceImpl implements UserService {
 

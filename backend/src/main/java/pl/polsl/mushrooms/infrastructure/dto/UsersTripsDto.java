@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.infrastructure.tools.serializers.LocalDateTimeSerializ
 
 import java.time.LocalDateTime;
 
-/**
- * Created by pawel_zaqkxkn on 16.09.2017.
- */
+
 @Getter
 @Setter
 public class UsersTripsDto {

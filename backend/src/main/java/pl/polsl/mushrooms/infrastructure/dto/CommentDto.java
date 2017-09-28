@@ -8,9 +8,7 @@ import pl.polsl.mushrooms.infrastructure.tools.serializers.LocalDateTimeSerializ
 import java.time.LocalDateTime;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 21.06.2017.
- */
+
 @Getter
 @Setter
 public class CommentDto {

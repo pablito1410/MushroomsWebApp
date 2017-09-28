@@ -11,9 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 26.06.2017.
- */
+
 
 public class ScoreProjectionDaoImpl implements ScoreProjectionDao {
 

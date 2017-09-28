@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public class TripProjectionDaoImpl implements TripProjectionDao {
 
 

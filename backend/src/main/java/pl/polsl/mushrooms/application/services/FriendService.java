@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.application.commands.friend.DeleteFriendsCommand;
 
 import java.util.Collection;
 
-/**
- * Created by pawel_zaqkxkn on 23.05.2017.
- */
+
 public interface FriendService {
 
     /**

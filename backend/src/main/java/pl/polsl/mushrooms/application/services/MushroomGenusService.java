@@ -5,9 +5,7 @@ import pl.polsl.mushrooms.application.commands.mushroom.genus.DeleteMushroomGenu
 import pl.polsl.mushrooms.application.commands.mushroom.genus.UpdateMushroomGenusCommand;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomGenusDto;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public interface MushroomGenusService {
 
     /**

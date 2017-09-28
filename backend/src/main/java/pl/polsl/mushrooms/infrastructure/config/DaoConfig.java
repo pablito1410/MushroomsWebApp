@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.infrastructure.dao.*;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.repositories.*;
 
-/**
- * Created by pawel_zaqkxkn on 08.07.2017.
- */
+
 
 @Configuration
 public class DaoConfig {

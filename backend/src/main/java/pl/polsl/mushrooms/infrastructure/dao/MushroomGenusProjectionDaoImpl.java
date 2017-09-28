@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.repositories.MushroomGenusRepository;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public class MushroomGenusProjectionDaoImpl implements MushroomGenusProjectionDao {
 
     private final MushroomGenusRepository mushroomGenusRepository;

@@ -16,9 +16,7 @@ import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
+
 
 @RestController
 @RequestMapping("/api/discoveries")

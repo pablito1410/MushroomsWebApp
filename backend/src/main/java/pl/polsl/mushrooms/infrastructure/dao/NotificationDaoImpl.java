@@ -4,9 +4,7 @@ import pl.polsl.mushrooms.application.dao.NotificationDao;
 import pl.polsl.mushrooms.application.model.Notification;
 import pl.polsl.mushrooms.infrastructure.repositories.NotificationRepository;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 public class NotificationDaoImpl implements NotificationDao {
 
     private final NotificationRepository notificationRepository;

@@ -14,9 +14,7 @@ import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 @RestController
 @RequestMapping("/api/tags")
 public class TagController {

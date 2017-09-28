@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 17.07.2017.
- */
+
 public class TagProjecitonServiceImpl implements TagProjectionService {
 
     private final TagProjectionDao tagProjectionDao;

@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 26.03.2017.
- */
+
 public interface UserService {
 
     /**

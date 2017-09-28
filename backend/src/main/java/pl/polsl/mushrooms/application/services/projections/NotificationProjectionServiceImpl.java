@@ -10,9 +10,7 @@ import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 public class NotificationProjectionServiceImpl implements NotificationProjectionService {
 
     private final NotificationProjectionDao notificationProjectionDao;

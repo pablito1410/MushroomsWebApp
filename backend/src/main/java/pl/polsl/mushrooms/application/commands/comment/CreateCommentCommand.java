@@ -1,15 +1,11 @@
 package pl.polsl.mushrooms.application.commands.comment;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.infrastructure.tools.deserializers.LocalDateTimeDeserializer;
-
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
+
 public class CreateCommentCommand implements ReturningCommand<Long> {
 
     private String userName;

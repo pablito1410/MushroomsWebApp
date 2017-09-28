@@ -4,9 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * Created by pawel_zaqkxkn on 27.06.2017.
- */
+
 @Entity
 @Table(name = "\"USERS_USERS\"")
 @AssociationOverrides({

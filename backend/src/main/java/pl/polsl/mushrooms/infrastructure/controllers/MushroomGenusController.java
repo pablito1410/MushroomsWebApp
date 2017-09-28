@@ -13,9 +13,7 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomGenusDto;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 
 @RestController
 @RequestMapping("/api/mushroom-genus")

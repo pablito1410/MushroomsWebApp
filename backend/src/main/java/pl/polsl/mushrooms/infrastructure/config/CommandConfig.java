@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.infrastructure.commands.CommandGateway;
 import pl.polsl.mushrooms.infrastructure.commands.CommandGatewayImpl;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 
-/**
- * Created by pawel_zaqkxkn on 26.03.2017.
- */
+
 @Configuration
 public class CommandConfig {
 

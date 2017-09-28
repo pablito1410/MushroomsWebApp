@@ -5,9 +5,7 @@ import org.modelmapper.ModelMapper;
 import java.lang.reflect.Type;
 import java.util.*;
 
-/**
- * Created by pawel_zaqkxkn on 10.07.2017.
- */
+
 public class EntityMapperDefault implements EntityMapper {
 
     private final ModelMapper modelMapper;

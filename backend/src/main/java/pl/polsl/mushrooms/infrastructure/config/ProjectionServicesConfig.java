@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.application.dao.*;
 import pl.polsl.mushrooms.application.services.projections.*;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 
 @Configuration
 public class ProjectionServicesConfig {

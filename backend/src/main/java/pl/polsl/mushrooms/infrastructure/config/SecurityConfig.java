@@ -16,9 +16,7 @@ import pl.polsl.mushrooms.application.services.projections.UserProjectionService
 import pl.polsl.mushrooms.infrastructure.authentication.JwtAuthenticationFilter;
 import pl.polsl.mushrooms.infrastructure.authentication.JwtLoginFilter;
 
-/**
- * Created by pawel_zaqkxkn on 30.03.2017.
- */
+
 @Configuration
 @EnableWebSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {

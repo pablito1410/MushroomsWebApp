@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 16.09.2017.
- */
+
 public class FriendProjectionServiceImpl implements FriendProjectionService {
 
     private final EntityMapper entityMapper;

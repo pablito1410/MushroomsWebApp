@@ -2,9 +2,7 @@ package pl.polsl.mushrooms.application.exceptions;
 
 import java.io.Serializable;
 
-/**
- * Created by pawel_zaqkxkn on 17.04.2017.
- */
+
 public class EntityAlreadyExistException extends IllegalStateException implements Serializable {
 
     public EntityAlreadyExistException() { }

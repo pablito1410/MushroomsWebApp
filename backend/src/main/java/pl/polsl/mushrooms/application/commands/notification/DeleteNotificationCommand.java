@@ -1,12 +1,8 @@
 package pl.polsl.mushrooms.application.commands.notification;
 
 import pl.polsl.mushrooms.application.commands.VoidCommand;
-
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by chythe on 2017-07-02.
- */
 public class DeleteNotificationCommand implements VoidCommand {
 
     private String userName;

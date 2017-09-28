@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.infrastructure.tools.deserializers.LocalDateTimeDeseri
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-/**
- * Created by pawel_zaqkxkn on 24.04.2017.
- */
+
 public class UpdateTripCommand implements VoidCommand {
 
     private String userName;

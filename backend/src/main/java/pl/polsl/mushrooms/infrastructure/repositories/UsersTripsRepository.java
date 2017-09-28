@@ -8,9 +8,7 @@ import pl.polsl.mushrooms.application.model.UsersTripsId;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 26.06.2017.
- */
+
 @Repository
 @RepositoryRestResource(exported = false)
 public interface UsersTripsRepository extends JpaRepository<UsersTrips, UsersTripsId> {

@@ -2,9 +2,6 @@ package pl.polsl.mushrooms.application.commands.tag;
 
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 
-/**
- * Created by pawel_zaqkxkn on 17.07.2017.
- */
 public class CreateTagCommand implements ReturningCommand<Long> {
 
 

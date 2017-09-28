@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Map;
 
-/**
- * Created by pawel_zaqkxkn on 16.09.2017.
- */
+
 @Component
 public class RequestTraceFilter extends WebRequestTraceFilter {
 

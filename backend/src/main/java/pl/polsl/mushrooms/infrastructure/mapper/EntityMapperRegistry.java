@@ -6,9 +6,7 @@ import java.util.Map;
 
 import static com.google.common.base.Verify.verifyNotNull;
 
-/**
- * Created by pawel_zaqkxkn on 12.07.2017.
- */
+
 public class EntityMapperRegistry {
 
     private static Map<Type, Type> objectMapping = new HashMap<>();

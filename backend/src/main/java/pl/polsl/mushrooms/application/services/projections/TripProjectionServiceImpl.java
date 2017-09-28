@@ -15,9 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public class TripProjectionServiceImpl implements TripProjectionService {
 
 

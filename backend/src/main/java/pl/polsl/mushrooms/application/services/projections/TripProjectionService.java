@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public interface TripProjectionService {
 
     TripDto findOne(long id);

@@ -16,9 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.NotFoundException;
 import java.time.LocalDateTime;
 
-/**
- * Created by pawel_zaqkxkn on 26.06.2017.
- */
+
 public class ScoreServiceImpl implements ScoreService {
 
     private final ScoreDao scoreDao;

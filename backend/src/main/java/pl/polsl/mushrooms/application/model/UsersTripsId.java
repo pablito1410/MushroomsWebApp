@@ -5,9 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
-/**
- * Created by pawel_zaqkxkn on 26.06.2017.
- */
+
 @Embeddable
 public class UsersTripsId implements Serializable {
 

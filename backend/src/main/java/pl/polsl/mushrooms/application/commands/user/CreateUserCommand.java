@@ -3,13 +3,9 @@ package pl.polsl.mushrooms.application.commands.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
-
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-/**
- * Created by pawel_zaqkxkn on 26.03.2017.
- */
 public class CreateUserCommand implements ReturningCommand<Long> {
 
     @NotNull

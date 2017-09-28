@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 27.06.2017.
- */
+
 public class MushroomSpeciesProjectionDaoImpl implements MushroomSpeciesProjectionDao {
 
     private final MushroomSpeciesRepository mushroomSpeciesRepository;

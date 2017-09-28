@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.repositories.UsersUsersRepository;
 
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 30.03.2017.
- */
+
 public class UserDaoImpl implements UserDao {
 
 

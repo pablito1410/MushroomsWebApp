@@ -1,8 +1,6 @@
 package pl.polsl.mushrooms.application.enums;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 public enum NotificationType {
 
     FRIEND_INVITATION("%s would like to add you to your friends"),

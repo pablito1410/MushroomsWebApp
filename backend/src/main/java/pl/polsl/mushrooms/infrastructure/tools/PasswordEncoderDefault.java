@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.polsl.mushrooms.application.tools.PasswordEncoder;
 
-/**
- * Created by pawel_zaqkxkn on 30.07.2017.
- */
+
 public class PasswordEncoderDefault implements PasswordEncoder {
 
     private final BCryptPasswordEncoder encoder;

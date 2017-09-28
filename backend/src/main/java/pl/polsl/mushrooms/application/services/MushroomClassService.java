@@ -5,9 +5,7 @@ import pl.polsl.mushrooms.application.commands.mushroom.clazz.DeleteMushroomClas
 import pl.polsl.mushrooms.application.commands.mushroom.clazz.UpdateMushroomClassCommand;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomClassDto;
 
-/**
- * Created by pawel_zaqkxkn on 04.07.2017.
- */
+
 public interface MushroomClassService {
 
     /**

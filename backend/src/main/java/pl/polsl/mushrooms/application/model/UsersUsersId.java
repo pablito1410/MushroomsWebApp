@@ -1,8 +1,6 @@
 package pl.polsl.mushrooms.application.model;
 
-/**
- * Created by pawel_zaqkxkn on 27.06.2017.
- */
+
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;

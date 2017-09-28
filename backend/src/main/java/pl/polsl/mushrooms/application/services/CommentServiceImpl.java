@@ -16,9 +16,7 @@ import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
+
 public class CommentServiceImpl implements CommentService {
 
 

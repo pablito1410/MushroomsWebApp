@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.application.model.User;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 12.03.2017.
- */
+
 @Repository
 @RepositoryRestResource(exported = false)
 public interface UserRepository extends JpaRepository<User, Long> {

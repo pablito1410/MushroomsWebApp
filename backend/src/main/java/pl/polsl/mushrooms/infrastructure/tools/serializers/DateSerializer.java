@@ -9,9 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by pawel_zaqkxkn on 27.06.2017.
- */
+
 public class DateSerializer extends JsonSerializer<Date> {
 
     @Override

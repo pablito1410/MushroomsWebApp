@@ -1,12 +1,8 @@
 package pl.polsl.mushrooms.application.commands.score;
 
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
-
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by pawel_zaqkxkn on 26.06.2017.
- */
 public class AddScoreCommand implements ReturningCommand<Long>{
 
     private String userName;

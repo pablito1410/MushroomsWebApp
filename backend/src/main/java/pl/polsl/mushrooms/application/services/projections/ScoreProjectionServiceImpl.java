@@ -12,9 +12,7 @@ import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 26.06.2017.
- */
+
 public class ScoreProjectionServiceImpl implements ScoreProjectionService {
 
 

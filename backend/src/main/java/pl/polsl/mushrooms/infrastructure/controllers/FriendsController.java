@@ -15,9 +15,7 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomerDto;
 import java.util.Collection;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 23.05.2017.
- */
+
 @RestController
 @RequestMapping("/api/friends")
 public class FriendsController {

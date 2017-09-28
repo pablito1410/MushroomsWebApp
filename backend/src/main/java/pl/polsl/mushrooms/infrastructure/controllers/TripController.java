@@ -14,9 +14,7 @@ import pl.polsl.mushrooms.infrastructure.dto.TripDto;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 24.04.2017.
- */
+
 @RestController
 @RequestMapping("/api/trips")
 public class TripController {

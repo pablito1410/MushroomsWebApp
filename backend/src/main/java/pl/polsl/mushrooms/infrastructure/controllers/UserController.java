@@ -19,9 +19,7 @@ import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import java.io.IOException;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 31.03.2017.
- */
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

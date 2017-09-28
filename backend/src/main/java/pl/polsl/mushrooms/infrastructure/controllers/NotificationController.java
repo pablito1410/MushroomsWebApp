@@ -12,9 +12,7 @@ import pl.polsl.mushrooms.infrastructure.dto.NotificationDto;
 
 import java.util.Set;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 @RestController
 @RequestMapping("/api/notifications")
 public class NotificationController {

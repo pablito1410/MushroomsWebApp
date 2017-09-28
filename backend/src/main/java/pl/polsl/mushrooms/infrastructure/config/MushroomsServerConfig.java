@@ -39,9 +39,7 @@ import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 import pl.polsl.mushrooms.application.services.*;
 import pl.polsl.mushrooms.infrastructure.commands.CommandHandlerRegistry;
 
-/**
- * Created by pawel_zaqkxkn on 12.03.2017.
- */
+
 @Configuration
 public class MushroomsServerConfig {
 

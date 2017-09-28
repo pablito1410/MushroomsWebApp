@@ -15,9 +15,7 @@ import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public class DiscoveryProjectionDaoImpl implements DiscoveryProjectionDao {
 
     private final DiscoveryRepository discoveryRepository;

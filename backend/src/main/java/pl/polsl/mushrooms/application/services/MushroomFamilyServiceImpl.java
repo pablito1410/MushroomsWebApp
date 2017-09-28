@@ -10,9 +10,7 @@ import pl.polsl.mushrooms.application.model.MushroomOrder;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomFamilyDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public class MushroomFamilyServiceImpl implements MushroomFamilyService {
 
     private final MushroomOrderDao mushroomOrderDao;

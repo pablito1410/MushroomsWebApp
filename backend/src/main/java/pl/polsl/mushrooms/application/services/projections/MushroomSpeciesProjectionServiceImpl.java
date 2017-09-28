@@ -5,9 +5,7 @@ import pl.polsl.mushrooms.infrastructure.dto.MushroomSpeciesDto;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 17.07.2017.
- */
+
 public class MushroomSpeciesProjectionServiceImpl implements MushroomSpeciesProjectionService {
 
     private final MushroomSpeciesProjectionDao mushSpeciesProjectionDao;

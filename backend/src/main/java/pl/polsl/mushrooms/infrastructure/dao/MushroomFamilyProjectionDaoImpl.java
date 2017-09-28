@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.repositories.MushroomFamilyRepository;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public class MushroomFamilyProjectionDaoImpl implements MushroomFamilyProjectionDao {
 
     private final MushroomFamilyRepository mushroomFamilyRepository;

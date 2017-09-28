@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 28.07.2017.
- */
+
 public class TagProjectionDaoImpl implements TagProjectionDao {
 
     private final TagRepository tagRepository;

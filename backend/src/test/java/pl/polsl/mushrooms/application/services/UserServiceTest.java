@@ -20,12 +20,8 @@
 //import pl.polsl.mushrooms.application.model.Mushroomer;
 //import pl.polsl.mushrooms.application.model.User;
 //import pl.polsl.mushrooms.infrastructure.repositories.UserRepository;
-//
 //import javax.persistence.EntityNotFoundException;
 //
-///**
-// * Created by pawel_zaqkxkn on 29.07.2017.
-// */
 //@RunWith(SpringRunner.class)
 //@SpringBootTest
 //@Transactional

@@ -7,9 +7,7 @@ import org.springframework.validation.Validator;
 import pl.polsl.mushrooms.application.commands.user.CreateUserCommand;
 import pl.polsl.mushrooms.application.services.UserService;
 
-/**
- * Created by pawel_zaqkxkn on 30.03.2017.
- */
+
 @Component
 public class UserValidationService implements Validator {
 

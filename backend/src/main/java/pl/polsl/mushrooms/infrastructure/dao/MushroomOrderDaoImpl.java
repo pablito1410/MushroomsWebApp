@@ -4,9 +4,7 @@ import pl.polsl.mushrooms.application.dao.MushroomOrderDao;
 import pl.polsl.mushrooms.application.model.MushroomOrder;
 import pl.polsl.mushrooms.infrastructure.repositories.MushroomOrderRepository;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 public class MushroomOrderDaoImpl implements MushroomOrderDao {
 
     private final MushroomOrderRepository mushroomOrderRepository;

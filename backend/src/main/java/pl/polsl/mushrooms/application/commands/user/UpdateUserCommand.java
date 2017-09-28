@@ -5,14 +5,10 @@ import pl.polsl.mushrooms.application.commands.ReturningCommand;
 import pl.polsl.mushrooms.application.enums.Gender;
 import pl.polsl.mushrooms.infrastructure.dto.UserDto;
 import pl.polsl.mushrooms.infrastructure.tools.deserializers.DateDeserializer;
-
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-/**
- * Created by pawel_zaqkxkn on 24.04.2017.
- */
 public class UpdateUserCommand implements ReturningCommand<UserDto>{
 
     @Transient

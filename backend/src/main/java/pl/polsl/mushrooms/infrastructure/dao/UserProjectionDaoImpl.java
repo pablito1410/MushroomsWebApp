@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 01.05.2017.
- */
+
 public class UserProjectionDaoImpl implements UserProjectionDao {
 
     private final UserRepository userRepository;

@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.application.model.Tag;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 17.07.2017.
- */
+
 @Repository
 @RepositoryRestResource(exported = false)
 public interface TagRepository extends JpaRepository<Tag, Long> {

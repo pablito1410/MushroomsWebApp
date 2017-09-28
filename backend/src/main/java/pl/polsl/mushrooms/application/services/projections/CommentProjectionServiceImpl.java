@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public class CommentProjectionServiceImpl implements CommentProjectionService {
 
     private final CommentProjectionDao commentProjectionDao;

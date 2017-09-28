@@ -14,9 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 30.04.2017.
- */
+
 public class UserProjectionServiceImpl implements UserProjectionService {
 
 

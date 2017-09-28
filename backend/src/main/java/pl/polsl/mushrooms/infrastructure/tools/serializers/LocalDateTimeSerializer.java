@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Created by pawel_zaqkxkn on 27.06.2017.
- */
+
 public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
     @Override

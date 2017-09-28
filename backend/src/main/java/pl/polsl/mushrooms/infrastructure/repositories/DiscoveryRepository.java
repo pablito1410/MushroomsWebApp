@@ -10,9 +10,7 @@ import pl.polsl.mushrooms.application.model.Discovery;
 import java.util.Collection;
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
+
 
 @Repository
 @RepositoryRestResource(exported = false)

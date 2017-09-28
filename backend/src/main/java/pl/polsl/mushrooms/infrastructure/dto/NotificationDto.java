@@ -8,9 +8,7 @@ import pl.polsl.mushrooms.infrastructure.tools.serializers.LocalDateTimeSerializ
 
 import java.time.LocalDateTime;
 
-/**
- * Created by chythe on 2017-07-02.
- */
+
 @Getter
 @Setter
 public class NotificationDto {

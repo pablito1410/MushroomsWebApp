@@ -4,9 +4,7 @@ import pl.polsl.mushrooms.application.dao.ScoreDao;
 import pl.polsl.mushrooms.application.model.Score;
 import pl.polsl.mushrooms.infrastructure.repositories.ScoreRepository;
 
-/**
- * Created by pawel_zaqkxkn on 20.06.2017.
- */
+
 public class ScoreDaoImpl implements ScoreDao {
 
     ScoreRepository scoreRepository;

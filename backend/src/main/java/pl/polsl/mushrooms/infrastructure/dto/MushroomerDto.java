@@ -11,9 +11,7 @@ import pl.polsl.mushrooms.infrastructure.tools.serializers.DateSerializer;
 import javax.persistence.Enumerated;
 import java.util.Date;
 
-/**
- * Created by pawel_zaqkxkn on 21.06.2017.
- */
+
 @Getter
 @Setter
 public class MushroomerDto extends UserDto {

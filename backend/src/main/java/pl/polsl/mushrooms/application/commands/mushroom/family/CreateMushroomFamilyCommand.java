@@ -2,12 +2,8 @@ package pl.polsl.mushrooms.application.commands.mushroom.family;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.polsl.mushrooms.application.commands.ReturningCommand;
-
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
 public class CreateMushroomFamilyCommand implements ReturningCommand<Long> {
 
     @NotNull

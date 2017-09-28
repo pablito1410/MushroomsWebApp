@@ -4,12 +4,8 @@
 //import pl.polsl.mushrooms.application.commands.user.DeleteUsersCommand;
 //import pl.polsl.mushrooms.application.commands.user.UpdateUserCommand;
 //import pl.polsl.mushrooms.application.enums.Gender;
-//
 //import java.util.Date;
 //
-///**
-// * Created by pawel_zaqkxkn on 30.07.2017.
-// */
 //class UserServiceTestUtil {
 //
 //    private UserServiceTestUtil() { }

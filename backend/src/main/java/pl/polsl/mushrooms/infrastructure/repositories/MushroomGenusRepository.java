@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.application.model.MushroomGenus;
 
 import java.util.List;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 
 @Repository
 @RepositoryRestResource(exported = false)

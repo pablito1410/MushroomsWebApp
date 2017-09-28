@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.infrastructure.repositories.DiscoveryRepository;
 
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 25.04.2017.
- */
+
 public class DiscoveryDaoImpl implements DiscoveryDao {
 
     private final DiscoveryRepository discoveryRepository;

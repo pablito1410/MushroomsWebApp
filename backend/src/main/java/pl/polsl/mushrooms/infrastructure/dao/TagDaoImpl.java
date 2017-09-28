@@ -4,9 +4,7 @@ import pl.polsl.mushrooms.application.dao.TagDao;
 import pl.polsl.mushrooms.application.model.Tag;
 import pl.polsl.mushrooms.infrastructure.repositories.TagRepository;
 
-/**
- * Created by pawel_zaqkxkn on 28.07.2017.
- */
+
 public class TagDaoImpl implements TagDao {
 
     private final TagRepository tagRepository;

@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.infrastructure.dto.TagDto;
 
 import java.util.Set;
 
-/**
- * Created by pawel_zaqkxkn on 15.05.2017.
- */
+
 public interface DiscoveryProjectionService {
 
     DiscoveryDto findOne(long id);

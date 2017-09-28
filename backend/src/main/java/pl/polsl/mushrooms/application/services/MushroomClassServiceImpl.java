@@ -8,9 +8,7 @@ import pl.polsl.mushrooms.application.model.MushroomClass;
 import pl.polsl.mushrooms.infrastructure.dto.MushroomClassDto;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 
-/**
- * Created by pawel_zaqkxkn on 04.07.2017.
- */
+
 public class MushroomClassServiceImpl implements MushroomClassService {
 
     private final MushroomClassDao mushroomClassDao;

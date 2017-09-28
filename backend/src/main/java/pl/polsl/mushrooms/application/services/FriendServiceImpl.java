@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 23.05.2017.
- */
+
 @Transactional
 public class FriendServiceImpl implements FriendService {
 

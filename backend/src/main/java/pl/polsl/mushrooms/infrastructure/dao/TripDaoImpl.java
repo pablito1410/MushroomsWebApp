@@ -7,9 +7,7 @@ import pl.polsl.mushrooms.application.model.UsersTripsId;
 import pl.polsl.mushrooms.infrastructure.repositories.TripRepository;
 import pl.polsl.mushrooms.infrastructure.repositories.UsersTripsRepository;
 
-/**
- * Created by pawel_zaqkxkn on 24.04.2017.
- */
+
 public class TripDaoImpl implements TripDao {
 
 

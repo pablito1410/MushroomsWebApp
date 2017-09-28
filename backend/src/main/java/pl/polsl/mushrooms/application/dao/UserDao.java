@@ -6,9 +6,7 @@ import pl.polsl.mushrooms.application.model.UsersUsersId;
 
 import java.util.Optional;
 
-/**
- * Created by pawel_zaqkxkn on 26.03.2017.
- */
+
 public interface UserDao {
     User save(User user);
 

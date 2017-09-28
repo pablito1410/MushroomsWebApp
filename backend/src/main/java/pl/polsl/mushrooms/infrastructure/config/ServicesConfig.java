@@ -9,9 +9,7 @@ import pl.polsl.mushrooms.application.tools.PasswordEncoder;
 import pl.polsl.mushrooms.infrastructure.mapper.EntityMapper;
 import pl.polsl.mushrooms.infrastructure.services.CurrentUserDetailsService;
 
-/**
- * Created by pawel_zaqkxkn on 16.07.2017.
- */
+
 
 @Configuration
 public class ServicesConfig {
