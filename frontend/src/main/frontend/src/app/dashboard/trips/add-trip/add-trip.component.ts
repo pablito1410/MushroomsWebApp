@@ -157,11 +157,11 @@ export class AddTripComponent implements OnInit {
     private setCurrentPosition() {
         this.trip.coordinateX = 50.28940619999999;
         this.trip.coordinateY = 18.67378259999998;
+        this.zoom = 12;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.trip.coordinateX = position.coords.latitude;
                 this.trip.coordinateY = position.coords.longitude;
-                this.zoom = 12;
             });
         }
     }

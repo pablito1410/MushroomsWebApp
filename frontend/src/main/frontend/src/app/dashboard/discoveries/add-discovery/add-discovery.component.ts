@@ -224,11 +224,11 @@ export class AddDiscoveryComponent implements OnInit {
     private setCurrentPosition() {
         this.discovery.coordinateX = 50.28940619999999;
         this.discovery.coordinateY = 18.67378259999998;
+        this.zoom = 12;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.discovery.coordinateX = position.coords.latitude;
                 this.discovery.coordinateY = position.coords.longitude;
-                this.zoom = 12;
             });
         }
     }

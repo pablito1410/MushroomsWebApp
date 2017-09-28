@@ -139,11 +139,11 @@ export class MapsComponent implements OnInit {
     private setCurrentPosition() {
         this.coordinateX = 50.28940619999999;
         this.coordinateY = 18.67378259999998;
+        this.zoom = 12;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.coordinateX = position.coords.latitude;
                 this.coordinateY = position.coords.longitude;
-                this.zoom = 12;
             });
         }
     }
