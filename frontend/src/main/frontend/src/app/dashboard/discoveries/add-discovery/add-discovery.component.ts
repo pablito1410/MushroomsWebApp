@@ -222,6 +222,8 @@ export class AddDiscoveryComponent implements OnInit {
      * Sets current position using geolocation
      */
     private setCurrentPosition() {
+        this.discovery.coordinateX = 50.28940619999999;
+        this.discovery.coordinateY = 18.67378259999998;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.discovery.coordinateX = position.coords.latitude;

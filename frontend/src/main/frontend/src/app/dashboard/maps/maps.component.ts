@@ -137,6 +137,8 @@ export class MapsComponent implements OnInit {
      * Sets current position using geolocation
      */
     private setCurrentPosition() {
+        this.coordinateX = 50.28940619999999;
+        this.coordinateY = 18.67378259999998;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.coordinateX = position.coords.latitude;
