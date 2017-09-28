@@ -1,0 +1,2 @@
+typedoc --mode modules --out doc/modules src/app --ignoreCompilerErrors --experimentalDecorators --target ES6
+typedoc --mode file --out doc/file src/app --ignoreCompilerErrors --experimentalDecorators --target ES6
