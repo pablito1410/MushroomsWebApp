@@ -1,6 +1,7 @@
 Sprawdź aplikację tutaj: https://mushrooms-picking.herokuapp.com
 
-
+Na potrzeby administracji bazą danych na serwerze została stworzona osobna aplikacja desktopowa:
+https://github.com/chythe/MushroomsAdminApplication
 
 ## Instalacja bazy danych
 
